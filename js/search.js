@@ -1,0 +1,1 @@
+// Interaksi halaman pencarian — tahap berikutnya.
