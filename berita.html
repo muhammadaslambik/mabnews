@@ -7,49 +7,45 @@
     <title>Berita — MAB-News</title>
     <meta name="description" content="Berita terbaru MAB-News — Fakta. Data. Perspektif.">
 
-    <!-- CSS Utama -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/header.css">
-
-    <!-- CSS Khusus Halaman Berita -->
     <link rel="stylesheet" href="css/berita.css">
 </head>
 
 <body class="news-list-page">
 
-    <!-- =========================
+    <!-- =====================================================
          HEADER
-    ========================== -->
+    ====================================================== -->
     <header class="site-header">
 
         <div class="header-top">
             <div class="container header-inner">
 
-                <!-- Logo -->
+                <!-- LOGO -->
                 <a href="index.html" class="site-logo">
                     <span class="logo-main">MAB-NEWS</span>
                     <span class="logo-tagline">Fakta. Data. Perspektif.</span>
                 </a>
 
-                <!-- Search -->
+                <!-- SEARCH -->
                 <div class="header-search">
-                    <form action="search.html" method="get">
+                    <form id="headerSearch" action="search.html" method="get">
                         <input
                             type="search"
+                            id="searchInput"
                             name="q"
                             placeholder="Cari berita..."
                             aria-label="Cari berita"
                         >
-                        <button type="submit" aria-label="Cari">
-                            🔍
-                        </button>
+                        <button type="submit" aria-label="Cari">🔍</button>
                     </form>
                 </div>
 
-                <!-- Header Actions -->
+                <!-- HEADER ACTIONS -->
                 <div class="header-actions">
 
-                    <a href="#" class="support-button">
+                    <a href="index.html#dukung" class="support-button">
                         Dukung MAB-News
                     </a>
 
@@ -58,6 +54,7 @@
                         class="header-icon"
                         id="themeToggle"
                         aria-label="Ubah tema"
+                        title="Ubah tema"
                     >
                         🌙
                     </button>
@@ -65,7 +62,9 @@
                     <button
                         type="button"
                         class="header-icon"
+                        id="accountButton"
                         aria-label="Akun pengguna"
+                        title="Akun pengguna"
                     >
                         👤
                     </button>
@@ -75,120 +74,122 @@
             </div>
         </div>
 
-  <!-- =========================
-     NAVIGASI
-========================== -->
-<nav class="main-navigation">
-    <div class="container">
 
-        <ul class="nav-menu">
+        <!-- =================================================
+             NAVIGASI
+        ================================================== -->
+        <nav class="main-navigation">
+            <div class="container">
 
-            <li>
-                <a href="index.html">Beranda</a>
-            </li>
+                <ul class="nav-menu">
 
-            <li>
-                <a href="berita.html" class="active">Terbaru</a>
-            </li>
+                    <li>
+                        <a href="index.html">Beranda</a>
+                    </li>
 
-            <li>
-                <a href="berita.html?sort=popular">Terpopuler</a>
-            </li>
+                    <li>
+                        <a href="berita.html" class="active">Terbaru</a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=nasional">
-                    Nasional
-                </a>
-            </li>
+                    <li>
+                        <a href="berita.html?sort=popular">Terpopuler</a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=internasional">
-                    Internasional
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=nasional">
+                            Nasional
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=ekonomi">
-                    Ekonomi
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=internasional">
+                            Internasional
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=metro">
-                    Metro
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=ekonomi">
+                            Ekonomi
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=dunia">
-                    Dunia
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=metro">
+                            Metro
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=olahraga">
-                    Olahraga
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=dunia">
+                            Dunia
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=teknologi">
-                    Teknologi
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=olahraga">
+                            Olahraga
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=otomotif">
-                    Otomotif
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=teknologi">
+                            Teknologi
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=gaya-hidup">
-                    Gaya Hidup
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=otomotif">
+                            Otomotif
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=seni">
-                    Seni
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=gaya-hidup">
+                            Gaya Hidup
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=kolom">
-                    Kolom
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=seni">
+                            Seni
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=indeks">
-                    Indeks
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=kolom">
+                            Kolom
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=foto">
-                    Foto
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=indeks">
+                            Indeks
+                        </a>
+                    </li>
 
-            <li>
-                <a href="kategori.html?kategori=video">
-                    Video
-                </a>
-            </li>
+                    <li>
+                        <a href="kategori.html?kategori=foto">
+                            Foto
+                        </a>
+                    </li>
 
-        </ul>
+                    <li>
+                        <a href="kategori.html?kategori=video">
+                            Video
+                        </a>
+                    </li>
 
-    </div>
-</nav>
+                </ul>
 
-</header>
+            </div>
+        </nav>
 
-    <!-- =========================
-         PAGE TITLE
-    ========================== -->
+    </header>
+
+
+    <!-- =====================================================
+         PAGE HEADING
+    ====================================================== -->
     <section class="page-heading">
 
         <div class="container">
@@ -199,16 +200,16 @@
                 <span>Berita</span>
             </div>
 
-            <h1>Berita</h1>
+            <h1 id="pageTitle">Berita</h1>
 
         </div>
 
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          CATEGORY TABS
-    ========================== -->
+    ====================================================== -->
     <section class="category-tabs-section">
 
         <div class="container">
@@ -218,6 +219,7 @@
                 <a
                     href="berita.html"
                     class="category-tab active"
+                    data-category="all"
                 >
                     Semua
                 </a>
@@ -225,6 +227,7 @@
                 <a
                     href="berita.html?kategori=nasional"
                     class="category-tab"
+                    data-category="nasional"
                 >
                     Nasional
                 </a>
@@ -232,6 +235,7 @@
                 <a
                     href="berita.html?kategori=internasional"
                     class="category-tab"
+                    data-category="internasional"
                 >
                     Internasional
                 </a>
@@ -239,6 +243,7 @@
                 <a
                     href="berita.html?kategori=ekonomi"
                     class="category-tab"
+                    data-category="ekonomi"
                 >
                     Ekonomi
                 </a>
@@ -246,6 +251,7 @@
                 <a
                     href="berita.html?kategori=olahraga"
                     class="category-tab"
+                    data-category="olahraga"
                 >
                     Olahraga
                 </a>
@@ -253,6 +259,7 @@
                 <a
                     href="berita.html?kategori=teknologi"
                     class="category-tab"
+                    data-category="teknologi"
                 >
                     Teknologi
                 </a>
@@ -264,9 +271,9 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================================
          MAIN CONTENT
-    ========================== -->
+    ====================================================== -->
     <main class="news-list-main">
 
         <div class="container">
@@ -274,9 +281,9 @@
             <div class="news-layout">
 
 
-                <!-- =========================
-                     LEFT FILTER
-                ========================== -->
+                <!-- =================================================
+                     FILTER
+                ================================================== -->
                 <aside class="news-filter">
 
                     <div class="filter-card">
@@ -287,7 +294,7 @@
 
                         <form id="newsFilterForm">
 
-                            <!-- Kategori -->
+                            <!-- KATEGORI -->
                             <div class="filter-group">
 
                                 <label for="filterCategory">
@@ -295,6 +302,7 @@
                                 </label>
 
                                 <select id="filterCategory">
+
                                     <option value="all">
                                         Semua Kategori
                                     </option>
@@ -335,12 +343,20 @@
                                         Gaya Hidup
                                     </option>
 
+                                    <option value="seni">
+                                        Seni
+                                    </option>
+
+                                    <option value="kolom">
+                                        Kolom
+                                    </option>
+
                                 </select>
 
                             </div>
 
 
-                            <!-- Penulis -->
+                            <!-- PENULIS -->
                             <div class="filter-group">
 
                                 <label for="filterAuthor">
@@ -354,7 +370,7 @@
                                     </option>
 
                                     <option value="redaksi">
-                                        Redaksi
+                                        Redaksi MAB-News
                                     </option>
 
                                     <option value="mabnews">
@@ -366,7 +382,7 @@
                             </div>
 
 
-                            <!-- Waktu -->
+                            <!-- WAKTU -->
                             <div class="filter-group">
 
                                 <label for="filterTime">
@@ -396,7 +412,7 @@
                             </div>
 
 
-                            <!-- Buttons -->
+                            <!-- BUTTON FILTER -->
                             <div class="filter-actions">
 
                                 <button
@@ -423,25 +439,30 @@
                 </aside>
 
 
-                <!-- =========================
-                     ARTICLE LIST
-                ========================== -->
+                <!-- =================================================
+                     HASIL BERITA
+                ================================================== -->
                 <section class="news-results">
 
                     <div class="results-header">
 
                         <div>
-                            <h2>Berita Terbaru</h2>
 
-                            <p>
-                                Menampilkan berita terbaru MAB-News
+                            <h2 id="resultsTitle">
+                                Berita Terbaru
+                            </h2>
+
+                            <p id="resultCount">
+                                Menampilkan 6 berita
                             </p>
+
                         </div>
 
                         <select
                             id="sortNews"
                             class="sort-select"
                         >
+
                             <option value="latest">
                                 Terbaru
                             </option>
@@ -453,26 +474,35 @@
                             <option value="popular">
                                 Terpopuler
                             </option>
+
                         </select>
 
                     </div>
 
 
-                    <!-- ARTICLE 1 -->
+                    <!-- =================================================
+                         ARTICLE 1
+                    ================================================== -->
                     <article
                         class="news-item"
+                        data-id="pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat"
                         data-category="nasional"
                         data-author="redaksi"
+                        data-time="today"
+                        data-date="2025-06-10"
+                        data-popular="100"
                     >
 
                         <a
-                            href="artikel.html"
+                            href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat"
                             class="news-image"
                         >
+
                             <img
                                 src="assets/images/hero.jpg"
                                 alt="Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat"
                             >
+
                         </a>
 
                         <div class="news-content">
@@ -482,9 +512,11 @@
                             </span>
 
                             <h3>
-                                <a href="artikel.html">
+
+                                <a href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat">
                                     Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat
                                 </a>
+
                             </h3>
 
                             <p>
@@ -495,15 +527,11 @@
 
                             <div class="news-meta">
 
-                                <span>
-                                    10 Juni 2025
-                                </span>
+                                <span>10 Juni 2025</span>
 
                                 <span>•</span>
 
-                                <span>
-                                    Redaksi MAB-News
-                                </span>
+                                <span>Redaksi MAB-News</span>
 
                             </div>
 
@@ -512,21 +540,29 @@
                     </article>
 
 
-                    <!-- ARTICLE 2 -->
+                    <!-- =================================================
+                         ARTICLE 2
+                    ================================================== -->
                     <article
                         class="news-item"
+                        data-id="inflasi-mei-2025-terkendali-di-level-2-4-persen"
                         data-category="ekonomi"
                         data-author="redaksi"
+                        data-time="today"
+                        data-date="2025-06-09"
+                        data-popular="95"
                     >
 
                         <a
-                            href="artikel.html"
+                            href="artikel.html?id=inflasi-mei-2025-terkendali-di-level-2-4-persen"
                             class="news-image"
                         >
+
                             <img
                                 src="assets/images/card-market.jpg"
-                                alt="Inflasi Mei 2025 Terkendali"
+                                alt="Inflasi Mei 2025 Terkendali di Level 2,4 Persen"
                             >
+
                         </a>
 
                         <div class="news-content">
@@ -536,9 +572,11 @@
                             </span>
 
                             <h3>
-                                <a href="artikel.html">
+
+                                <a href="artikel.html?id=inflasi-mei-2025-terkendali-di-level-2-4-persen">
                                     Inflasi Mei 2025 Terkendali di Level 2,4 Persen
                                 </a>
+
                             </h3>
 
                             <p>
@@ -549,15 +587,11 @@
 
                             <div class="news-meta">
 
-                                <span>
-                                    9 Juni 2025
-                                </span>
+                                <span>9 Juni 2025</span>
 
                                 <span>•</span>
 
-                                <span>
-                                    Redaksi MAB-News
-                                </span>
+                                <span>Redaksi MAB-News</span>
 
                             </div>
 
@@ -566,21 +600,29 @@
                     </article>
 
 
-                    <!-- ARTICLE 3 -->
+                    <!-- =================================================
+                         ARTICLE 3
+                    ================================================== -->
                     <article
                         class="news-item"
+                        data-id="australia-perketat-aturan-visa-untuk-pelajar-internasional"
                         data-category="internasional"
                         data-author="redaksi"
+                        data-time="today"
+                        data-date="2025-06-08"
+                        data-popular="90"
                     >
 
                         <a
-                            href="artikel.html"
+                            href="artikel.html?id=australia-perketat-aturan-visa-untuk-pelajar-internasional"
                             class="news-image"
                         >
+
                             <img
                                 src="assets/images/latest-port.jpg"
-                                alt="Australia Perketat Aturan Visa"
+                                alt="Australia Perketat Aturan Visa untuk Pelajar Internasional"
                             >
+
                         </a>
 
                         <div class="news-content">
@@ -590,9 +632,11 @@
                             </span>
 
                             <h3>
-                                <a href="artikel.html">
+
+                                <a href="artikel.html?id=australia-perketat-aturan-visa-untuk-pelajar-internasional">
                                     Australia Perketat Aturan Visa untuk Pelajar Internasional
                                 </a>
+
                             </h3>
 
                             <p>
@@ -603,15 +647,11 @@
 
                             <div class="news-meta">
 
-                                <span>
-                                    8 Juni 2025
-                                </span>
+                                <span>8 Juni 2025</span>
 
                                 <span>•</span>
 
-                                <span>
-                                    Redaksi MAB-News
-                                </span>
+                                <span>Redaksi MAB-News</span>
 
                             </div>
 
@@ -620,21 +660,29 @@
                     </article>
 
 
-                    <!-- ARTICLE 4 -->
+                    <!-- =================================================
+                         ARTICLE 4
+                    ================================================== -->
                     <article
                         class="news-item"
+                        data-id="openai-luncurkan-gpt-5-ini-fitur-terbarunya"
                         data-category="teknologi"
                         data-author="mabnews"
+                        data-time="today"
+                        data-date="2025-06-07"
+                        data-popular="88"
                     >
 
                         <a
-                            href="artikel.html"
+                            href="artikel.html?id=openai-luncurkan-gpt-5-ini-fitur-terbarunya"
                             class="news-image"
                         >
+
                             <img
                                 src="assets/images/card-openai.jpg"
-                                alt="Perkembangan teknologi AI"
+                                alt="OpenAI Luncurkan GPT-5, Ini Fitur Terbarunya"
                             >
+
                         </a>
 
                         <div class="news-content">
@@ -644,9 +692,11 @@
                             </span>
 
                             <h3>
-                                <a href="artikel.html">
+
+                                <a href="artikel.html?id=openai-luncurkan-gpt-5-ini-fitur-terbarunya">
                                     OpenAI Luncurkan GPT-5, Ini Fitur Terbarunya
                                 </a>
+
                             </h3>
 
                             <p>
@@ -657,15 +707,11 @@
 
                             <div class="news-meta">
 
-                                <span>
-                                    7 Juni 2025
-                                </span>
+                                <span>7 Juni 2025</span>
 
                                 <span>•</span>
 
-                                <span>
-                                    MAB-News
-                                </span>
+                                <span>MAB-News</span>
 
                             </div>
 
@@ -674,21 +720,29 @@
                     </article>
 
 
-                    <!-- ARTICLE 5 -->
+                    <!-- =================================================
+                         ARTICLE 5
+                    ================================================== -->
                     <article
                         class="news-item"
+                        data-id="timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026"
                         data-category="olahraga"
                         data-author="redaksi"
+                        data-time="today"
+                        data-date="2025-06-06"
+                        data-popular="86"
                     >
 
                         <a
-                            href="artikel.html"
+                            href="artikel.html?id=timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026"
                             class="news-image"
                         >
+
                             <img
                                 src="assets/images/card-police.jpg"
-                                alt="Timnas Indonesia"
+                                alt="Timnas Indonesia Siap Hadapi China di Kualifikasi Piala Dunia 2026"
                             >
+
                         </a>
 
                         <div class="news-content">
@@ -698,9 +752,11 @@
                             </span>
 
                             <h3>
-                                <a href="artikel.html">
+
+                                <a href="artikel.html?id=timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026">
                                     Timnas Indonesia Siap Hadapi China di Kualifikasi Piala Dunia 2026
                                 </a>
+
                             </h3>
 
                             <p>
@@ -711,15 +767,11 @@
 
                             <div class="news-meta">
 
-                                <span>
-                                    6 Juni 2025
-                                </span>
+                                <span>6 Juni 2025</span>
 
                                 <span>•</span>
 
-                                <span>
-                                    Redaksi MAB-News
-                                </span>
+                                <span>Redaksi MAB-News</span>
 
                             </div>
 
@@ -728,21 +780,29 @@
                     </article>
 
 
-                    <!-- ARTICLE 6 -->
+                    <!-- =================================================
+                         ARTICLE 6
+                    ================================================== -->
                     <article
                         class="news-item"
+                        data-id="gaikindo-sebut-penjualan-mobil-2025-tumbuh-moderat"
                         data-category="otomotif"
                         data-author="redaksi"
+                        data-time="today"
+                        data-date="2025-06-05"
+                        data-popular="82"
                     >
 
                         <a
-                            href="artikel.html"
+                            href="artikel.html?id=gaikindo-sebut-penjualan-mobil-2025-tumbuh-moderat"
                             class="news-image"
                         >
+
                             <img
                                 src="assets/images/card-auto.jpg"
-                                alt="Penjualan mobil 2025"
+                                alt="Gaikindo Sebut Penjualan Mobil 2025 Tumbuh Moderat"
                             >
+
                         </a>
 
                         <div class="news-content">
@@ -752,9 +812,11 @@
                             </span>
 
                             <h3>
-                                <a href="artikel.html">
+
+                                <a href="artikel.html?id=gaikindo-sebut-penjualan-mobil-2025-tumbuh-moderat">
                                     Gaikindo Sebut Penjualan Mobil 2025 Tumbuh Moderat
                                 </a>
+
                             </h3>
 
                             <p>
@@ -765,15 +827,11 @@
 
                             <div class="news-meta">
 
-                                <span>
-                                    5 Juni 2025
-                                </span>
+                                <span>5 Juni 2025</span>
 
                                 <span>•</span>
 
-                                <span>
-                                    Redaksi MAB-News
-                                </span>
+                                <span>Redaksi MAB-News</span>
 
                             </div>
 
@@ -782,54 +840,63 @@
                     </article>
 
 
-                    <!-- PAGINATION -->
+                    <!-- =================================================
+                         PAGINATION
+                    ================================================== -->
                     <nav
                         class="pagination"
+                        id="pagination"
                         aria-label="Navigasi halaman berita"
                     >
 
                         <a
-                            href="#"
+                            href="berita.html"
                             class="page-number disabled"
+                            data-page="prev"
+                            aria-label="Halaman sebelumnya"
                         >
                             ‹
                         </a>
 
                         <a
-                            href="#"
+                            href="berita.html?page=1"
                             class="page-number active"
+                            data-page="1"
                         >
                             1
                         </a>
 
                         <a
-                            href="#"
+                            href="berita.html?page=2"
                             class="page-number"
+                            data-page="2"
                         >
                             2
                         </a>
 
                         <a
-                            href="#"
+                            href="berita.html?page=3"
                             class="page-number"
+                            data-page="3"
                         >
                             3
                         </a>
 
-                        <span class="page-dots">
-                            ...
-                        </span>
+                        <span class="page-dots">...</span>
 
                         <a
-                            href="#"
+                            href="berita.html?page=10"
                             class="page-number"
+                            data-page="10"
                         >
                             10
                         </a>
 
                         <a
-                            href="#"
+                            href="berita.html?page=2"
                             class="page-number"
+                            data-page="next"
+                            aria-label="Halaman berikutnya"
                         >
                             ›
                         </a>
@@ -839,9 +906,9 @@
                 </section>
 
 
-                <!-- =========================
-                     RIGHT SIDEBAR
-                ========================== -->
+                <!-- =================================================
+                     SIDEBAR
+                ================================================== -->
                 <aside class="news-sidebar">
 
 
@@ -857,14 +924,12 @@
 
                             <article class="popular-item">
 
-                                <span class="popular-number">
-                                    01
-                                </span>
+                                <span class="popular-number">01</span>
 
                                 <div>
 
                                     <h3>
-                                        <a href="artikel.html">
+                                        <a href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat">
                                             Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat
                                         </a>
                                     </h3>
@@ -880,14 +945,12 @@
 
                             <article class="popular-item">
 
-                                <span class="popular-number">
-                                    02
-                                </span>
+                                <span class="popular-number">02</span>
 
                                 <div>
 
                                     <h3>
-                                        <a href="artikel.html">
+                                        <a href="artikel.html?id=inflasi-mei-2025-terkendali-di-level-2-4-persen">
                                             Inflasi Mei 2025 Terkendali di Level 2,4 Persen
                                         </a>
                                     </h3>
@@ -903,20 +966,18 @@
 
                             <article class="popular-item">
 
-                                <span class="popular-number">
-                                    03
-                                </span>
+                                <span class="popular-number">03</span>
 
                                 <div>
 
                                     <h3>
-                                        <a href="artikel.html">
-                                            Perkembangan Teknologi AI Terbaru
+                                        <a href="artikel.html?id=openai-luncurkan-gpt-5-ini-fitur-terbarunya">
+                                            OpenAI Luncurkan GPT-5, Ini Fitur Terbarunya
                                         </a>
                                     </h3>
 
                                     <span class="popular-date">
-                                        8 Juni 2025
+                                        7 Juni 2025
                                     </span>
 
                                 </div>
@@ -926,20 +987,18 @@
 
                             <article class="popular-item">
 
-                                <span class="popular-number">
-                                    04
-                                </span>
+                                <span class="popular-number">04</span>
 
                                 <div>
 
                                     <h3>
-                                        <a href="artikel.html">
-                                            Timnas Indonesia Bersiap Hadapi Laga Penting
+                                        <a href="artikel.html?id=timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026">
+                                            Timnas Indonesia Siap Hadapi China di Kualifikasi Piala Dunia 2026
                                         </a>
                                     </h3>
 
                                     <span class="popular-date">
-                                        7 Juni 2025
+                                        6 Juni 2025
                                     </span>
 
                                 </div>
@@ -1045,9 +1104,9 @@
     </main>
 
 
-    <!-- =========================
+    <!-- =====================================================
          FOOTER
-    ========================== -->
+    ====================================================== -->
     <footer class="site-footer">
 
         <div class="container">
@@ -1076,11 +1135,11 @@
                         Berita
                     </a>
 
-                    <a href="#">
+                    <a href="tentang.html">
                         Tentang Kami
                     </a>
 
-                    <a href="#">
+                    <a href="kontak.html">
                         Kontak
                     </a>
 
@@ -1101,9 +1160,8 @@
     </footer>
 
 
-    <!-- JavaScript -->
+    <!-- JAVASCRIPT -->
     <script src="js/berita.js"></script>
 
 </body>
 </html>
-
