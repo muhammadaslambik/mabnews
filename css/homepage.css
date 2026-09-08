@@ -1,1 +1,713 @@
-.homepage{padding-top:12px}.content-grid{display:grid;grid-template-columns:minmax(0,2.15fr) minmax(350px,.92fr);gap:30px}.main-column{min-width:0}.hero{height:352px;border-radius:4px;overflow:hidden;position:relative;background:#0b2036}.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(1,21,42,.98) 0%,rgba(1,21,42,.84) 30%,rgba(1,21,42,.25) 64%,rgba(1,21,42,.04) 100%)}.hero-content{position:absolute;left:32px;top:44px;bottom:22px;width:380px;color:#fff}.hero-content h1{font-size:27px;line-height:1.37;margin:13px 0 8px;letter-spacing:-.6px}.hero-content p{font-size:13px;line-height:1.8;margin:0;color:#f1f4f8}.hero-meta{position:absolute;left:0;bottom:4px;display:flex;gap:11px;align-items:center;font-size:10px}.hero-meta i{width:1px;height:12px;background:#cdd5df}.dots{position:absolute;bottom:0;left:50%;transform:translateX(-50%);display:flex;gap:12px}.dots button{border:0;background:#f3f5f7;width:10px;height:8px;border-radius:50%;padding:0;cursor:pointer;box-shadow:0 0 0 1px #ffffff55}.dots button.selected{background:#0864d4;width:11px}.top-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:16px}.news-card{border:1px solid #dce1e7;border-radius:5px;overflow:hidden;background:#fff}.news-card>img{display:block;width:100%;height:113px;object-fit:cover}.card-body{padding:11px 12px 10px;min-height:116px;display:flex;flex-direction:column}.card-body h3{font-size:13px;line-height:1.42;margin:6px 0 9px;font-weight:750}.card-body time{margin-top:auto}.latest-list{display:flex;flex-direction:column}.latest-item{display:grid;grid-template-columns:285px 1fr;gap:20px;padding:12px 0;border-bottom:1px solid #dfe3e8}.latest-item img{width:285px;height:88px;border-radius:5px;object-fit:cover}.latest-item>div{min-width:0}.latest-item time{display:block;margin-bottom:5px}.latest-item h3{font-size:13px;margin:0 0 4px}.latest-item p{font-size:11px;color:#4f5661;line-height:1.45;margin:0 0 3px}.sidebar{min-width:0}.sidebar-section{margin-bottom:17px}.popular-list{list-style:none;margin:0;padding:0}.popular-list li{display:grid;grid-template-columns:30px 1fr 145px;gap:5px;align-items:center;min-height:91px;border-bottom:1px solid #dfe3e8}.rank{font-size:27px;color:#5b6470;font-weight:400;align-self:center}.popular-copy h3{font-size:12px;line-height:1.45;margin:0 0 6px;font-weight:700}.popular-list img{width:145px;height:78px;border-radius:5px;object-fit:cover}.focus-card{height:247px;border-radius:5px;overflow:hidden;position:relative;background:#081b31}.focus-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.focus-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,20,38,.93),rgba(4,20,38,.43))}.focus-content{position:absolute;inset:0;padding:31px 26px;color:#fff}.focus-content h3{font-size:19px;line-height:1.35;margin:13px 0 7px}.focus-content p{font-size:11px;line-height:1.65;margin:0;width:92%;color:#f4f6f8}.focus-content time{position:absolute;left:26px;bottom:52px;color:#fff}.focus-content .dots{bottom:13px}
+/* =========================================================
+   MAB-NEWS — HOMEPAGE
+   ========================================================= */
+
+
+/* =========================================================
+   HOMEPAGE & CONTENT GRID
+   ========================================================= */
+
+.homepage {
+    padding-top: 12px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2.15fr) minmax(350px, 0.92fr);
+    gap: 30px;
+}
+
+.main-column {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    height: 352px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    background: #0b2036;
+}
+
+
+/* Link gambar Hero */
+
+.hero-image-link {
+    position: absolute;
+    inset: 0;
+    display: block;
+    z-index: 1;
+}
+
+
+/* Gambar Hero */
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+
+/* Efek ketika gambar Hero disentuh mouse */
+
+.hero-image-link:hover .hero-bg {
+    transform: scale(1.02);
+}
+
+
+/* Overlay Hero */
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(1, 21, 42, 0.98) 0%,
+        rgba(1, 21, 42, 0.84) 30%,
+        rgba(1, 21, 42, 0.25) 64%,
+        rgba(1, 21, 42, 0.04) 100%
+    );
+
+    /*
+     * Overlay tidak menghalangi klik
+     * pada gambar Hero.
+     */
+    pointer-events: none;
+}
+
+
+/* Konten Hero */
+
+.hero-content {
+    position: absolute;
+    left: 32px;
+    top: 44px;
+    bottom: 22px;
+    width: 380px;
+    color: #fff;
+    z-index: 2;
+}
+
+
+/* Label Hero */
+
+.hero-content .label {
+    display: inline-block;
+}
+
+
+/* Judul Hero */
+
+.hero-content h1 {
+    font-size: 27px;
+    line-height: 1.37;
+    margin: 13px 0 8px;
+    letter-spacing: -0.6px;
+}
+
+
+/* Link pada judul Hero */
+
+.hero-content h1 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* Hover judul Hero */
+
+.hero-content h1 a:hover {
+    text-decoration: underline;
+}
+
+
+/* Deskripsi Hero */
+
+.hero-content p {
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 0;
+    color: #f1f4f8;
+}
+
+
+/* Meta Hero */
+
+.hero-meta {
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+
+    display: flex;
+    gap: 11px;
+    align-items: center;
+
+    font-size: 10px;
+}
+
+
+/* Garis pemisah Meta */
+
+.hero-meta i {
+    width: 1px;
+    height: 12px;
+    background: #cdd5df;
+}
+
+
+/* =========================================================
+   HERO DOTS
+   ========================================================= */
+
+.dots {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 12px;
+
+    z-index: 3;
+}
+
+.dots button {
+    border: 0;
+    background: #f3f5f7;
+
+    width: 10px;
+    height: 8px;
+
+    border-radius: 50%;
+    padding: 0;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 0 1px #ffffff55;
+}
+
+.dots button.selected {
+    background: #0864d4;
+    width: 11px;
+}
+
+
+/* =========================================================
+   BERITA UTAMA
+   ========================================================= */
+
+.top-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 24px;
+    margin-top: 16px;
+}
+
+
+/* Kartu berita */
+
+.news-card {
+    border: 1px solid #dce1e7;
+    border-radius: 5px;
+    overflow: hidden;
+
+    background: #fff;
+}
+
+
+/* Link gambar kartu */
+
+.news-card > a {
+    display: block;
+    overflow: hidden;
+}
+
+
+/* Gambar kartu */
+
+.news-card > a img {
+    display: block;
+
+    width: 100%;
+    height: 113px;
+
+    object-fit: cover;
+
+    transition: transform 0.3s ease;
+}
+
+
+/* Efek hover gambar kartu */
+
+.news-card > a:hover img {
+    transform: scale(1.04);
+}
+
+
+/* Isi kartu */
+
+.card-body {
+    padding: 11px 12px 10px;
+
+    min-height: 116px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Judul kartu */
+
+.card-body h3 {
+    font-size: 13px;
+    line-height: 1.42;
+
+    margin: 6px 0 9px;
+
+    font-weight: 750;
+}
+
+
+/* Link judul kartu */
+
+.card-body h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* Hover judul kartu */
+
+.card-body h3 a:hover {
+    text-decoration: underline;
+}
+
+
+/* Waktu artikel */
+
+.card-body time {
+    margin-top: auto;
+}
+
+
+/* =========================================================
+   BERITA TERBARU
+   ========================================================= */
+
+.latest-list {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Item Berita Terbaru */
+
+.latest-item {
+    display: grid;
+
+    grid-template-columns: 285px 1fr;
+
+    gap: 20px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #dfe3e8;
+}
+
+
+/* Link gambar Berita Terbaru */
+
+.latest-item > a {
+    display: block;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+
+/* Gambar Berita Terbaru */
+
+.latest-item > a img {
+    display: block;
+
+    width: 285px;
+    height: 88px;
+
+    border-radius: 5px;
+
+    object-fit: cover;
+
+    transition: transform 0.3s ease;
+}
+
+
+/* Efek hover gambar */
+
+.latest-item > a:hover img {
+    transform: scale(1.04);
+}
+
+
+/* Konten Berita Terbaru */
+
+.latest-item > div {
+    min-width: 0;
+}
+
+
+/* Judul Berita Terbaru */
+
+.latest-item h3 {
+    font-size: 13px;
+    margin: 0 0 4px;
+}
+
+
+/* Link judul Berita Terbaru */
+
+.latest-item h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* Hover judul */
+
+.latest-item h3 a:hover {
+    text-decoration: underline;
+}
+
+
+/* Deskripsi */
+
+.latest-item p {
+    font-size: 11px;
+    color: #4f5661;
+
+    line-height: 1.45;
+
+    margin: 0 0 3px;
+}
+
+
+/* Waktu */
+
+.latest-item time {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    min-width: 0;
+}
+
+.sidebar-section {
+    margin-bottom: 17px;
+}
+
+
+/* =========================================================
+   TERPOPULER
+   ========================================================= */
+
+.popular-list {
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Item Terpopuler */
+
+.popular-list li {
+    display: grid;
+
+    grid-template-columns: 30px 1fr 145px;
+
+    gap: 5px;
+
+    align-items: center;
+
+    min-height: 91px;
+
+    border-bottom: 1px solid #dfe3e8;
+}
+
+
+/* Nomor ranking */
+
+.rank {
+    font-size: 27px;
+    color: #5b6470;
+
+    font-weight: 400;
+
+    align-self: center;
+}
+
+
+/* Isi Terpopuler */
+
+.popular-copy h3 {
+    font-size: 12px;
+    line-height: 1.45;
+
+    margin: 0 0 6px;
+
+    font-weight: 700;
+}
+
+
+/* Gambar Terpopuler */
+
+.popular-list img {
+    width: 145px;
+    height: 78px;
+
+    border-radius: 5px;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   FOKUS
+   ========================================================= */
+
+.focus-card {
+    height: 247px;
+
+    border-radius: 5px;
+    overflow: hidden;
+
+    position: relative;
+
+    background: #081b31;
+}
+
+
+/* Gambar Fokus */
+
+.focus-card > img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* Overlay Fokus */
+
+.focus-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        90deg,
+        rgba(4, 20, 38, 0.93),
+        rgba(4, 20, 38, 0.43)
+    );
+}
+
+
+/* Konten Fokus */
+
+.focus-content {
+    position: absolute;
+    inset: 0;
+
+    padding: 31px 26px;
+
+    color: #fff;
+}
+
+
+/* Judul Fokus */
+
+.focus-content h3 {
+    font-size: 19px;
+    line-height: 1.35;
+
+    margin: 13px 0 7px;
+}
+
+
+/* Deskripsi Fokus */
+
+.focus-content p {
+    font-size: 11px;
+    line-height: 1.65;
+
+    margin: 0;
+
+    width: 92%;
+
+    color: #f4f6f8;
+}
+
+
+/* Waktu Fokus */
+
+.focus-content time {
+    position: absolute;
+
+    left: 26px;
+    bottom: 52px;
+
+    color: #fff;
+}
+
+
+/* Dots Fokus */
+
+.focus-content .dots {
+    bottom: 13px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .top-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .homepage {
+        padding-top: 8px;
+    }
+
+    .hero {
+        height: 390px;
+    }
+
+    .hero-content {
+        left: 22px;
+        right: 22px;
+        top: 35px;
+        width: auto;
+    }
+
+    .hero-content h1 {
+        font-size: 23px;
+    }
+
+    .hero-content p {
+        font-size: 12px;
+        line-height: 1.65;
+    }
+
+    .top-cards {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    .latest-item {
+        grid-template-columns: 130px 1fr;
+        gap: 14px;
+    }
+
+    .latest-item > a img {
+        width: 130px;
+        height: 90px;
+    }
+
+    .popular-list li {
+        grid-template-columns: 30px 1fr 110px;
+    }
+
+    .popular-list img {
+        width: 110px;
+        height: 70px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .hero {
+        height: 360px;
+    }
+
+    .hero-content {
+        left: 18px;
+        right: 18px;
+        top: 28px;
+    }
+
+    .hero-content h1 {
+        font-size: 21px;
+    }
+
+    .top-cards {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .latest-item {
+        grid-template-columns: 105px 1fr;
+        gap: 12px;
+    }
+
+    .latest-item > a img {
+        width: 105px;
+        height: 82px;
+    }
+
+    .popular-list li {
+        grid-template-columns: 28px 1fr 90px;
+    }
+
+    .popular-list img {
+        width: 90px;
+        height: 62px;
+    }
+
+    .focus-card {
+        height: 230px;
+    }
+
+}
