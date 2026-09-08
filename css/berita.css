@@ -952,3 +952,185 @@
     }
 
 }
+
+
+/* =========================================================
+   JAVASCRIPT STATE
+   ========================================================= */
+
+/* Artikel yang sedang disembunyikan oleh filter */
+.news-list-page .news-item.is-hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   DARK PREVIEW
+   ========================================================= */
+
+.news-list-page.dark-preview {
+    --news-bg: #0f1720;
+    --news-text: #e5edf5;
+    --news-muted: #a9b5c3;
+    --news-border: #263544;
+    --news-white: #162230;
+    background: #0f1720;
+    color: #e5edf5;
+}
+
+.news-list-page.dark-preview .site-header,
+.news-list-page.dark-preview .header-top,
+.news-list-page.dark-preview .category-tabs-section,
+.news-list-page.dark-preview .filter-card,
+.news-list-page.dark-preview .sidebar-widget,
+.news-list-page.dark-preview .news-image,
+.news-list-page.dark-preview .sort-select,
+.news-list-page.dark-preview .filter-group select,
+.news-list-page.dark-preview .btn-reset,
+.news-list-page.dark-preview .header-search form,
+.news-list-page.dark-preview .header-icon,
+.news-list-page.dark-preview .page-number {
+    background: #162230;
+    border-color: #2c3c4d;
+}
+
+.news-list-page.dark-preview .logo-main,
+.news-list-page.dark-preview .results-header h2,
+.news-list-page.dark-preview .filter-header h2,
+.news-list-page.dark-preview .widget-title h2,
+.news-list-page.dark-preview .news-content h3 a {
+    color: #ffffff;
+}
+
+.news-list-page.dark-preview .logo-tagline,
+.news-list-page.dark-preview .results-header p,
+.news-list-page.dark-preview .news-content p,
+.news-list-page.dark-preview .newsletter-widget p {
+    color: #a9b5c3;
+}
+
+.news-list-page.dark-preview .header-search input,
+.news-list-page.dark-preview .filter-group select,
+.news-list-page.dark-preview .sort-select {
+    color: #e5edf5;
+}
+
+.news-list-page.dark-preview .header-search input::placeholder {
+    color: #8e9bab;
+}
+
+.news-list-page.dark-preview .category-tabs-section {
+    border-color: #263544;
+}
+
+.news-list-page.dark-preview .category-tab {
+    color: #aebaca;
+}
+
+.news-list-page.dark-preview .category-tab.active,
+.news-list-page.dark-preview .category-tab:hover {
+    color: #ffffff;
+}
+
+.news-list-page.dark-preview .news-item {
+    border-color: #263544;
+}
+
+.news-list-page.dark-preview .category-list li,
+.news-list-page.dark-preview .popular-item {
+    border-color: #263544;
+}
+
+.news-list-page.dark-preview .category-list a {
+    color: #b9c4d0;
+}
+
+.news-list-page.dark-preview .popular-item h3 a {
+    color: #e5edf5;
+}
+
+.news-list-page.dark-preview .page-number {
+    color: #c4cfdb;
+}
+
+
+/* =========================================================
+   ACCESSIBILITY / FOCUS
+   ========================================================= */
+
+.news-list-page a:focus-visible,
+.news-list-page button:focus-visible,
+.news-list-page select:focus-visible,
+.news-list-page input:focus-visible {
+    outline: 3px solid rgba(29, 111, 165, 0.35);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   BUTTON HOVER
+   ========================================================= */
+
+.news-list-page .btn-filter,
+.news-list-page .btn-reset,
+.news-list-page .header-icon,
+.news-list-page .support-button,
+.news-list-page #newsletterForm button {
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.news-list-page .btn-filter:hover,
+.news-list-page #newsletterForm button:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MOBILE FILTER
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .news-list-page .filter-card {
+        width: 100%;
+    }
+
+    .news-list-page .filter-actions {
+        flex-direction: row;
+    }
+
+    .news-list-page .btn-filter,
+    .news-list-page .btn-reset {
+        flex: 1;
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL SCREEN
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+    .news-list-page .results-header {
+        gap: 10px;
+    }
+
+    .news-list-page .results-header > div {
+        min-width: 0;
+    }
+
+    .news-list-page .results-header p {
+        font-size: 11px;
+    }
+
+    .news-list-page .sort-select {
+        flex: 0 0 95px;
+    }
+
+}
