@@ -307,10 +307,47 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Penguatan sistem logistik diharapkan dapat membantu menekan biaya distribusi dan menjaga stabilitas harga."
 
             ]
+        },
+
+
+        /* =====================================================
+           9. FOKUS
+        ===================================================== */
+
+        "melihat-perubahan-besar-di-balik-berita-hari-ini": {
+
+            category: "FOKUS",
+
+            title: "Melihat Perubahan Besar di Balik Berita Hari Ini",
+
+            lead: "Rangkuman konteks, data, dan perspektif yang membantu pembaca memahami berbagai isu secara lebih utuh.",
+
+            date: "6 September 2026",
+
+            time: "08:00 WIB",
+
+            author: "MAB-News",
+
+            image: "assets/images/focus.jpg",
+
+            caption: "Ilustrasi rangkuman konteks, data, dan perspektif MAB-News.",
+
+            content: [
+
+                "Setiap berita memiliki konteks yang perlu dipahami agar informasi yang diterima pembaca tidak berhenti pada peristiwa yang terlihat di permukaan.",
+
+                "MAB-News menghadirkan rangkuman berbagai perkembangan dengan memperhatikan fakta, data, dan perspektif yang relevan dengan isu yang sedang berlangsung.",
+
+                "Pendekatan tersebut membantu pembaca melihat hubungan antara sebuah peristiwa dengan kondisi yang lebih luas, baik dalam bidang ekonomi, teknologi, sosial, maupun kehidupan masyarakat.",
+
+                "Data menjadi bagian penting dalam memahami sebuah isu karena memberikan dasar yang lebih kuat dalam melihat perubahan dan perkembangan yang terjadi.",
+
+                "Melalui rangkuman dan perspektif yang lebih utuh, MAB-News berupaya membantu pembaca memahami bukan hanya apa yang terjadi, tetapi juga konteks di balik sebuah berita."
+
+            ]
         }
 
     };
-
 
     /* =========================================================
        AMBIL ID DARI URL
