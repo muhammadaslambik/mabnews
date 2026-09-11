@@ -190,6 +190,50 @@ document.addEventListener("DOMContentLoaded", () => {
     nav?.classList.toggle("mobile-open");
   });
 
+document.addEventListener("DOMContentLoaded", function () {
+
+  const hamburger = document.querySelector(".hamburger");
+  const navLinks = document.querySelector(".nav-links");
+
+  if (!hamburger || !navLinks) return;
+
+  hamburger.addEventListener("click", function (e) {
+    e.stopPropagation();
+
+    hamburger.classList.toggle("active");
+    navLinks.classList.toggle("open");
+
+    const isOpen = navLinks.classList.contains("open");
+
+    hamburger.setAttribute("aria-expanded", isOpen);
+  });
+
+  /* Tutup menu ketika klik di luar */
+  document.addEventListener("click", function (e) {
+
+    if (
+      !navLinks.contains(e.target) &&
+      !hamburger.contains(e.target)
+    ) {
+      hamburger.classList.remove("active");
+      navLinks.classList.remove("open");
+      hamburger.setAttribute("aria-expanded", "false");
+    }
+
+  });
+
+  /* Tutup menu setelah memilih navigasi */
+  navLinks.querySelectorAll("a").forEach(function (link) {
+
+    link.addEventListener("click", function () {
+      hamburger.classList.remove("active");
+      navLinks.classList.remove("open");
+      hamburger.setAttribute("aria-expanded", "false");
+    });
+
+  });
+
+});
 
 
   /* =====================================================
