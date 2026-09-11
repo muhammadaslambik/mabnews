@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
      MODE GELAP / TERANG
      ===================================================== */
 
-  const theme = document.querySelector("#themeToggle");
+  const theme =
+    document.querySelector("#themeToggle");
 
   const sunIcon = `
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -28,14 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
 
 
-  function updateThemeIcon() {
+  function updateThemeIcon(){
 
-    if (!theme) return;
+    if(!theme) return;
 
     const isDark =
       document.body.classList.contains("dark-preview");
 
-    theme.innerHTML = isDark ? moonIcon : sunIcon;
+    theme.innerHTML =
+      isDark ? moonIcon : sunIcon;
 
     theme.setAttribute(
       "aria-label",
@@ -56,23 +58,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedTheme =
     localStorage.getItem("mabnews-theme");
 
-  if (savedTheme === "dark") {
+  if(savedTheme === "dark"){
     document.body.classList.add("dark-preview");
-  } else {
+  }else{
     document.body.classList.remove("dark-preview");
   }
 
   updateThemeIcon();
 
 
-  if (theme) {
+  if(theme){
 
     theme.addEventListener("click", () => {
 
-      document.body.classList.toggle("dark-preview");
+      document.body.classList.toggle(
+        "dark-preview"
+      );
 
       const isDark =
-        document.body.classList.contains("dark-preview");
+        document.body.classList.contains(
+          "dark-preview"
+        );
 
       localStorage.setItem(
         "mabnews-theme",
@@ -91,9 +97,11 @@ document.addEventListener("DOMContentLoaded", () => {
      ===================================================== */
 
   const accountButton =
-    document.querySelector('[aria-label="Akun"]');
+    document.querySelector(
+      '[aria-label="Akun"]'
+    );
 
-  if (accountButton) {
+  if(accountButton){
 
     const wrapper =
       document.createElement("div");
@@ -160,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "[data-account-action]"
           );
 
-        if (!item) return;
+        if(!item) return;
 
         event.preventDefault();
 
@@ -169,19 +177,19 @@ document.addEventListener("DOMContentLoaded", () => {
             "data-account-action"
           );
 
-        if (action === "profile") {
+        if(action === "profile"){
           alert(
             "Halaman Profil MAB-News belum tersedia."
           );
         }
 
-        if (action === "settings") {
+        if(action === "settings"){
           alert(
             "Halaman Pengaturan belum tersedia."
           );
         }
 
-        if (action === "login") {
+        if(action === "login"){
           alert(
             "Fitur Masuk belum tersedia."
           );
@@ -194,7 +202,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener(
       "click",
       () => {
+
         accountMenu.classList.remove("open");
+
       }
     );
 
@@ -202,115 +212,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =====================================================
-     MENU HAMBURGER
+     NAVIGASI
      ===================================================== */
-
-  const hamburger =
-    document.querySelector("#hamburger");
 
   const navLinks =
     document.querySelector("#navLinks");
 
+  const mobileHome =
+    document.querySelector(".mobile-home");
 
-  if (hamburger && navLinks) {
 
-    function closeMenu() {
+  /*
+     Beranda selalu aktif.
+     Link kategori dapat aktif ketika diklik.
+  */
 
-      navLinks.classList.remove("open");
+  if(navLinks){
 
-      hamburger.classList.remove("active");
+    const links =
+      navLinks.querySelectorAll("a");
 
-      hamburger.setAttribute(
-        "aria-expanded",
-        "false"
+
+    links.forEach((link) => {
+
+      link.addEventListener(
+        "click",
+        () => {
+
+          links.forEach((item) => {
+            item.classList.remove("active");
+          });
+
+          link.classList.add("active");
+
+        }
       );
 
-      hamburger.setAttribute(
-        "aria-label",
-        "Buka menu"
-      );
-    }
+    });
+
+  }
 
 
-    function openMenu() {
+  /*
+     Beranda tetap tersorot.
+     Klik Beranda tidak memengaruhi link kategori.
+  */
 
-      navLinks.classList.add("open");
+  if(mobileHome){
 
-      hamburger.classList.add("active");
-
-      hamburger.setAttribute(
-        "aria-expanded",
-        "true"
-      );
-
-      hamburger.setAttribute(
-        "aria-label",
-        "Tutup menu"
-      );
-    }
-
-
-    hamburger.addEventListener(
+    mobileHome.addEventListener(
       "click",
-      (event) => {
+      () => {
 
-        event.preventDefault();
-        event.stopPropagation();
+        if(navLinks){
 
-        if (
-          navLinks.classList.contains("open")
-        ) {
-          closeMenu();
-        } else {
-          openMenu();
-        }
-
-      }
-    );
-
-
-    navLinks
-      .querySelectorAll("a")
-      .forEach((link) => {
-
-        link.addEventListener(
-          "click",
-          () => {
-
-            closeMenu();
-
-          }
-        );
-
-      });
-
-
-    document.addEventListener(
-      "click",
-      (event) => {
-
-        if (
-          !navLinks.contains(event.target) &&
-          !hamburger.contains(event.target)
-        ) {
-
-          closeMenu();
+          navLinks
+            .querySelectorAll("a")
+            .forEach((link) => {
+              link.classList.remove("active");
+            });
 
         }
 
-      }
-    );
-
-
-    document.addEventListener(
-      "keydown",
-      (event) => {
-
-        if (event.key === "Escape") {
-
-          closeMenu();
-
-        }
+        mobileHome.classList.add("active");
 
       }
     );
@@ -325,8 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const search =
     document.querySelector("#headerSearch");
 
-
-  if (search) {
+  if(search){
 
     search.addEventListener(
       "submit",
@@ -345,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
           input?.value.trim();
 
 
-        if (q) {
+        if(q){
 
           window.location.href =
             `search.html?q=${encodeURIComponent(q)}`;
