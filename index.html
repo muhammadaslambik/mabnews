@@ -72,32 +72,141 @@
   <div class="content-grid">
     <section class="main-column">
       
-<article class="hero">
+<article class="hero" id="mainHero">
 
-<a href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat" class="hero-image-link">
-  <img
-    class="hero-bg"
-    src="assets/images/hero.jpg"
-    alt="Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat"
-  >
-</a>
+    <!-- GAMBAR HERO -->
+    <a
+        href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat"
+        class="hero-image-link"
+        id="heroImageLink"
+    >
+        <img
+            class="hero-bg"
+            id="heroImage"
+            src="assets/images/hero.jpg"
+            alt="Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat"
+        >
+    </a>
 
-  <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <span class="label">EKONOMI</span>
-    <h1>
-  <a href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat">
-    Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat
-  </a>
-</h1>
-          <p>Berbagai langkah disiapkan untuk menjaga konsumsi dan daya beli masyarakat di tengah perubahan kondisi ekonomi global.</p>
-          <div class="hero-meta"><time>6 September 2026</time><i></i><span>MAB-News</span></div>
+
+    <!-- TOMBOL KIRI -->
+    <button
+        type="button"
+        class="hero-arrow hero-prev"
+        id="heroPrev"
+        aria-label="Berita sebelumnya"
+    >
+        ‹
+    </button>
+
+
+    <!-- TOMBOL KANAN -->
+    <button
+        type="button"
+        class="hero-arrow hero-next"
+        id="heroNext"
+        aria-label="Berita berikutnya"
+    >
+        ›
+    </button>
+
+
+    <!-- KOTAK JUDUL -->
+    <div class="hero-overlay">
+
+        <div
+            class="hero-category"
+            id="heroCategory"
+        >
+            EKONOMI
         </div>
-        <div class="dots"><button class="selected"></button><button></button><button></button><button></button></div>
-      </article>
 
-      <section class="news-section">
-        <div class="section-heading"><h2>Berita Utama</h2><a href="berita.html">Lihat semua <b>›</b></a></div>
+
+        <h1>
+
+            <a
+                href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat"
+                id="heroTitleLink"
+            >
+                Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat
+            </a>
+
+        </h1>
+
+
+        <p id="heroLead">
+            Berbagai langkah disiapkan untuk menjaga konsumsi
+            dan daya beli masyarakat di tengah perubahan kondisi
+            ekonomi global.
+        </p>
+
+
+        <div class="hero-meta">
+
+            <span id="heroDate">
+                6 September 2026
+            </span>
+
+            <span>•</span>
+
+            <span id="heroAuthor">
+                MAB-News
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- DOTS -->
+    <div
+        class="dots"
+        id="heroDots"
+    >
+
+        <button
+            type="button"
+            class="selected"
+            aria-label="Berita 1"
+        ></button>
+
+        <button
+            type="button"
+            aria-label="Berita 2"
+        ></button>
+
+        <button
+            type="button"
+            aria-label="Berita 3"
+        ></button>
+
+        <button
+            type="button"
+            aria-label="Berita 4"
+        ></button>
+
+        <button
+            type="button"
+            aria-label="Berita 5"
+        ></button>
+
+    </div>
+
+</article>
+
+<section class="news-section">
+<div class="section-heading">
+    <h2>Berita Utama</h2>
+
+    <button
+        type="button"
+        class="change-news-btn"
+        id="changeMainNews"
+    >
+        Ganti Berita Lainnya
+        <b>↻</b>
+    </button>
+</div>
         <div class="top-cards">
       
 <article class="news-card">

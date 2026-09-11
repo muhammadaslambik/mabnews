@@ -720,3 +720,573 @@
     color: #ffffff;                        /* Memastikan warna teks tetap putih */
     max-width: 600px;                      /* Batasi lebar kotak agar tidak memenuhi seluruh layar */
 }
+/* =========================================================
+   TOMBOL GANTI BERITA UTAMA
+   ========================================================= */
+
+.change-news-btn {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+
+    color: #1d4ed8;
+
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    transition: opacity 0.2s ease;
+}
+
+.change-news-btn:hover {
+    opacity: 0.7;
+}
+
+.change-news-btn b {
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 400;
+}
+/* =========================================================
+   HERO SLIDER - TOMBOL KIRI / KANAN
+   ========================================================= */
+
+.hero {
+    position: relative;
+}
+
+
+/* ---------------------------------------------------------
+   TOMBOL ARROW
+   --------------------------------------------------------- */
+
+.hero-arrow {
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    z-index: 10;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    color: #ffffff;
+
+    font-size: 32px;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* Munculkan tombol ketika mouse berada di Hero */
+
+.hero:hover .hero-arrow {
+    opacity: 1;
+}
+
+
+/* ---------------------------------------------------------
+   POSISI
+   --------------------------------------------------------- */
+
+.hero-prev {
+    left: 16px;
+}
+
+.hero-next {
+    right: 16px;
+}
+
+
+/* ---------------------------------------------------------
+   HOVER
+   --------------------------------------------------------- */
+
+.hero-arrow:hover {
+    background: rgba(0, 0, 0, 0.8);
+
+    transform:
+        translateY(-50%)
+        scale(1.08);
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    .hero-arrow {
+        width: 34px;
+        height: 34px;
+
+        font-size: 26px;
+
+        opacity: 1;
+    }
+
+    .hero-prev {
+        left: 10px;
+    }
+
+    .hero-next {
+        right: 10px;
+    }
+
+}
+/* =========================================================
+   HERO BERITA
+   ========================================================= */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   LINK GAMBAR
+   ========================================================= */
+
+.hero-image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =========================================================
+   GAMBAR HERO
+   ========================================================= */
+
+.hero-bg {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.35s ease;
+}
+
+
+/* Sedikit efek ketika mouse masuk */
+
+.hero:hover .hero-bg {
+    transform: scale(1.015);
+}
+
+
+/* =========================================================
+   KOTAK JUDUL / OVERLAY
+   ========================================================= */
+
+.hero-overlay {
+
+    position: absolute;
+
+    left: 32px;
+    bottom: 32px;
+
+    z-index: 5;
+
+    width: min(560px, calc(100% - 64px));
+
+    padding: 22px 24px;
+
+    /* HITAM TRANSPARAN */
+
+    background: rgba(0, 0, 0, 0.68);
+
+    border-radius: 9px;
+
+    box-sizing: border-box;
+
+    color: #ffffff;
+
+    /* Supaya teks tetap nyaman dibaca */
+
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+
+/* =========================================================
+   KATEGORI
+   ========================================================= */
+
+.hero-category {
+
+    display: inline-block;
+
+    margin-bottom: 12px;
+
+    padding: 5px 9px;
+
+    background: #0b63ce;
+
+    color: #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    border-radius: 3px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   JUDUL HERO
+   ========================================================= */
+
+.hero-overlay h1 {
+
+    margin: 0 0 12px;
+
+    font-size: 30px;
+
+    line-height: 1.22;
+
+    font-weight: 800;
+
+    letter-spacing: -0.4px;
+}
+
+
+/* LINK JUDUL HARUS PUTIH */
+
+.hero-overlay h1 a {
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+}
+
+
+/* Jangan berubah warna */
+
+.hero-overlay h1 a:hover {
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+}
+
+
+/* =========================================================
+   RINGKASAN
+   ========================================================= */
+
+.hero-overlay p {
+
+    margin: 0 0 16px;
+
+    color: rgba(255, 255, 255, 0.92);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   META
+   ========================================================= */
+
+.hero-meta {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   TOMBOL KIRI / KANAN
+   ========================================================= */
+
+.hero-arrow {
+
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 10;
+
+    width: 44px;
+    height: 44px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.58);
+
+    color: #ffffff;
+
+    font-size: 34px;
+
+    line-height: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* Tampilkan ketika mouse berada di Hero */
+
+.hero:hover .hero-arrow {
+
+    opacity: 1;
+
+}
+
+
+/* Tombol kiri */
+
+.hero-prev {
+
+    left: 16px;
+
+}
+
+
+/* Tombol kanan */
+
+.hero-next {
+
+    right: 16px;
+
+}
+
+
+/* Hover tombol */
+
+.hero-arrow:hover {
+
+    background: rgba(0, 0, 0, 0.82);
+
+    transform:
+        translateY(-50%)
+        scale(1.08);
+
+}
+
+
+/* =========================================================
+   DOTS
+   ========================================================= */
+
+.hero .dots {
+
+    position: absolute;
+
+    z-index: 10;
+
+    left: 50%;
+
+    bottom: 10px;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.hero .dots button {
+
+    width: 9px;
+    height: 9px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.85);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.hero .dots button.selected {
+
+    transform: scale(1.25);
+
+    background: #0b63ce;
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .hero-overlay {
+
+        left: 16px;
+
+        right: 16px;
+
+        bottom: 28px;
+
+        width: auto;
+
+        padding: 16px 18px;
+
+    }
+
+
+    .hero-overlay h1 {
+
+        font-size: 21px;
+
+        line-height: 1.25;
+
+    }
+
+
+    .hero-overlay p {
+
+        font-size: 12px;
+
+        line-height: 1.55;
+
+    }
+
+
+    .hero-arrow {
+
+        width: 36px;
+
+        height: 36px;
+
+        font-size: 28px;
+
+        opacity: 1;
+
+    }
+
+
+    .hero-prev {
+
+        left: 9px;
+
+    }
+
+
+    .hero-next {
+
+        right: 9px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE KECIL
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .hero-overlay {
+
+        left: 12px;
+
+        right: 12px;
+
+        bottom: 24px;
+
+        padding: 13px 15px;
+
+    }
+
+
+    .hero-overlay h1 {
+
+        font-size: 18px;
+
+    }
+
+
+    .hero-overlay p {
+
+        display: none;
+
+    }
+
+
+    .hero-meta {
+
+        font-size: 10px;
+
+    }
+
+}
