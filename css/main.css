@@ -385,6 +385,11 @@ body.dark-preview{
   color:#e6edf3;
 }
 
+
+/* ---------------------------------------------------------
+   HEADER / NAVIGATION
+   --------------------------------------------------------- */
+
 body.dark-preview .main-nav{
   background:#161b22;
 
@@ -433,6 +438,10 @@ body.dark-preview .category{
   color:#6ea8fe;
 }
 
+body.dark-preview .label{
+  color:#fff;
+}
+
 body.dark-preview time{
   color:#9da7b3;
 }
@@ -449,16 +458,21 @@ body.dark-preview .section-heading>a{
   color:#aeb8c4;
 }
 
+body.dark-preview .section-heading:after{
+  background:#2f81f7;
+}
+
 
 /* =========================================================
-   DARK MODE - KARTU
+   DARK MODE - LINK
    ========================================================= */
 
-body.dark-preview .news-card,
-body.dark-preview .latest-item,
-body.dark-preview .focus-card,
-body.dark-preview .sidebar-section{
-  color:#e6edf3;
+body.dark-preview a{
+  color:inherit;
+}
+
+body.dark-preview .change-news-btn{
+  color:#58a6ff;
 }
 
 
