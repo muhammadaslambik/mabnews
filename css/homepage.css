@@ -1064,3 +1064,22 @@ body.dark-preview .focus-card{
   }
 
 }
+/* =========================================================
+HERO SWIPE — MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+.hero-image-link {
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.hero-bg {
+    pointer-events: none;
+}
+
+
+}
