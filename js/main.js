@@ -177,63 +177,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =====================================================
-     MENU HAMBURGER
-     ===================================================== */
+   MENU HAMBURGER
+   ===================================================== */
 
-  const menu =
-    document.querySelector(".hamburger");
+const hamburger = document.querySelector("#hamburger");
+const navLinks = document.querySelector("#navLinks");
 
-  const nav =
-    document.querySelector(".nav-links");
+if (hamburger && navLinks) {
 
-  menu?.addEventListener("click", () => {
-    nav?.classList.toggle("mobile-open");
+  hamburger.addEventListener("click", (event) => {
+
+    event.stopPropagation();
+
+    const isOpen = navLinks.classList.toggle("open");
+
+    hamburger.classList.toggle("active", isOpen);
+
+    hamburger.setAttribute(
+      "aria-expanded",
+      isOpen ? "true" : "false"
+    );
+
+    hamburger.setAttribute(
+      "aria-label",
+      isOpen ? "Tutup menu" : "Buka menu"
+    );
+
   });
 
-document.addEventListener("DOMContentLoaded", function () {
 
-  const hamburger = document.querySelector(".hamburger");
-  const navLinks = document.querySelector(".nav-links");
+  // Tutup menu ketika link dipilih
+  navLinks.querySelectorAll("a").forEach((link) => {
 
-  if (!hamburger || !navLinks) return;
+    link.addEventListener("click", () => {
 
-  hamburger.addEventListener("click", function (e) {
-    e.stopPropagation();
-
-    hamburger.classList.toggle("active");
-    navLinks.classList.toggle("open");
-
-    const isOpen = navLinks.classList.contains("open");
-
-    hamburger.setAttribute("aria-expanded", isOpen);
-  });
-
-  /* Tutup menu ketika klik di luar */
-  document.addEventListener("click", function (e) {
-
-    if (
-      !navLinks.contains(e.target) &&
-      !hamburger.contains(e.target)
-    ) {
-      hamburger.classList.remove("active");
       navLinks.classList.remove("open");
-      hamburger.setAttribute("aria-expanded", "false");
-    }
-
-  });
-
-  /* Tutup menu setelah memilih navigasi */
-  navLinks.querySelectorAll("a").forEach(function (link) {
-
-    link.addEventListener("click", function () {
       hamburger.classList.remove("active");
-      navLinks.classList.remove("open");
-      hamburger.setAttribute("aria-expanded", "false");
+
+      hamburger.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      hamburger.setAttribute(
+        "aria-label",
+        "Buka menu"
+      );
+
     });
 
   });
 
-});
+
+  // Tutup menu ketika klik di luar
+  document.addEventListener("click", (event) => {
+
+    if (
+      !navLinks.contains(event.target) &&
+      !hamburger.contains(event.target)
+    ) {
+
+      navLinks.classList.remove("open");
+      hamburger.classList.remove("active");
+
+      hamburger.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      hamburger.setAttribute(
+        "aria-label",
+        "Buka menu"
+      );
+
+    }
+
+  });
+
+}
 
 
   /* =====================================================

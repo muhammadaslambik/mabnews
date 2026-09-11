@@ -200,7 +200,11 @@
   border-top:1px solid #e3e6ea;
   border-bottom:1px solid #e1e5e9;
   transition:border-color .25s ease,background-color .25s ease;
+
+  overscroll-behavior-x:contain;
+  overflow:hidden;
 }
+
 
 .nav-inner{
   height:100%;
@@ -234,10 +238,19 @@
   align-items:center;
   gap:27px;
   width:100%;
+  min-width:0;
+
   overflow-x:auto;
   overflow-y:hidden;
+
   white-space:nowrap;
   scroll-behavior:smooth;
+
+  overscroll-behavior-x:contain;
+  overscroll-behavior-y:none;
+
+  touch-action:pan-x;
+
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
 }
@@ -248,9 +261,6 @@
 
 .nav-links a{
   flex:0 0 auto;
-}
-
-.nav-links a{
   height:100%;
   display:flex;
   align-items:center;
@@ -273,6 +283,7 @@
   height:3px;
   background:#0b55b7;
 }
+
 
 /* =========================================================
    HAMBURGER MENU
@@ -329,8 +340,11 @@
     position:absolute;
     top:45px;
     left:0;
+
     width:260px;
-    height:auto;
+
+    /* Batas tinggi menu mengikuti layar */
+    max-height:calc(100vh - 65px);
 
     display:flex;
     flex-direction:column;
@@ -339,11 +353,22 @@
     gap:0;
 
     padding:8px;
+
     background:#fff;
     border:1px solid #dfe3e8;
     box-shadow:0 10px 25px rgba(0,0,0,.12);
 
-    overflow:visible;
+    /* Scroll vertikal */
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    /* Jangan biarkan halaman ikut terscroll */
+    overscroll-behavior:contain;
+    touch-action:pan-y;
+
+    -webkit-overflow-scrolling:touch;
+
+    scrollbar-width:thin;
 
     opacity:0;
     visibility:hidden;
@@ -351,6 +376,18 @@
     pointer-events:none;
 
     z-index:1001;
+  }
+  .nav-links::-webkit-scrollbar{
+    width:5px;
+  }
+
+  .nav-links::-webkit-scrollbar-track{
+    background:transparent;
+  }
+
+  .nav-links::-webkit-scrollbar-thumb{
+    background:#b8c0ca;
+    border-radius:10px;
   }
 
   .nav-links.open{
