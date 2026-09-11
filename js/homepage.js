@@ -304,6 +304,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             updateHero(currentHero);
 
+        resetHeroAutoSlide();            
+
         });
 
     }
@@ -331,6 +333,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             updateHero(currentHero);
+            
+        resetHeroAutoSlide();            
 
         });
 
@@ -899,50 +903,5 @@ if (heroElement) {
    ========================================================= */
 
 startHeroAutoSlide();
-
-/* =========================================================
-   TOMBOL HERO SEBELUMNYA
-   ========================================================= */
-
-if (heroPrev) {
-
-    heroPrev.addEventListener("click", () => {
-
-        currentHero--;
-
-        if (currentHero < 0) {
-            currentHero = popularHeroNews.length - 1;
-        }
-
-        updateHero(currentHero);
-
-        resetHeroAutoSlide();
-
-    });
-
-}
-
-
-/* =========================================================
-   TOMBOL HERO BERIKUTNYA
-   ========================================================= */
-
-if (heroNext) {
-
-    heroNext.addEventListener("click", () => {
-
-        currentHero++;
-
-        if (currentHero >= popularHeroNews.length) {
-            currentHero = 0;
-        }
-
-        updateHero(currentHero);
-
-        resetHeroAutoSlide();
-
-    });
-
-}
 
 });
