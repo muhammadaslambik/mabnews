@@ -1,826 +1,983 @@
-document.addEventListener("DOMContentLoaded", () => {
+/* =========================================================
+   HERO SLIDER
+   BERITA TERPOPULER
+   ========================================================= */
 
+const heroImageLink =
+    document.querySelector("#heroImageLink");
 
-    /* =========================================================
-       HERO SLIDER
-       BERITA TERPOPULER
-       ========================================================= */
+const heroImage =
+    document.querySelector("#heroImage");
 
-    const heroImageLink =
-        document.querySelector("#heroImageLink");
+const heroCategory =
+    document.querySelector("#heroCategory");
 
-    const heroImage =
-        document.querySelector("#heroImage");
+const heroTitleLink =
+    document.querySelector("#heroTitleLink");
 
-    const heroCategory =
-        document.querySelector("#heroCategory");
+const heroLead =
+    document.querySelector("#heroLead");
 
-    const heroTitleLink =
-        document.querySelector("#heroTitleLink");
+const heroDate =
+    document.querySelector("#heroDate");
 
-    const heroLead =
-        document.querySelector("#heroLead");
+const heroAuthor =
+    document.querySelector("#heroAuthor");
 
-    const heroDate =
-        document.querySelector("#heroDate");
+const heroPrev =
+    document.querySelector("#heroPrev");
 
-    const heroAuthor =
-        document.querySelector("#heroAuthor");
+const heroNext =
+    document.querySelector("#heroNext");
 
-    const heroPrev =
-        document.querySelector("#heroPrev");
+const heroDots =
+    document.querySelectorAll("#heroDots button");
 
-    const heroNext =
-        document.querySelector("#heroNext");
 
-    const heroDots =
-        document.querySelectorAll("#heroDots button");
+/* =========================================================
+   DATA BERITA TERPOPULER
+   ========================================================= */
 
+const popularHeroNews = [
 
-    /* =========================================================
-       DATA BERITA TERPOPULER
-       ========================================================= */
+    {
+        id: "pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat",
 
-    const popularHeroNews = [
+        category: "EKONOMI",
 
-        {
-            id: "pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat",
+        title:
+            "Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat",
 
-            category: "EKONOMI",
+        lead:
+            "Berbagai langkah disiapkan untuk menjaga konsumsi dan daya beli masyarakat di tengah perubahan kondisi ekonomi global.",
 
-            title:
-                "Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat",
+        image:
+            "assets/images/hero.jpg",
 
-            lead:
-                "Berbagai langkah disiapkan untuk menjaga konsumsi dan daya beli masyarakat di tengah perubahan kondisi ekonomi global.",
+        date:
+            "6 September 2026",
 
-            image:
-                "assets/images/hero.jpg",
+        author:
+            "MAB-News"
+    },
 
-            date:
-                "6 September 2026",
 
-            author:
-                "MAB-News"
-        },
+    {
+        id: "perkembangan-ai-mendorong-perubahan-cara-kerja",
 
+        category: "TEKNOLOGI",
 
-        {
-            id: "perkembangan-ai-mendorong-perubahan-cara-kerja",
+        title:
+            "Perkembangan AI Mendorong Perubahan Cara Kerja",
 
-            category: "TEKNOLOGI",
+        lead:
+            "Perkembangan kecerdasan buatan terus mengubah cara individu dan organisasi menyelesaikan pekerjaan serta mengolah informasi.",
 
-            title:
-                "Perkembangan AI Mendorong Perubahan Cara Kerja",
+        image:
+            "assets/images/card-openai.jpg",
 
-            lead:
-                "Perkembangan kecerdasan buatan terus mengubah cara individu dan organisasi menyelesaikan pekerjaan serta mengolah informasi.",
+        date:
+            "6 September 2026",
 
-            image:
-                "assets/images/card-openai.jpg",
+        author:
+            "MAB-News"
+    },
 
-            date:
-                "6 September 2026",
 
-            author:
-                "MAB-News"
-        },
+    {
+        id: "aparat-perkuat-pengamanan-dan-pelayanan-publik",
 
+        category: "NASIONAL",
 
-        {
-            id: "aparat-perkuat-pengamanan-dan-pelayanan-publik",
+        title:
+            "Aparat Perkuat Pengamanan dan Pelayanan Publik",
 
-            category: "NASIONAL",
+        lead:
+            "Aparat keamanan memperkuat pengamanan sekaligus meningkatkan pelayanan publik untuk memberikan rasa aman kepada masyarakat.",
 
-            title:
-                "Aparat Perkuat Pengamanan dan Pelayanan Publik",
+        image:
+            "assets/images/card-police.jpg",
 
-            lead:
-                "Aparat keamanan memperkuat pengamanan sekaligus meningkatkan pelayanan publik untuk memberikan rasa aman kepada masyarakat.",
+        date:
+            "6 September 2026",
 
-            image:
-                "assets/images/card-police.jpg",
+        author:
+            "MAB-News"
+    },
 
-            date:
-                "6 September 2026",
 
-            author:
-                "MAB-News"
-        },
+    {
+        id: "industri-otomotif-mulai-beradaptasi-dengan-tren-baru",
 
+        category: "OTOMOTIF",
 
-        {
-            id: "industri-otomotif-mulai-beradaptasi-dengan-tren-baru",
+        title:
+            "Industri Otomotif Mulai Beradaptasi dengan Tren Baru",
 
-            category: "OTOMOTIF",
+        lead:
+            "Industri otomotif terus melakukan penyesuaian menghadapi perubahan teknologi, kebutuhan konsumen, dan perkembangan pasar.",
 
-            title:
-                "Industri Otomotif Mulai Beradaptasi dengan Tren Baru",
+        image:
+            "assets/images/card-auto.jpg",
 
-            lead:
-                "Industri otomotif terus melakukan penyesuaian menghadapi perubahan teknologi, kebutuhan konsumen, dan perkembangan pasar.",
+        date:
+            "6 September 2026",
 
-            image:
-                "assets/images/card-auto.jpg",
+        author:
+            "MAB-News"
+    },
 
-            date:
-                "6 September 2026",
 
-            author:
-                "MAB-News"
-        },
+    {
+        id: "aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada",
 
+        category: "NASIONAL",
 
-        {
-            id: "aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada",
+        title:
+            "Aktivitas Gunung Api Kembali Dipantau, Warga Diminta Tetap Waspada",
 
-            category: "NASIONAL",
+        lead:
+            "Petugas terus memantau perkembangan aktivitas gunung api dan mengimbau masyarakat mengikuti informasi resmi.",
 
-            title:
-                "Aktivitas Gunung Api Kembali Dipantau, Warga Diminta Tetap Waspada",
+        image:
+            "assets/images/latest-volcano.jpg",
 
-            lead:
-                "Petugas terus memantau perkembangan aktivitas gunung api dan mengimbau masyarakat mengikuti informasi resmi.",
+        date:
+            "6 September 2026",
 
-            image:
-                "assets/images/latest-volcano.jpg",
+        author:
+            "MAB-News"
+    }
 
-            date:
-                "6 September 2026",
+];
 
-            author:
-                "MAB-News"
-        }
 
-    ];
+/* =========================================================
+   SLIDE AKTIF
+   ========================================================= */
 
+let currentHero = 0;
 
-    /* =========================================================
-       SLIDE AKTIF
-       ========================================================= */
 
-    let currentHero =
-        0;
+/* =========================================================
+   UPDATE HERO
+   ========================================================= */
 
+function updateHero(index) {
 
-    /* =========================================================
-       UPDATE HERO
-       ========================================================= */
+    const article =
+        popularHeroNews[index];
 
-    function updateHero(index) {
+    if (!article) {
+        return;
+    }
 
-        const article =
-            popularHeroNews[index];
 
-        if (!article) {
-            return;
-        }
+    /* -----------------------------------------------------
+       LINK GAMBAR
+    ----------------------------------------------------- */
 
+    if (heroImageLink) {
 
-        /* -----------------------------------------------------
-           LINK GAMBAR
-        ----------------------------------------------------- */
-
-        if (heroImageLink) {
-
-            heroImageLink.href =
-                `artikel.html?id=${article.id}`;
-
-        }
-
-
-        /* -----------------------------------------------------
-           GAMBAR
-        ----------------------------------------------------- */
-
-        if (heroImage) {
-
-            heroImage.src =
-                article.image;
-
-            heroImage.alt =
-                article.title;
-
-        }
-
-
-        /* -----------------------------------------------------
-           KATEGORI
-        ----------------------------------------------------- */
-
-        if (heroCategory) {
-
-            heroCategory.textContent =
-                article.category;
-
-        }
-
-
-        /* -----------------------------------------------------
-           JUDUL
-        ----------------------------------------------------- */
-
-        if (heroTitleLink) {
-
-            heroTitleLink.href =
-                `artikel.html?id=${article.id}`;
-
-            heroTitleLink.textContent =
-                article.title;
-
-        }
-
-
-        /* -----------------------------------------------------
-           LEAD
-        ----------------------------------------------------- */
-
-        if (heroLead) {
-
-            heroLead.textContent =
-                article.lead;
-
-        }
-
-
-        /* -----------------------------------------------------
-           TANGGAL
-        ----------------------------------------------------- */
-
-        if (heroDate) {
-
-            heroDate.textContent =
-                article.date;
-
-        }
-
-
-        /* -----------------------------------------------------
-           PENULIS
-        ----------------------------------------------------- */
-
-        if (heroAuthor) {
-
-            heroAuthor.textContent =
-                article.author;
-
-        }
-
-
-        /* -----------------------------------------------------
-           DOTS
-        ----------------------------------------------------- */
-
-        heroDots.forEach((dot, dotIndex) => {
-
-            dot.classList.toggle(
-                "selected",
-                dotIndex === index
-            );
-
-        });
+        heroImageLink.href =
+            `artikel.html?id=${article.id}`;
 
     }
 
 
-    /* =========================================================
-       TOMBOL SEBELUMNYA
-       ========================================================= */
+    /* -----------------------------------------------------
+       GAMBAR
+    ----------------------------------------------------- */
 
-    if (heroPrev) {
+    if (heroImage) {
 
-        heroPrev.addEventListener("click", (event) => {
+        heroImage.src =
+            article.image;
 
-            event.preventDefault();
+        heroImage.alt =
+            article.title;
 
-            currentHero--;
+    }
 
-            if (currentHero < 0) {
 
-                currentHero =
-                    popularHeroNews.length - 1;
+    /* -----------------------------------------------------
+       KATEGORI
+    ----------------------------------------------------- */
 
+    if (heroCategory) {
+
+        heroCategory.textContent =
+            article.category;
+
+    }
+
+
+    /* -----------------------------------------------------
+       JUDUL
+    ----------------------------------------------------- */
+
+    if (heroTitleLink) {
+
+        heroTitleLink.href =
+            `artikel.html?id=${article.id}`;
+
+        heroTitleLink.textContent =
+            article.title;
+
+    }
+
+
+    /* -----------------------------------------------------
+       LEAD
+    ----------------------------------------------------- */
+
+    if (heroLead) {
+
+        heroLead.textContent =
+            article.lead;
+
+    }
+
+
+    /* -----------------------------------------------------
+       TANGGAL
+    ----------------------------------------------------- */
+
+    if (heroDate) {
+
+        heroDate.textContent =
+            article.date;
+
+    }
+
+
+    /* -----------------------------------------------------
+       PENULIS
+    ----------------------------------------------------- */
+
+    if (heroAuthor) {
+
+        heroAuthor.textContent =
+            article.author;
+
+    }
+
+
+    /* -----------------------------------------------------
+       DOTS
+    ----------------------------------------------------- */
+
+    heroDots.forEach((dot, dotIndex) => {
+
+        dot.classList.toggle(
+            "selected",
+            dotIndex === index
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   FUNGSI HERO BERIKUTNYA
+   ========================================================= */
+
+function nextHero() {
+
+    currentHero++;
+
+    if (
+        currentHero >=
+        popularHeroNews.length
+    ) {
+
+        currentHero = 0;
+
+    }
+
+    updateHero(currentHero);
+
+}
+
+
+/* =========================================================
+   FUNGSI HERO SEBELUMNYA
+   ========================================================= */
+
+function prevHero() {
+
+    currentHero--;
+
+    if (currentHero < 0) {
+
+        currentHero =
+            popularHeroNews.length - 1;
+
+    }
+
+    updateHero(currentHero);
+
+}
+
+
+/* =========================================================
+   TOMBOL SEBELUMNYA
+   ========================================================= */
+
+if (heroPrev) {
+
+    heroPrev.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        prevHero();
+
+        resetHeroAutoSlide();
+
+    });
+
+}
+
+
+/* =========================================================
+   TOMBOL BERIKUTNYA
+   ========================================================= */
+
+if (heroNext) {
+
+    heroNext.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        nextHero();
+
+        resetHeroAutoSlide();
+
+    });
+
+}
+
+
+/* =========================================================
+   KLIK DOT HERO
+   ========================================================= */
+
+heroDots.forEach((dot, index) => {
+
+    dot.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        currentHero = index;
+
+        updateHero(currentHero);
+
+        resetHeroAutoSlide();
+
+    });
+
+});
+
+
+/* =========================================================
+   SWIPE HERO MOBILE
+   GESER KIRI / KANAN PADA GAMBAR
+   ========================================================= */
+
+const heroSwipeArea =
+    document.querySelector("#heroImageLink");
+
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+let touchEndX = 0;
+let touchEndY = 0;
+
+
+const swipeThreshold = 50;
+
+
+if (heroSwipeArea) {
+
+    heroSwipeArea.addEventListener(
+        "touchstart",
+        (event) => {
+
+            if (!event.touches || !event.touches.length) {
+                return;
             }
 
-            updateHero(currentHero);
+            touchStartX =
+                event.touches[0].clientX;
 
-        resetHeroAutoSlide();            
+            touchStartY =
+                event.touches[0].clientY;
 
-        });
+            touchEndX =
+                touchStartX;
 
-    }
+            touchEndY =
+                touchStartY;
+
+        },
+        {
+            passive: true
+        }
+    );
 
 
-    /* =========================================================
-       TOMBOL BERIKUTNYA
-       ========================================================= */
+    heroSwipeArea.addEventListener(
+        "touchmove",
+        (event) => {
 
-    if (heroNext) {
+            if (!event.touches || !event.touches.length) {
+                return;
+            }
 
-        heroNext.addEventListener("click", (event) => {
+            touchEndX =
+                event.touches[0].clientX;
 
-            event.preventDefault();
+            touchEndY =
+                event.touches[0].clientY;
 
-            currentHero++;
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    heroSwipeArea.addEventListener(
+        "touchend",
+        () => {
+
+            const deltaX =
+                touchEndX - touchStartX;
+
+            const deltaY =
+                touchEndY - touchStartY;
+
+
+            /* -------------------------------------------------
+               Hanya dianggap swipe jika gerakan horizontal
+               lebih besar daripada gerakan vertikal.
+            ------------------------------------------------- */
 
             if (
-                currentHero >=
-                popularHeroNews.length
+                Math.abs(deltaX) <
+                swipeThreshold
             ) {
+                return;
+            }
 
-                currentHero = 0;
+
+            if (
+                Math.abs(deltaX) <=
+                Math.abs(deltaY)
+            ) {
+                return;
+            }
+
+
+            /* -------------------------------------------------
+               Geser kiri
+               → artikel berikutnya
+            ------------------------------------------------- */
+
+            if (deltaX < 0) {
+
+                nextHero();
 
             }
 
-            updateHero(currentHero);
-            
-        resetHeroAutoSlide();            
 
-        });
+            /* -------------------------------------------------
+               Geser kanan
+               → artikel sebelumnya
+            ------------------------------------------------- */
 
-    }
+            else {
+
+                prevHero();
+
+            }
 
 
-    /* =========================================================
-       KLIK DOT HERO
-       ========================================================= */
+            resetHeroAutoSlide();
 
-    heroDots.forEach((dot, index) => {
+        },
+        {
+            passive: true
+        }
+    );
 
-        dot.addEventListener("click", (event) => {
+}
 
-            event.preventDefault();
 
-            currentHero =
-                index;
+/* =========================================================
+   FOCUS DOTS
+   ========================================================= */
 
-            updateHero(currentHero);
+document
+    .querySelectorAll(".focus-card .dots button")
+    .forEach((dot) => {
+
+        dot.addEventListener("click", () => {
+
+            document
+                .querySelectorAll(
+                    ".focus-card .dots button"
+                )
+                .forEach(d =>
+                    d.classList.remove("selected")
+                );
+
+            dot.classList.add("selected");
 
         });
 
     });
 
 
-    /* =========================================================
-       FOCUS DOTS
-       ========================================================= */
+/* =========================================================
+   BERITA UTAMA
+   GANTI BERITA LAINNYA
+   ========================================================= */
 
-    document
-        .querySelectorAll(".focus-card .dots button")
-        .forEach((dot) => {
+const mainNewsButton =
+    document.querySelector("#changeMainNews");
 
-            dot.addEventListener("click", () => {
+const mainNewsCards =
+    document.querySelectorAll(
+        ".top-cards .news-card"
+    );
 
-                document
-                    .querySelectorAll(".focus-card .dots button")
-                    .forEach(d =>
-                        d.classList.remove("selected")
-                    );
 
-                dot.classList.add("selected");
+const newsGroups = [
 
-            });
 
-        });
+    /* =====================================================
+       KELOMPOK 1
+    ===================================================== */
 
+    [
 
-    /* =========================================================
-       BERITA UTAMA
-       GANTI BERITA LAINNYA
-       ========================================================= */
+        {
+            id:
+                "pasar-dan-konsumen-menghadapi-perubahan-baru",
 
-    const mainNewsButton =
-        document.querySelector("#changeMainNews");
+            category:
+                "EKONOMI",
 
-    const mainNewsCards =
-        document.querySelectorAll(
-            ".top-cards .news-card"
-        );
+            title:
+                "Pasar dan Konsumen Menghadapi Perubahan Baru",
 
+            image:
+                "assets/images/card-market.jpg",
 
-    const newsGroups = [
+            alt:
+                "Pasar dan Konsumen",
 
+            date:
+                "6 Sep 2026 · 10:45"
+        },
 
-        /* =====================================================
-           KELOMPOK 1
-        ===================================================== */
 
-        [
+        {
+            id:
+                "aparat-perkuat-pengamanan-dan-pelayanan-publik",
 
-            {
-                id:
-                    "pasar-dan-konsumen-menghadapi-perubahan-baru",
+            category:
+                "NASIONAL",
 
-                category:
-                    "EKONOMI",
+            title:
+                "Aparat Perkuat Pengamanan dan Pelayanan Publik",
 
-                title:
-                    "Pasar dan Konsumen Menghadapi Perubahan Baru",
+            image:
+                "assets/images/card-police.jpg",
 
-                image:
-                    "assets/images/card-market.jpg",
+            alt:
+                "Aparat dan Pelayanan Publik",
 
-                alt:
-                    "Pasar dan Konsumen",
+            date:
+                "6 Sep 2026 · 10:18"
+        },
 
-                date:
-                    "6 Sep 2026 · 10:45"
-            },
 
+        {
+            id:
+                "perkembangan-ai-mendorong-perubahan-cara-kerja",
 
-            {
-                id:
-                    "aparat-perkuat-pengamanan-dan-pelayanan-publik",
+            category:
+                "TEKNOLOGI",
 
-                category:
-                    "NASIONAL",
+            title:
+                "Perkembangan AI Mendorong Perubahan Cara Kerja",
 
-                title:
-                    "Aparat Perkuat Pengamanan dan Pelayanan Publik",
+            image:
+                "assets/images/card-openai.jpg",
 
-                image:
-                    "assets/images/card-police.jpg",
+            alt:
+                "Perkembangan AI",
 
-                alt:
-                    "Aparat dan Pelayanan Publik",
+            date:
+                "6 Sep 2026 · 09:50"
+        },
 
-                date:
-                    "6 Sep 2026 · 10:18"
-            },
 
+        {
+            id:
+                "industri-otomotif-mulai-beradaptasi-dengan-tren-baru",
 
-            {
-                id:
-                    "perkembangan-ai-mendorong-perubahan-cara-kerja",
+            category:
+                "OTOMOTIF",
 
-                category:
-                    "TEKNOLOGI",
+            title:
+                "Industri Otomotif Mulai Beradaptasi dengan Tren Baru",
 
-                title:
-                    "Perkembangan AI Mendorong Perubahan Cara Kerja",
+            image:
+                "assets/images/card-auto.jpg",
 
-                image:
-                    "assets/images/card-openai.jpg",
+            alt:
+                "Industri Otomotif",
 
-                alt:
-                    "Perkembangan AI",
+            date:
+                "6 Sep 2026 · 09:24"
+        }
 
-                date:
-                    "6 Sep 2026 · 09:50"
-            },
+    ],
 
 
-            {
-                id:
-                    "industri-otomotif-mulai-beradaptasi-dengan-tren-baru",
+    /* =====================================================
+       KELOMPOK 2
+    ===================================================== */
 
-                category:
-                    "OTOMOTIF",
+    [
 
-                title:
-                    "Industri Otomotif Mulai Beradaptasi dengan Tren Baru",
+        {
+            id:
+                "aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada",
 
-                image:
-                    "assets/images/card-auto.jpg",
+            category:
+                "NASIONAL",
 
-                alt:
-                    "Industri Otomotif",
+            title:
+                "Aktivitas Gunung Api Kembali Dipantau, Warga Diminta Tetap Waspada",
 
-                date:
-                    "6 Sep 2026 · 09:24"
-            }
+            image:
+                "assets/images/latest-volcano.jpg",
 
-        ],
+            alt:
+                "Aktivitas Gunung Api",
 
+            date:
+                "6 Sep 2026 · 08:55"
+        },
 
-        /* =====================================================
-           KELOMPOK 2
-        ===================================================== */
 
-        [
+        {
+            id:
+                "arus-logistik-nasional-terus-diperkuat-untuk-menekan-biaya-distribusi",
 
-            {
-                id:
-                    "aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada",
+            category:
+                "EKONOMI",
 
-                category:
-                    "NASIONAL",
+            title:
+                "Arus Logistik Nasional Terus Diperkuat untuk Menekan Biaya Distribusi",
 
-                title:
-                    "Aktivitas Gunung Api Kembali Dipantau, Warga Diminta Tetap Waspada",
+            image:
+                "assets/images/latest-port.jpg",
 
-                image:
-                    "assets/images/latest-volcano.jpg",
+            alt:
+                "Arus Logistik Nasional",
 
-                alt:
-                    "Aktivitas Gunung Api",
+            date:
+                "6 Sep 2026 · 08:20"
+        },
 
-                date:
-                    "6 Sep 2026 · 08:55"
-            },
 
+        {
+            id:
+                "inflasi-mei-2025-terkendali-di-level-2-4-persen",
 
-            {
-                id:
-                    "arus-logistik-nasional-terus-diperkuat-untuk-menekan-biaya-distribusi",
+            category:
+                "EKONOMI",
 
-                category:
-                    "EKONOMI",
+            title:
+                "Inflasi Mei 2025 Terkendali di Level 2,4 Persen",
 
-                title:
-                    "Arus Logistik Nasional Terus Diperkuat untuk Menekan Biaya Distribusi",
+            image:
+                "assets/images/card-market.jpg",
 
-                image:
-                    "assets/images/latest-port.jpg",
+            alt:
+                "Inflasi",
 
-                alt:
-                    "Arus Logistik Nasional",
+            date:
+                "9 Jun 2025 · 10:45"
+        },
 
-                date:
-                    "6 Sep 2026 · 08:20"
-            },
 
+        {
+            id:
+                "australia-perketat-aturan-visa-untuk-pelajar-internasional",
 
-            {
-                id:
-                    "inflasi-mei-2025-terkendali-di-level-2-4-persen",
+            category:
+                "INTERNASIONAL",
 
-                category:
-                    "EKONOMI",
+            title:
+                "Australia Perketat Aturan Visa untuk Pelajar Internasional",
 
-                title:
-                    "Inflasi Mei 2025 Terkendali di Level 2,4 Persen",
+            image:
+                "assets/images/latest-port.jpg",
 
-                image:
-                    "assets/images/card-market.jpg",
+            alt:
+                "Australia",
 
-                alt:
-                    "Inflasi",
+            date:
+                "8 Jun 2025 · 10:15"
+        }
 
-                date:
-                    "9 Jun 2025 · 10:45"
-            },
+    ],
 
 
-            {
-                id:
-                    "australia-perketat-aturan-visa-untuk-pelajar-internasional",
+    /* =====================================================
+       KELOMPOK 3
+    ===================================================== */
 
-                category:
-                    "INTERNASIONAL",
+    [
 
-                title:
-                    "Australia Perketat Aturan Visa untuk Pelajar Internasional",
+        {
+            id:
+                "timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026",
 
-                image:
-                    "assets/images/latest-port.jpg",
+            category:
+                "OLAHRAGA",
 
-                alt:
-                    "Australia",
+            title:
+                "Timnas Indonesia Siap Hadapi China di Kualifikasi Piala Dunia 2026",
 
-                date:
-                    "8 Jun 2025 · 10:15"
-            }
+            image:
+                "assets/images/card-police.jpg",
 
-        ],
+            alt:
+                "Timnas Indonesia",
 
+            date:
+                "6 Jun 2025 · 09:15"
+        },
 
-        /* =====================================================
-           KELOMPOK 3
-        ===================================================== */
 
-        [
+        {
+            id:
+                "gaikindo-sebut-penjualan-mobil-2025-tumbuh-moderat",
 
-            {
-                id:
-                    "timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026",
+            category:
+                "OTOMOTIF",
 
-                category:
-                    "OLAHRAGA",
+            title:
+                "Gaikindo Sebut Penjualan Mobil 2025 Tumbuh Moderat",
 
-                title:
-                    "Timnas Indonesia Siap Hadapi China di Kualifikasi Piala Dunia 2026",
+            image:
+                "assets/images/card-auto.jpg",
 
-                image:
-                    "assets/images/card-police.jpg",
+            alt:
+                "Gaikindo",
 
-                alt:
-                    "Timnas Indonesia",
+            date:
+                "5 Jun 2025 · 08:45"
+        },
 
-                date:
-                    "6 Jun 2025 · 09:15"
-            },
 
+        {
+            id:
+                "melihat-perubahan-besar-di-balik-berita-hari-ini",
 
-            {
-                id:
-                    "gaikindo-sebut-penjualan-mobil-2025-tumbuh-moderat",
+            category:
+                "FOKUS",
 
-                category:
-                    "OTOMOTIF",
+            title:
+                "Melihat Perubahan Besar di Balik Berita Hari Ini",
 
-                title:
-                    "Gaikindo Sebut Penjualan Mobil 2025 Tumbuh Moderat",
+            image:
+                "assets/images/focus.jpg",
 
-                image:
-                    "assets/images/card-auto.jpg",
+            alt:
+                "Fokus MAB-News",
 
-                alt:
-                    "Gaikindo",
+            date:
+                "6 Sep 2026 · 08:00"
+        },
 
-                date:
-                    "5 Jun 2025 · 08:45"
-            },
 
+        {
+            id:
+                "pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat",
 
-            {
-                id:
-                    "melihat-perubahan-besar-di-balik-berita-hari-ini",
+            category:
+                "EKONOMI",
 
-                category:
-                    "FOKUS",
+            title:
+                "Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat",
 
-                title:
-                    "Melihat Perubahan Besar di Balik Berita Hari Ini",
+            image:
+                "assets/images/hero.jpg",
 
-                image:
-                    "assets/images/focus.jpg",
+            alt:
+                "Pemerintah",
 
-                alt:
-                    "Fokus MAB-News",
+            date:
+                "6 Sep 2026 · 11:00"
+        }
 
-                date:
-                    "6 Sep 2026 · 08:00"
-            },
+    ]
 
+];
 
-            {
-                id:
-                    "pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat",
 
-                category:
-                    "EKONOMI",
+let currentGroup =
+    0;
 
-                title:
-                    "Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat",
 
-                image:
-                    "assets/images/hero.jpg",
+/* =========================================================
+   UPDATE BERITA UTAMA
+   ========================================================= */
 
-                alt:
-                    "Pemerintah",
+function updateMainNews(groupIndex) {
 
-                date:
-                    "6 Sep 2026 · 11:00"
-            }
+    const group =
+        newsGroups[groupIndex];
 
-        ]
+    if (!group) {
+        return;
+    }
 
-    ];
 
+    mainNewsCards.forEach((card, index) => {
 
-    let currentGroup =
-        0;
+        const article =
+            group[index];
 
-
-    /* =========================================================
-       UPDATE BERITA UTAMA
-       ========================================================= */
-
-    function updateMainNews(groupIndex) {
-
-        const group =
-            newsGroups[groupIndex];
-
-        if (!group) {
+        if (!article) {
             return;
         }
 
 
-        mainNewsCards.forEach((card, index) => {
-
-            const article =
-                group[index];
-
-            if (!article) {
-                return;
-            }
+        const imageLink =
+            card.querySelector(":scope > a");
 
 
-            const imageLink =
-                card.querySelector(":scope > a");
+        if (imageLink) {
+
+            imageLink.href =
+                `artikel.html?id=${article.id}`;
+
+        }
 
 
-            if (imageLink) {
-
-                imageLink.href =
-                    `artikel.html?id=${article.id}`;
-
-            }
+        const image =
+            card.querySelector("img");
 
 
-            const image =
-                card.querySelector("img");
+        if (image) {
+
+            image.src =
+                article.image;
+
+            image.alt =
+                article.alt;
+
+        }
 
 
-            if (image) {
-
-                image.src =
-                    article.image;
-
-                image.alt =
-                    article.alt;
-
-            }
+        const category =
+            card.querySelector(".category");
 
 
-            const category =
-                card.querySelector(".category");
+        if (category) {
+
+            category.textContent =
+                article.category;
+
+        }
 
 
-            if (category) {
-
-                category.textContent =
-                    article.category;
-
-            }
+        const titleLink =
+            card.querySelector("h3 a");
 
 
-            const titleLink =
-                card.querySelector("h3 a");
+        if (titleLink) {
+
+            titleLink.href =
+                `artikel.html?id=${article.id}`;
+
+            titleLink.textContent =
+                article.title;
+
+        }
 
 
-            if (titleLink) {
-
-                titleLink.href =
-                    `artikel.html?id=${article.id}`;
-
-                titleLink.textContent =
-                    article.title;
-
-            }
+        const time =
+            card.querySelector("time");
 
 
-            const time =
-                card.querySelector("time");
+        if (time) {
+
+            time.textContent =
+                article.date;
+
+        }
+
+    });
 
 
-            if (time) {
+    if (mainNewsButton) {
 
-                time.textContent =
-                    article.date;
+        if (
+            groupIndex ===
+            newsGroups.length - 1
+        ) {
 
-            }
+            mainNewsButton.innerHTML =
+                `Kembali ke Berita Awal <b>↻</b>`;
 
-        });
+        } else {
 
-
-        if (mainNewsButton) {
-
-            if (
-                groupIndex ===
-                newsGroups.length - 1
-            ) {
-
-                mainNewsButton.innerHTML =
-                    `Kembali ke Berita Awal <b>↻</b>`;
-
-            } else {
-
-                mainNewsButton.innerHTML =
-                    `Ganti Berita Lainnya <b>↻</b>`;
-
-            }
+            mainNewsButton.innerHTML =
+                `Ganti Berita Lainnya <b>↻</b>`;
 
         }
 
     }
 
+}
 
-    /* =========================================================
-       KLIK GANTI BERITA
-       ========================================================= */
 
-    if (mainNewsButton) {
+/* =========================================================
+   KLIK GANTI BERITA
+   ========================================================= */
 
-        mainNewsButton.addEventListener("click", () => {
+if (mainNewsButton) {
 
-            currentGroup++;
+    mainNewsButton.addEventListener("click", () => {
 
-            if (
-                currentGroup >=
-                newsGroups.length
-            ) {
+        currentGroup++;
 
-                currentGroup = 0;
+        if (
+            currentGroup >=
+            newsGroups.length
+        ) {
 
-            }
+            currentGroup = 0;
 
-            updateMainNews(currentGroup);
+        }
 
-        });
+        updateMainNews(currentGroup);
 
-    }
+    });
+
+}
 
 
 /* =========================================================
@@ -848,13 +1005,7 @@ function startHeroAutoSlide() {
 
     heroAutoSlide = setInterval(() => {
 
-        currentHero++;
-
-        if (currentHero >= popularHeroNews.length) {
-            currentHero = 0;
-        }
-
-        updateHero(currentHero);
+        nextHero();
 
     }, 10000);
 
@@ -903,5 +1054,3 @@ if (heroElement) {
    ========================================================= */
 
 startHeroAutoSlide();
-
-});
