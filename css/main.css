@@ -1,1 +1,168 @@
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:#111827;font-family:Inter,Arial,sans-serif;font-size:14px}button,input{font:inherit}a{text-decoration:none;color:inherit}.container{width:min(1400px,calc(100% - 80px));margin-inline:auto}.category,.label{font-weight:700;color:#06449a;font-size:10px;letter-spacing:.15px}.label{display:inline-flex;background:#0b55b7;color:#fff;border-radius:3px;padding:3px 7px;font-size:9px}.section-heading{height:40px;border-bottom:1px solid #d9dee5;display:flex;align-items:flex-start;justify-content:space-between;position:relative}.section-heading h2{font-size:15px;line-height:1;margin:0;font-weight:800}.section-heading:after{content:"";position:absolute;bottom:-1px;left:0;width:34px;height:2px;background:#0956b7}.section-heading>a{font-size:11px;color:#30353d}.section-heading>a b{font-size:23px;line-height:7px;margin-left:8px;font-weight:400}.news-section{margin-top:16px}time{font-size:10px;color:#59616e}
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:#fff;
+  color:#111827;
+  font-family:Inter,Arial,sans-serif;
+  font-size:14px;
+  transition:background-color .25s ease,color .25s ease;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:min(1400px,calc(100% - 80px));
+  margin-inline:auto;
+}
+
+.category,
+.label{
+  font-weight:700;
+  color:#06449a;
+  font-size:10px;
+  letter-spacing:.15px;
+}
+
+.label{
+  display:inline-flex;
+  background:#0b55b7;
+  color:#fff;
+  border-radius:3px;
+  padding:3px 7px;
+  font-size:9px;
+}
+
+.section-heading{
+  height:40px;
+  border-bottom:1px solid #d9dee5;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  position:relative;
+}
+
+.section-heading h2{
+  font-size:15px;
+  line-height:1;
+  margin:0;
+  font-weight:800;
+}
+
+.section-heading:after{
+  content:"";
+  position:absolute;
+  bottom:-1px;
+  left:0;
+  width:34px;
+  height:2px;
+  background:#0956b7;
+}
+
+.section-heading>a{
+  font-size:11px;
+  color:#30353d;
+}
+
+.section-heading>a b{
+  font-size:23px;
+  line-height:7px;
+  margin-left:8px;
+  font-weight:400;
+}
+
+.news-section{
+  margin-top:16px;
+}
+
+time{
+  font-size:10px;
+  color:#59616e;
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+body.dark-preview{
+  background:#0d1117;
+  color:#e6edf3;
+}
+
+
+/* Teks umum */
+
+body.dark-preview .category{
+  color:#6ea8fe;
+}
+
+body.dark-preview time{
+  color:#9da7b3;
+}
+
+body.dark-preview .section-heading{
+  border-bottom-color:#30363d;
+}
+
+body.dark-preview .section-heading h2{
+  color:#f0f3f6;
+}
+
+body.dark-preview .section-heading>a{
+  color:#aeb8c4;
+}
+
+
+/* Container / kartu umum */
+
+body.dark-preview .news-card,
+body.dark-preview .latest-item,
+body.dark-preview .focus-card,
+body.dark-preview .sidebar-section{
+  color:#e6edf3;
+}
+
+
+/* Input */
+
+body.dark-preview input{
+  color:#e6edf3;
+}
+
+body.dark-preview input::placeholder{
+  color:#8b949e;
+}
+
+
+/* Scrollbar */
+
+body.dark-preview ::-webkit-scrollbar{
+  width:9px;
+  height:9px;
+}
+
+body.dark-preview ::-webkit-scrollbar-track{
+  background:#0d1117;
+}
+
+body.dark-preview ::-webkit-scrollbar-thumb{
+  background:#30363d;
+  border-radius:10px;
+}
+
+body.dark-preview ::-webkit-scrollbar-thumb:hover{
+  background:#484f58;
+}
