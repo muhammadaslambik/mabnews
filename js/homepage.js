@@ -1,28 +1,18 @@
 /* =========================================================
-   HERO SLIDER
-   BERITA TERPOPULER
+   MAB-NEWS — HOMEPAGE JS
+   HERO CAROUSEL + SWIPE
    ========================================================= */
 
-const heroImageLink =
-    document.querySelector("#heroImageLink");
 
-const heroImage =
-    document.querySelector("#heroImage");
+/* =========================================================
+   HERO ELEMENT
+   ========================================================= */
 
-const heroCategory =
-    document.querySelector("#heroCategory");
+const heroElement =
+    document.querySelector("#mainHero");
 
-const heroTitleLink =
-    document.querySelector("#heroTitleLink");
-
-const heroLead =
-    document.querySelector("#heroLead");
-
-const heroDate =
-    document.querySelector("#heroDate");
-
-const heroAuthor =
-    document.querySelector("#heroAuthor");
+const heroTrack =
+    document.querySelector("#heroTrack");
 
 const heroPrev =
     document.querySelector("#heroPrev");
@@ -30,20 +20,22 @@ const heroPrev =
 const heroNext =
     document.querySelector("#heroNext");
 
-const heroDots =
-    document.querySelectorAll("#heroDots button");
+const heroDotsContainer =
+    document.querySelector("#heroDots");
 
 
 /* =========================================================
-   DATA BERITA TERPOPULER
+   DATA HERO
    ========================================================= */
 
 const popularHeroNews = [
 
     {
-        id: "pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat",
+        id:
+            "pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat",
 
-        category: "EKONOMI",
+        category:
+            "EKONOMI",
 
         title:
             "Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat",
@@ -61,11 +53,12 @@ const popularHeroNews = [
             "MAB-News"
     },
 
-
     {
-        id: "perkembangan-ai-mendorong-perubahan-cara-kerja",
+        id:
+            "perkembangan-ai-mendorong-perubahan-cara-kerja",
 
-        category: "TEKNOLOGI",
+        category:
+            "TEKNOLOGI",
 
         title:
             "Perkembangan AI Mendorong Perubahan Cara Kerja",
@@ -83,11 +76,12 @@ const popularHeroNews = [
             "MAB-News"
     },
 
-
     {
-        id: "aparat-perkuat-pengamanan-dan-pelayanan-publik",
+        id:
+            "aparat-perkuat-pengamanan-dan-pelayanan-publik",
 
-        category: "NASIONAL",
+        category:
+            "NASIONAL",
 
         title:
             "Aparat Perkuat Pengamanan dan Pelayanan Publik",
@@ -105,11 +99,12 @@ const popularHeroNews = [
             "MAB-News"
     },
 
-
     {
-        id: "industri-otomotif-mulai-beradaptasi-dengan-tren-baru",
+        id:
+            "industri-otomotif-mulai-beradaptasi-dengan-tren-baru",
 
-        category: "OTOMOTIF",
+        category:
+            "OTOMOTIF",
 
         title:
             "Industri Otomotif Mulai Beradaptasi dengan Tren Baru",
@@ -127,11 +122,12 @@ const popularHeroNews = [
             "MAB-News"
     },
 
-
     {
-        id: "aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada",
+        id:
+            "aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada",
 
-        category: "NASIONAL",
+        category:
+            "NASIONAL",
 
         title:
             "Aktivitas Gunung Api Kembali Dipantau, Warga Diminta Tetap Waspada",
@@ -153,363 +149,842 @@ const popularHeroNews = [
 
 
 /* =========================================================
-   SLIDE AKTIF
+   STATE
    ========================================================= */
 
 let currentHero = 0;
 
+let heroAutoSlide = null;
+
+let isDraggingHero = false;
+
+let touchStartX = 0;
+
+let touchStartY = 0;
+
+let currentDragX = 0;
+
+let heroStartOffset = 0;
+
+let heroDragOffset = 0;
+
+let heroMoved = false;
+
+const SWIPE_THRESHOLD = 50;
+
 
 /* =========================================================
-   UPDATE HERO
+   BUAT SLIDE HERO
    ========================================================= */
 
-function updateHero(index) {
+function createHeroSlide(article) {
 
-    const article =
-        popularHeroNews[index];
+    const slide =
+        document.createElement("div");
 
-    if (!article) {
+    slide.className =
+        "hero-slide";
+
+
+    slide.innerHTML = `
+
+        <a
+            class="hero-slide-image-link"
+            href="artikel.html?id=${article.id}"
+            draggable="false"
+        >
+
+            <img
+                class="hero-slide-image"
+                src="${article.image}"
+                alt="${article.title}"
+                draggable="false"
+            >
+
+        </a>
+
+
+        <div class="hero-slide-overlay">
+
+            <div class="hero-slide-category">
+                ${article.category}
+            </div>
+
+
+            <h1 class="hero-slide-title">
+
+                <a
+                    href="artikel.html?id=${article.id}"
+                >
+                    ${article.title}
+                </a>
+
+            </h1>
+
+
+            <p class="hero-slide-lead">
+                ${article.lead}
+            </p>
+
+
+            <div class="hero-slide-meta">
+
+                <span>
+                    ${article.date}
+                </span>
+
+                <span>•</span>
+
+                <span>
+                    ${article.author}
+                </span>
+
+            </div>
+
+        </div>
+    `;
+
+
+    return slide;
+}
+
+
+/* =========================================================
+   RENDER HERO
+   ========================================================= */
+
+function renderHero() {
+
+    if (!heroTrack) {
         return;
     }
 
 
-    /* -----------------------------------------------------
-       LINK GAMBAR
-    ----------------------------------------------------- */
+    heroTrack.innerHTML = "";
 
-    if (heroImageLink) {
 
-        heroImageLink.href =
-            `artikel.html?id=${article.id}`;
+    popularHeroNews.forEach(
+        (article) => {
 
+            const slide =
+                createHeroSlide(article);
+
+            heroTrack.appendChild(slide);
+
+        }
+    );
+
+
+    renderHeroDots();
+
+    setHeroPosition(false);
+
+}
+
+
+/* =========================================================
+   RENDER DOTS
+   ========================================================= */
+
+function renderHeroDots() {
+
+    if (!heroDotsContainer) {
+        return;
     }
 
 
-    /* -----------------------------------------------------
-       GAMBAR
-    ----------------------------------------------------- */
+    heroDotsContainer.innerHTML = "";
 
-    if (heroImage) {
 
-        heroImage.src =
-            article.image;
+    popularHeroNews.forEach(
+        (article, index) => {
 
-        heroImage.alt =
-            article.title;
+            const button =
+                document.createElement("button");
 
+            button.type =
+                "button";
+
+            button.setAttribute(
+                "aria-label",
+                `Berita ${index + 1}`
+            );
+
+
+            button.addEventListener(
+                "click",
+                (event) => {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+                    goToHero(
+                        index,
+                        true
+                    );
+
+                }
+            );
+
+
+            heroDotsContainer.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    updateHeroDots();
+
+}
+
+
+/* =========================================================
+   UPDATE DOTS
+   ========================================================= */
+
+function updateHeroDots() {
+
+    if (!heroDotsContainer) {
+        return;
     }
 
 
-    /* -----------------------------------------------------
-       KATEGORI
-    ----------------------------------------------------- */
-
-    if (heroCategory) {
-
-        heroCategory.textContent =
-            article.category;
-
-    }
-
-
-    /* -----------------------------------------------------
-       JUDUL
-    ----------------------------------------------------- */
-
-    if (heroTitleLink) {
-
-        heroTitleLink.href =
-            `artikel.html?id=${article.id}`;
-
-        heroTitleLink.textContent =
-            article.title;
-
-    }
-
-
-    /* -----------------------------------------------------
-       LEAD
-    ----------------------------------------------------- */
-
-    if (heroLead) {
-
-        heroLead.textContent =
-            article.lead;
-
-    }
-
-
-    /* -----------------------------------------------------
-       TANGGAL
-    ----------------------------------------------------- */
-
-    if (heroDate) {
-
-        heroDate.textContent =
-            article.date;
-
-    }
-
-
-    /* -----------------------------------------------------
-       PENULIS
-    ----------------------------------------------------- */
-
-    if (heroAuthor) {
-
-        heroAuthor.textContent =
-            article.author;
-
-    }
-
-
-    /* -----------------------------------------------------
-       DOTS
-    ----------------------------------------------------- */
-
-    heroDots.forEach((dot, dotIndex) => {
-
-        dot.classList.toggle(
-            "selected",
-            dotIndex === index
+    const dots =
+        heroDotsContainer.querySelectorAll(
+            "button"
         );
 
-    });
+
+    dots.forEach(
+        (dot, index) => {
+
+            dot.classList.toggle(
+                "selected",
+                index === currentHero
+            );
+
+        }
+    );
 
 }
 
 
 /* =========================================================
-   FUNGSI HERO BERIKUTNYA
+   HITUNG OFFSET
    ========================================================= */
 
-function nextHero() {
+function getHeroBaseOffset() {
 
-    currentHero++;
+    return -(currentHero * 100);
 
-    if (
-        currentHero >=
-        popularHeroNews.length
-    ) {
+}
 
-        currentHero = 0;
+
+/* =========================================================
+   SET POSISI HERO
+   ========================================================= */
+
+function setHeroPosition(animate = true) {
+
+    if (!heroTrack) {
+        return;
+    }
+
+
+    heroTrack.style.transition =
+        animate
+            ? "transform 0.28s cubic-bezier(.22,.61,.36,1)"
+            : "none";
+
+
+    heroTrack.style.transform =
+        `translate3d(${getHeroBaseOffset()}%, 0, 0)`;
+
+
+    heroDragOffset = 0;
+
+}
+
+
+/* =========================================================
+   POSISI SAAT DRAG
+   ========================================================= */
+
+function setHeroDragPosition(deltaX) {
+
+    if (!heroTrack) {
+        return;
+    }
+
+
+    const width =
+        heroElement
+            ? heroElement.clientWidth
+            : 1;
+
+
+    if (!width) {
+        return;
+    }
+
+
+    const deltaPercent =
+        (deltaX / width) * 100;
+
+
+    const position =
+        getHeroBaseOffset() +
+        deltaPercent;
+
+
+    heroTrack.style.transition =
+        "none";
+
+
+    heroTrack.style.transform =
+        `translate3d(${position}%, 0, 0)`;
+
+}
+
+
+/* =========================================================
+   NORMALISASI INDEX
+   ========================================================= */
+
+function normalizeHeroIndex(index) {
+
+    const total =
+        popularHeroNews.length;
+
+
+    if (!total) {
+        return 0;
+    }
+
+
+    if (index < 0) {
+        return total - 1;
+    }
+
+
+    if (index >= total) {
+        return 0;
+    }
+
+
+    return index;
+}
+
+
+/* =========================================================
+   PINDAH HERO
+   ========================================================= */
+
+function goToHero(
+    index,
+    restartTimer = true
+) {
+
+    currentHero =
+        normalizeHeroIndex(index);
+
+
+    setHeroPosition(true);
+
+    updateHeroDots();
+
+
+    if (restartTimer) {
+
+        resetHeroAutoSlide();
 
     }
 
-    updateHero(currentHero);
-
 }
 
 
 /* =========================================================
-   FUNGSI HERO SEBELUMNYA
+   NEXT
    ========================================================= */
 
-function prevHero() {
+function showNextHero() {
 
-    currentHero--;
-
-    if (currentHero < 0) {
-
-        currentHero =
-            popularHeroNews.length - 1;
-
-    }
-
-    updateHero(currentHero);
+    goToHero(
+        currentHero + 1,
+        true
+    );
 
 }
 
 
 /* =========================================================
-   TOMBOL SEBELUMNYA
+   PREVIOUS
+   ========================================================= */
+
+function showPreviousHero() {
+
+    goToHero(
+        currentHero - 1,
+        true
+    );
+
+}
+
+
+/* =========================================================
+   TOMBOL PREV
    ========================================================= */
 
 if (heroPrev) {
 
-    heroPrev.addEventListener("click", (event) => {
+    heroPrev.addEventListener(
+        "click",
+        (event) => {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        prevHero();
+            event.stopPropagation();
 
-        resetHeroAutoSlide();
+            showPreviousHero();
 
-    });
+        }
+    );
 
 }
 
 
 /* =========================================================
-   TOMBOL BERIKUTNYA
+   TOMBOL NEXT
    ========================================================= */
 
 if (heroNext) {
 
-    heroNext.addEventListener("click", (event) => {
+    heroNext.addEventListener(
+        "click",
+        (event) => {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        nextHero();
+            event.stopPropagation();
 
-        resetHeroAutoSlide();
+            showNextHero();
 
-    });
+        }
+    );
 
 }
 
 
 /* =========================================================
-   KLIK DOT HERO
+   TOUCH START
    ========================================================= */
 
-heroDots.forEach((dot, index) => {
+if (heroTrack) {
 
-    dot.addEventListener("click", (event) => {
-
-        event.preventDefault();
-
-        currentHero = index;
-
-        updateHero(currentHero);
-
-        resetHeroAutoSlide();
-
-    });
-
-});
-
-
-/* =========================================================
-   SWIPE HERO MOBILE
-   GESER KIRI / KANAN PADA GAMBAR
-   ========================================================= */
-
-const heroSwipeArea =
-    document.querySelector("#heroImageLink");
-
-
-let touchStartX = 0;
-let touchStartY = 0;
-
-let touchEndX = 0;
-let touchEndY = 0;
-
-
-const swipeThreshold = 50;
-
-
-if (heroSwipeArea) {
-
-    heroSwipeArea.addEventListener(
+    heroTrack.addEventListener(
         "touchstart",
         (event) => {
 
-            if (!event.touches || !event.touches.length) {
+            if (
+                !event.touches ||
+                !event.touches.length
+            ) {
                 return;
             }
 
+
+            const touch =
+                event.touches[0];
+
+
             touchStartX =
-                event.touches[0].clientX;
+                touch.clientX;
 
             touchStartY =
-                event.touches[0].clientY;
+                touch.clientY;
 
-            touchEndX =
-                touchStartX;
+            currentDragX =
+                touch.clientX;
 
-            touchEndY =
-                touchStartY;
+            heroStartOffset =
+                getHeroBaseOffset();
+
+            heroDragOffset = 0;
+
+            heroMoved = false;
+
+            isDraggingHero = true;
+
+
+            heroTrack.classList.add(
+                "dragging"
+            );
+
+
+            /*
+             * Saat jari mulai menyentuh,
+             * hentikan auto slide.
+             */
+
+            clearInterval(
+                heroAutoSlide
+            );
+
+
+            heroTrack.style.transition =
+                "none";
 
         },
         {
-            passive: true
+            passive:true
         }
     );
 
 
-    heroSwipeArea.addEventListener(
+    /* =====================================================
+       TOUCH MOVE
+       ===================================================== */
+
+    heroTrack.addEventListener(
         "touchmove",
         (event) => {
 
-            if (!event.touches || !event.touches.length) {
+            if (
+                !isDraggingHero ||
+                !event.touches ||
+                !event.touches.length
+            ) {
                 return;
             }
 
-            touchEndX =
-                event.touches[0].clientX;
 
-            touchEndY =
-                event.touches[0].clientY;
+            const touch =
+                event.touches[0];
+
+
+            currentDragX =
+                touch.clientX;
+
+
+            const currentY =
+                touch.clientY;
+
+
+            const deltaX =
+                currentDragX -
+                touchStartX;
+
+
+            const deltaY =
+                currentY -
+                touchStartY;
+
+
+            /*
+             * Jika gerakan lebih vertikal,
+             * biarkan browser melakukan scroll.
+             */
+
+            if (
+                !heroMoved &&
+                Math.abs(deltaY) >
+                Math.abs(deltaX) &&
+                Math.abs(deltaY) > 8
+            ) {
+
+                isDraggingHero = false;
+
+                heroTrack.classList.remove(
+                    "dragging"
+                );
+
+                setHeroPosition(true);
+
+                startHeroAutoSlide();
+
+                return;
+
+            }
+
+
+            /*
+             * Mulai dianggap horizontal
+             * setelah bergerak minimal.
+             */
+
+            if (
+                Math.abs(deltaX) > 5 &&
+                Math.abs(deltaX) >
+                Math.abs(deltaY)
+            ) {
+
+                heroMoved = true;
+
+            }
+
+
+            if (heroMoved) {
+
+                /*
+                 * INI YANG MEMBUAT SLIDE
+                 * BENAR-BENAR MENGIKUTI JARI.
+                 *
+                 * Misalnya artikel 1 digeser
+                 * 50% ke kiri,
+                 * artikel 2 otomatis terlihat 50%.
+                 */
+
+                setHeroDragPosition(
+                    deltaX
+                );
+
+            }
 
         },
         {
-            passive: true
+            passive:true
         }
     );
 
 
-    heroSwipeArea.addEventListener(
+    /* =====================================================
+       TOUCH END
+       ===================================================== */
+
+    heroTrack.addEventListener(
         "touchend",
         () => {
 
+            if (!isDraggingHero) {
+                return;
+            }
+
+
+            isDraggingHero = false;
+
+
+            heroTrack.classList.remove(
+                "dragging"
+            );
+
+
             const deltaX =
-                touchEndX - touchStartX;
-
-            const deltaY =
-                touchEndY - touchStartY;
+                currentDragX -
+                touchStartX;
 
 
-            /* -------------------------------------------------
-               Hanya dianggap swipe jika gerakan horizontal
-               lebih besar daripada gerakan vertikal.
-            ------------------------------------------------- */
+            /*
+             * Kalau tidak benar-benar
+             * horizontal swipe,
+             * kembalikan posisi.
+             */
 
             if (
+                !heroMoved ||
                 Math.abs(deltaX) <
-                swipeThreshold
+                SWIPE_THRESHOLD
             ) {
+
+                setHeroPosition(true);
+
+                startHeroAutoSlide();
+
                 return;
+
             }
 
 
-            if (
-                Math.abs(deltaX) <=
-                Math.abs(deltaY)
-            ) {
-                return;
-            }
-
-
-            /* -------------------------------------------------
-               Geser kiri
-               → artikel berikutnya
-            ------------------------------------------------- */
+            /*
+             * SWIPE KIRI
+             *
+             * Artikel berikutnya.
+             */
 
             if (deltaX < 0) {
 
-                nextHero();
+                currentHero =
+                    normalizeHeroIndex(
+                        currentHero + 1
+                    );
 
             }
 
 
-            /* -------------------------------------------------
-               Geser kanan
-               → artikel sebelumnya
-            ------------------------------------------------- */
+            /*
+             * SWIPE KANAN
+             *
+             * Artikel sebelumnya.
+             */
 
             else {
 
-                prevHero();
+                currentHero =
+                    normalizeHeroIndex(
+                        currentHero - 1
+                    );
 
             }
 
 
-            resetHeroAutoSlide();
+            /*
+             * Setelah jari dilepas,
+             * slide langsung menyelesaikan
+             * perpindahannya.
+             */
+
+            setHeroPosition(true);
+
+            updateHeroDots();
+
+            startHeroAutoSlide();
 
         },
         {
-            passive: true
+            passive:true
+        }
+    );
+
+
+    /* =====================================================
+       TOUCH CANCEL
+       ===================================================== */
+
+    heroTrack.addEventListener(
+        "touchcancel",
+        () => {
+
+            isDraggingHero = false;
+
+            heroMoved = false;
+
+            heroTrack.classList.remove(
+                "dragging"
+            );
+
+
+            setHeroPosition(true);
+
+            startHeroAutoSlide();
+
+        },
+        {
+            passive:true
+        }
+    );
+
+
+    /* =====================================================
+       CEGah DRAG IMAGE
+       ===================================================== */
+
+    heroTrack.addEventListener(
+        "dragstart",
+        (event) => {
+
+            event.preventDefault();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CEGAH KLIK LINK SAAT SWIPE
+   ========================================================= */
+
+if (heroTrack) {
+
+    heroTrack.addEventListener(
+        "click",
+        (event) => {
+
+            if (heroMoved) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+            }
+
+        },
+        true
+    );
+
+}
+
+
+/* =========================================================
+   AUTO SLIDE
+   ========================================================= */
+
+function startHeroAutoSlide() {
+
+    clearInterval(
+        heroAutoSlide
+    );
+
+
+    heroAutoSlide =
+        setInterval(
+            () => {
+
+                if (isDraggingHero) {
+                    return;
+                }
+
+
+                showNextHero();
+
+            },
+            10000
+        );
+
+}
+
+
+/* =========================================================
+   RESET AUTO SLIDE
+   ========================================================= */
+
+function resetHeroAutoSlide() {
+
+    startHeroAutoSlide();
+
+}
+
+
+/* =========================================================
+   PAUSE MOUSE DESKTOP
+   ========================================================= */
+
+if (heroElement) {
+
+    heroElement.addEventListener(
+        "mouseenter",
+        () => {
+
+            clearInterval(
+                heroAutoSlide
+            );
+
+        }
+    );
+
+
+    heroElement.addEventListener(
+        "mouseleave",
+        () => {
+
+            if (!isDraggingHero) {
+
+                startHeroAutoSlide();
+
+            }
+
         }
     );
 
@@ -521,33 +996,50 @@ if (heroSwipeArea) {
    ========================================================= */
 
 document
-    .querySelectorAll(".focus-card .dots button")
-    .forEach((dot) => {
+    .querySelectorAll(
+        ".focus-card .dots button"
+    )
+    .forEach(
+        (dot) => {
 
-        dot.addEventListener("click", () => {
+            dot.addEventListener(
+                "click",
+                () => {
 
-            document
-                .querySelectorAll(
-                    ".focus-card .dots button"
-                )
-                .forEach(d =>
-                    d.classList.remove("selected")
-                );
+                    document
+                        .querySelectorAll(
+                            ".focus-card .dots button"
+                        )
+                        .forEach(
+                            (d) => {
 
-            dot.classList.add("selected");
+                                d.classList.remove(
+                                    "selected"
+                                );
 
-        });
+                            }
+                        );
 
-    });
+
+                    dot.classList.add(
+                        "selected"
+                    );
+
+                }
+            );
+
+        }
+    );
 
 
 /* =========================================================
    BERITA UTAMA
-   GANTI BERITA LAINNYA
    ========================================================= */
 
 const mainNewsButton =
-    document.querySelector("#changeMainNews");
+    document.querySelector(
+        "#changeMainNews"
+    );
 
 const mainNewsCards =
     document.querySelectorAll(
@@ -555,12 +1047,15 @@ const mainNewsCards =
     );
 
 
-const newsGroups = [
+/* =========================================================
+   DATA KELOMPOK BERITA UTAMA
+   ========================================================= */
 
+const newsGroups = [
 
     /* =====================================================
        KELOMPOK 1
-    ===================================================== */
+       ===================================================== */
 
     [
 
@@ -652,7 +1147,7 @@ const newsGroups = [
 
     /* =====================================================
        KELOMPOK 2
-    ===================================================== */
+       ===================================================== */
 
     [
 
@@ -744,7 +1239,7 @@ const newsGroups = [
 
     /* =====================================================
        KELOMPOK 3
-    ===================================================== */
+       ===================================================== */
 
     [
 
@@ -836,8 +1331,7 @@ const newsGroups = [
 ];
 
 
-let currentGroup =
-    0;
+let currentGroup = 0;
 
 
 /* =========================================================
@@ -854,83 +1348,110 @@ function updateMainNews(groupIndex) {
     }
 
 
-    mainNewsCards.forEach((card, index) => {
+    mainNewsCards.forEach(
+        (card, index) => {
 
-        const article =
-            group[index];
+            const article =
+                group[index];
 
-        if (!article) {
-            return;
+            if (!article) {
+                return;
+            }
+
+
+            /* ---------------------------------------------
+               LINK GAMBAR
+               --------------------------------------------- */
+
+            const imageLink =
+                card.querySelector(
+                    ":scope > a"
+                );
+
+            if (imageLink) {
+
+                imageLink.href =
+                    `artikel.html?id=${article.id}`;
+
+            }
+
+
+            /* ---------------------------------------------
+               GAMBAR
+               --------------------------------------------- */
+
+            const image =
+                card.querySelector("img");
+
+            if (image) {
+
+                image.src =
+                    article.image;
+
+                image.alt =
+                    article.alt;
+
+            }
+
+
+            /* ---------------------------------------------
+               KATEGORI
+               --------------------------------------------- */
+
+            const category =
+                card.querySelector(
+                    ".category"
+                );
+
+            if (category) {
+
+                category.textContent =
+                    article.category;
+
+            }
+
+
+            /* ---------------------------------------------
+               JUDUL
+               --------------------------------------------- */
+
+            const titleLink =
+                card.querySelector(
+                    "h3 a"
+                );
+
+            if (titleLink) {
+
+                titleLink.href =
+                    `artikel.html?id=${article.id}`;
+
+                titleLink.textContent =
+                    article.title;
+
+            }
+
+
+            /* ---------------------------------------------
+               TANGGAL
+               --------------------------------------------- */
+
+            const time =
+                card.querySelector("time");
+
+            if (time) {
+
+                time.textContent =
+                    article.date;
+
+            }
+
         }
+    );
 
 
-        const imageLink =
-            card.querySelector(":scope > a");
-
-
-        if (imageLink) {
-
-            imageLink.href =
-                `artikel.html?id=${article.id}`;
-
-        }
-
-
-        const image =
-            card.querySelector("img");
-
-
-        if (image) {
-
-            image.src =
-                article.image;
-
-            image.alt =
-                article.alt;
-
-        }
-
-
-        const category =
-            card.querySelector(".category");
-
-
-        if (category) {
-
-            category.textContent =
-                article.category;
-
-        }
-
-
-        const titleLink =
-            card.querySelector("h3 a");
-
-
-        if (titleLink) {
-
-            titleLink.href =
-                `artikel.html?id=${article.id}`;
-
-            titleLink.textContent =
-                article.title;
-
-        }
-
-
-        const time =
-            card.querySelector("time");
-
-
-        if (time) {
-
-            time.textContent =
-                article.date;
-
-        }
-
-    });
-
+    /* =====================================================
+       UPDATE TOMBOL
+       ===================================================== */
 
     if (mainNewsButton) {
 
@@ -940,12 +1461,13 @@ function updateMainNews(groupIndex) {
         ) {
 
             mainNewsButton.innerHTML =
-                `Kembali ke Berita Awal <b>↻</b>`;
+                'Kembali ke Berita Awal <b>↻</b>';
 
-        } else {
+        }
+        else {
 
             mainNewsButton.innerHTML =
-                `Ganti Berita Lainnya <b>↻</b>`;
+                'Ganti Berita Lainnya <b>↻</b>';
 
         }
 
@@ -960,22 +1482,27 @@ function updateMainNews(groupIndex) {
 
 if (mainNewsButton) {
 
-    mainNewsButton.addEventListener("click", () => {
+    mainNewsButton.addEventListener(
+        "click",
+        () => {
 
-        currentGroup++;
+            currentGroup++;
 
-        if (
-            currentGroup >=
-            newsGroups.length
-        ) {
+            if (
+                currentGroup >=
+                newsGroups.length
+            ) {
 
-            currentGroup = 0;
+                currentGroup = 0;
+
+            }
+
+            updateMainNews(
+                currentGroup
+            );
 
         }
-
-        updateMainNews(currentGroup);
-
-    });
+    );
 
 }
 
@@ -984,73 +1511,11 @@ if (mainNewsButton) {
    INISIALISASI HERO
    ========================================================= */
 
-updateHero(0);
+renderHero();
 
 
 /* =========================================================
-   AUTO SLIDE HERO
-   GANTI BERITA SETIAP 10 DETIK
+   INISIALISASI BERITA UTAMA
    ========================================================= */
 
-let heroAutoSlide = null;
-
-
-/* =========================================================
-   MULAI AUTO SLIDE
-   ========================================================= */
-
-function startHeroAutoSlide() {
-
-    clearInterval(heroAutoSlide);
-
-    heroAutoSlide = setInterval(() => {
-
-        nextHero();
-
-    }, 10000);
-
-}
-
-
-/* =========================================================
-   RESET AUTO SLIDE
-   ========================================================= */
-
-function resetHeroAutoSlide() {
-
-    startHeroAutoSlide();
-
-}
-
-
-/* =========================================================
-   PAUSE SAAT MOUSE BERADA DI HERO
-   ========================================================= */
-
-const heroElement =
-    document.querySelector("#mainHero");
-
-
-if (heroElement) {
-
-    heroElement.addEventListener("mouseenter", () => {
-
-        clearInterval(heroAutoSlide);
-
-    });
-
-
-    heroElement.addEventListener("mouseleave", () => {
-
-        startHeroAutoSlide();
-
-    });
-
-}
-
-
-/* =========================================================
-   MULAI TIMER PERTAMA
-   ========================================================= */
-
-startHeroAutoSlide();
+updateMainNews(0);
