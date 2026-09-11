@@ -1,342 +1,360 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-/* =====================================================
-MODE GELAP / TERANG
-===================================================== */
+  /* =====================================================
+     MODE GELAP / TERANG
+     ===================================================== */
 
-const theme = document.querySelector("#themeToggle");
+  const theme = document.querySelector("#themeToggle");
 
-const sunIcon = <svg viewBox="0 0 24 24" aria-hidden="true"> <path d="M12 3v2"></path> <path d="M12 19v2"></path> <path d="M4.22 4.22l1.42 1.42"></path> <path d="M18.36 18.36l1.42 1.42"></path> <path d="M3 12h2"></path> <path d="M19 12h2"></path> <path d="M4.22 19.78l1.42-1.42"></path> <path d="M18.36 5.64l1.42-1.42"></path> <circle cx="12" cy="12" r="4"></circle> </svg> ;
+  const sunIcon = `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3v2"></path>
+      <path d="M12 19v2"></path>
+      <path d="M4.22 4.22l1.42 1.42"></path>
+      <path d="M18.36 18.36l1.42 1.42"></path>
+      <path d="M3 12h2"></path>
+      <path d="M19 12h2"></path>
+      <path d="M4.22 19.78l1.42-1.42"></path>
+      <path d="M18.36 5.64l1.42-1.42"></path>
+      <circle cx="12" cy="12" r="4"></circle>
+    </svg>
+  `;
 
-const moonIcon = <svg viewBox="0 0 24 24" aria-hidden="true"> <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3 a6.7 6.7 0 0 0 9.8 9.8z"></path> </svg> ;
-
-function updateThemeIcon() {
-
-if (!theme) return;
-
-const isDark =
-  document.body.classList.contains("dark-preview");
-
-theme.innerHTML = isDark ? moonIcon : sunIcon;
-
-theme.setAttribute(
-  "aria-label",
-  isDark
-    ? "Aktifkan mode terang"
-    : "Aktifkan mode gelap"
-);
-
-theme.setAttribute(
-  "title",
-  isDark
-    ? "Mode terang"
-    : "Mode gelap"
-);
+  const moonIcon = `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3
+      a6.7 6.7 0 0 0 9.8 9.8z"></path>
+    </svg>
+  `;
 
 
-}
+  function updateThemeIcon() {
 
-const savedTheme =
-localStorage.getItem("mabnews-theme");
+    if (!theme) return;
 
-if (savedTheme === "dark") {
-document.body.classList.add("dark-preview");
-} else {
-document.body.classList.remove("dark-preview");
-}
+    const isDark =
+      document.body.classList.contains("dark-preview");
 
-updateThemeIcon();
+    theme.innerHTML = isDark ? moonIcon : sunIcon;
 
-if (theme) {
+    theme.setAttribute(
+      "aria-label",
+      isDark
+        ? "Aktifkan mode terang"
+        : "Aktifkan mode gelap"
+    );
 
-theme.addEventListener("click", () => {
+    theme.setAttribute(
+      "title",
+      isDark
+        ? "Mode terang"
+        : "Mode gelap"
+    );
+  }
 
-  document.body.classList.toggle("dark-preview");
 
-  const isDark =
-    document.body.classList.contains("dark-preview");
+  const savedTheme =
+    localStorage.getItem("mabnews-theme");
 
-  localStorage.setItem(
-    "mabnews-theme",
-    isDark ? "dark" : "light"
-  );
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-preview");
+  } else {
+    document.body.classList.remove("dark-preview");
+  }
 
   updateThemeIcon();
 
-});
 
+  if (theme) {
 
-}
+    theme.addEventListener("click", () => {
 
-/* =====================================================
-TOMBOL AKUN
-===================================================== */
+      document.body.classList.toggle("dark-preview");
 
-const accountButton =
-document.querySelector('[aria-label="Akun"]');
+      const isDark =
+        document.body.classList.contains("dark-preview");
 
-if (accountButton) {
+      localStorage.setItem(
+        "mabnews-theme",
+        isDark ? "dark" : "light"
+      );
 
-const wrapper =
-  document.createElement("div");
+      updateThemeIcon();
 
-wrapper.className =
-  "account-wrapper";
-
-accountButton.parentNode.insertBefore(
-  wrapper,
-  accountButton
-);
-
-wrapper.appendChild(accountButton);
-
-
-const accountMenu =
-  document.createElement("div");
-
-accountMenu.className =
-  "account-menu";
-
-accountMenu.innerHTML = `
-  <div class="account-menu-header">
-    <strong>Akun</strong>
-    <span>Menu akun MAB-News</span>
-  </div>
-
-  <a href="#" data-account-action="profile">
-    Profil
-  </a>
-
-  <a href="#" data-account-action="settings">
-    Pengaturan
-  </a>
-
-  <a href="#" data-account-action="login">
-    Masuk
-  </a>
-`;
-
-wrapper.appendChild(accountMenu);
-
-
-accountButton.addEventListener(
-  "click",
-  (event) => {
-
-    event.stopPropagation();
-
-    accountMenu.classList.toggle("open");
+    });
 
   }
-);
 
 
-accountMenu.addEventListener(
-  "click",
-  (event) => {
+  /* =====================================================
+     TOMBOL AKUN
+     ===================================================== */
 
-    event.stopPropagation();
+  const accountButton =
+    document.querySelector('[aria-label="Akun"]');
 
-    const item =
-      event.target.closest(
-        "[data-account-action]"
-      );
+  if (accountButton) {
 
-    if (!item) return;
+    const wrapper =
+      document.createElement("div");
 
-    event.preventDefault();
+    wrapper.className =
+      "account-wrapper";
 
-    const action =
-      item.getAttribute(
-        "data-account-action"
-      );
+    accountButton.parentNode.insertBefore(
+      wrapper,
+      accountButton
+    );
 
-    if (action === "profile") {
-      alert(
-        "Halaman Profil MAB-News belum tersedia."
-      );
-    }
-
-    if (action === "settings") {
-      alert(
-        "Halaman Pengaturan belum tersedia."
-      );
-    }
-
-    if (action === "login") {
-      alert(
-        "Fitur Masuk belum tersedia."
-      );
-
-    }
-
-  }
-);
+    wrapper.appendChild(accountButton);
 
 
-}
+    const accountMenu =
+      document.createElement("div");
 
-/* =====================================================
-MENU HAMBURGER
-===================================================== */
+    accountMenu.className =
+      "account-menu";
 
-const hamburger =
-document.querySelector("#hamburger");
+    accountMenu.innerHTML = `
+      <div class="account-menu-header">
+        <strong>Akun</strong>
+        <span>Menu akun MAB-News</span>
+      </div>
 
-const navLinks =
-document.querySelector("#navLinks");
+      <a href="#" data-account-action="profile">
+        Profil
+      </a>
 
-if (hamburger && navLinks) {
+      <a href="#" data-account-action="settings">
+        Pengaturan
+      </a>
 
-function closeMenu() {
+      <a href="#" data-account-action="login">
+        Masuk
+      </a>
+    `;
 
-  navLinks.classList.remove("open");
-
-  hamburger.classList.remove("active");
-
-  hamburger.setAttribute(
-    "aria-expanded",
-    "false"
-  );
-
-  hamburger.setAttribute(
-    "aria-label",
-    "Buka menu"
-  );
-
-}
+    wrapper.appendChild(accountMenu);
 
 
-function openMenu() {
-
-  navLinks.classList.add("open");
-
-  hamburger.classList.add("active");
-
-  hamburger.setAttribute(
-    "aria-expanded",
-    "true"
-  );
-
-  hamburger.setAttribute(
-    "aria-label",
-    "Tutup menu"
-  );
-
-}
-
-
-hamburger.addEventListener(
-  "click",
-  (event) => {
-
-    event.stopPropagation();
-
-    const isOpen =
-      navLinks.classList.contains("open");
-
-    if (isOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-
-  }
-);
-
-
-/* Tutup menu setelah link dipilih */
-
-navLinks
-  .querySelectorAll("a")
-  .forEach((link) => {
-
-    link.addEventListener(
+    accountButton.addEventListener(
       "click",
-      () => {
+      (event) => {
 
-        closeMenu();
+        event.stopPropagation();
+
+        accountMenu.classList.toggle("open");
 
       }
     );
 
-  });
+
+    accountMenu.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+        const item =
+          event.target.closest(
+            "[data-account-action]"
+          );
+
+        if (!item) return;
+
+        event.preventDefault();
+
+        const action =
+          item.getAttribute(
+            "data-account-action"
+          );
+
+        if (action === "profile") {
+          alert(
+            "Halaman Profil MAB-News belum tersedia."
+          );
+        }
+
+        if (action === "settings") {
+          alert(
+            "Halaman Pengaturan belum tersedia."
+          );
+        }
+
+        if (action === "login") {
+          alert(
+            "Fitur Masuk belum tersedia."
+          );
+        }
+
+      }
+    );
 
 
-/* Tutup ketika klik di luar */
-
-document.addEventListener(
-  "click",
-  (event) => {
-
-    if (
-      !navLinks.contains(event.target) &&
-      !hamburger.contains(event.target)
-    ) {
-
-      closeMenu();
-
-    }
-
-  }
-);
-
-
-/* Tutup dengan tombol Escape */
-
-document.addEventListener(
-  "keydown",
-  (event) => {
-
-    if (event.key === "Escape") {
-
-      closeMenu();
-
-    }
-
-  }
-);
-
-
-}
-
-/* =====================================================
-SEARCH
-===================================================== */
-
-const search =
-document.querySelector("#headerSearch");
-
-if (search) {
-
-search.addEventListener(
-  "submit",
-  (event) => {
-
-    event.preventDefault();
-
-    const input =
-      search.querySelector("input");
-
-    const formData =
-      new FormData(search);
-
-    const q =
-      formData.get("q") ||
-      input?.value.trim();
-
-
-    if (q) {
-
-      window.location.href =
-        `search.html?q=${encodeURIComponent(q)}`;
-
-    }
+    document.addEventListener(
+      "click",
+      () => {
+        accountMenu.classList.remove("open");
+      }
+    );
 
   }
-);
 
 
-}
+  /* =====================================================
+     MENU HAMBURGER
+     ===================================================== */
+
+  const hamburger =
+    document.querySelector("#hamburger");
+
+  const navLinks =
+    document.querySelector("#navLinks");
+
+
+  if (hamburger && navLinks) {
+
+    function closeMenu() {
+
+      navLinks.classList.remove("open");
+
+      hamburger.classList.remove("active");
+
+      hamburger.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      hamburger.setAttribute(
+        "aria-label",
+        "Buka menu"
+      );
+    }
+
+
+    function openMenu() {
+
+      navLinks.classList.add("open");
+
+      hamburger.classList.add("active");
+
+      hamburger.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+      hamburger.setAttribute(
+        "aria-label",
+        "Tutup menu"
+      );
+    }
+
+
+    hamburger.addEventListener(
+      "click",
+      (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (
+          navLinks.classList.contains("open")
+        ) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+
+      }
+    );
+
+
+    navLinks
+      .querySelectorAll("a")
+      .forEach((link) => {
+
+        link.addEventListener(
+          "click",
+          () => {
+
+            closeMenu();
+
+          }
+        );
+
+      });
+
+
+    document.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          !navLinks.contains(event.target) &&
+          !hamburger.contains(event.target)
+        ) {
+
+          closeMenu();
+
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (event.key === "Escape") {
+
+          closeMenu();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     SEARCH
+     ===================================================== */
+
+  const search =
+    document.querySelector("#headerSearch");
+
+
+  if (search) {
+
+    search.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+        const input =
+          search.querySelector("input");
+
+        const formData =
+          new FormData(search);
+
+        const q =
+          formData.get("q") ||
+          input?.value.trim();
+
+
+        if (q) {
+
+          window.location.href =
+            `search.html?q=${encodeURIComponent(q)}`;
+
+        }
+
+      }
+    );
+
+  }
 
 });

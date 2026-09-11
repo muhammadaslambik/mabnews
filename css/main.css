@@ -1,4 +1,6 @@
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 html{
   scroll-behavior:smooth;
@@ -10,12 +12,19 @@ body{
   color:#111827;
   font-family:Inter,Arial,sans-serif;
   font-size:14px;
-  transition:background-color .25s ease,color .25s ease;
+
+  transition:
+    background-color .25s ease,
+    color .25s ease;
 }
 
 button,
 input{
   font:inherit;
+}
+
+button{
+  cursor:pointer;
 }
 
 a{
@@ -27,6 +36,11 @@ a{
   width:min(1400px,calc(100% - 80px));
   margin-inline:auto;
 }
+
+
+/* =========================================================
+   TEXT
+   ========================================================= */
 
 .category,
 .label{
@@ -45,12 +59,20 @@ a{
   font-size:9px;
 }
 
+
+/* =========================================================
+   SECTION HEADING
+   ========================================================= */
+
 .section-heading{
   height:40px;
+
   border-bottom:1px solid #d9dee5;
+
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
+
   position:relative;
 }
 
@@ -63,11 +85,15 @@ a{
 
 .section-heading:after{
   content:"";
+
   position:absolute;
+
   bottom:-1px;
   left:0;
+
   width:34px;
   height:2px;
+
   background:#0956b7;
 }
 
@@ -94,6 +120,359 @@ time{
 
 
 /* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.main-nav{
+  height:45px;
+
+  border-top:1px solid #e3e6ea;
+  border-bottom:1px solid #e1e5e9;
+
+  background:#fff;
+
+  position:relative;
+  z-index:1000;
+
+  transition:
+    border-color .25s ease,
+    background-color .25s ease;
+}
+
+.nav-inner{
+  height:100%;
+
+  display:flex;
+  align-items:center;
+
+  position:relative;
+}
+
+
+/* =========================================================
+   HAMBURGER
+   ========================================================= */
+
+.hamburger{
+  width:38px;
+  height:38px;
+
+  display:none;
+
+  flex-shrink:0;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  gap:4px;
+
+  padding:7px 10px;
+  margin:0 18px 0 0;
+
+  border:0;
+  background:transparent;
+
+  position:relative;
+  z-index:1002;
+
+  cursor:pointer;
+}
+
+.hamburger span{
+  display:block;
+
+  width:18px;
+  height:2px;
+
+  background:#0d1622;
+
+  border-radius:2px;
+
+  transition:
+    transform .25s ease,
+    opacity .25s ease,
+    background-color .25s ease;
+}
+
+
+/* Hamburger menjadi X */
+
+.hamburger.active span:nth-child(1){
+  transform:translateY(6px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2){
+  opacity:0;
+}
+
+.hamburger.active span:nth-child(3){
+  transform:translateY(-6px) rotate(-45deg);
+}
+
+
+/* =========================================================
+   NAV LINKS - DESKTOP
+   ========================================================= */
+
+.nav-links{
+  height:100%;
+
+  display:flex;
+  align-items:center;
+
+  gap:27px;
+
+  width:100%;
+  min-width:0;
+
+  overflow-x:auto;
+  overflow-y:hidden;
+
+  white-space:nowrap;
+
+  scroll-behavior:smooth;
+
+  overscroll-behavior-x:contain;
+  overscroll-behavior-y:none;
+
+  -webkit-overflow-scrolling:touch;
+
+  scrollbar-width:none;
+}
+
+.nav-links::-webkit-scrollbar{
+  display:none;
+}
+
+.nav-links a{
+  flex:0 0 auto;
+
+  height:100%;
+
+  display:flex;
+  align-items:center;
+
+  position:relative;
+
+  font-size:12px;
+  font-weight:600;
+
+  white-space:nowrap;
+}
+
+.nav-links a.active{
+  color:#084a9e;
+}
+
+.nav-links a.active:after{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:3px;
+
+  background:#0b55b7;
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width:769px){
+
+  .hamburger{
+    display:none;
+  }
+
+  .nav-links{
+    position:static;
+
+    opacity:1;
+    visibility:visible;
+
+    transform:none;
+
+    pointer-events:auto;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width:768px){
+
+  .container{
+    width:min(100% - 30px,1400px);
+  }
+
+
+  /* Navigation */
+
+  .main-nav{
+    height:45px;
+    position:relative;
+    overflow:visible;
+  }
+
+
+  .nav-inner{
+    height:45px;
+    position:relative;
+    overflow:visible;
+  }
+
+
+  /* Hamburger */
+
+  .hamburger{
+    display:flex;
+  }
+
+
+  /* -------------------------------------------------------
+     PANEL MENU
+     ------------------------------------------------------- */
+
+  .nav-links{
+    position:absolute;
+
+    top:45px;
+    left:0;
+
+    width:260px;
+    max-width:calc(100vw - 24px);
+
+    max-height:calc(100vh - 65px);
+
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+
+    gap:0;
+
+    padding:6px;
+
+    background:#fff;
+
+    border:1px solid #dfe3e8;
+    border-radius:6px;
+
+    box-shadow:
+      0 10px 25px rgba(0,0,0,.12);
+
+    overflow-x:hidden;
+    overflow-y:auto;
+
+    overscroll-behavior:contain;
+
+    -webkit-overflow-scrolling:touch;
+
+    scrollbar-width:thin;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(-8px);
+
+    pointer-events:none;
+
+    z-index:1001;
+
+    transition:
+      opacity .2s ease,
+      visibility .2s ease,
+      transform .2s ease;
+  }
+
+
+  /* -------------------------------------------------------
+     MENU TERBUKA
+     ------------------------------------------------------- */
+
+  .nav-links.open{
+    opacity:1;
+    visibility:visible;
+
+    transform:translateY(0);
+
+    pointer-events:auto;
+  }
+
+
+  /* -------------------------------------------------------
+     ITEM MENU
+     ------------------------------------------------------- */
+
+  .nav-links a{
+    width:100%;
+
+    height:38px;
+    min-height:38px;
+
+    flex:0 0 38px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 12px;
+
+    border-radius:4px;
+
+    font-size:12px;
+    font-weight:600;
+
+    line-height:1;
+
+    white-space:nowrap;
+  }
+
+
+  .nav-links a:hover{
+    background:#eef4ff;
+  }
+
+
+  .nav-links a.active{
+    background:#eef4ff;
+    color:#084a9e;
+  }
+
+
+  .nav-links a.active:after{
+    display:none;
+  }
+
+
+  /* -------------------------------------------------------
+     SCROLLBAR MENU
+     ------------------------------------------------------- */
+
+  .nav-links::-webkit-scrollbar{
+    width:5px;
+  }
+
+  .nav-links::-webkit-scrollbar-track{
+    background:transparent;
+  }
+
+  .nav-links::-webkit-scrollbar-thumb{
+    background:#b8c0ca;
+    border-radius:10px;
+  }
+
+}
+
+
+/* =========================================================
    DARK MODE
    ========================================================= */
 
@@ -103,7 +482,9 @@ body.dark-preview{
 }
 
 
-/* Teks umum */
+/* =========================================================
+   DARK MODE - TEXT
+   ========================================================= */
 
 body.dark-preview .category{
   color:#6ea8fe;
@@ -126,7 +507,9 @@ body.dark-preview .section-heading>a{
 }
 
 
-/* Container / kartu umum */
+/* =========================================================
+   DARK MODE - KARTU
+   ========================================================= */
 
 body.dark-preview .news-card,
 body.dark-preview .latest-item,
@@ -136,7 +519,9 @@ body.dark-preview .sidebar-section{
 }
 
 
-/* Input */
+/* =========================================================
+   DARK MODE - INPUT
+   ========================================================= */
 
 body.dark-preview input{
   color:#e6edf3;
@@ -147,7 +532,68 @@ body.dark-preview input::placeholder{
 }
 
 
-/* Scrollbar */
+/* =========================================================
+   DARK MODE - NAVIGATION
+   ========================================================= */
+
+body.dark-preview .main-nav{
+  background:#0d1117;
+
+  border-top-color:#30363d;
+  border-bottom-color:#30363d;
+}
+
+body.dark-preview .hamburger span{
+  background:#e6edf3;
+}
+
+body.dark-preview .nav-links a{
+  color:#e6edf3;
+}
+
+body.dark-preview .nav-links a.active{
+  color:#6ea8fe;
+}
+
+body.dark-preview .nav-links a.active:after{
+  background:#2f81f7;
+}
+
+
+/* =========================================================
+   DARK MODE - MOBILE MENU
+   ========================================================= */
+
+@media (max-width:768px){
+
+  body.dark-preview .nav-links{
+    background:#161b22;
+
+    border-color:#30363d;
+
+    box-shadow:
+      0 10px 25px rgba(0,0,0,.45);
+  }
+
+  body.dark-preview .nav-links a:hover{
+    background:#21262d;
+  }
+
+  body.dark-preview .nav-links a.active{
+    background:#21262d;
+    color:#6ea8fe;
+  }
+
+  body.dark-preview .nav-links::-webkit-scrollbar-thumb{
+    background:#484f58;
+  }
+
+}
+
+
+/* =========================================================
+   DARK MODE - SCROLLBAR
+   ========================================================= */
 
 body.dark-preview ::-webkit-scrollbar{
   width:9px;
