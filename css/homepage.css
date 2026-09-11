@@ -1290,3 +1290,137 @@
     }
 
 }
+/* =========================================
+   PERBAIKAN BAGIAN FOKUS
+   ========================================= */
+
+.focus-card {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 247px;
+    overflow: hidden;
+    border-radius: 5px;
+    background: #081b31;
+    text-decoration: none;
+}
+
+.focus-card > img {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    object-fit: cover;
+}
+
+.focus-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.82),
+        rgba(0, 0, 0, 0.25),
+        rgba(0, 0, 0, 0)
+    );
+}
+
+.focus-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+
+    padding: 24px;
+    color: #ffffff;
+}
+
+.focus-content .label {
+    display: inline-block;
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #ffffff;
+}
+
+.focus-content h3 {
+    margin: 0 0 8px;
+
+    font-size: 21px;
+    line-height: 1.25;
+    font-weight: 800;
+
+    color: #ffffff;
+}
+
+.focus-content p {
+    margin: 0 0 8px;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.focus-content time {
+    display: block;
+
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.focus-card .dots {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    z-index: 4;
+
+    display: flex;
+    gap: 6px;
+}
+
+.focus-card .dots button {
+    width: 7px;
+    height: 7px;
+
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+}
+
+.focus-card .dots button.selected {
+    background: #ffffff;
+}
+
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+    .focus-card {
+        height: 230px;
+    }
+
+    .focus-content {
+        padding: 20px;
+    }
+
+    .focus-content h3 {
+        font-size: 18px;
+    }
+
+    .focus-content p {
+        font-size: 12px;
+    }
+
+}
