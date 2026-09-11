@@ -712,3 +712,11 @@
     }
 
 }
+.hero-content { /* Ganti dengan nama class pembungkus teks Anda */
+    background-color: rgba(0, 0, 0, 0.55); /* Warna hitam dengan transparansi 55% */
+    padding: 20px;                         /* Memberi ruang di dalam kotak agar teks tidak mepet */
+    border-radius: 8px;                    /* Membuat sudut kotak sedikit melengkung (opsional) */
+    backdrop-filter: blur(4px);            /* Memberikan efek blur pada gambar di belakang kotak teks (opsional) */
+    color: #ffffff;                        /* Memastikan warna teks tetap putih */
+    max-width: 600px;                      /* Batasi lebar kotak agar tidak memenuhi seluruh layar */
+}
