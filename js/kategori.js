@@ -729,7 +729,6 @@ if (resultText) {
         `Menampilkan 1–10 dari 120 berita`;
 }
 
-
 /* =========================================================
    RENDER BERITA
 ========================================================= */
@@ -740,6 +739,26 @@ const newsContainer =
 const pagination =
     document.querySelector(".category-pagination");
 
+
+/* =========================================================
+   BUAT SLUG OTOMATIS DARI JUDUL
+========================================================= */
+
+function createArticleSlug(title) {
+
+    return title
+        .toString()
+        .toLowerCase()
+        .trim()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+
+}
+
+
 if (newsContainer) {
 
     const resultHeader =
@@ -747,22 +766,52 @@ if (newsContainer) {
             ".category-results-header"
         );
 
+
+    /* =====================================================
+       HAPUS BERITA LAMA
+    ===================================================== */
+
     document
         .querySelectorAll(".category-news-item")
         .forEach(item => item.remove());
+
+
+    /* =====================================================
+       TAMPILKAN BERITA
+    ===================================================== */
 
     data.articles.forEach(article => {
 
         const articleElement =
             document.createElement("article");
 
+
         articleElement.className =
             "category-news-item";
 
+
+        /* =================================================
+           SLUG ARTIKEL
+        ================================================= */
+
+        const articleSlug =
+            createArticleSlug(article.title);
+
+
+        const articleUrl =
+            `artikel.html?id=${articleSlug}`;
+
+
+        /* =================================================
+           HTML BERITA
+        ================================================= */
+
         articleElement.innerHTML = `
 
-            <a href="artikel.html"
-               class="category-news-image">
+            <a
+                href="${articleUrl}"
+                class="category-news-image"
+            >
 
                 <img
                     src="${article.image}"
@@ -770,6 +819,7 @@ if (newsContainer) {
                 >
 
             </a>
+
 
             <div class="category-news-content">
 
@@ -780,17 +830,20 @@ if (newsContainer) {
                     ${article.category}
                 </a>
 
+
                 <h2>
 
-                    <a href="artikel.html">
+                    <a href="${articleUrl}">
                         ${article.title}
                     </a>
 
                 </h2>
 
+
                 <p>
                     ${article.description}
                 </p>
+
 
                 <div class="news-meta">
 
@@ -803,7 +856,13 @@ if (newsContainer) {
                 </div>
 
             </div>
+
         `;
+
+
+        /* =================================================
+           MASUKKAN BERITA SEBELUM PAGINATION
+        ================================================= */
 
         newsContainer.insertBefore(
             articleElement,
@@ -811,8 +870,8 @@ if (newsContainer) {
         );
 
     });
-}
 
+}
 
 /* =========================================================
    UPDATE JUDUL TERPOPULER

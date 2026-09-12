@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        let visibleRows = [];
+        const visibleRows = [];
 
 
         rows.forEach(row => {
@@ -421,41 +421,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     }
-
-
-    /* =====================================================
-       TAB CLICK
-    ====================================================== */
-
-    tabs.forEach(tab => {
-
-        tab.addEventListener(
-            "click",
-            event => {
-
-                const category =
-                    normalize(
-                        tab.dataset.category
-                    );
-
-
-                /*
-                 * Biarkan browser membuka URL
-                 * kategori yang benar.
-                 *
-                 * Ini membuat URL bisa dibagikan
-                 * dan direfresh tanpa kehilangan
-                 * kategori.
-                 */
-
-                if (category === "all") {
-                    return;
-                }
-
-            }
-        );
-
-    });
 
 
     /* =====================================================

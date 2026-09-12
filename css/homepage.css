@@ -1477,39 +1477,32 @@ body.dark-preview .hero-slide-category {
 
 .site-footer {
     width: 100%;
-    margin: 20px 0 0;
-    padding: 0;
-
     background: #06244d;
     color: #ffffff;
-
-    border: none;
-    box-sizing: border-box;
+    margin-top: 55px;
 }
 
 
 /* =========================================================
-   FOOTER MAIN
+   FOOTER MAIN - DESKTOP
    ========================================================= */
 
-.site-footer .footer-main {
-    width: 100%;
-
+.footer-main {
     display: grid;
 
     grid-template-columns:
-        1.55fr
+        1.8fr
+        0.55fr
         0.85fr
-        0.95fr
-        0.85fr
-        1.20fr;
+        0.65fr
+        1.15fr;
 
-    column-gap: 50px;
+    column-gap: 18px;
+    row-gap: 45px;
 
-    margin: 0;
-    padding: 25px 50px 27px;
+    padding: 45px 50px 42px;
 
-    box-sizing: border-box;
+    border-top: 3px solid #ffffff;
 }
 
 
@@ -1517,44 +1510,38 @@ body.dark-preview .hero-slide-category {
    BRAND
    ========================================================= */
 
-.site-footer .footer-brand {
-    min-width: 0;
-    margin: 0;
-    padding: 0;
-}
+.footer-brand h2 {
+    margin: 0 0 8px;
 
+    font-size: 34px;
+    line-height: 1;
 
-.site-footer .footer-brand h2 {
-    margin: 0 0 2px;
-
-    color: #ffffff;
-
-    font-size: 21px;
-    line-height: 1.15;
     font-weight: 800;
+    letter-spacing: 0.6px;
 }
 
 
-.site-footer .footer-brand .footer-tagline {
-    margin: 0 0 10px;
-    color: #d7e3f2;
-    font-size: 14px;
-    line-height: 1.3;
-    font-weight: 500;
-}
+.footer-tagline {
+    margin: 10px 0 19px;
 
-
-/* =========================================================
-   DESKRIPSI
-   ========================================================= */
-
-.site-footer .footer-brand > p:last-child {
-    max-width: 285px;
-    margin: 0;
-    color: #ffffff;
-    font-size: 5px;
+    font-size: 15px;
     line-height: 1.4;
-    font-weight: 400;
+
+    color: #c5d5e7;
+
+    letter-spacing: 0.2px;
+}
+
+
+.footer-description {
+    max-width: 390px;
+
+    margin: 0;
+
+    font-size: 15px;
+    line-height: 1.7;
+
+    color: #f4f7fb;
 }
 
 
@@ -1562,232 +1549,196 @@ body.dark-preview .hero-slide-category {
    SOCIAL
    ========================================================= */
 
-.site-footer .footer-social {
+.footer-social {
     display: flex;
     align-items: center;
 
-    gap: 8px;
+    gap: 10px;
 
-    margin: 11px 0 0;
-    padding: 0;
+    margin-top: 22px;
 }
 
 
-.site-footer .footer-social a {
-    width: 21px;
-    height: 21px;
+.footer-social a {
+    width: 32px;
+    height: 32px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    margin: 0;
-    padding: 0;
-
-    background: #1261c9;
-    color: #ffffff;
-
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.38);
     border-radius: 50%;
 
+    background: transparent;
+    color: #ffffff;
+
     text-decoration: none;
 
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 700;
 
-    box-sizing: border-box;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.footer-social a:hover {
+    background: #1261c9;
+
+    border-color: #1261c9;
 }
 
 
 /* =========================================================
-   FOOTER COLUMN
+   FOOTER COLUMN TITLE
    ========================================================= */
 
-.site-footer .footer-column {
-    min-width: 0;
+.footer-column h3,
+.footer-newsletter h3 {
+    position: relative;
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    margin: 0 0 21px;
 
-    margin: 0;
-    padding: 0;
-}
+    padding-bottom: 11px;
 
+    font-size: 16px;
+    line-height: 1;
 
-/* =========================================================
-   JUDUL KOLOM
-   ========================================================= */
-
-.site-footer .footer-column h3 {
-    margin: 0 0 10px;
-    padding: 0;
+    font-weight: 800;
 
     color: #ffffff;
 
-    font-size: 12px;
-    line-height: 1.25;
-    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+
+.footer-column h3::after,
+.footer-newsletter h3::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 32px;
+    height: 2px;
+
+    background: #ffffff;
 }
 
 
 /* =========================================================
-   LINK MENU
+   FOOTER LINKS
    ========================================================= */
 
-.site-footer .footer-column a {
+.footer-column a {
     display: block;
 
-    margin: 0 0 6px;
-    padding: 0;
+    margin-bottom: 13px;
 
-    color: #ffffff;
-
-    font-size: 11px;
-    line-height: 1.3;
-    font-weight: 400;
+    color: #dce7f3;
 
     text-decoration: none;
-}
 
+    font-size: 14px;
+    line-height: 1.5;
 
-.site-footer .footer-column a:hover {
-    color: #ffffff;
-    text-decoration: underline;
-}
-
-
-/* =========================================================
-   NEWSLETTER
-   ========================================================= */
-
-.site-footer .footer-newsletter {
-    min-width: 0 !important;
-
-    display: block !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    border: none !important;
-
-    box-sizing: border-box;
-}
-
-
-.site-footer .footer-newsletter h3 {
-    margin: 0 0 10px;
-    padding: 0;
-
-    color: #ffffff;
-
-    font-size: 12px;
-    line-height: 1.25;
-    font-weight: 800;
-}
-
-
-.site-footer .footer-newsletter p {
-    max-width: 245px;
-
-    margin: 0 0 10px;
-    padding: 0;
-
-    color: #ffffff;
-
-    font-size: 11px;
-    line-height: 1.4;
-    font-weight: 400;
+    transition: color 0.2s ease;
 }
 
 
 /* =========================================================
-   NEWSLETTER FORM
+   FOOTER LINKS HOVER
+   Tidak menggunakan padding-left agar tulisan
+   tidak bergeser / goyang ketika diarahkan kursor
    ========================================================= */
 
-.site-footer .newsletter-form,
-.site-footer .footer-newsletter-form {
-    width: 100% !important;
-
-    display: block !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
-
-    box-sizing: border-box;
+.footer-column a:hover {
+    color: #ffffff;
 }
 
 
 /* =========================================================
-   INPUT
+   NEWSLETTER - DESKTOP
    ========================================================= */
 
-.site-footer .newsletter-form input,
-.site-footer .footer-newsletter-form input {
-    width: 100% !important;
-    height: 30px;
+.footer-newsletter p {
+    max-width: 300px;
 
-    display: block;
+    margin: 0 0 17px;
 
-    margin: 0;
-    padding: 0 10px;
+    color: #dce7f3;
 
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+.newsletter-form {
+    width: 100%;
+}
+
+
+.newsletter-form input {
     box-sizing: border-box;
 
-    background: transparent;
+    width: 100%;
+    height: 43px;
+
+    padding: 0 13px;
+
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 0;
+
+    background: rgba(255, 255, 255, 0.04);
 
     color: #ffffff;
-
-    border: 1px solid #31547c;
-    border-radius: 2px;
 
     outline: none;
 
     font-family: inherit;
-    font-size: 11px;
-    line-height: 1;
+    font-size: 13px;
 }
 
 
-.site-footer .newsletter-form input::placeholder,
-.site-footer .footer-newsletter-form input::placeholder {
-    color: #8198b3;
+.newsletter-form input:focus {
+    border-color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.08);
 }
 
 
-/* =========================================================
-   BUTTON
-   ========================================================= */
+.newsletter-form input::placeholder {
+    color: #91a8c2;
+}
 
-.site-footer .newsletter-form button,
-.site-footer .footer-newsletter-form button {
-    width: 100% !important;
-    height: 30px;
 
-    display: block;
+.newsletter-form button {
+    width: 100%;
+    height: 43px;
 
-    margin: 6px 0 0;
-    padding: 0 10px;
-
-    box-sizing: border-box;
-
-    background: #1261d0;
-    color: #ffffff;
+    margin-top: 8px;
 
     border: none;
-    border-radius: 2px;
+    border-radius: 0;
+
+    background: #1261c9;
+    color: #ffffff;
 
     cursor: pointer;
 
     font-family: inherit;
-    font-size: 11px;
-    line-height: 1;
+    font-size: 13px;
     font-weight: 700;
+
+    transition: background-color 0.2s ease;
 }
 
 
-.site-footer .newsletter-form button:hover,
-.site-footer .footer-newsletter-form button:hover {
+.newsletter-form button:hover {
     background: #2879df;
 }
 
@@ -1796,118 +1747,53 @@ body.dark-preview .hero-slide-category {
    FOOTER BOTTOM
    ========================================================= */
 
-.site-footer .footer-bottom {
-    width: 100%;
-
-    min-height: 36px;
+.footer-bottom {
+    min-height: 56px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    margin: 0;
+    gap: 20px;
+
     padding: 0 50px;
 
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+
     box-sizing: border-box;
-
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 
-/* =========================================================
-   COPYRIGHT
-   ========================================================= */
+.copyright {
+    font-size: 12px;
+    line-height: 1.4;
 
-.site-footer .footer-bottom p,
-.site-footer .footer-bottom .copyright {
-    margin: 0;
-    padding: 0;
-
-    color: #ffffff;
-
-    font-size: 11px;
-    line-height: 1.3;
-    font-weight: 400;
+    color: #b9cce2;
 }
 
 
-/* =========================================================
-   FOOTER LINKS
-   ========================================================= */
-
-.site-footer .footer-links,
-.site-footer .footer-bottom-links {
+.footer-links {
     display: flex;
     align-items: center;
 
-    gap: 10px;
-
-    margin: 0;
-    padding: 0;
-
-    color: #ffffff;
-
-    font-size: 11px;
+    gap: 11px;
 }
 
 
-.site-footer .footer-links a,
-.site-footer .footer-bottom-links a {
-    margin: 0;
-    padding: 0;
+.footer-links a,
+.footer-links span {
+    color: #b9cce2;
 
-    color: #ffffff;
-
-    font-size: 11px;
-    line-height: 1.3;
+    font-size: 12px;
+    line-height: 1.4;
 
     text-decoration: none;
+
+    transition: color 0.2s ease;
 }
 
 
-.site-footer .footer-links span,
-.site-footer .footer-bottom-links span {
-    margin: 0;
-    padding: 0;
-
-    color: #ffffff;
-
-    font-size: 11px;
-}
-
-
-.site-footer .footer-links a:hover,
-.site-footer .footer-bottom-links a:hover {
-    color: #ffffff;
-    text-decoration: underline;
-}
-
-
-/* =========================================================
-   DARK MODE
-   ========================================================= */
-
-body.dark-preview .site-footer {
-    background: #06244d;
-    color: #ffffff;
-}
-
-
-body.dark-preview .site-footer .footer-brand h2,
-body.dark-preview .site-footer .footer-brand .footer-tagline,
-body.dark-preview .site-footer .footer-brand > p:last-child,
-body.dark-preview .site-footer .footer-column h3,
-body.dark-preview .site-footer .footer-column a,
-body.dark-preview .site-footer .footer-newsletter h3,
-body.dark-preview .site-footer .footer-newsletter p,
-body.dark-preview .site-footer .footer-bottom p,
-body.dark-preview .site-footer .copyright,
-body.dark-preview .site-footer .footer-links,
-body.dark-preview .site-footer .footer-links a,
-body.dark-preview .site-footer .footer-links span,
-body.dark-preview .site-footer .footer-bottom-links,
-body.dark-preview .site-footer .footer-bottom-links a,
-body.dark-preview .site-footer .footer-bottom-links span {
+.footer-links a:hover {
     color: #ffffff;
 }
 
@@ -1916,44 +1802,36 @@ body.dark-preview .site-footer .footer-bottom-links span {
    TABLET
    ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
 
-    .site-footer .footer-main {
+    .footer-main {
         grid-template-columns:
-            1.4fr
-            1fr
-            1fr;
+            1.6fr
+            0.65fr
+            0.85fr
+            0.7fr;
 
-        column-gap: 30px;
-        row-gap: 25px;
+        column-gap: 20px;
+        row-gap: 38px;
 
-        padding: 28px 30px;
+        padding: 40px 35px 38px;
     }
 
 
-    .site-footer .footer-brand {
+    .footer-brand {
         grid-column: 1 / -1;
+
+        grid-row: auto;
     }
 
 
-    .site-footer .footer-newsletter {
-        grid-column: 1 / -1;
+    .footer-newsletter {
+        grid-column: 2 / -1;
     }
 
 
-    .site-footer .footer-newsletter p {
-        max-width: 350px;
-    }
-
-
-    .site-footer .newsletter-form,
-    .site-footer .footer-newsletter-form {
-        max-width: 350px;
-    }
-
-
-    .site-footer .footer-bottom {
-        padding: 0 30px;
+    .footer-bottom {
+        padding: 0 35px;
     }
 }
 
@@ -1962,64 +1840,303 @@ body.dark-preview .site-footer .footer-bottom-links span {
    MOBILE
    ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
     .site-footer {
-        margin-top: 20px;
+        margin-top: 40px;
     }
 
 
-    .site-footer .footer-main {
+    /* =====================================================
+       FOOTER MAIN
+       ===================================================== */
+
+    .footer-main {
+        display: grid;
+
+        /*
+         * STRUKTUR MOBILE:
+         *
+         * ┌────────────────┬────────────────┐
+         * │ MENU           │ LAYANAN        │
+         * │                │                │
+         * │                │                │
+         * │ NETWORK        │ NEWSLETTER     │
+         * └────────────────┴────────────────┘
+         */
+
         grid-template-columns: 1fr 1fr;
 
-        column-gap: 20px;
-        row-gap: 25px;
+        column-gap: 25px;
 
-        padding: 25px 20px;
+        row-gap: 32px;
+
+        padding: 38px 22px 32px;
     }
 
 
-    .site-footer .footer-brand {
+    /* =====================================================
+       BRAND
+       ===================================================== */
+
+    .footer-brand {
         grid-column: 1 / -1;
+
+        grid-row: 1;
     }
 
 
-    .site-footer .footer-newsletter {
-        grid-column: 1 / -1;
+    .footer-brand h2 {
+        font-size: 36px;
+
+        line-height: 1;
     }
 
 
-    .site-footer .footer-brand > p:last-child {
+    .footer-tagline {
+        margin-top: 11px;
+
+        margin-bottom: 19px;
+
+        font-size: 16px;
+
+        line-height: 1.45;
+    }
+
+
+    .footer-description {
         max-width: 100%;
+
+        font-size: 16px;
+
+        line-height: 1.7;
     }
 
 
-    .site-footer .footer-newsletter p {
+    /* =====================================================
+       SOCIAL
+       ===================================================== */
+
+    .footer-social {
+        margin-top: 20px;
+
+        gap: 10px;
+    }
+
+
+    .footer-social a {
+        width: 34px;
+
+        height: 34px;
+
+        font-size: 14px;
+    }
+
+
+    /* =====================================================
+       MENU
+       ===================================================== */
+
+    .footer-main > .footer-column:nth-child(2) {
+        grid-column: 1;
+
+        grid-row: 2;
+    }
+
+
+    /* =====================================================
+       LAYANAN
+       ===================================================== */
+
+    .footer-main > .footer-column:nth-child(3) {
+        grid-column: 2;
+
+        grid-row: 2;
+    }
+
+
+    /* =====================================================
+       NETWORK
+       ===================================================== */
+
+    .footer-main > .footer-column:nth-child(4) {
+        grid-column: 1;
+
+        grid-row: 3;
+    }
+
+
+    /* =====================================================
+       COLUMN TITLE
+       ===================================================== */
+
+    .footer-column h3 {
+
+        margin: 0 0 18px;
+
+        padding-bottom: 10px;
+
+        font-size: 17px;
+
+        line-height: 1.1;
+
+        font-weight: 800;
+    }
+
+
+    /* =====================================================
+       ISI MENU / LAYANAN / NETWORK
+       ===================================================== */
+
+    .footer-column a {
+
+        margin-bottom: 12px;
+
+        font-size: 16px;
+
+        line-height: 1.5;
+
+        transition: color 0.2s ease;
+    }
+
+
+    .footer-column a:hover {
+        color: #ffffff;
+
+        padding-left: 0;
+    }
+
+
+    /* =====================================================
+       NEWSLETTER
+       ===================================================== */
+
+    .footer-main > .footer-newsletter {
+
+        grid-column: 2;
+
+        grid-row: 3;
+
+        width: 100%;
+    }
+
+
+    .footer-newsletter h3 {
+
+        margin: 0 0 15px;
+
+        padding-bottom: 10px;
+
+        font-size: 17px;
+
+        line-height: 1.1;
+
+        font-weight: 800;
+    }
+
+
+    /* =====================================================
+       ISI NEWSLETTER
+       ===================================================== */
+
+    .footer-newsletter p {
+
         max-width: 100%;
+
+        margin: 0 0 14px;
+
+        font-size: 15px;
+
+        line-height: 1.55;
     }
 
 
-    .site-footer .newsletter-form,
-    .site-footer .footer-newsletter-form {
-        max-width: 100%;
-    }
+    /* =====================================================
+       NEWSLETTER FORM
+       ===================================================== */
 
+    .newsletter-form {
 
-    .site-footer .footer-bottom {
-        min-height: auto;
+        display: flex;
 
         flex-direction: column;
-        align-items: flex-start;
 
-        gap: 8px;
+        gap: 7px;
 
-        padding: 12px 20px;
+        width: 100%;
     }
 
 
-    .site-footer .footer-links,
-    .site-footer .footer-bottom-links {
+    .newsletter-form input {
+
+        width: 100%;
+
+        height: 43px;
+
+        box-sizing: border-box;
+
+        padding: 0 10px;
+
+        font-size: 13px;
+    }
+
+
+    .newsletter-form button {
+
+        width: 100%;
+
+        height: 43px;
+
+        margin-top: 0;
+
+        font-size: 13px;
+    }
+
+
+    /* =====================================================
+       FOOTER BOTTOM
+       ===================================================== */
+
+    .footer-bottom {
+
+        min-height: auto;
+
+        display: flex;
+
+        flex-direction: row;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding: 15px 22px;
+
+        gap: 15px;
+    }
+
+
+    .copyright {
+
+        font-size: 12px;
+    }
+
+
+    .footer-links {
+
+        display: flex;
+
         flex-wrap: wrap;
+
+        justify-content: flex-end;
+
+        gap: 7px;
+    }
+
+
+    .footer-links a,
+    .footer-links span {
+
+        font-size: 12px;
     }
 }
 
@@ -2028,15 +2145,272 @@ body.dark-preview .site-footer .footer-bottom-links span {
    SMALL MOBILE
    ========================================================= */
 
-@media (max-width: 400px) {
+@media (max-width: 480px) {
 
-    .site-footer .footer-main {
-        grid-template-columns: 1fr;
+    .footer-main {
+
+        column-gap: 18px;
+
+        row-gap: 29px;
+
+        padding: 34px 18px 29px;
     }
 
 
-    .site-footer .footer-brand,
-    .site-footer .footer-newsletter {
-        grid-column: auto;
+    /* =====================================================
+       BRAND
+       ===================================================== */
+
+    .footer-brand h2 {
+
+        font-size: 32px;
+    }
+
+
+    .footer-tagline {
+
+        font-size: 15px;
+    }
+
+
+    .footer-description {
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* =====================================================
+       SOCIAL
+       ===================================================== */
+
+    .footer-social {
+
+        margin-top: 18px;
+    }
+
+
+    .footer-social a {
+
+        width: 31px;
+
+        height: 31px;
+
+        font-size: 13px;
+    }
+
+
+    /* =====================================================
+       COLUMN TITLE
+       ===================================================== */
+
+    .footer-column h3,
+    .footer-newsletter h3 {
+
+        font-size: 16px;
+
+        margin-bottom: 15px;
+    }
+
+
+    /* =====================================================
+       ISI MENU / LAYANAN / NETWORK
+       ===================================================== */
+
+    .footer-column a {
+
+        margin-bottom: 10px;
+
+        font-size: 15px;
+
+        line-height: 1.5;
+    }
+
+
+    .footer-column a:hover {
+        color: #ffffff;
+
+        padding-left: 0;
+    }
+
+
+    /* =====================================================
+       ISI NEWSLETTER
+       ===================================================== */
+
+    .footer-newsletter p {
+
+        font-size: 13px;
+
+        line-height: 1.5;
+
+        margin-bottom: 11px;
+    }
+
+
+    .newsletter-form {
+
+        gap: 6px;
+    }
+
+
+    .newsletter-form input,
+    .newsletter-form button {
+
+        height: 40px;
+
+        font-size: 12px;
+    }
+
+
+    /* =====================================================
+       FOOTER BOTTOM
+       ===================================================== */
+
+    .footer-bottom {
+
+        padding: 14px 18px;
+
+        gap: 10px;
+    }
+
+
+    .copyright {
+
+        font-size: 11px;
+    }
+
+
+    .footer-links {
+
+        gap: 5px;
+    }
+
+
+    .footer-links a,
+    .footer-links span {
+
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   EXTRA SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .footer-main {
+
+        column-gap: 14px;
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+    }
+
+
+    /* =====================================================
+       BRAND
+       ===================================================== */
+
+    .footer-brand h2 {
+
+        font-size: 30px;
+    }
+
+
+    .footer-tagline {
+
+        font-size: 14px;
+    }
+
+
+    .footer-description {
+
+        font-size: 13px;
+
+        line-height: 1.65;
+    }
+
+
+    /* =====================================================
+       COLUMN TITLE
+       ===================================================== */
+
+    .footer-column h3,
+    .footer-newsletter h3 {
+
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       ISI MENU / LAYANAN / NETWORK
+       ===================================================== */
+
+    .footer-column a {
+
+        font-size: 13px;
+
+        margin-bottom: 8px;
+    }
+
+
+    .footer-column a:hover {
+        color: #ffffff;
+
+        padding-left: 0;
+    }
+
+
+    /* =====================================================
+       NEWSLETTER
+       ===================================================== */
+
+    .footer-newsletter p {
+
+        font-size: 11px;
+
+        line-height: 1.45;
+    }
+
+
+    .newsletter-form {
+
+        gap: 5px;
+    }
+
+
+    .newsletter-form input,
+    .newsletter-form button {
+
+        height: 37px;
+
+        font-size: 10px;
+    }
+
+
+    /* =====================================================
+       FOOTER BOTTOM
+       ===================================================== */
+
+    .footer-bottom {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+    }
+
+
+    .footer-links {
+
+        justify-content: flex-start;
     }
 }

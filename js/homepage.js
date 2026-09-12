@@ -164,10 +164,6 @@ let touchStartY = 0;
 
 let currentDragX = 0;
 
-let heroStartOffset = 0;
-
-let heroDragOffset = 0;
-
 let heroMoved = false;
 
 const SWIPE_THRESHOLD = 50;
@@ -404,8 +400,6 @@ function setHeroPosition(animate = true) {
         `translate3d(${getHeroBaseOffset()}%, 0, 0)`;
 
 
-    heroDragOffset = 0;
-
 }
 
 
@@ -608,11 +602,6 @@ if (heroTrack) {
 
             currentDragX =
                 touch.clientX;
-
-            heroStartOffset =
-                getHeroBaseOffset();
-
-            heroDragOffset = 0;
 
             heroMoved = false;
 
