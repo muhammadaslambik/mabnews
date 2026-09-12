@@ -214,7 +214,8 @@ time{
 
   border-radius:5px;
 
-  font-size:12px;
+  /* DIPERBESAR */
+  font-size:14px;
   font-weight:700;
 
   line-height:1;
@@ -321,7 +322,8 @@ time{
 
   border-radius:0;
 
-  font-size:12px;
+  /* DIPERBESAR */
+  font-size:14px;
   font-weight:600;
 
   line-height:1;

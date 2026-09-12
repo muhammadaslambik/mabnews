@@ -130,6 +130,8 @@
 
     margin-left:0;
     margin-right:12px;
+
+    font-size:14px;
   }
 
   .nav-links{
@@ -202,7 +204,8 @@
     border:0;
     border-radius:0;
 
-    font-size:12px;
+    /* DIPERBESAR */
+    font-size:14px;
 
     white-space:nowrap;
 
@@ -257,7 +260,7 @@
   }
 
   .brand small{
-    font-size:10px;
+    font-size:12px;
   }
 
   .header-actions{
@@ -327,7 +330,8 @@
 
     border-radius:5px;
 
-    font-size:12px;
+    /* DIPERBESAR */
+    font-size:13px;
     font-weight:700;
 
     white-space:nowrap;
@@ -432,7 +436,8 @@
 
     color:#20252d !important;
 
-    font-size:12px;
+    /* DIPERBESAR */
+    font-size:13px;
     font-weight:600;
 
     line-height:1;
@@ -581,7 +586,8 @@
 
     padding:0 11px;
 
-    font-size:11px;
+    /* DIPERBESAR */
+    font-size:13px;
   }
 
   .nav-links{
@@ -591,7 +597,8 @@
   }
 
   .nav-links a{
-    font-size:11px;
+    /* DIPERBESAR */
+    font-size:13px;
   }
 
 
@@ -707,4 +714,240 @@ body.dark-preview .account-menu a{
 body.dark-preview .account-menu a:hover{
   background:#21262d;
   color:#58a6ff;
+}
+/* =========================================================
+   MOBILE HEADER ACTIONS
+   LANGGANAN + SEARCH + THEME + ACCOUNT
+   ========================================================= */
+
+@media (max-width:768px){
+
+  .topbar{
+    grid-template-columns:minmax(0,1fr) auto;
+
+    gap:8px;
+  }
+
+  .brand{
+    min-width:0;
+  }
+
+  .brand-mark,
+  .brand-name{
+    font-size:25px;
+  }
+
+  .brand small{
+    font-size:12px;
+    font-weight:600;
+  }
+
+  .header-actions{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+
+    gap:4px;
+
+    flex-shrink:0;
+  }
+
+
+  /* -------------------------------------------------------
+     LANGGANAN
+     ------------------------------------------------------- */
+
+  .support-btn{
+    display:inline-flex;
+
+    height:34px;
+
+    padding:0 11px;
+
+    border-radius:5px;
+
+    font-size:11px;
+    font-weight:700;
+
+    white-space:nowrap;
+  }
+
+
+  /* -------------------------------------------------------
+     SEARCH ICON
+     ------------------------------------------------------- */
+
+  .mobile-search-btn{
+    display:grid;
+
+    width:32px;
+    height:34px;
+
+    padding:5px;
+  }
+
+  .mobile-search-btn svg{
+    width:18px;
+    height:18px;
+  }
+
+
+  /* -------------------------------------------------------
+     THEME ICON
+     ------------------------------------------------------- */
+
+  #themeToggle{
+    width:32px;
+    height:34px;
+
+    padding:5px;
+  }
+
+  #themeToggle svg{
+    width:18px;
+    height:18px;
+  }
+
+
+  /* -------------------------------------------------------
+     ACCOUNT ICON
+     ------------------------------------------------------- */
+
+  .header-actions > .account-wrapper{
+    display:flex;
+
+    width:32px;
+    height:34px;
+
+    align-items:center;
+    justify-content:center;
+  }
+
+  .header-actions > .account-wrapper > .icon-btn{
+    width:32px;
+    height:34px;
+
+    padding:5px;
+  }
+
+  .header-actions > .account-wrapper svg{
+    width:18px;
+    height:18px;
+  }
+
+
+  /* -------------------------------------------------------
+     MOBILE SEARCH PANEL
+     ------------------------------------------------------- */
+
+  .mobile-search-panel{
+    display:block;
+
+    max-height:0;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    border-bottom:0 solid #dfe3e8;
+
+    opacity:0;
+
+    transition:
+      max-height .25s ease,
+      opacity .2s ease,
+      border-color .25s ease;
+  }
+
+  .mobile-search-panel.open{
+    max-height:80px;
+
+    padding:8px 0;
+
+    border-bottom-width:1px;
+
+    opacity:1;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE SMALL
+   ========================================================= */
+
+@media (max-width:430px){
+
+  .topbar{
+    gap:5px;
+  }
+
+  .brand-mark,
+  .brand-name{
+    font-size:23px;
+  }
+
+  .brand small{
+    font-size:11px;
+  }
+
+  .header-actions{
+    gap:2px;
+  }
+
+  .support-btn{
+    height:32px;
+
+    padding:0 9px;
+
+    font-size:10px;
+  }
+
+  .mobile-search-btn,
+  #themeToggle,
+  .header-actions > .account-wrapper{
+    width:30px;
+    height:32px;
+  }
+
+  .header-actions > .account-wrapper > .icon-btn{
+    width:30px;
+    height:32px;
+  }
+
+  .mobile-search-btn svg,
+  #themeToggle svg,
+  .header-actions > .account-wrapper svg{
+    width:17px;
+    height:17px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE DARK MODE - SEARCH PANEL
+   ========================================================= */
+
+@media (max-width:768px){
+
+  body.dark-preview .mobile-search-panel{
+    background:#161b22;
+
+    border-bottom-color:#30363d;
+  }
+
+  body.dark-preview .mobile-search-box{
+    background:#0d1117;
+    border-color:#30363d;
+  }
+
+  body.dark-preview .mobile-search-box input{
+    color:#e6edf3;
+  }
+
+  body.dark-preview .mobile-search-box input::placeholder{
+    color:#8b949e;
+  }
+
 }

@@ -11,54 +11,174 @@
 </head>
 <body>
 <header class="site-header">
+
   <div class="container topbar">
-    <a class="brand" href="index.html"><span class="brand-mark">MAB-</span><span class="brand-name">NEWS</span><small>Fakta. Data. Perspektif.</small></a>
-    <form class="search-box" id="headerSearch">
-      <input id="searchInput" type="search" placeholder="Cari berita, topik, atau kata kunci..." aria-label="Cari berita">
-      <button type="submit" aria-label="Cari"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></button>
-    </form>
-    <div class="header-actions">
-      <a class="support-btn" href="#dukung">Dukung MAB-News</a>
-      <button class="icon-btn" id="themeToggle" aria-label="Mode tampilan"><svg viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path><circle cx="12" cy="12" r="4"></circle></svg></button>
-      <button class="icon-btn" aria-label="Akun"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c.9-4 3.5-6 8-6s7.1 2 8 6"></path></svg></button>
+
+    <!-- BRAND -->
+    <a class="brand" href="index.html">
+      <span class="brand-mark">MAB-</span>
+      <span class="brand-name">NEWS</span>
+      <small>Fakta. Data. Perspektif.</small>
+    </a>
+
+
+    <!-- WAKTU DESKTOP -->
+    <div class="header-datetime desktop-datetime" aria-label="Waktu saat ini">
+      <div class="date-line" id="desktopDate">
+        Minggu, 13 September 2026
+      </div>
+
+      <div class="time-line">
+        Pukul:
+        <span id="desktopTime">01:24</span>
+        WIB
+        <span class="time-separator">|</span>
+        <span id="desktopSeconds">00</span>
+        <span class="time-separator">|</span>
+      </div>
     </div>
-  </div>
-  <nav class="main-nav">
 
-  <div class="container nav-inner">
 
-    <div class="mobile-nav">
+    <!-- SEARCH -->
+    <form class="search-box" id="headerSearch">
 
-      <a href="index.html" class="mobile-home active">
-        Beranda
+      <input
+        id="searchInput"
+        type="search"
+        name="q"
+        placeholder="Cari berita, topik, atau kata kunci..."
+        aria-label="Cari berita"
+      >
+
+      <button
+        type="submit"
+        aria-label="Cari"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-4-4"></path>
+        </svg>
+      </button>
+
+    </form>
+
+
+    <!-- HEADER ACTIONS -->
+    <div class="header-actions">
+
+      <!-- LANGGANAN -->
+      <a
+        class="support-btn"
+        href="#dukung"
+      >
+        Langganan
       </a>
+      
+<button
+  type="button"
+  class="icon-btn mobile-search-toggle"
+  id="mobileSearchToggle"
+  aria-label="Buka pencarian"
+  title="Cari"
+>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="m20 20-4-4"></path>
+  </svg>
+</button>
 
-      <div class="nav-links" id="navLinks">
 
-        <a href="berita.html">Terbaru</a>
-        <a href="berita.html?sort=popular">Terpopuler</a>
-        <a href="kategori.html?kategori=nasional">Nasional</a>
-        <a href="kategori.html?kategori=internasional">Internasional</a>
-        <a href="kategori.html?kategori=ekonomi">Ekonomi</a>
-        <a href="kategori.html?kategori=metro">Metro</a>
-        <a href="kategori.html?kategori=dunia">Dunia</a>
-        <a href="kategori.html?kategori=olahraga">Olahraga</a>
-        <a href="kategori.html?kategori=teknologi">Teknologi</a>
-        <a href="kategori.html?kategori=otomotif">Otomotif</a>
-        <a href="kategori.html?kategori=gaya-hidup">Gaya Hidup</a>
-        <a href="kategori.html?kategori=seni">Seni</a>
-        <a href="kategori.html?kategori=kolom">Kolom</a>
-        <a href="kategori.html?kategori=indeks">Indeks</a>
-        <a href="kategori.html?kategori=foto">Foto</a>
-        <a href="kategori.html?kategori=video">Video</a>
+      <!-- MODE -->
+      <button
+        class="icon-btn"
+        id="themeToggle"
+        aria-label="Mode tampilan"
+      >
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          <circle cx="12" cy="12" r="4"></circle>
+        </svg>
+      </button>
 
+
+      <!-- AKUN -->
+      <button
+        class="icon-btn"
+        aria-label="Akun"
+      >
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 21c.9-4 3.5-6 8-6s7.1 2 8 6"></path>
+        </svg>
+      </button>
+
+    </div>
+
+
+    <!-- WAKTU MOBILE -->
+    <div
+      class="header-datetime mobile-datetime"
+      aria-label="Waktu saat ini"
+    >
+
+      <div class="mobile-time-line">
+        Pukul:
+        <span id="mobileTime">01:24</span>
+        WIB
+        <span class="time-separator">||</span>
+        <span id="mobileDate">
+          Minggu, 13 September 2026
+        </span>
       </div>
 
     </div>
 
   </div>
 
-</nav>
+
+  <!-- NAVIGATION -->
+  <nav class="main-nav">
+
+    <div class="container nav-inner">
+
+      <div class="mobile-nav">
+
+        <a
+          href="index.html"
+          class="mobile-home active"
+        >
+          Beranda
+        </a>
+
+        <div
+          class="nav-links"
+          id="navLinks"
+        >
+
+          <a href="berita.html">Terbaru</a>
+          <a href="berita.html?sort=popular">Terpopuler</a>
+          <a href="kategori.html?kategori=nasional">Nasional</a>
+          <a href="kategori.html?kategori=internasional">Internasional</a>
+          <a href="kategori.html?kategori=ekonomi">Ekonomi</a>
+          <a href="kategori.html?kategori=metro">Metro</a>
+          <a href="kategori.html?kategori=dunia">Dunia</a>
+          <a href="kategori.html?kategori=olahraga">Olahraga</a>
+          <a href="kategori.html?kategori=teknologi">Teknologi</a>
+          <a href="kategori.html?kategori=otomotif">Otomotif</a>
+          <a href="kategori.html?kategori=gaya-hidup">Gaya Hidup</a>
+          <a href="kategori.html?kategori=seni">Seni</a>
+          <a href="kategori.html?kategori=kolom">Kolom</a>
+          <a href="kategori.html?kategori=indeks">Indeks</a>
+          <a href="kategori.html?kategori=foto">Foto</a>
+          <a href="kategori.html?kategori=video">Video</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </nav>
 
 </header>
 <main class="container homepage">

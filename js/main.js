@@ -222,11 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".mobile-home");
 
 
-  /*
-     Beranda selalu aktif.
-     Link kategori dapat aktif ketika diklik.
-  */
-
   if(navLinks){
 
     const links =
@@ -253,11 +248,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /*
-     Beranda tetap tersorot.
-     Klik Beranda tidak memengaruhi link kategori.
-  */
-
   if(mobileHome){
 
     mobileHome.addEventListener(
@@ -283,11 +273,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =====================================================
-     SEARCH
+     SEARCH DESKTOP
      ===================================================== */
 
   const search =
     document.querySelector("#headerSearch");
+
+  function submitSearch(form){
+
+    if(!form) return;
+
+    const input =
+      form.querySelector('input[name="q"]');
+
+    const q =
+      input?.value.trim();
+
+    if(q){
+
+      window.location.href =
+        `search.html?q=${encodeURIComponent(q)}`;
+
+    }
+
+  }
+
 
   if(search){
 
@@ -297,21 +307,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
         event.preventDefault();
 
-        const input =
-          search.querySelector("input");
+        submitSearch(search);
 
-        const formData =
-          new FormData(search);
+      }
+    );
 
-        const q =
-          formData.get("q") ||
-          input?.value.trim();
+  }
 
 
-        if(q){
+  /* =====================================================
+     MOBILE SEARCH
+     ===================================================== */
 
-          window.location.href =
-            `search.html?q=${encodeURIComponent(q)}`;
+  const mobileSearchToggle =
+    document.querySelector(
+      "#mobileSearchToggle"
+    );
+
+  const mobileSearchPanel =
+    document.querySelector(
+      "#mobileSearchPanel"
+    );
+
+  const mobileSearchForm =
+    document.querySelector(
+      "#mobileSearchForm"
+    );
+
+
+  if(
+    mobileSearchToggle &&
+    mobileSearchPanel
+  ){
+
+    mobileSearchToggle.addEventListener(
+      "click",
+      () => {
+
+        const isOpen =
+          mobileSearchPanel.classList.toggle(
+            "open"
+          );
+
+        mobileSearchToggle.setAttribute(
+          "aria-expanded",
+          isOpen ? "true" : "false"
+        );
+
+        if(isOpen){
+
+          const input =
+            mobileSearchForm?.querySelector(
+              'input[name="q"]'
+            );
+
+          input?.focus();
 
         }
 
@@ -319,5 +369,373 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
   }
+
+
+  if(mobileSearchForm){
+
+    mobileSearchForm.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+        submitSearch(mobileSearchForm);
+
+      }
+    );
+
+  }
+
+  /* =====================================================
+     JAM / HARI / TANGGAL
+     ===================================================== */
+
+  const desktopDate =
+    document.querySelector("#desktopDate");
+
+  const desktopTime =
+    document.querySelector("#desktopTime");
+
+  const desktopSeconds =
+    document.querySelector("#desktopSeconds");
+
+  const mobileTime =
+    document.querySelector("#mobileTime");
+
+  const mobileDate =
+    document.querySelector("#mobileDate");
+
+
+  function updateDateTime(){
+
+    const now =
+      new Date(
+        new Date().toLocaleString(
+          "en-US",
+          {
+            timeZone:"Asia/Jakarta"
+          }
+        )
+      );
+
+
+    const days = [
+      "Minggu",
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jumat",
+      "Sabtu"
+    ];
+
+    const months = [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember"
+    ];
+
+
+    const day =
+      days[now.getDay()];
+
+    const date =
+      now.getDate();
+
+    const month =
+      months[now.getMonth()];
+
+    const year =
+      now.getFullYear();
+
+    const hours =
+      String(now.getHours()).padStart(2,"0");
+
+    const minutes =
+      String(now.getMinutes()).padStart(2,"0");
+
+    const seconds =
+      String(now.getSeconds()).padStart(2,"0");
+
+
+    const fullDate =
+      `${day}, ${date} ${month} ${year}`;
+
+
+    const time =
+      `${hours}:${minutes}`;
+
+
+    if(desktopDate){
+      desktopDate.textContent =
+        fullDate;
+    }
+
+    if(desktopTime){
+      desktopTime.textContent =
+        time;
+    }
+
+    if(desktopSeconds){
+      desktopSeconds.textContent =
+        seconds;
+    }
+
+    if(mobileTime){
+      mobileTime.textContent =
+        time;
+    }
+
+    if(mobileDate){
+      mobileDate.textContent =
+        fullDate;
+    }
+
+  }
+
+
+  updateDateTime();
+
+  setInterval(
+    updateDateTime,
+    1000
+  );
+
+
+  /* =====================================================
+     MOBILE SEARCH
+     ===================================================== */
+
+  const mobileSearchToggle =
+    document.querySelector(
+      "#mobileSearchToggle"
+    );
+
+  const siteHeader =
+    document.querySelector(
+      ".site-header"
+    );
+
+  const searchInput =
+    document.querySelector(
+      "#searchInput"
+    );
+
+
+  function closeMobileSearch(){
+
+    if(!siteHeader) return;
+
+    siteHeader.classList.remove(
+      "search-open"
+    );
+
+    if(mobileSearchToggle){
+
+      mobileSearchToggle.setAttribute(
+        "aria-label",
+        "Buka pencarian"
+      );
+
+      mobileSearchToggle.setAttribute(
+        "title",
+        "Cari"
+      );
+
+    }
+
+  }
+
+
+  function openMobileSearch(){
+
+    if(!siteHeader) return;
+
+    siteHeader.classList.add(
+      "search-open"
+    );
+
+    if(mobileSearchToggle){
+
+      mobileSearchToggle.setAttribute(
+        "aria-label",
+        "Tutup pencarian"
+      );
+
+      mobileSearchToggle.setAttribute(
+        "title",
+        "Tutup pencarian"
+      );
+
+    }
+
+    setTimeout(() => {
+
+      if(searchInput){
+        searchInput.focus();
+      }
+
+    },50);
+
+  }
+
+
+  if(mobileSearchToggle){
+
+    mobileSearchToggle.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+        if(
+          siteHeader &&
+          siteHeader.classList.contains(
+            "search-open"
+          )
+        ){
+
+          closeMobileSearch();
+
+        }else{
+
+          openMobileSearch();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /*
+     Klik di dalam header tidak menutup
+     pencarian.
+  */
+
+  if(siteHeader){
+
+    siteHeader.addEventListener(
+      "click",
+      (event) => {
+
+        if(
+          event.target.closest(
+            ".search-box"
+          )
+        ){
+
+          return;
+
+        }
+
+        if(
+          event.target.closest(
+            "#mobileSearchToggle"
+          )
+        ){
+
+          return;
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /*
+     Klik di luar header menutup
+     pencarian mobile.
+  */
+
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      if(!siteHeader) return;
+
+      if(
+        !siteHeader.classList.contains(
+          "search-open"
+        )
+      ){
+
+        return;
+
+      }
+
+
+      if(
+        event.target.closest(
+          ".site-header"
+        )
+      ){
+
+        return;
+
+      }
+
+
+      closeMobileSearch();
+
+    }
+  );
+
+
+  /*
+     Klik berita / hero / artikel
+     otomatis menutup pencarian.
+  */
+
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      if(!siteHeader) return;
+
+      if(
+        !siteHeader.classList.contains(
+          "search-open"
+        )
+      ){
+
+        return;
+
+      }
+
+
+      const newsTarget =
+        event.target.closest(
+          [
+            ".hero",
+            ".news-card",
+            ".latest-item",
+            ".popular-list",
+            ".focus-card",
+            "article a"
+          ].join(",")
+        );
+
+
+      if(newsTarget){
+
+        closeMobileSearch();
+
+      }
+
+    }
+  );
 
 });
