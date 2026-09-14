@@ -4,8 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
      MODE GELAP / TERANG
      ===================================================== */
 
-  const theme =
-    document.querySelector("#themeToggle");
+  const theme = document.querySelector("#themeToggle");
 
   const sunIcon = `
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -29,9 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
 
 
-  function updateThemeIcon(){
+  function updateThemeIcon() {
 
-    if(!theme) return;
+    if (!theme) return;
 
     const isDark =
       document.body.classList.contains("dark-preview");
@@ -58,36 +57,47 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedTheme =
     localStorage.getItem("mabnews-theme");
 
-  if(savedTheme === "dark"){
-    document.body.classList.add("dark-preview");
-  }else{
-    document.body.classList.remove("dark-preview");
+  if (savedTheme === "dark") {
+
+    document.body.classList.add(
+      "dark-preview"
+    );
+
+  } else {
+
+    document.body.classList.remove(
+      "dark-preview"
+    );
+
   }
 
   updateThemeIcon();
 
 
-  if(theme){
+  if (theme) {
 
-    theme.addEventListener("click", () => {
+    theme.addEventListener(
+      "click",
+      () => {
 
-      document.body.classList.toggle(
-        "dark-preview"
-      );
-
-      const isDark =
-        document.body.classList.contains(
+        document.body.classList.toggle(
           "dark-preview"
         );
 
-      localStorage.setItem(
-        "mabnews-theme",
-        isDark ? "dark" : "light"
-      );
+        const isDark =
+          document.body.classList.contains(
+            "dark-preview"
+          );
 
-      updateThemeIcon();
+        localStorage.setItem(
+          "mabnews-theme",
+          isDark ? "dark" : "light"
+        );
 
-    });
+        updateThemeIcon();
+
+      }
+    );
 
   }
 
@@ -101,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
       '[aria-label="Akun"]'
     );
 
-  if(accountButton){
+  if (accountButton) {
 
     const wrapper =
       document.createElement("div");
@@ -114,7 +124,9 @@ document.addEventListener("DOMContentLoaded", () => {
       accountButton
     );
 
-    wrapper.appendChild(accountButton);
+    wrapper.appendChild(
+      accountButton
+    );
 
 
     const accountMenu =
@@ -142,7 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
       </a>
     `;
 
-    wrapper.appendChild(accountMenu);
+    wrapper.appendChild(
+      accountMenu
+    );
 
 
     accountButton.addEventListener(
@@ -151,7 +165,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         event.stopPropagation();
 
-        accountMenu.classList.toggle("open");
+        accountMenu.classList.toggle(
+          "open"
+        );
 
       }
     );
@@ -168,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "[data-account-action]"
           );
 
-        if(!item) return;
+        if (!item) return;
 
         event.preventDefault();
 
@@ -177,22 +193,31 @@ document.addEventListener("DOMContentLoaded", () => {
             "data-account-action"
           );
 
-        if(action === "profile"){
+
+        if (action === "profile") {
+
           alert(
             "Halaman Profil MAB-News belum tersedia."
           );
+
         }
 
-        if(action === "settings"){
+
+        if (action === "settings") {
+
           alert(
             "Halaman Pengaturan belum tersedia."
           );
+
         }
 
-        if(action === "login"){
+
+        if (action === "login") {
+
           alert(
             "Fitur Masuk belum tersedia."
           );
+
         }
 
       }
@@ -203,7 +228,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "click",
       () => {
 
-        accountMenu.classList.remove("open");
+        accountMenu.classList.remove(
+          "open"
+        );
 
       }
     );
@@ -216,55 +243,77 @@ document.addEventListener("DOMContentLoaded", () => {
      ===================================================== */
 
   const navLinks =
-    document.querySelector("#navLinks");
+    document.querySelector(
+      "#navLinks"
+    );
 
   const mobileHome =
-    document.querySelector(".mobile-home");
+    document.querySelector(
+      ".mobile-home"
+    );
 
 
-  if(navLinks){
+  if (navLinks) {
 
     const links =
       navLinks.querySelectorAll("a");
 
 
-    links.forEach((link) => {
+    links.forEach(
+      (link) => {
 
-      link.addEventListener(
-        "click",
-        () => {
+        link.addEventListener(
+          "click",
+          () => {
 
-          links.forEach((item) => {
-            item.classList.remove("active");
-          });
+            links.forEach(
+              (item) => {
 
-          link.classList.add("active");
+                item.classList.remove(
+                  "active"
+                );
 
-        }
-      );
+              }
+            );
 
-    });
+            link.classList.add(
+              "active"
+            );
+
+          }
+        );
+
+      }
+    );
 
   }
 
 
-  if(mobileHome){
+  if (mobileHome) {
 
     mobileHome.addEventListener(
       "click",
       () => {
 
-        if(navLinks){
+        if (navLinks) {
 
           navLinks
             .querySelectorAll("a")
-            .forEach((link) => {
-              link.classList.remove("active");
-            });
+            .forEach(
+              (link) => {
+
+                link.classList.remove(
+                  "active"
+                );
+
+              }
+            );
 
         }
 
-        mobileHome.classList.add("active");
+        mobileHome.classList.add(
+          "active"
+        );
 
       }
     );
@@ -273,23 +322,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =====================================================
-     SEARCH DESKTOP
+     SEARCH
      ===================================================== */
 
   const search =
-    document.querySelector("#headerSearch");
+    document.querySelector(
+      "#headerSearch"
+    );
 
-  function submitSearch(form){
+  const searchInput =
+    document.querySelector(
+      "#searchInput"
+    );
 
-    if(!form) return;
+  const mobileSearchToggle =
+    document.querySelector(
+      "#mobileSearchToggle"
+    );
+
+  const siteHeader =
+    document.querySelector(
+      ".site-header"
+    );
+
+
+  function submitSearch(form) {
+
+    if (!form) return;
 
     const input =
-      form.querySelector('input[name="q"]');
+      form.querySelector(
+        'input[name="q"]'
+      );
 
     const q =
       input?.value.trim();
 
-    if(q){
+
+    if (q) {
 
       window.location.href =
         `search.html?q=${encodeURIComponent(q)}`;
@@ -299,7 +369,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  if(search){
+  /* =====================================================
+     SEARCH DESKTOP
+     ===================================================== */
+
+  if (search) {
 
     search.addEventListener(
       "submit",
@@ -319,49 +393,105 @@ document.addEventListener("DOMContentLoaded", () => {
      MOBILE SEARCH
      ===================================================== */
 
-  const mobileSearchToggle =
-    document.querySelector(
-      "#mobileSearchToggle"
-    );
+  function closeMobileSearch() {
 
-  const mobileSearchPanel =
-    document.querySelector(
-      "#mobileSearchPanel"
-    );
+    if (!siteHeader) return;
 
-  const mobileSearchForm =
-    document.querySelector(
-      "#mobileSearchForm"
+    siteHeader.classList.remove(
+      "search-open"
     );
 
 
-  if(
-    mobileSearchToggle &&
-    mobileSearchPanel
-  ){
+    if (mobileSearchToggle) {
+
+      mobileSearchToggle.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      mobileSearchToggle.setAttribute(
+        "aria-label",
+        "Buka pencarian"
+      );
+
+      mobileSearchToggle.setAttribute(
+        "title",
+        "Cari"
+      );
+
+    }
+
+  }
+
+
+  function openMobileSearch() {
+
+    if (!siteHeader) return;
+
+    siteHeader.classList.add(
+      "search-open"
+    );
+
+
+    if (mobileSearchToggle) {
+
+      mobileSearchToggle.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+      mobileSearchToggle.setAttribute(
+        "aria-label",
+        "Tutup pencarian"
+      );
+
+      mobileSearchToggle.setAttribute(
+        "title",
+        "Tutup pencarian"
+      );
+
+    }
+
+
+    setTimeout(
+      () => {
+
+        if (searchInput) {
+
+          searchInput.focus();
+
+        }
+
+      },
+      50
+    );
+
+  }
+
+
+  if (mobileSearchToggle) {
 
     mobileSearchToggle.addEventListener(
       "click",
-      () => {
+      (event) => {
 
-        const isOpen =
-          mobileSearchPanel.classList.toggle(
-            "open"
-          );
+        event.preventDefault();
 
-        mobileSearchToggle.setAttribute(
-          "aria-expanded",
-          isOpen ? "true" : "false"
-        );
+        event.stopPropagation();
 
-        if(isOpen){
 
-          const input =
-            mobileSearchForm?.querySelector(
-              'input[name="q"]'
-            );
+        if (
+          siteHeader &&
+          siteHeader.classList.contains(
+            "search-open"
+          )
+        ) {
 
-          input?.focus();
+          closeMobileSearch();
+
+        } else {
+
+          openMobileSearch();
 
         }
 
@@ -371,49 +501,128 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  if(mobileSearchForm){
+  /* =====================================================
+     KLIK DI LUAR HEADER
+     ===================================================== */
 
-    mobileSearchForm.addEventListener(
-      "submit",
-      (event) => {
+  document.addEventListener(
+    "click",
+    (event) => {
 
-        event.preventDefault();
+      if (!siteHeader) return;
 
-        submitSearch(mobileSearchForm);
+
+      if (
+        !siteHeader.classList.contains(
+          "search-open"
+        )
+      ) {
+
+        return;
 
       }
-    );
 
-  }
+
+      if (
+        event.target.closest(
+          ".site-header"
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      closeMobileSearch();
+
+    }
+  );
+
+
+  /* =====================================================
+     KLIK BERITA MENUTUP SEARCH
+     ===================================================== */
+
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      if (!siteHeader) return;
+
+
+      if (
+        !siteHeader.classList.contains(
+          "search-open"
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      const newsTarget =
+        event.target.closest(
+          [
+            ".hero",
+            ".news-card",
+            ".latest-item",
+            ".popular-list",
+            ".focus-card",
+            "article a"
+          ].join(",")
+        );
+
+
+      if (newsTarget) {
+
+        closeMobileSearch();
+
+      }
+
+    }
+  );
+
 
   /* =====================================================
      JAM / HARI / TANGGAL
      ===================================================== */
 
   const desktopDate =
-    document.querySelector("#desktopDate");
+    document.querySelector(
+      "#desktopDate"
+    );
 
   const desktopTime =
-    document.querySelector("#desktopTime");
+    document.querySelector(
+      "#desktopTime"
+    );
 
   const desktopSeconds =
-    document.querySelector("#desktopSeconds");
+    document.querySelector(
+      "#desktopSeconds"
+    );
 
   const mobileTime =
-    document.querySelector("#mobileTime");
+    document.querySelector(
+      "#mobileTime"
+    );
 
   const mobileDate =
-    document.querySelector("#mobileDate");
+    document.querySelector(
+      "#mobileDate"
+    );
 
 
-  function updateDateTime(){
+  function updateDateTime() {
 
     const now =
       new Date(
         new Date().toLocaleString(
           "en-US",
           {
-            timeZone:"Asia/Jakarta"
+            timeZone: "Asia/Jakarta"
           }
         )
       );
@@ -428,6 +637,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Jumat",
       "Sabtu"
     ];
+
 
     const months = [
       "Januari",
@@ -457,14 +667,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const year =
       now.getFullYear();
 
+
     const hours =
-      String(now.getHours()).padStart(2,"0");
+      String(
+        now.getHours()
+      ).padStart(2, "0");
+
 
     const minutes =
-      String(now.getMinutes()).padStart(2,"0");
+      String(
+        now.getMinutes()
+      ).padStart(2, "0");
+
 
     const seconds =
-      String(now.getSeconds()).padStart(2,"0");
+      String(
+        now.getSeconds()
+      ).padStart(2, "0");
 
 
     const fullDate =
@@ -475,29 +694,43 @@ document.addEventListener("DOMContentLoaded", () => {
       `${hours}:${minutes}`;
 
 
-    if(desktopDate){
+    if (desktopDate) {
+
       desktopDate.textContent =
         fullDate;
+
     }
 
-    if(desktopTime){
+
+    if (desktopTime) {
+
       desktopTime.textContent =
         time;
+
     }
 
-    if(desktopSeconds){
+
+    if (desktopSeconds) {
+
       desktopSeconds.textContent =
         seconds;
+
     }
 
-    if(mobileTime){
+
+    if (mobileTime) {
+
       mobileTime.textContent =
         time;
+
     }
 
-    if(mobileDate){
+
+    if (mobileDate) {
+
       mobileDate.textContent =
         fullDate;
+
     }
 
   }
@@ -505,237 +738,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateDateTime();
 
+
   setInterval(
     updateDateTime,
     1000
-  );
-
-
-  /* =====================================================
-     MOBILE SEARCH
-     ===================================================== */
-
-  const mobileSearchToggle =
-    document.querySelector(
-      "#mobileSearchToggle"
-    );
-
-  const siteHeader =
-    document.querySelector(
-      ".site-header"
-    );
-
-  const searchInput =
-    document.querySelector(
-      "#searchInput"
-    );
-
-
-  function closeMobileSearch(){
-
-    if(!siteHeader) return;
-
-    siteHeader.classList.remove(
-      "search-open"
-    );
-
-    if(mobileSearchToggle){
-
-      mobileSearchToggle.setAttribute(
-        "aria-label",
-        "Buka pencarian"
-      );
-
-      mobileSearchToggle.setAttribute(
-        "title",
-        "Cari"
-      );
-
-    }
-
-  }
-
-
-  function openMobileSearch(){
-
-    if(!siteHeader) return;
-
-    siteHeader.classList.add(
-      "search-open"
-    );
-
-    if(mobileSearchToggle){
-
-      mobileSearchToggle.setAttribute(
-        "aria-label",
-        "Tutup pencarian"
-      );
-
-      mobileSearchToggle.setAttribute(
-        "title",
-        "Tutup pencarian"
-      );
-
-    }
-
-    setTimeout(() => {
-
-      if(searchInput){
-        searchInput.focus();
-      }
-
-    },50);
-
-  }
-
-
-  if(mobileSearchToggle){
-
-    mobileSearchToggle.addEventListener(
-      "click",
-      (event) => {
-
-        event.stopPropagation();
-
-        if(
-          siteHeader &&
-          siteHeader.classList.contains(
-            "search-open"
-          )
-        ){
-
-          closeMobileSearch();
-
-        }else{
-
-          openMobileSearch();
-
-        }
-
-      }
-    );
-
-  }
-
-
-  /*
-     Klik di dalam header tidak menutup
-     pencarian.
-  */
-
-  if(siteHeader){
-
-    siteHeader.addEventListener(
-      "click",
-      (event) => {
-
-        if(
-          event.target.closest(
-            ".search-box"
-          )
-        ){
-
-          return;
-
-        }
-
-        if(
-          event.target.closest(
-            "#mobileSearchToggle"
-          )
-        ){
-
-          return;
-
-        }
-
-      }
-    );
-
-  }
-
-
-  /*
-     Klik di luar header menutup
-     pencarian mobile.
-  */
-
-  document.addEventListener(
-    "click",
-    (event) => {
-
-      if(!siteHeader) return;
-
-      if(
-        !siteHeader.classList.contains(
-          "search-open"
-        )
-      ){
-
-        return;
-
-      }
-
-
-      if(
-        event.target.closest(
-          ".site-header"
-        )
-      ){
-
-        return;
-
-      }
-
-
-      closeMobileSearch();
-
-    }
-  );
-
-
-  /*
-     Klik berita / hero / artikel
-     otomatis menutup pencarian.
-  */
-
-  document.addEventListener(
-    "click",
-    (event) => {
-
-      if(!siteHeader) return;
-
-      if(
-        !siteHeader.classList.contains(
-          "search-open"
-        )
-      ){
-
-        return;
-
-      }
-
-
-      const newsTarget =
-        event.target.closest(
-          [
-            ".hero",
-            ".news-card",
-            ".latest-item",
-            ".popular-list",
-            ".focus-card",
-            "article a"
-          ].join(",")
-        );
-
-
-      if(newsTarget){
-
-        closeMobileSearch();
-
-      }
-
-    }
   );
 
 });
