@@ -91,6 +91,71 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /*
+     * Pencocokan kata kunci yang lebih pintar.
+     *
+     * Kata kunci dipecah per kata, lalu dicari satu per
+     * satu di dalam teks — TIDAK harus berurutan persis
+     * (boleh ada kata lain di antaranya), tapi urutannya
+     * harus tetap dari kiri ke kanan.
+     *
+     * Contoh:
+     *   Teks : "Pemerintah menyiapkan sejumlah strategi
+     *           baru untuk menjaga daya beli masyarakat
+     *           di tengah dinamika perekonomian nasional."
+     *   Cari : "Pemerintah menjaga daya beli masyarakat"
+     *   Hasil: cocok, karena semua kata ditemukan berurutan
+     *          dari kiri ke kanan (meski melompati kata lain).
+     */
+
+    function smartMatch(query, text) {
+
+        const queryWords =
+            normalize(query)
+                .split(/\s+/)
+                .filter(Boolean);
+
+        if (queryWords.length === 0) {
+            return true;
+        }
+
+
+        const textWords =
+            normalize(text)
+                .split(/\s+/)
+                .filter(Boolean);
+
+        let cursor = 0;
+
+        for (const word of queryWords) {
+
+            let found = false;
+
+            while (cursor < textWords.length) {
+
+                const current =
+                    textWords[cursor];
+
+                cursor++;
+
+                if (current.includes(word)) {
+                    found = true;
+                    break;
+                }
+
+            }
+
+            if (!found) {
+                return false;
+            }
+
+        }
+
+        return true;
+
+    }
+
+
     function getCategoryName(category) {
 
         const names = {
@@ -238,10 +303,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     row.dataset.time
                 );
 
-            const rowText =
-                normalize(
-                    row.textContent
-                );
+            const titleText =
+                row.querySelector("h3")
+                    ?.textContent || "";
+
+            const excerptText =
+                row.querySelector(
+                    ".news-content p"
+                )?.textContent || "";
+
+            const searchableText =
+                `${titleText} ${excerptText}`;
 
 
             const categoryOK =
@@ -255,8 +327,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             const searchOK =
-                !searchTerm ||
-                rowText.includes(searchTerm);
+                smartMatch(
+                    searchTerm,
+                    searchableText
+                );
 
 
             let timeOK = true;

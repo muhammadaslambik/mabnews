@@ -808,3 +808,143 @@
     }
 
 }
+
+
+/* =========================================================
+   DARK PREVIEW
+   ========================================================= */
+
+.category-page.dark-preview {
+    background: #0f1720;
+    color: #e5edf5;
+}
+
+.category-page.dark-preview .category-breadcrumb {
+    background: #0f1720;
+}
+
+.category-page.dark-preview .category-breadcrumb a {
+    color: #4c9bff;
+}
+
+.category-page.dark-preview .category-breadcrumb span {
+    color: #7b8493;
+}
+
+.category-page.dark-preview .category-content {
+    background: #0f1720;
+}
+
+.category-page.dark-preview .category-results-header {
+    color: #a9b5c3;
+}
+
+.category-page.dark-preview .category-results-header select {
+    background: #162230;
+    border-color: #2c3c4d;
+    color: #e5edf5;
+}
+
+.category-page.dark-preview .category-news-item {
+    border-color: #263544;
+}
+
+.category-page.dark-preview .category-news-image {
+    background: #162230;
+}
+
+.category-page.dark-preview .category-news-content h2 a {
+    color: #ffffff;
+}
+
+.category-page.dark-preview .category-news-content h2 a:hover {
+    color: #4c9bff;
+}
+
+.category-page.dark-preview .category-news-content p {
+    color: #a9b5c3;
+}
+
+.category-page.dark-preview .news-meta {
+    color: #8e9bab;
+}
+
+.category-page.dark-preview .news-meta span {
+    color: #6b7686;
+}
+
+.category-page.dark-preview .category-pagination a,
+.category-page.dark-preview .category-pagination span {
+    border-color: #2c3c4d;
+    color: #c4cfdb;
+}
+
+.category-page.dark-preview .category-pagination a:hover {
+    border-color: #4c9bff;
+    color: #4c9bff;
+}
+
+.category-page.dark-preview .category-sidebar {
+    border-color: #263544;
+}
+
+.category-page.dark-preview .category-sidebar-title {
+    border-color: #263544;
+}
+
+.category-page.dark-preview .category-sidebar-title h2 {
+    color: #ffffff;
+}
+
+.category-page.dark-preview .category-sidebar-title a {
+    color: #a9b5c3;
+}
+
+.category-page.dark-preview .national-popular-item {
+    border-color: #263544;
+}
+
+.category-page.dark-preview .national-popular-item img {
+    background: #162230;
+}
+
+.category-page.dark-preview .popular-text h3 {
+    color: #e5edf5;
+}
+
+.category-page.dark-preview .popular-text time {
+    color: #8e9bab;
+}
+
+.category-page.dark-preview .category-menu-grid {
+    background: #162230;
+    border-color: #2c3c4d;
+}
+
+.category-page.dark-preview .category-menu-grid a {
+    color: #c4cfdb;
+}
+
+.category-page.dark-preview .category-menu-grid a.selected {
+    background: #1d3a5f;
+    color: #4c9bff;
+}
+
+.category-page.dark-preview .category-newsletter {
+    background: #162230;
+    border-color: #2c3c4d;
+}
+
+.category-page.dark-preview .category-newsletter h2 {
+    color: #ffffff;
+}
+
+.category-page.dark-preview .category-newsletter p {
+    color: #a9b5c3;
+}
+
+.category-page.dark-preview .category-newsletter input {
+    background: #0f1720;
+    border-color: #2c3c4d;
+    color: #e5edf5;
+}
