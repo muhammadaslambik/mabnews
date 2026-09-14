@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.classList.contains("dark-preview");
 
     theme.innerHTML =
-      isDark ? moonIcon : sunIcon;
+      isDark ? sunIcon : moonIcon;
 
     theme.setAttribute(
       "aria-label",
