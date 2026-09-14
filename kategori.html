@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/category.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 
@@ -20,151 +21,175 @@
 
 <header class="site-header">
 
-    <div class="header-top">
+  <div class="container topbar">
 
-        <div class="container header-inner">
-
-            <a href="index.html" class="brand">
-
-                <div class="brand-name">
-                    MAB-NEWS
-                </div>
-
-                <div class="brand-tagline">
-                    Fakta. Data. Perspektif.
-                </div>
-
-            </a>
+    <!-- BRAND -->
+    <a class="brand" href="index.html">
+      <span class="brand-mark">MAB-</span>
+      <span class="brand-name">NEWS</span>
+      <small>Fakta. Data. Perspektif.</small>
+    </a>
 
 
-            <div class="header-search">
+    <!-- WAKTU DESKTOP -->
+    <div class="header-datetime desktop-datetime" aria-label="Waktu saat ini">
+      <div class="date-line" id="desktopDate">
+        Minggu, 13 September 2026
+      </div>
 
-                <input
-                    type="text"
-                    placeholder="Cari berita..."
-                >
+      <div class="time-line">
+        Pukul:
+        <span id="desktopTime">01:24</span>
+        WIB
+        <span class="time-separator">|</span>
+        <span id="desktopSeconds">00</span>
+        <span class="time-separator">|</span>
+      </div>
+    </div>
 
-                <button type="button">
-                    🔍
-                </button>
 
-            </div>
+    <!-- SEARCH -->
+    <form class="search-box" id="headerSearch">
+
+      <input
+        id="searchInput"
+        type="search"
+        name="q"
+        placeholder="Cari berita, topik, atau kata kunci..."
+        aria-label="Cari berita"
+      >
+
+      <button
+        type="submit"
+        aria-label="Cari"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-4-4"></path>
+        </svg>
+      </button>
+
+    </form>
 
 
-            <div class="header-actions">
+    <!-- HEADER ACTIONS -->
+    <div class="header-actions">
 
-                <a href="#" class="support-btn">
-                    ♥&nbsp; Dukung MAB-News
-                </a>
+      <!-- LANGGANAN -->
+      <a
+        class="support-btn"
+        href="index.html#dukung"
+      >
+        Langganan
+      </a>
+      
+<button
+  type="button"
+  class="icon-btn mobile-search-toggle"
+  id="mobileSearchToggle"
+  aria-label="Buka pencarian"
+  title="Cari"
+>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="m20 20-4-4"></path>
+  </svg>
+</button>
 
-                <button
-                    class="header-icon"
-                    type="button"
-                    title="Mode Gelap"
-                >
-                    ☾
-                </button>
 
-                <button
-                    class="header-icon"
-                    type="button"
-                    title="Akun"
-                >
-                    ♙
-                </button>
+      <!-- MODE -->
+      <button
+        class="icon-btn"
+        id="themeToggle"
+        aria-label="Mode tampilan"
+      >
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          <circle cx="12" cy="12" r="4"></circle>
+        </svg>
+      </button>
 
-            </div>
 
-        </div>
+      <!-- AKUN -->
+      <button
+        class="icon-btn"
+        aria-label="Akun"
+      >
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 21c.9-4 3.5-6 8-6s7.1 2 8 6"></path>
+        </svg>
+      </button>
 
     </div>
 
 
-    <!-- NAVIGATION -->
+    <!-- WAKTU MOBILE -->
+    <div
+      class="header-datetime mobile-datetime"
+      aria-label="Waktu saat ini"
+    >
 
-    <nav class="main-navigation">
+      <div class="mobile-time-line">
+        Pukul:
+        <span id="mobileTime">01:24</span>
+        WIB
+        <span class="time-separator">|</span>
+        <span id="mobileSeconds">00</span>
+        <span class="time-separator">|</span>
+        <span id="mobileDate">
+          Minggu, 13 September 2026
+        </span>
+      </div>
 
-        <div class="container nav-inner">
+    </div>
 
-            <button
-                class="menu-toggle"
-                type="button"
-                aria-label="Menu"
-            >
-                ☰
-            </button>
+  </div>
 
-<a href="index.html">
-    Beranda
-</a>
 
-<a href="berita.html">
-    Terbaru
-</a>
+  <!-- NAVIGATION -->
+  <nav class="main-nav">
 
-<a href="berita.html">
-    Terpopuler
-</a>
+    <div class="container nav-inner">
 
-<a href="kategori.html?kategori=nasional" class="active">
-    Nasional
-</a>
+      <div class="mobile-nav">
 
-<a href="kategori.html?kategori=internasional">
-    Internasional
-</a>
+        <a
+          href="index.html"
+          class="mobile-home"
+        >
+          Beranda
+        </a>
 
-<a href="kategori.html?kategori=ekonomi">
-    Ekonomi
-</a>
+        <div
+          class="nav-links"
+          id="navLinks"
+        >
 
-<a href="kategori.html?kategori=metro">
-    Metro
-</a>
+          <a href="berita.html">Terbaru</a>
+          <a href="berita.html?sort=popular">Terpopuler</a>
+          <a href="kategori.html?kategori=nasional" class="active">Nasional</a>
+          <a href="kategori.html?kategori=internasional">Internasional</a>
+          <a href="kategori.html?kategori=ekonomi">Ekonomi</a>
+          <a href="kategori.html?kategori=metro">Metro</a>
+          <a href="kategori.html?kategori=dunia">Dunia</a>
+          <a href="kategori.html?kategori=olahraga">Olahraga</a>
+          <a href="kategori.html?kategori=teknologi">Teknologi</a>
+          <a href="kategori.html?kategori=otomotif">Otomotif</a>
+          <a href="kategori.html?kategori=gaya-hidup">Gaya Hidup</a>
+          <a href="kategori.html?kategori=seni">Seni</a>
+          <a href="kategori.html?kategori=kolom">Kolom</a>
+          <a href="kategori.html?kategori=indeks">Indeks</a>
+          <a href="kategori.html?kategori=foto">Foto</a>
+          <a href="kategori.html?kategori=video">Video</a>
 
-<a href="kategori.html?kategori=dunia">
-    Dunia
-</a>
-
-<a href="kategori.html?kategori=olahraga">
-    Olahraga
-</a>
-
-<a href="kategori.html?kategori=teknologi">
-    Teknologi
-</a>
-
-<a href="kategori.html?kategori=otomotif">
-    Otomotif
-</a>
-
-<a href="kategori.html?kategori=gaya-hidup">
-    Gaya Hidup
-</a>
-
-<a href="kategori.html?kategori=seni">
-    Seni
-</a>
-
-<a href="kategori.html?kategori=kolom">
-    Kolom
-</a>
-
-<a href="kategori.html?kategori=indeks">
-    Indeks
-</a>
-
-<a href="kategori.html?kategori=foto">
-    Foto
-</a>
-
-<a href="kategori.html?kategori=video">
-    Video
-</a>
-            
         </div>
 
-    </nav>
+      </div>
+
+    </div>
+
+  </nav>
 
 </header>
 
@@ -819,155 +844,134 @@
 
 <footer class="site-footer">
 
-    <div class="container footer-grid">
+  <div class="footer-main">
 
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <h2>MAB-NEWS</h2>
 
-        <!-- BRAND -->
+      <p class="footer-tagline">
+        Fakta. Data. Perspektif.
+      </p>
 
-        <div class="footer-brand">
+      <p class="footer-description">
+        MAB-News menyajikan berita terkini dan terpercaya dari Indonesia dan
+        dunia. Kami berkomitmen untuk menjadi sumber informasi yang akurat dan
+        berimbang bagi masyarakat.
+      </p>
 
-            <div class="footer-logo">
-                MAB-NEWS
-            </div>
-
-            <div class="footer-tagline">
-                Fakta. Data. Perspektif.
-            </div>
-
-            <p>
-                MAB-News menyajikan berita terkini dan terpercaya dari Indonesia dan dunia. Kami berkomitmen untuk menjadi sumber informasi yang akurat dan berimbang bagi masyarakat.
-            </p>
-
-            <div class="footer-social">
-
-                <a href="#">f</a>
-                <a href="#">𝕏</a>
-                <a href="#">◎</a>
-                <a href="#">▶</a>
-
-            </div>
-
-        </div>
-
-
-        <!-- MENU -->
-
-        <div class="footer-column">
-
-            <h3>
-                MENU
-            </h3>
-
-            <a href="index.html">Beranda</a>
-            <a href="berita.html">Terbaru</a>
-            <a href="berita.html">Terpopuler</a>
-            <a href="kategori.html">Indeks</a>
-            <a href="kategori.html">Foto</a>
-            <a href="kategori.html">Video</a>
-            <a href="kategori.html">Kolom</a>
-            <a href="#">Kontak Kami</a>
-
-        </div>
-
-
-        <!-- LAYANAN -->
-
-        <div class="footer-column">
-
-            <h3>
-                LAYANAN
-            </h3>
-
-            <a href="#">Pedoman Media Siber</a>
-            <a href="#">Kode Etik Jurnalistik</a>
-            <a href="#">Kebijakan Privasi</a>
-            <a href="#">Redaksi</a>
-            <a href="#">Kontak Kami</a>
-
-        </div>
-
-
-        <!-- NETWORK -->
-
-        <div class="footer-column">
-
-            <h3>
-                NETWORK
-            </h3>
-
-            <a href="#">MAB-Store</a>
-            <a href="#">MAB-Video</a>
-            <a href="#">Memori Sejarah</a>
-
-        </div>
-
-
-        <!-- NEWSLETTER -->
-
-        <div class="footer-newsletter">
-
-            <h3>
-                NEWSLETTER
-            </h3>
-
-            <p>
-                Dapatkan berita terbaru dan terpilih langsung di email Anda setiap hari.
-            </p>
-
-            <form>
-
-                <input
-                    type="email"
-                    placeholder="Masukkan email Anda"
-                >
-
-                <button type="submit">
-                    Berlangganan
-                </button>
-
-            </form>
-
-        </div>
-
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="X">𝕏</a>
+        <a href="#" aria-label="Instagram">◎</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
     </div>
 
 
-    <!-- FOOTER BOTTOM -->
+    <!-- MENU -->
+    <div class="footer-column">
+      <h3>MENU</h3>
 
-    <div class="footer-bottom">
-
-        <div class="container">
-
-            <span>
-                © 2025 MAB-News. All rights reserved.
-            </span>
-
-            <div>
-
-                <a href="#">
-                    Tentang Kami
-                </a>
-
-                <span>|</span>
-
-                <a href="#">
-                    Redaksi
-                </a>
-
-                <span>|</span>
-
-                <a href="#">
-                    Kontak
-                </a>
-
-            </div>
-
-        </div>
-
+      <a href="index.html">Beranda</a>
+      <a href="berita.html?sort=terbaru">Terbaru</a>
+      <a href="berita.html?sort=popular">Terpopuler</a>
+      <a href="kategori.html">Indeks</a>
+      <a href="kategori.html">Foto</a>
+      <a href="kategori.html">Video</a>
+      <a href="kategori.html">Kolom</a>
+      <a href="#">Kontak Kami</a>
     </div>
+
+
+    <!-- LAYANAN -->
+    <div class="footer-column">
+      <h3>LAYANAN</h3>
+
+      <a href="#">Pedoman Media Siber</a>
+      <a href="#">Kode Etik Jurnalistik</a>
+      <a href="#">Kebijakan Privasi</a>
+      <a href="#">Redaksi</a>
+      <a href="#">Kontak Kami</a>
+    </div>
+
+
+<!-- NETWORK -->
+<div class="footer-column">
+  <h3>NETWORK</h3>
+
+  <a
+    href="https://muhammadaslambik.github.io/mabstore/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    MAB-Store
+  </a>
+
+  <a
+    href="https://muhammadaslambik.github.io/mabvideo/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    MAB-Video
+  </a>
+
+  <a
+    href="https://memorisejarah.wordpress.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Memori Sejarah
+  </a>
+</div>
+
+
+
+    <!-- NEWSLETTER -->
+    <div class="footer-newsletter">
+      <h3>NEWSLETTER</h3>
+
+      <p>
+        Dapatkan berita terbaru dan terpilih langsung di email Anda
+        setiap hari.
+      </p>
+
+      <div class="newsletter-form">
+        <input
+          type="email"
+          placeholder="Masukkan email Anda"
+          aria-label="Email"
+        >
+
+        <button type="button">
+          Berlangganan
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER BOTTOM -->
+  <div class="footer-bottom">
+
+    <div class="copyright">
+      © 2025 MAB-News. All rights reserved.
+    </div>
+
+    <div class="footer-links">
+      <a href="#">Tentang Kami</a>
+      <span>|</span>
+      <a href="#">Redaksi</a>
+      <span>|</span>
+      <a href="#">Kontak</a>
+    </div>
+
+  </div>
 
 </footer>
 
+<script src="js/main.js"></script>
 <script src="js/kategori.js"></script>
     
 </body>

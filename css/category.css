@@ -13,214 +13,9 @@
    CONTAINER
 ========================================================= */
 
-.category-page .container {
+.category-page .container:not(.topbar):not(.nav-inner) {
     width: min(1435px, calc(100% - 100px));
     margin: 0 auto;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.category-page .site-header {
-    background: #ffffff;
-    border-bottom: 1px solid #e5e9ef;
-}
-
-.category-page .header-top {
-    background: #ffffff;
-}
-
-.category-page .header-inner {
-    min-height: 70px;
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-
-/* BRAND */
-
-.category-page .brand {
-    text-decoration: none;
-    color: #052b68;
-    flex-shrink: 0;
-}
-
-.category-page .brand-name {
-    font-size: 28px;
-    font-weight: 900;
-    letter-spacing: -1px;
-    line-height: 1;
-}
-
-.category-page .brand-tagline {
-    margin-top: 4px;
-    color: #667085;
-    font-size: 10px;
-}
-
-
-/* SEARCH */
-
-.category-page .header-search {
-    width: 415px;
-    height: 37px;
-    margin-left: auto;
-
-    display: flex;
-    align-items: center;
-
-    border: 1px solid #dce2ea;
-    border-radius: 5px;
-    background: #fafbfd;
-    overflow: hidden;
-}
-
-.category-page .header-search input {
-    flex: 1;
-    width: 100%;
-    height: 100%;
-
-    border: 0;
-    outline: none;
-
-    padding: 0 13px;
-
-    background: transparent;
-
-    color: #172033;
-    font-size: 11px;
-}
-
-.category-page .header-search button {
-    width: 42px;
-    height: 100%;
-
-    border: 0;
-    background: transparent;
-
-    cursor: pointer;
-
-    font-size: 13px;
-}
-
-
-/* ACTIONS */
-
-.category-page .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.category-page .support-btn {
-    height: 37px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 0 17px;
-
-    border-radius: 5px;
-
-    background: #052d6b;
-    color: #ffffff;
-
-    text-decoration: none;
-
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.category-page .header-icon {
-    width: 35px;
-    height: 35px;
-
-    border: 0;
-    background: transparent;
-
-    color: #071b38;
-
-    cursor: pointer;
-
-    font-size: 18px;
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-.category-page .main-navigation {
-    background: #ffffff;
-    border-top: 1px solid #f0f2f5;
-}
-
-.category-page .nav-inner {
-    min-height: 40px;
-
-    display: flex;
-    align-items: center;
-
-    overflow-x: auto;
-
-    scrollbar-width: none;
-}
-
-.category-page .nav-inner::-webkit-scrollbar {
-    display: none;
-}
-
-.category-page .nav-inner > a {
-    position: relative;
-
-    padding: 13px 14px 11px;
-
-    color: #182238;
-
-    text-decoration: none;
-    white-space: nowrap;
-
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.category-page .nav-inner > a:hover {
-    color: #075bd7;
-}
-
-.category-page .nav-inner > a.active {
-    color: #075bd7;
-}
-
-.category-page .nav-inner > a.active::after {
-    content: "";
-
-    position: absolute;
-
-    left: 10px;
-    right: 10px;
-    bottom: 0;
-
-    height: 2px;
-
-    background: #075bd7;
-}
-
-.category-page .menu-toggle {
-    width: 31px;
-
-    border: 0;
-    background: transparent;
-
-    color: #172033;
-
-    font-size: 17px;
-
-    cursor: pointer;
 }
 
 
@@ -887,221 +682,13 @@
 
 
 /* =========================================================
-   FOOTER
-========================================================= */
-
-.category-page .site-footer {
-    background: #001d45;
-
-    color: #ffffff;
-}
-
-.category-page .footer-grid {
-    display: grid;
-
-    grid-template-columns:
-        1.6fr
-        .8fr
-        1fr
-        .9fr
-        1.3fr;
-
-    gap: 55px;
-
-    padding-top: 22px;
-    padding-bottom: 17px;
-}
-
-.category-page .footer-brand {
-    max-width: 285px;
-}
-
-.category-page .footer-logo {
-    color: #ffffff;
-
-    font-size: 19px;
-
-    font-weight: 900;
-
-    letter-spacing: -.5px;
-}
-
-.category-page .footer-tagline {
-    margin-top: 1px;
-
-    color: #a2b3c9;
-
-    font-size: 8px;
-}
-
-.category-page .footer-brand p {
-    margin: 7px 0 10px;
-
-    color: #d0d9e5;
-
-    font-size: 8px;
-
-    line-height: 1.5;
-}
-
-.category-page .footer-social {
-    display: flex;
-
-    gap: 8px;
-}
-
-.category-page .footer-social a {
-    width: 21px;
-    height: 21px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #0752b4;
-
-    color: #ffffff;
-
-    text-decoration: none;
-
-    font-size: 8px;
-}
-
-.category-page .footer-column {
-    display: flex;
-    flex-direction: column;
-
-    gap: 3px;
-}
-
-.category-page .footer-column h3,
-.category-page .footer-newsletter h3 {
-    margin: 0 0 4px;
-
-    color: #ffffff;
-
-    font-size: 9px;
-
-    font-weight: 850;
-
-    letter-spacing: .5px;
-}
-
-.category-page .footer-column a {
-    color: #d3dce8;
-
-    text-decoration: none;
-
-    font-size: 8px;
-}
-
-.category-page .footer-column a:hover {
-    color: #ffffff;
-}
-
-.category-page .footer-newsletter p {
-    margin: 0 0 8px;
-
-    color: #c7d3e2;
-
-    font-size: 8px;
-
-    line-height: 1.4;
-}
-
-.category-page .footer-newsletter form {
-    display: flex;
-    flex-direction: column;
-
-    gap: 5px;
-}
-
-.category-page .footer-newsletter input {
-    height: 25px;
-
-    padding: 0 8px;
-
-    border: 1px solid #365274;
-
-    border-radius: 3px;
-
-    background: #062751;
-
-    color: #ffffff;
-
-    outline: none;
-
-    font-size: 8px;
-}
-
-.category-page .footer-newsletter button {
-    height: 25px;
-
-    border: 0;
-
-    border-radius: 3px;
-
-    background: #145bd0;
-
-    color: #ffffff;
-
-    font-size: 8px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-}
-
-
-/* =========================================================
-   FOOTER BOTTOM
-========================================================= */
-
-.category-page .footer-bottom {
-    border-top: 1px solid #294260;
-}
-
-.category-page .footer-bottom .container {
-    min-height: 31px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.category-page .footer-bottom span,
-.category-page .footer-bottom a {
-    color: #aebdd0;
-
-    font-size: 8px;
-}
-
-.category-page .footer-bottom div {
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-}
-
-.category-page .footer-bottom a {
-    text-decoration: none;
-}
-
-
-/* =========================================================
    TABLET
 ========================================================= */
 
 @media (max-width: 1100px) {
 
-    .category-page .container {
+    .category-page .container:not(.topbar):not(.nav-inner) {
         width: min(100% - 40px, 1000px);
-    }
-
-    .category-page .header-search {
-        width: 300px;
     }
 
     .category-page .category-layout {
@@ -1120,11 +707,6 @@
         width: 190px;
     }
 
-    .category-page .footer-grid {
-        grid-template-columns: 1.5fr 1fr 1fr;
-        gap: 30px;
-    }
-
 }
 
 
@@ -1134,24 +716,8 @@
 
 @media (max-width: 800px) {
 
-    .category-page .container {
+    .category-page .container:not(.topbar):not(.nav-inner) {
         width: calc(100% - 28px);
-    }
-
-    .category-page .header-inner {
-        padding: 12px 0;
-
-        flex-wrap: wrap;
-
-        gap: 12px;
-    }
-
-    .category-page .header-search {
-        order: 3;
-
-        width: 100%;
-
-        margin-left: 0;
     }
 
     .category-page .category-map {
@@ -1181,18 +747,6 @@
         margin-left: 0;
     }
 
-    .category-page .footer-grid {
-        grid-template-columns: 1fr 1fr;
-
-        gap: 25px;
-    }
-
-    .category-page .footer-brand {
-        grid-column: 1 / -1;
-
-        max-width: none;
-    }
-
 }
 
 
@@ -1202,15 +756,6 @@
 
 @media (max-width: 520px) {
 
-    .category-page .brand-name {
-        font-size: 23px;
-    }
-
-    .category-page .support-btn {
-        padding: 0 9px;
-
-        font-size: 9px;
-    }
 
     .category-page .category-hero {
         min-height: 110px;
@@ -1260,26 +805,6 @@
 
     .category-page .category-newsletter form {
         grid-template-columns: 1fr;
-    }
-
-    .category-page .footer-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .category-page .footer-brand {
-        grid-column: auto;
-    }
-
-    .category-page .footer-bottom .container {
-        min-height: auto;
-
-        padding: 12px 0;
-
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 8px;
     }
 
 }

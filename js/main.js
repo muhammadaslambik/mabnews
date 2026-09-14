@@ -322,6 +322,147 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =====================================================
+     SINKRONISASI SOROTAN NAVIGASI UTAMA
+     (berdasarkan halaman & parameter URL saat ini,
+     dipakai juga oleh berita.js agar navigasi dalam
+     berita & navigasi utama selalu selaras)
+     ===================================================== */
+
+  function syncMainNavActive() {
+
+    if (!navLinks) {
+      return;
+    }
+
+
+    const page =
+      window.location.pathname
+        .split("/")
+        .pop() || "index.html";
+
+
+    if (
+      page !== "berita.html" &&
+      page !== "kategori.html"
+    ) {
+      return;
+    }
+
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const kategori =
+      (params.get("kategori") || "")
+        .toLowerCase();
+
+    const sort =
+      (params.get("sort") || "")
+        .toLowerCase();
+
+
+    const links =
+      navLinks.querySelectorAll("a");
+
+    let matchedLink = null;
+
+
+    links.forEach(
+      (link) => {
+
+        let linkUrl;
+
+        try {
+
+          linkUrl =
+            new URL(link.href);
+
+        } catch (error) {
+
+          return;
+
+        }
+
+
+        const linkPage =
+          linkUrl.pathname
+            .split("/")
+            .pop();
+
+        const linkParams =
+          new URLSearchParams(
+            linkUrl.search
+          );
+
+        const linkKategori =
+          (linkParams.get("kategori") || "")
+            .toLowerCase();
+
+        const linkSort =
+          (linkParams.get("sort") || "")
+            .toLowerCase();
+
+
+        if (kategori) {
+
+          if (
+            linkPage === "kategori.html" &&
+            linkKategori === kategori
+          ) {
+
+            matchedLink = link;
+
+          }
+
+        } else if (page === "berita.html") {
+
+          if (
+            linkPage === "berita.html" &&
+            linkSort === sort
+          ) {
+
+            matchedLink = link;
+
+          }
+
+        }
+
+      }
+    );
+
+
+    links.forEach(
+      (link) => {
+
+        link.classList.toggle(
+          "active",
+          link === matchedLink
+        );
+
+      }
+    );
+
+
+    if (matchedLink && mobileHome) {
+
+      mobileHome.classList.remove(
+        "active"
+      );
+
+    }
+
+  }
+
+
+  syncMainNavActive();
+
+  window.syncMainNavActive =
+    syncMainNavActive;
+
+
+  /* =====================================================
      SEARCH
      ===================================================== */
 

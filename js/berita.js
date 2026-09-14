@@ -43,20 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const pageTitle =
         document.getElementById("pageTitle");
 
-    const headerSearch =
-        document.getElementById("headerSearch");
-
-    const searchInput =
-        document.getElementById("searchInput");
-
     const newsletterForm =
         document.getElementById("newsletterForm");
-
-    const themeToggle =
-        document.getElementById("themeToggle");
-
-    const accountButton =
-        document.getElementById("accountButton");
 
 
     /* =====================================================
@@ -173,6 +161,16 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
         });
+
+
+        /*
+         * Sinkronkan sorotan navigasi utama
+         * (header) agar selalu selaras dengan
+         * kategori yang sedang aktif di halaman
+         * berita ini.
+         */
+
+        window.syncMainNavActive?.();
 
     }
 
@@ -331,19 +329,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* =================================================
-           TABS
-        ================================================== */
-
-        updateTabs();
-
-
-        /* =================================================
            URL
         ================================================== */
 
         if (updateUrl) {
             updateURL();
         }
+
+
+        /* =================================================
+           TABS
+        ================================================== */
+
+        updateTabs();
 
     }
 
@@ -503,32 +501,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       HEADER SEARCH
-    ====================================================== */
-
-    headerSearch?.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-            const query =
-                searchInput.value.trim();
-
-
-            if (!query) {
-                return;
-            }
-
-
-            window.location.href =
-                `search.html?q=${encodeURIComponent(query)}`;
-
-        }
-    );
-
-
-    /* =====================================================
        NEWSLETTER
     ====================================================== */
 
@@ -558,56 +530,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             newsletterForm.reset();
-
-        }
-    );
-
-
-    /* =====================================================
-       THEME TOGGLE
-    ====================================================== */
-
-    themeToggle?.addEventListener(
-        "click",
-        () => {
-
-            document.body.classList.toggle(
-                "dark-preview"
-            );
-
-
-            const dark =
-                document.body.classList.contains(
-                    "dark-preview"
-                );
-
-
-            themeToggle.textContent =
-                dark ? "☀️" : "🌙";
-
-
-            themeToggle.setAttribute(
-                "aria-label",
-                dark
-                    ? "Gunakan tema terang"
-                    : "Gunakan tema gelap"
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       ACCOUNT BUTTON
-    ====================================================== */
-
-    accountButton?.addEventListener(
-        "click",
-        () => {
-
-            alert(
-                "Fitur akun pengguna akan tersedia pada versi berikutnya."
-            );
 
         }
     );
