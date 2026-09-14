@@ -609,6 +609,11 @@ document.addEventListener("DOMContentLoaded", () => {
       "#mobileTime"
     );
 
+  const mobileSeconds =
+    document.querySelector(
+      "#mobileSeconds"
+    );
+
   const mobileDate =
     document.querySelector(
       "#mobileDate"
@@ -722,6 +727,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       mobileTime.textContent =
         time;
+
+    }
+
+
+    if (mobileSeconds) {
+
+      mobileSeconds.textContent =
+        seconds;
 
     }
 
