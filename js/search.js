@@ -1,849 +1,728 @@
+/* =========================================================
+   MAB-NEWS — JAVASCRIPT HALAMAN PENCARIAN
+   ========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================================================
-       DATA HASIL PENCARIAN
-       ========================================================= */
-
-    const articles = [
-
-        {
-            category: "EKONOMI",
-
-            title:
-                "Inflasi Mei 2025 Terkendali di Level 2,4 Persen",
-
-            description:
-                "Badan Pusat Statistik (BPS) melaporkan inflasi Mei 2025 berada di level 2,4 persen secara tahunan (yoy), lebih rendah dibanding bulan sebelumnya.",
-
-            date:
-                "30 Mei 2025",
-
-            time:
-                "07:30 WIB",
-
-            image:
-                "assets/images/card-market.jpg",
-
-            id:
-                "inflasi-mei-2025-terkendali"
-        },
-
-
-        {
-            category: "EKONOMI",
-
-            title:
-                "Ekspor Indonesia Tumbuh 8,6 Persen pada April 2025",
-
-            description:
-                "Badan Pusat Statistik (BPS) mencatat nilai ekspor Indonesia pada April 2025 mencapai USD 23,45 miliar atau tumbuh 8,6 persen dibanding bulan sebelumnya.",
-
-            date:
-                "30 Mei 2025",
-
-            time:
-                "06:45 WIB",
-
-            image:
-                "assets/images/card-market.jpg",
-
-            id:
-                "ekspor-indonesia-tumbuh"
-        },
-
-
-        {
-            category: "EKONOMI",
-
-            title:
-                "IHSG Ditutup Menguat, Sektor Keuangan Jadi Pendorong Utama",
-
-            description:
-                "Indeks Harga Saham Gabungan (IHSG) ditutup menguat pada perdagangan hari ini didorong penguatan di sektor keuangan dan konsumer.",
-
-            date:
-                "29 Mei 2025",
-
-            time:
-                "16:20 WIB",
-
-            image:
-                "assets/images/popular-2.jpg",
-
-            id:
-                "ihsg-ditutup-menguat"
-        },
-
-
-        {
-            category: "EKONOMI",
-
-            title:
-                "Rupiah Menguat Tipis terhadap Dolar AS di Tengah Data Ekonomi Global",
-
-            description:
-                "Nilai tukar rupiah menguat 0,15 persen terhadap dolar AS pada perdagangan hari ini seiring pelemahan data ekonomi Amerika Serikat.",
-
-            date:
-                "29 Mei 2025",
-
-            time:
-                "15:10 WIB",
-
-            image:
-                "assets/images/card-market.jpg",
-
-            id:
-                "rupiah-menguat-tipis"
-        },
-
-
-        {
-            category: "EKONOMI",
-
-            title:
-                "Harga BBM Terbaru per 27 Mei 2025 di Seluruh Indonesia",
-
-            description:
-                "Pertamina, Shell, dan BP-AKR kompak menyesuaikan harga BBM non subsidi per 27 Mei 2025. Berikut daftar lengkapnya di sejumlah wilayah Indonesia.",
-
-            date:
-                "27 Mei 2025",
-
-            time:
-                "10:20 WIB",
-
-            image:
-                "assets/images/popular-1.jpg",
-
-            id:
-                "harga-bbm-terbaru"
-        },
-
-
-        {
-            category: "EKONOMI",
-
-            title:
-                "Bank Indonesia Pertahankan Suku Bunga Acuan",
-
-            description:
-                "Bank Indonesia mempertahankan suku bunga acuan untuk menjaga stabilitas ekonomi dan nilai tukar rupiah.",
-
-            date:
-                "27 Mei 2025",
-
-            time:
-                "09:40 WIB",
-
-            image:
-                "assets/images/popular-4.jpg",
-
-            id:
-                "bank-indonesia-suku-bunga"
-        },
-
-
-        {
-            category: "EKONOMI",
-
-            title:
-                "Investasi Indonesia Tetap Tumbuh di Tengah Ketidakpastian Global",
-
-            description:
-                "Aktivitas investasi nasional menunjukkan pertumbuhan positif meskipun perekonomian global masih menghadapi sejumlah tantangan.",
-
-            date:
-                "26 Mei 2025",
-
-            time:
-                "14:30 WIB",
-
-            image:
-                "assets/images/card-market.jpg",
-
-            id:
-                "investasi-indonesia-tumbuh"
-        },
-
-
-        {
-            category: "EKONOMI",
-
-            title:
-                "Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat",
-
-            description:
-                "Pemerintah menyiapkan berbagai strategi untuk menjaga konsumsi dan daya beli masyarakat di tengah perubahan ekonomi global.",
-
-            date:
-                "25 Mei 2025",
-
-            time:
-                "12:15 WIB",
-
-            image:
-                "assets/images/popular-1.jpg",
-
-            id:
-                "pemerintah-daya-beli"
-        },
-
-
-        {
-            category: "EKONOMI",
-
-            title:
-                "Harga Pangan Mulai Stabil Menjelang Akhir Bulan",
-
-            description:
-                "Sejumlah harga pangan mulai menunjukkan tren stabil setelah mengalami perubahan pada awal bulan.",
-
-            date:
-                "24 Mei 2025",
-
-            time:
-                "11:25 WIB",
-
-            image:
-                "assets/images/card-market.jpg",
-
-            id:
-                "harga-pangan-stabil"
-        },
-
-
-        {
-            category: "EKONOMI",
-
-            title:
-                "Pemerintah Dorong Ekonomi Digital untuk Perkuat UMKM",
-
-            description:
-                "Penguatan ekonomi digital terus didorong untuk membantu UMKM meningkatkan produktivitas dan memperluas pasar.",
-
-            date:
-                "23 Mei 2025",
-
-            time:
-                "09:50 WIB",
-
-            image:
-                "assets/images/card-openai.jpg",
-
-            id:
-                "ekonomi-digital-umkm"
-        }
-
+    /* =====================================================
+       ELEMENT
+    ====================================================== */
+
+    const rows = [
+        ...document.querySelectorAll(".news-item")
     ];
 
+    const tabs = [
+        ...document.querySelectorAll(".category-tab")
+    ];
 
-    /* =========================================================
-       ELEMENT
-       ========================================================= */
+    const categoryFilter =
+        document.getElementById("filterCategory");
 
-    const resultList =
-        document.querySelector("#searchResultList");
+    const authorFilter =
+        document.getElementById("filterAuthor");
 
-    const resultInfo =
-        document.querySelector("#resultInfo");
+    const timeFilter =
+        document.getElementById("filterTime");
 
-    const searchTitle =
-        document.querySelector("#searchTitle");
+    const sortFilter =
+        document.getElementById("sortNews");
 
-    const searchCount =
-        document.querySelector("#searchCount");
+    const filterForm =
+        document.getElementById("newsFilterForm");
 
-    const pagination =
-        document.querySelector("#searchPagination");
+    const resetFilter =
+        document.getElementById("resetFilter");
 
-    const sortSelect =
-        document.querySelector("#sortSelect");
+    const resultCount =
+        document.getElementById("resultCount");
+
+    const resultsTitle =
+        document.getElementById("resultsTitle");
+
+    const pageTitle =
+        document.getElementById("pageTitle");
+
+    const newsletterForm =
+        document.getElementById("newsletterForm");
+
+    const headerSearchInput =
+        document.getElementById("searchInput");
 
 
-    /* =========================================================
-       QUERY
-       ========================================================= */
+    /* =====================================================
+       URL PARAMETER
+    ====================================================== */
 
     const params =
         new URLSearchParams(window.location.search);
 
-    const query =
-        (params.get("q") || "").trim();
+    const urlCategory =
+        (params.get("kategori") || "all").toLowerCase();
+
+    const urlSort =
+        (params.get("sort") || "latest").toLowerCase();
+
+    const urlPage =
+        parseInt(params.get("page") || "1", 10);
+
+    const urlQuery =
+        params.get("q") || "";
 
 
-    const normalizedQuery =
-        query.toLowerCase();
+    /* =====================================================
+       STATE
+    ====================================================== */
+
+    let selectedCategory = urlCategory;
+
+    let searchTerm =
+        urlQuery.trim().toLowerCase();
 
 
-    /* =========================================================
-       TOTAL HASIL
-       ========================================================= */
+    /* =====================================================
+       HELPER
+    ====================================================== */
 
-    let totalResultCount =
-        articles.length;
+    function normalize(value) {
+        return String(value || "")
+            .trim()
+            .toLowerCase();
+    }
 
 
-    if (
-        normalizedQuery === "ekonomi"
-        ||
-        normalizedQuery === "ekonomi "
-    ) {
+    function getCategoryName(category) {
 
-        totalResultCount = 128;
+        const names = {
+            all: "Semua",
+            nasional: "Nasional",
+            internasional: "Internasional",
+            ekonomi: "Ekonomi",
+            metro: "Metro",
+            dunia: "Dunia",
+            olahraga: "Olahraga",
+            teknologi: "Teknologi",
+            otomotif: "Otomotif",
+            "gaya-hidup": "Gaya Hidup",
+            seni: "Seni",
+            kolom: "Kolom"
+        };
+
+        return names[category] || "Semua";
+    }
+
+
+    function updateURL() {
+
+        const url =
+            new URL(window.location.href);
+
+        url.searchParams.delete("page");
+
+        if (
+            selectedCategory &&
+            selectedCategory !== "all"
+        ) {
+            url.searchParams.set(
+                "kategori",
+                selectedCategory
+            );
+        } else {
+            url.searchParams.delete("kategori");
+        }
+
+        if (
+            sortFilter.value &&
+            sortFilter.value !== "latest"
+        ) {
+            url.searchParams.set(
+                "sort",
+                sortFilter.value
+            );
+        } else {
+            url.searchParams.delete("sort");
+        }
+
+        if (searchTerm) {
+            url.searchParams.set(
+                "q",
+                searchTerm
+            );
+        } else {
+            url.searchParams.delete("q");
+        }
+
+        window.history.replaceState(
+            {},
+            "",
+            url
+        );
+    }
+
+
+    /* =====================================================
+       CATEGORY TABS
+    ====================================================== */
+
+    function updateTabs() {
+
+        tabs.forEach(tab => {
+
+            const category =
+                normalize(
+                    tab.dataset.category
+                );
+
+            tab.classList.toggle(
+                "active",
+                category === selectedCategory
+            );
+
+        });
+
+
+        /*
+         * Sinkronkan sorotan navigasi utama
+         * (header) agar selalu selaras dengan
+         * kategori yang sedang aktif di halaman
+         * berita ini.
+         */
+
+        window.syncMainNavActive?.();
 
     }
 
 
-    /* =========================================================
-       JUDUL
-       ========================================================= */
+    /* =====================================================
+       APPLY FILTER
+    ====================================================== */
 
-    if (query) {
+    function applyFilters(options = {}) {
 
-        searchTitle.textContent =
-            `Hasil Pencarian untuk “${query}”`;
+        const {
+            updateUrl = true
+        } = options;
 
-    } else {
 
-        searchTitle.textContent =
-            "Hasil Pencarian";
+        const category =
+            selectedCategory || "all";
+
+        const author =
+            normalize(
+                authorFilter?.value || "all"
+            );
+
+        const time =
+            normalize(
+                timeFilter?.value || "all"
+            );
+
+
+        const visibleRows = [];
+
+
+        rows.forEach(row => {
+
+            const rowCategory =
+                normalize(
+                    row.dataset.category
+                );
+
+            const rowAuthor =
+                normalize(
+                    row.dataset.author
+                );
+
+            const rowTime =
+                normalize(
+                    row.dataset.time
+                );
+
+            const rowText =
+                normalize(
+                    row.textContent
+                );
+
+
+            const categoryOK =
+                category === "all" ||
+                rowCategory === category;
+
+
+            const authorOK =
+                author === "all" ||
+                rowAuthor === author;
+
+
+            const searchOK =
+                !searchTerm ||
+                rowText.includes(searchTerm);
+
+
+            let timeOK = true;
+
+            if (time !== "all") {
+
+                /*
+                 * Data demo saat ini memakai
+                 * data-time="today".
+                 *
+                 * Struktur ini sengaja dibuat agar
+                 * nantinya mudah diganti dengan data
+                 * tanggal dari CMS/API.
+                 */
+
+                if (time === "today") {
+                    timeOK =
+                        rowTime === "today";
+                }
+
+                else if (time === "week") {
+                    timeOK =
+                        rowTime === "today" ||
+                        rowTime === "week";
+                }
+
+                else if (time === "month") {
+                    timeOK =
+                        rowTime === "today" ||
+                        rowTime === "week" ||
+                        rowTime === "month";
+                }
+
+            }
+
+
+            const visible =
+                categoryOK &&
+                authorOK &&
+                timeOK &&
+                searchOK;
+
+
+            row.classList.toggle(
+                "is-hidden",
+                !visible
+            );
+
+
+            if (visible) {
+                visibleRows.push(row);
+            }
+
+        });
+
+
+        /* =================================================
+           SORT
+        ================================================== */
+
+        sortRows();
+
+
+        /* =================================================
+           TITLE
+        ================================================== */
+
+        resultsTitle.textContent =
+            "Halaman Pencarian";
+
+        pageTitle.textContent =
+            "Pencarian";
+
+
+        /* =================================================
+           RESULT COUNT
+        ================================================== */
+
+        resultCount.textContent =
+            searchTerm
+                ? `Menampilkan ${visibleRows.length} berita untuk pencarian "${searchTerm}"`
+                : `Menampilkan ${visibleRows.length} berita`;
+
+
+        /* =================================================
+           URL
+        ================================================== */
+
+        if (updateUrl) {
+            updateURL();
+        }
+
+
+        /* =================================================
+           TABS
+        ================================================== */
+
+        updateTabs();
 
     }
 
 
-    searchCount.textContent =
-        `Ditemukan ${totalResultCount} hasil`;
+    /* =====================================================
+       SORT
+    ====================================================== */
+
+    function sortRows() {
+
+        const container =
+            document.querySelector(
+                ".news-results"
+            );
+
+        if (!container) {
+            return;
+        }
 
 
-    /* =========================================================
-       FILTER
-       ========================================================= */
+        const orderedRows =
+            [...rows];
 
-    function filterArticles() {
 
-        if (!normalizedQuery) {
+        if (sortFilter.value === "latest") {
 
-            return [...articles];
+            orderedRows.sort(
+                (a, b) =>
+                    new Date(b.dataset.date) -
+                    new Date(a.dataset.date)
+            );
 
         }
 
 
-        return articles.filter(article => {
+        else if (sortFilter.value === "oldest") {
 
-            const searchableText = (
-
-                article.category
-                + " "
-                + article.title
-                + " "
-                + article.description
-
-            ).toLowerCase();
-
-
-            return searchableText.includes(
-                normalizedQuery
+            orderedRows.sort(
+                (a, b) =>
+                    new Date(a.dataset.date) -
+                    new Date(b.dataset.date)
             );
+
+        }
+
+
+        else if (sortFilter.value === "popular") {
+
+            orderedRows.sort(
+                (a, b) =>
+                    Number(b.dataset.popular || 0) -
+                    Number(a.dataset.popular || 0)
+            );
+
+        }
+
+
+        const pagination =
+            document.getElementById(
+                "pagination"
+            );
+
+
+        orderedRows.forEach(row => {
+
+            if (pagination) {
+                container.insertBefore(
+                    row,
+                    pagination
+                );
+            } else {
+                container.appendChild(row);
+            }
 
         });
 
     }
 
 
-    /* =========================================================
-       RENDER RESULT
-       ========================================================= */
+    /* =====================================================
+       FILTER FORM
+    ====================================================== */
 
-    const itemsPerPage = 5;
+    filterForm?.addEventListener(
+        "submit",
+        event => {
 
-    let currentPage = 1;
+            event.preventDefault();
 
+            selectedCategory =
+                normalize(
+                    categoryFilter.value
+                );
 
-    function renderResults() {
-
-        let filtered =
-            filterArticles();
-
-
-        /* -----------------------------------------------------
-           SORT
-           ----------------------------------------------------- */
-
-        const sort =
-            sortSelect
-                ? sortSelect.value
-                : "terbaru";
-
-
-        if (sort === "terlama") {
-
-            filtered.reverse();
+            applyFilters();
 
         }
+    );
 
 
-        if (sort === "popular") {
+    /* =====================================================
+       RESET
+    ====================================================== */
 
-            filtered.sort(
-                (a, b) =>
-                    a.title.length -
-                    b.title.length
-            );
+    resetFilter?.addEventListener(
+        "click",
+        () => {
 
-        }
+            setTimeout(() => {
+
+                selectedCategory = "all";
+
+                searchTerm = "";
+
+                if (headerSearchInput) {
+                    headerSearchInput.value = "";
+                }
+
+                categoryFilter.value =
+                    "all";
+
+                authorFilter.value =
+                    "all";
+
+                timeFilter.value =
+                    "all";
+
+                sortFilter.value =
+                    "latest";
 
 
-        const start =
-            (currentPage - 1) *
-            itemsPerPage;
+                applyFilters();
 
 
-        const end =
-            start + itemsPerPage;
+                /*
+                 * Reset URL sepenuhnya.
+                 */
 
+                window.history.replaceState(
+                    {},
+                    "",
+                    "search.html"
+                );
 
-        const pageItems =
-            filtered.slice(start, end);
-
-
-        /* -----------------------------------------------------
-           EMPTY
-           ----------------------------------------------------- */
-
-        if (!pageItems.length) {
-
-            resultList.innerHTML = `
-
-                <div class="search-empty">
-
-                    <h2>
-                        Tidak ada hasil
-                    </h2>
-
-                    <p>
-                        Tidak ditemukan berita yang
-                        sesuai dengan pencarian
-                        "${query}".
-                    </p>
-
-                </div>
-
-            `;
-
-            resultInfo.textContent =
-                "Tidak ada hasil yang ditemukan";
-
-            pagination.innerHTML = "";
-
-            return;
+            }, 0);
 
         }
+    );
 
 
-        /* -----------------------------------------------------
-           RESULT HTML
-           ----------------------------------------------------- */
+    /* =====================================================
+       PENCARIAN LIVE (mengetik langsung)
+    ====================================================== */
 
-        resultList.innerHTML =
-            pageItems.map(article => `
+    headerSearchInput?.addEventListener(
+        "input",
+        () => {
 
-                <article
-                    class="search-result-item">
+            searchTerm =
+                normalize(
+                    headerSearchInput.value
+                );
 
-                    <a
-                        class="search-result-image"
-                        href="artikel.html?id=${article.id}">
-
-                        <img
-                            src="${article.image}"
-                            alt="${article.title}"
-                            loading="lazy">
-
-                    </a>
-
-
-                    <div
-                        class="search-result-body">
-
-                        <span
-                            class="search-result-category">
-
-                            ${article.category}
-
-                        </span>
-
-
-                        <h2
-                            class="search-result-title">
-
-                            <a
-                                href="artikel.html?id=${article.id}">
-
-                                ${article.title}
-
-                            </a>
-
-                        </h2>
-
-
-                        <p
-                            class="search-result-description">
-
-                            ${article.description}
-
-                        </p>
-
-
-                        <div
-                            class="search-result-meta">
-
-                            <span>
-                                ${article.date}
-                                ${article.time}
-                            </span>
-
-                            <span class="separator">
-                                •
-                            </span>
-
-                            <span>
-                                Redaksi MAB-News
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </article>
-
-            `).join("");
-
-
-        /* -----------------------------------------------------
-           RESULT INFO
-           ----------------------------------------------------- */
-
-        const displayStart =
-            start + 1;
-
-
-        const displayEnd =
-            Math.min(
-                end,
-                filtered.length
-            );
-
-
-        resultInfo.textContent =
-            `Menampilkan ${displayStart}–${displayEnd} dari ${totalResultCount} hasil`;
-
-
-        renderPagination(
-            filtered.length
-        );
-
-    }
-
-
-    /* =========================================================
-       PAGINATION
-       ========================================================= */
-
-    function renderPagination(
-        filteredLength
-    ) {
-
-        if (!pagination) return;
-
-
-        const totalPages =
-            Math.max(
-                1,
-                Math.ceil(
-                    filteredLength /
-                    itemsPerPage
-                )
-            );
-
-
-        pagination.innerHTML = "";
-
-
-        /* PREVIOUS */
-
-        const previous =
-            document.createElement("button");
-
-
-        previous.type =
-            "button";
-
-
-        previous.className =
-            "search-page-button";
-
-
-        previous.textContent =
-            "«";
-
-
-        if (currentPage === 1) {
-
-            previous.classList.add(
-                "disabled"
-            );
+            applyFilters();
 
         }
+    );
 
 
-        previous.addEventListener(
+    /* =====================================================
+       KLIK TAB KATEGORI
+       (tetap di halaman ini, mempertahankan kata kunci
+       pencarian yang sedang diketik)
+    ====================================================== */
+
+    tabs.forEach(tab => {
+
+        tab.addEventListener(
             "click",
-            () => {
+            event => {
 
-                if (
-                    currentPage > 1
-                ) {
+                event.preventDefault();
 
-                    currentPage--;
+                selectedCategory =
+                    normalize(
+                        tab.dataset.category
+                    );
 
-                    renderResults();
+                if (categoryFilter) {
 
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
+                    categoryFilter.value =
+                        selectedCategory;
 
                 }
+
+                applyFilters();
 
             }
         );
 
-
-        pagination.appendChild(
-            previous
-        );
+    });
 
 
-        /* PAGE BUTTONS */
+    /* =====================================================
+       SORT CHANGE
+    ====================================================== */
 
-        const visiblePages =
-            Math.min(
-                totalPages,
-                5
+    sortFilter?.addEventListener(
+        "change",
+        () => {
+
+            applyFilters();
+
+        }
+    );
+
+
+    /* =====================================================
+       NEWSLETTER
+    ====================================================== */
+
+    newsletterForm?.addEventListener(
+        "submit",
+        event => {
+
+            event.preventDefault();
+
+            const email =
+                document
+                    .getElementById(
+                        "newsletterEmail"
+                    )
+                    ?.value
+                    .trim();
+
+
+            if (!email) {
+                return;
+            }
+
+
+            alert(
+                "Terima kasih. Email Anda berhasil didaftarkan."
             );
 
 
-        for (
-            let page = 1;
-            page <= visiblePages;
-            page++
-        ) {
+            newsletterForm.reset();
 
-            const button =
-                document.createElement("button");
+        }
+    );
 
 
-            button.type =
-                "button";
+    /* =====================================================
+       INITIAL STATE
+    ====================================================== */
+
+    if (
+        [
+            "all",
+            "nasional",
+            "internasional",
+            "ekonomi",
+            "metro",
+            "dunia",
+            "olahraga",
+            "teknologi",
+            "otomotif",
+            "gaya-hidup",
+            "seni",
+            "kolom"
+        ].includes(urlCategory)
+    ) {
+
+        selectedCategory =
+            urlCategory;
+
+    } else {
+
+        selectedCategory =
+            "all";
+
+    }
 
 
-            button.className =
-                "search-page-button";
+    if (
+        [
+            "latest",
+            "oldest",
+            "popular"
+        ].includes(urlSort)
+    ) {
+
+        sortFilter.value =
+            urlSort;
+
+    } else {
+
+        sortFilter.value =
+            "latest";
+
+    }
 
 
-            button.textContent =
-                page;
+    if (categoryFilter) {
+
+        categoryFilter.value =
+            selectedCategory;
+
+    }
 
 
-            if (
-                page === currentPage
-            ) {
+    if (headerSearchInput && urlQuery) {
 
-                button.classList.add(
+        headerSearchInput.value =
+            urlQuery;
+
+    }
+
+
+    /*
+     * Jika URL memiliki kategori,
+     * otomatis aktifkan kategori tersebut.
+     */
+
+    updateTabs();
+
+
+    /*
+     * Terapkan filter pertama kali.
+     */
+
+    applyFilters({
+        updateUrl: false
+    });
+
+
+    /* =====================================================
+       PAGE PARAMETER
+    ====================================================== */
+
+    if (
+        Number.isInteger(urlPage) &&
+        urlPage > 1
+    ) {
+
+        document
+            .querySelectorAll(
+                ".page-number"
+            )
+            .forEach(link => {
+
+                link.classList.remove(
                     "active"
                 );
 
-            }
+            });
 
 
-            button.addEventListener(
-                "click",
-                () => {
-
-                    currentPage =
-                        page;
-
-                    renderResults();
-
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
-
-                }
+        const currentPage =
+            document.querySelector(
+                `.page-number[data-page="${urlPage}"]`
             );
 
 
-            pagination.appendChild(
-                button
-            );
-
-        }
-
-
-        /* DOTS */
-
-        if (totalPages > 5) {
-
-            const dots =
-                document.createElement(
-                    "span"
-                );
-
-
-            dots.className =
-                "search-page-dots";
-
-
-            dots.textContent =
-                "…";
-
-
-            pagination.appendChild(
-                dots
-            );
-
-
-            const last =
-                document.createElement(
-                    "button"
-                );
-
-
-            last.type =
-                "button";
-
-
-            last.className =
-                "search-page-button";
-
-
-            last.textContent =
-                totalPages;
-
-
-            last.addEventListener(
-                "click",
-                () => {
-
-                    currentPage =
-                        totalPages;
-
-                    renderResults();
-
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
-
-                }
-            );
-
-
-            pagination.appendChild(
-                last
-            );
-
-        }
-
-
-        /* NEXT */
-
-        const next =
-            document.createElement(
-                "button"
-            );
-
-
-        next.type =
-            "button";
-
-
-        next.className =
-            "search-page-button";
-
-
-        next.textContent =
-            "»";
-
-
-        if (
-            currentPage >= totalPages
-        ) {
-
-            next.classList.add(
-                "disabled"
-            );
-
-        }
-
-
-        next.addEventListener(
-            "click",
-            () => {
-
-                if (
-                    currentPage <
-                    totalPages
-                ) {
-
-                    currentPage++;
-
-                    renderResults();
-
-                    window.scrollTo({
-                        top: 0,
-                        behavior: "smooth"
-                    });
-
-                }
-
-            }
-        );
-
-
-        pagination.appendChild(
-            next
+        currentPage?.classList.add(
+            "active"
         );
 
     }
-
-
-    /* =========================================================
-       SORT
-       ========================================================= */
-
-    if (sortSelect) {
-
-        sortSelect.addEventListener(
-            "change",
-            () => {
-
-                currentPage = 1;
-
-                renderResults();
-
-            }
-        );
-
-    }
-
-
-    /* =========================================================
-       RENDER AWAL
-       ========================================================= */
-
-    renderResults();
 
 });

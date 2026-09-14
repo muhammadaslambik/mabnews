@@ -456,10 +456,55 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  /* =====================================================
+     PASTIKAN TOMBOL NAVIGASI AKTIF SELALU TERLIHAT
+     (kalau tersembunyi karena tidak muat / harus
+     digeser, otomatis digulir ke area yang terlihat —
+     berlaku untuk semua halaman, desktop maupun mobile)
+     ===================================================== */
+
+  function scrollActiveNavIntoView(smooth) {
+
+    if (!navLinks) {
+      return;
+    }
+
+
+    const activeLink =
+      navLinks.querySelector(
+        "a.active"
+      );
+
+
+    if (!activeLink) {
+      return;
+    }
+
+
+    activeLink.scrollIntoView({
+      behavior: smooth ? "smooth" : "auto",
+      inline: "center",
+      block: "nearest"
+    });
+
+  }
+
+
   syncMainNavActive();
 
+  scrollActiveNavIntoView(false);
+
   window.syncMainNavActive =
-    syncMainNavActive;
+    function () {
+
+      syncMainNavActive();
+
+      scrollActiveNavIntoView(true);
+
+    };
+
+  window.scrollActiveNavIntoView =
+    scrollActiveNavIntoView;
 
 
   /* =====================================================

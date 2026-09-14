@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Pencarian — MAB-News</title>
+    <meta name="description" content="Berita terbaru MAB-News — Fakta. Data. Perspektif.">
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/berita.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 
-<body>
+<body class="news-list-page">
 
 <header class="site-header">
 
@@ -189,11 +191,921 @@
 </header>
 
 
-<main class="container" style="padding:60px 0; min-height: 50vh;">
-    <h1>Pencarian</h1>
-    <p>Halaman pencarian MAB-News akan dikembangkan pada tugas berikutnya.</p>
-    <a href="index.html">← Kembali ke Homepage</a>
-</main>
+    <!-- =====================================================
+         PAGE HEADING
+    ====================================================== -->
+    <section class="page-heading">
+
+        <div class="container">
+
+            <div class="breadcrumb">
+                <a href="index.html">Beranda</a>
+                <span>›</span>
+                <span>Pencarian</span>
+            </div>
+
+            <h1 id="pageTitle">Pencarian</h1>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CATEGORY TABS
+    ====================================================== -->
+    <section class="category-tabs-section">
+
+        <div class="container">
+
+            <div class="category-tabs">
+
+                <a
+                    href="search.html"
+                    class="category-tab active"
+                    data-category="all"
+                >
+                    Semua
+                </a>
+
+                <a
+                    href="search.html?kategori=nasional"
+                    class="category-tab"
+                    data-category="nasional"
+                >
+                    Nasional
+                </a>
+
+                <a
+                    href="search.html?kategori=internasional"
+                    class="category-tab"
+                    data-category="internasional"
+                >
+                    Internasional
+                </a>
+
+                <a
+                    href="search.html?kategori=ekonomi"
+                    class="category-tab"
+                    data-category="ekonomi"
+                >
+                    Ekonomi
+                </a>
+
+                <a
+                    href="search.html?kategori=olahraga"
+                    class="category-tab"
+                    data-category="olahraga"
+                >
+                    Olahraga
+                </a>
+
+                <a
+                    href="search.html?kategori=teknologi"
+                    class="category-tab"
+                    data-category="teknologi"
+                >
+                    Teknologi
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+    <main class="news-list-main">
+
+        <div class="container">
+
+            <div class="news-layout">
+
+
+                <!-- =================================================
+                     FILTER
+                ================================================== -->
+                <aside class="news-filter">
+
+                    <div class="filter-card">
+
+                        <div class="filter-header">
+                            <h2>Filter Berita</h2>
+                        </div>
+
+                        <form id="newsFilterForm">
+
+                            <!-- KATEGORI -->
+                            <div class="filter-group">
+
+                                <label for="filterCategory">
+                                    Kategori
+                                </label>
+
+                                <select id="filterCategory">
+
+                                    <option value="all">
+                                        Semua Kategori
+                                    </option>
+
+                                    <option value="nasional">
+                                        Nasional
+                                    </option>
+
+                                    <option value="internasional">
+                                        Internasional
+                                    </option>
+
+                                    <option value="ekonomi">
+                                        Ekonomi
+                                    </option>
+
+                                    <option value="metro">
+                                        Metro
+                                    </option>
+
+                                    <option value="dunia">
+                                        Dunia
+                                    </option>
+
+                                    <option value="olahraga">
+                                        Olahraga
+                                    </option>
+
+                                    <option value="teknologi">
+                                        Teknologi
+                                    </option>
+
+                                    <option value="otomotif">
+                                        Otomotif
+                                    </option>
+
+                                    <option value="gaya-hidup">
+                                        Gaya Hidup
+                                    </option>
+
+                                    <option value="seni">
+                                        Seni
+                                    </option>
+
+                                    <option value="kolom">
+                                        Kolom
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- PENULIS -->
+                            <div class="filter-group">
+
+                                <label for="filterAuthor">
+                                    Penulis
+                                </label>
+
+                                <select id="filterAuthor">
+
+                                    <option value="all">
+                                        Semua Penulis
+                                    </option>
+
+                                    <option value="redaksi">
+                                        Redaksi MAB-News
+                                    </option>
+
+                                    <option value="mabnews">
+                                        MAB-News
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- WAKTU -->
+                            <div class="filter-group">
+
+                                <label for="filterTime">
+                                    Waktu
+                                </label>
+
+                                <select id="filterTime">
+
+                                    <option value="all">
+                                        Semua Waktu
+                                    </option>
+
+                                    <option value="today">
+                                        Hari Ini
+                                    </option>
+
+                                    <option value="week">
+                                        Minggu Ini
+                                    </option>
+
+                                    <option value="month">
+                                        Bulan Ini
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- BUTTON FILTER -->
+                            <div class="filter-actions">
+
+                                <button
+                                    type="submit"
+                                    class="btn-filter"
+                                >
+                                    Terapkan Filter
+                                </button>
+
+                                <button
+                                    type="reset"
+                                    class="btn-reset"
+                                    id="resetFilter"
+                                >
+                                    Reset
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </aside>
+
+
+                <!-- =================================================
+                     HASIL BERITA
+                ================================================== -->
+                <section class="news-results">
+
+                    <div class="results-header">
+
+                        <div>
+
+                            <h2 id="resultsTitle">
+                                Halaman Pencarian
+                            </h2>
+
+                            <p id="resultCount">
+                                Menampilkan 6 berita
+                            </p>
+
+                        </div>
+
+                        <select
+                            id="sortNews"
+                            class="sort-select"
+                        >
+
+                            <option value="latest">
+                                Terbaru
+                            </option>
+
+                            <option value="oldest">
+                                Terlama
+                            </option>
+
+                            <option value="popular">
+                                Terpopuler
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         ARTICLE 1
+                    ================================================== -->
+                    <article
+                        class="news-item"
+                        data-id="pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat"
+                        data-category="nasional"
+                        data-author="redaksi"
+                        data-time="today"
+                        data-date="2025-06-10"
+                        data-popular="100"
+                    >
+
+                        <a
+                            href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat"
+                            class="news-image"
+                        >
+
+                            <img
+                                src="assets/images/hero.jpg"
+                                alt="Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat"
+                            >
+
+                        </a>
+
+                        <div class="news-content">
+
+                            <span class="news-category">
+                                Nasional
+                            </span>
+
+                            <h3>
+
+                                <a href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat">
+                                    Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat
+                                </a>
+
+                            </h3>
+
+                            <p>
+                                Pemerintah menyiapkan sejumlah strategi baru
+                                untuk menjaga daya beli masyarakat di tengah
+                                dinamika perekonomian nasional.
+                            </p>
+
+                            <div class="news-meta">
+
+                                <span>10 Juni 2025</span>
+
+                                <span>•</span>
+
+                                <span>Redaksi MAB-News</span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         ARTICLE 2
+                    ================================================== -->
+                    <article
+                        class="news-item"
+                        data-id="inflasi-mei-2025-terkendali-di-level-2-4-persen"
+                        data-category="ekonomi"
+                        data-author="redaksi"
+                        data-time="today"
+                        data-date="2025-06-09"
+                        data-popular="95"
+                    >
+
+                        <a
+                            href="artikel.html?id=inflasi-mei-2025-terkendali-di-level-2-4-persen"
+                            class="news-image"
+                        >
+
+                            <img
+                                src="assets/images/card-market.jpg"
+                                alt="Inflasi Mei 2025 Terkendali di Level 2,4 Persen"
+                            >
+
+                        </a>
+
+                        <div class="news-content">
+
+                            <span class="news-category">
+                                Ekonomi
+                            </span>
+
+                            <h3>
+
+                                <a href="artikel.html?id=inflasi-mei-2025-terkendali-di-level-2-4-persen">
+                                    Inflasi Mei 2025 Terkendali di Level 2,4 Persen
+                                </a>
+
+                            </h3>
+
+                            <p>
+                                Perkembangan inflasi nasional tetap terkendali
+                                dengan sejumlah komponen harga mengalami
+                                perubahan sepanjang Mei 2025.
+                            </p>
+
+                            <div class="news-meta">
+
+                                <span>9 Juni 2025</span>
+
+                                <span>•</span>
+
+                                <span>Redaksi MAB-News</span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         ARTICLE 3
+                    ================================================== -->
+                    <article
+                        class="news-item"
+                        data-id="australia-perketat-aturan-visa-untuk-pelajar-internasional"
+                        data-category="internasional"
+                        data-author="redaksi"
+                        data-time="today"
+                        data-date="2025-06-08"
+                        data-popular="90"
+                    >
+
+                        <a
+                            href="artikel.html?id=australia-perketat-aturan-visa-untuk-pelajar-internasional"
+                            class="news-image"
+                        >
+
+                            <img
+                                src="assets/images/latest-port.jpg"
+                                alt="Australia Perketat Aturan Visa untuk Pelajar Internasional"
+                            >
+
+                        </a>
+
+                        <div class="news-content">
+
+                            <span class="news-category">
+                                Internasional
+                            </span>
+
+                            <h3>
+
+                                <a href="artikel.html?id=australia-perketat-aturan-visa-untuk-pelajar-internasional">
+                                    Australia Perketat Aturan Visa untuk Pelajar Internasional
+                                </a>
+
+                            </h3>
+
+                            <p>
+                                Pemerintah Australia memperbarui kebijakan
+                                visa bagi pelajar internasional sebagai bagian
+                                dari pengaturan sistem migrasi.
+                            </p>
+
+                            <div class="news-meta">
+
+                                <span>8 Juni 2025</span>
+
+                                <span>•</span>
+
+                                <span>Redaksi MAB-News</span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         ARTICLE 4
+                    ================================================== -->
+                    <article
+                        class="news-item"
+                        data-id="openai-luncurkan-gpt-5-ini-fitur-terbarunya"
+                        data-category="teknologi"
+                        data-author="mabnews"
+                        data-time="today"
+                        data-date="2025-06-07"
+                        data-popular="88"
+                    >
+
+                        <a
+                            href="artikel.html?id=openai-luncurkan-gpt-5-ini-fitur-terbarunya"
+                            class="news-image"
+                        >
+
+                            <img
+                                src="assets/images/card-openai.jpg"
+                                alt="OpenAI Luncurkan GPT-5, Ini Fitur Terbarunya"
+                            >
+
+                        </a>
+
+                        <div class="news-content">
+
+                            <span class="news-category">
+                                Teknologi
+                            </span>
+
+                            <h3>
+
+                                <a href="artikel.html?id=openai-luncurkan-gpt-5-ini-fitur-terbarunya">
+                                    OpenAI Luncurkan GPT-5, Ini Fitur Terbarunya
+                                </a>
+
+                            </h3>
+
+                            <p>
+                                Perkembangan teknologi kecerdasan buatan terus
+                                menjadi perhatian setelah hadirnya generasi
+                                terbaru model AI.
+                            </p>
+
+                            <div class="news-meta">
+
+                                <span>7 Juni 2025</span>
+
+                                <span>•</span>
+
+                                <span>MAB-News</span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         ARTICLE 5
+                    ================================================== -->
+                    <article
+                        class="news-item"
+                        data-id="timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026"
+                        data-category="olahraga"
+                        data-author="redaksi"
+                        data-time="today"
+                        data-date="2025-06-06"
+                        data-popular="86"
+                    >
+
+                        <a
+                            href="artikel.html?id=timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026"
+                            class="news-image"
+                        >
+
+                            <img
+                                src="assets/images/card-police.jpg"
+                                alt="Timnas Indonesia Siap Hadapi China di Kualifikasi Piala Dunia 2026"
+                            >
+
+                        </a>
+
+                        <div class="news-content">
+
+                            <span class="news-category">
+                                Olahraga
+                            </span>
+
+                            <h3>
+
+                                <a href="artikel.html?id=timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026">
+                                    Timnas Indonesia Siap Hadapi China di Kualifikasi Piala Dunia 2026
+                                </a>
+
+                            </h3>
+
+                            <p>
+                                Persiapan tim nasional Indonesia terus
+                                dilakukan menjelang pertandingan penting
+                                dalam kualifikasi Piala Dunia 2026.
+                            </p>
+
+                            <div class="news-meta">
+
+                                <span>6 Juni 2025</span>
+
+                                <span>•</span>
+
+                                <span>Redaksi MAB-News</span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         ARTICLE 6
+                    ================================================== -->
+                    <article
+                        class="news-item"
+                        data-id="gaikindo-sebut-penjualan-mobil-2025-tumbuh-moderat"
+                        data-category="otomotif"
+                        data-author="redaksi"
+                        data-time="today"
+                        data-date="2025-06-05"
+                        data-popular="82"
+                    >
+
+                        <a
+                            href="artikel.html?id=gaikindo-sebut-penjualan-mobil-2025-tumbuh-moderat"
+                            class="news-image"
+                        >
+
+                            <img
+                                src="assets/images/card-auto.jpg"
+                                alt="Gaikindo Sebut Penjualan Mobil 2025 Tumbuh Moderat"
+                            >
+
+                        </a>
+
+                        <div class="news-content">
+
+                            <span class="news-category">
+                                Otomotif
+                            </span>
+
+                            <h3>
+
+                                <a href="artikel.html?id=gaikindo-sebut-penjualan-mobil-2025-tumbuh-moderat">
+                                    Gaikindo Sebut Penjualan Mobil 2025 Tumbuh Moderat
+                                </a>
+
+                            </h3>
+
+                            <p>
+                                Industri otomotif nasional diperkirakan masih
+                                memiliki peluang pertumbuhan meski kondisi
+                                pasar menghadapi sejumlah tantangan.
+                            </p>
+
+                            <div class="news-meta">
+
+                                <span>5 Juni 2025</span>
+
+                                <span>•</span>
+
+                                <span>Redaksi MAB-News</span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- =================================================
+                         PAGINATION
+                    ================================================== -->
+                    <nav
+                        class="pagination"
+                        id="pagination"
+                        aria-label="Navigasi halaman berita"
+                    >
+
+                        <a
+                            href="search.html"
+                            class="page-number disabled"
+                            data-page="prev"
+                            aria-label="Halaman sebelumnya"
+                        >
+                            ‹
+                        </a>
+
+                        <a
+                            href="search.html?page=1"
+                            class="page-number active"
+                            data-page="1"
+                        >
+                            1
+                        </a>
+
+                        <a
+                            href="search.html?page=2"
+                            class="page-number"
+                            data-page="2"
+                        >
+                            2
+                        </a>
+
+                        <a
+                            href="search.html?page=3"
+                            class="page-number"
+                            data-page="3"
+                        >
+                            3
+                        </a>
+
+                        <span class="page-dots">...</span>
+
+                        <a
+                            href="search.html?page=10"
+                            class="page-number"
+                            data-page="10"
+                        >
+                            10
+                        </a>
+
+                        <a
+                            href="search.html?page=2"
+                            class="page-number"
+                            data-page="next"
+                            aria-label="Halaman berikutnya"
+                        >
+                            ›
+                        </a>
+
+                    </nav>
+
+                </section>
+
+
+                <!-- =================================================
+                     SIDEBAR
+                ================================================== -->
+                <aside class="news-sidebar">
+
+
+                    <!-- TERPOPULER -->
+                    <section class="sidebar-widget">
+
+                        <div class="widget-title">
+                            <h2>Terpopuler</h2>
+                        </div>
+
+                        <div class="popular-list">
+
+
+                            <article class="popular-item">
+
+                                <span class="popular-number">01</span>
+
+                                <div>
+
+                                    <h3>
+                                        <a href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat">
+                                            Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat
+                                        </a>
+                                    </h3>
+
+                                    <span class="popular-date">
+                                        10 Juni 2025
+                                    </span>
+
+                                </div>
+
+                            </article>
+
+
+                            <article class="popular-item">
+
+                                <span class="popular-number">02</span>
+
+                                <div>
+
+                                    <h3>
+                                        <a href="artikel.html?id=inflasi-mei-2025-terkendali-di-level-2-4-persen">
+                                            Inflasi Mei 2025 Terkendali di Level 2,4 Persen
+                                        </a>
+                                    </h3>
+
+                                    <span class="popular-date">
+                                        9 Juni 2025
+                                    </span>
+
+                                </div>
+
+                            </article>
+
+
+                            <article class="popular-item">
+
+                                <span class="popular-number">03</span>
+
+                                <div>
+
+                                    <h3>
+                                        <a href="artikel.html?id=openai-luncurkan-gpt-5-ini-fitur-terbarunya">
+                                            OpenAI Luncurkan GPT-5, Ini Fitur Terbarunya
+                                        </a>
+                                    </h3>
+
+                                    <span class="popular-date">
+                                        7 Juni 2025
+                                    </span>
+
+                                </div>
+
+                            </article>
+
+
+                            <article class="popular-item">
+
+                                <span class="popular-number">04</span>
+
+                                <div>
+
+                                    <h3>
+                                        <a href="artikel.html?id=timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026">
+                                            Timnas Indonesia Siap Hadapi China di Kualifikasi Piala Dunia 2026
+                                        </a>
+                                    </h3>
+
+                                    <span class="popular-date">
+                                        6 Juni 2025
+                                    </span>
+
+                                </div>
+
+                            </article>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- KATEGORI -->
+                    <section class="sidebar-widget">
+
+                        <div class="widget-title">
+                            <h2>Kategori</h2>
+                        </div>
+
+                        <ul class="category-list">
+
+                            <li>
+                                <a href="search.html?kategori=nasional">
+                                    <span>Nasional</span>
+                                    <span>24</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="search.html?kategori=internasional">
+                                    <span>Internasional</span>
+                                    <span>18</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="search.html?kategori=ekonomi">
+                                    <span>Ekonomi</span>
+                                    <span>21</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="search.html?kategori=olahraga">
+                                    <span>Olahraga</span>
+                                    <span>16</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="search.html?kategori=teknologi">
+                                    <span>Teknologi</span>
+                                    <span>19</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="search.html?kategori=otomotif">
+                                    <span>Otomotif</span>
+                                    <span>12</span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </section>
+
+
+                    <!-- NEWSLETTER -->
+                    <section class="sidebar-widget newsletter-widget">
+
+                        <div class="widget-title">
+                            <h2>Newsletter</h2>
+                        </div>
+
+                        <p>
+                            Dapatkan berita terbaru MAB-News
+                            langsung ke email Anda.
+                        </p>
+
+                        <form id="newsletterForm">
+
+                            <input
+                                type="email"
+                                id="newsletterEmail"
+                                placeholder="Alamat email Anda"
+                                required
+                            >
+
+                            <button type="submit">
+                                Berlangganan
+                            </button>
+
+                        </form>
+
+                    </section>
+
+                </aside>
+
+            </div>
+
+        </div>
+
+    </main>
 
 
 <!-- =========================================================
@@ -328,7 +1240,10 @@
 
 </footer>
 
-<script src="js/main.js"></script>
+
+    <!-- JAVASCRIPT -->
+    <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
 
 </body>
 </html>
