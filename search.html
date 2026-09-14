@@ -1,47 +1,1162 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pencarian — MAB-News</title>
 
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/responsive.css">
-<link rel="stylesheet" href="css/search.css">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Pencarian — MAB-News</title>
+
+  <!-- =========================================================
+       CSS MAB-NEWS
+       ========================================================= -->
+
+  <link
+    rel="stylesheet"
+    href="css/main.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/header.css"
+  >
+
+  <!--
+    WAJIB DIPERTAHANKAN.
+    Footer MAB-News menggunakan sistem styling Homepage.
+  -->
+
+  <link
+    rel="stylesheet"
+    href="css/homepage.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/responsive.css"
+  >
+
+
+  <!-- =========================================================
+       CSS KHUSUS HALAMAN PENCARIAN
+       ========================================================= -->
+
+  <style>
+
+    /* =========================================================
+       SEARCH PAGE
+       ========================================================= */
+
+    .search-page {
+      padding-top: 24px;
+      padding-bottom: 60px;
+    }
+
+
+    /* =========================================================
+       SEARCH HERO
+       ========================================================= */
+
+    .search-hero {
+      background:
+        linear-gradient(
+          135deg,
+          #061b36 0%,
+          #082d58 100%
+        );
+
+      color: #ffffff;
+
+      border-radius: 6px;
+
+      padding: 42px 42px 46px;
+
+      margin-bottom: 30px;
+
+      position: relative;
+
+      overflow: hidden;
+    }
+
+
+    .search-hero::after {
+      content: "";
+
+      position: absolute;
+
+      width: 280px;
+      height: 280px;
+
+      right: -100px;
+      top: -120px;
+
+      border-radius: 50%;
+
+      background: rgba(255,255,255,.035);
+
+      pointer-events: none;
+    }
+
+
+    /* =========================================================
+       BREADCRUMB
+       ========================================================= */
+
+    .search-breadcrumb {
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      margin-bottom: 24px;
+
+      font-size: 14px;
+
+      color: rgba(255,255,255,.70);
+    }
+
+
+    .search-breadcrumb a {
+      color: #ffffff;
+
+      text-decoration: none;
+
+      transition: opacity .2s ease;
+    }
+
+
+    .search-breadcrumb a:hover {
+      opacity: .75;
+    }
+
+
+    .search-breadcrumb span {
+      opacity: .45;
+    }
+
+
+    /* =========================================================
+       SEARCH HERO ICON
+       ========================================================= */
+
+    .search-hero-icon {
+      width: 58px;
+      height: 58px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid rgba(255,255,255,.20);
+
+      border-radius: 50%;
+
+      background: rgba(255,255,255,.08);
+
+      margin-bottom: 20px;
+    }
+
+
+    .search-hero-icon svg {
+      width: 27px;
+      height: 27px;
+
+      fill: none;
+
+      stroke: currentColor;
+
+      stroke-width: 2;
+
+      stroke-linecap: round;
+
+      stroke-linejoin: round;
+    }
+
+
+    /* =========================================================
+       SEARCH HERO TITLE
+       ========================================================= */
+
+    .search-hero h1 {
+      margin: 0;
+
+      font-size: clamp(28px, 4vw, 42px);
+
+      line-height: 1.2;
+
+      font-weight: 700;
+
+      letter-spacing: -.5px;
+    }
+
+
+    .search-hero p {
+      margin: 12px 0 0;
+
+      color: rgba(255,255,255,.72);
+
+      font-size: 16px;
+    }
+
+
+    /* =========================================================
+       SEARCH LAYOUT
+       ========================================================= */
+
+    .search-layout {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 2.15fr)
+        minmax(320px, .92fr);
+
+      gap: 30px;
+
+      align-items: start;
+    }
+
+
+    .search-main {
+      min-width: 0;
+    }
+
+
+    /* =========================================================
+       SEARCH TOOLBAR
+       ========================================================= */
+
+    .search-toolbar {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      padding-bottom: 18px;
+
+      border-bottom: 1px solid #e1e5ea;
+
+      margin-bottom: 4px;
+    }
+
+
+    .search-result-count {
+      margin: 0;
+
+      font-size: 15px;
+
+      color: #5f6873;
+    }
+
+
+    .search-result-count strong {
+      color: #152238;
+    }
+
+
+    .search-sort {
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+
+      white-space: nowrap;
+    }
+
+
+    .search-sort label {
+      font-size: 14px;
+
+      color: #626b77;
+    }
+
+
+    .search-sort select {
+      min-width: 150px;
+
+      padding: 9px 32px 9px 12px;
+
+      border: 1px solid #d7dce2;
+
+      border-radius: 5px;
+
+      background: #ffffff;
+
+      color: #263142;
+
+      font-size: 14px;
+
+      outline: none;
+
+      cursor: pointer;
+    }
+
+
+    .search-sort select:focus {
+      border-color: #174f8c;
+    }
+
+
+    /* =========================================================
+       SEARCH RESULT
+       ========================================================= */
+
+    .search-results {
+      display: flex;
+
+      flex-direction: column;
+    }
+
+
+    .search-result-item {
+      display: grid;
+
+      grid-template-columns: 230px minmax(0, 1fr);
+
+      gap: 22px;
+
+      padding: 22px 0;
+
+      border-bottom: 1px solid #e1e5ea;
+    }
+
+
+    .search-result-image {
+      display: block;
+
+      width: 100%;
+
+      height: 145px;
+
+      overflow: hidden;
+
+      border-radius: 5px;
+
+      background: #e9edf2;
+    }
+
+
+    .search-result-image img {
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      transition: transform .25s ease;
+    }
+
+
+    .search-result-image:hover img {
+      transform: scale(1.035);
+    }
+
+
+    .search-result-content {
+      min-width: 0;
+    }
+
+
+    .search-result-category {
+      display: inline-block;
+
+      margin-bottom: 8px;
+
+      color: #15549a;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      letter-spacing: .6px;
+
+      text-transform: uppercase;
+    }
+
+
+    .search-result-title {
+      margin: 0 0 9px;
+
+      font-size: 21px;
+
+      line-height: 1.3;
+    }
+
+
+    .search-result-title a {
+      color: #172235;
+
+      text-decoration: none;
+
+      transition: color .2s ease;
+    }
+
+
+    .search-result-title a:hover {
+      color: #15549a;
+    }
+
+
+    .search-result-description {
+      margin: 0 0 12px;
+
+      color: #606a76;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+
+      display: -webkit-box;
+
+      -webkit-line-clamp: 2;
+
+      -webkit-box-orient: vertical;
+
+      overflow: hidden;
+    }
+
+
+    .search-result-meta {
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      color: #8a929c;
+
+      font-size: 13px;
+    }
+
+
+    .search-result-meta span {
+      white-space: nowrap;
+    }
+
+
+    /* =========================================================
+       SIDEBAR
+       ========================================================= */
+
+    .search-sidebar {
+      min-width: 0;
+    }
+
+
+    .search-sidebar-box {
+      margin-bottom: 28px;
+
+      padding: 24px;
+
+      border: 1px solid #e0e4e9;
+
+      border-radius: 5px;
+
+      background: #ffffff;
+    }
+
+
+    .search-sidebar-title {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 12px;
+
+      margin: 0 0 20px;
+
+      padding-bottom: 13px;
+
+      border-bottom: 2px solid #122b4b;
+
+      color: #162337;
+
+      font-size: 19px;
+    }
+
+
+    /* =========================================================
+       POPULAR SEARCH
+       ========================================================= */
+
+    .popular-search-tags {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 9px;
+    }
+
+
+    .popular-search-tags a {
+      display: inline-block;
+
+      padding: 8px 12px;
+
+      border: 1px solid #dce1e7;
+
+      border-radius: 4px;
+
+      background: #f7f8fa;
+
+      color: #435064;
+
+      font-size: 13px;
+
+      text-decoration: none;
+
+      transition:
+        background .2s ease,
+        color .2s ease,
+        border-color .2s ease;
+    }
+
+
+    .popular-search-tags a:hover {
+      background: #122b4b;
+
+      border-color: #122b4b;
+
+      color: #ffffff;
+    }
+
+
+    /* =========================================================
+       SIDEBAR TERPOPULER
+       ========================================================= */
+
+    .search-popular-list {
+      margin: 0;
+
+      padding: 0;
+
+      list-style: none;
+
+      counter-reset: popular;
+    }
+
+
+    .search-popular-list li {
+      display: grid;
+
+      grid-template-columns: 28px minmax(0, 1fr) 86px;
+
+      gap: 10px;
+
+      align-items: center;
+
+      padding: 14px 0;
+
+      border-bottom: 1px solid #e5e8ec;
+
+      counter-increment: popular;
+    }
+
+
+    .search-popular-list li:last-child {
+      border-bottom: 0;
+
+      padding-bottom: 0;
+    }
+
+
+    .search-popular-rank {
+      font-size: 20px;
+
+      font-weight: 700;
+
+      color: #174f8c;
+    }
+
+
+    .search-popular-copy {
+      min-width: 0;
+    }
+
+
+    .search-popular-copy a {
+      display: block;
+
+      color: #1b2638;
+
+      font-size: 14px;
+
+      line-height: 1.35;
+
+      font-weight: 600;
+
+      text-decoration: none;
+    }
+
+
+    .search-popular-copy a:hover {
+      color: #174f8c;
+    }
+
+
+    .search-popular-copy time {
+      display: block;
+
+      margin-top: 5px;
+
+      color: #9299a3;
+
+      font-size: 12px;
+    }
+
+
+    .search-popular-image {
+      width: 86px;
+      height: 60px;
+
+      overflow: hidden;
+
+      border-radius: 4px;
+
+      background: #e9edf2;
+    }
+
+
+    .search-popular-image img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+    }
+
+
+    /* =========================================================
+       NEWSLETTER
+       ========================================================= */
+
+    .search-newsletter {
+      background: #082b52;
+
+      border: 0;
+
+      color: #ffffff;
+    }
+
+
+    .search-newsletter .search-sidebar-title {
+      color: #ffffff;
+
+      border-color: rgba(255,255,255,.30);
+    }
+
+
+    .search-newsletter p {
+      margin: 0 0 18px;
+
+      color: rgba(255,255,255,.75);
+
+      font-size: 14px;
+
+      line-height: 1.6;
+    }
+
+
+    .search-newsletter-form {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 9px;
+    }
+
+
+    .search-newsletter-form input {
+      width: 100%;
+
+      box-sizing: border-box;
+
+      padding: 11px 12px;
+
+      border: 1px solid rgba(255,255,255,.20);
+
+      border-radius: 4px;
+
+      background: rgba(255,255,255,.08);
+
+      color: #ffffff;
+
+      outline: none;
+
+      font-size: 13px;
+    }
+
+
+    .search-newsletter-form input::placeholder {
+      color: rgba(255,255,255,.55);
+    }
+
+
+    .search-newsletter-form button {
+      padding: 11px 14px;
+
+      border: 0;
+
+      border-radius: 4px;
+
+      background: #ffffff;
+
+      color: #082b52;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+
+    /* =========================================================
+       PAGINATION
+       ========================================================= */
+
+    .search-pagination {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 6px;
+
+      padding-top: 28px;
+    }
+
+
+    .search-pagination a,
+    .search-pagination span {
+      min-width: 36px;
+      height: 36px;
+
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      box-sizing: border-box;
+
+      border: 1px solid #d9dee4;
+
+      border-radius: 4px;
+
+      color: #465466;
+
+      background: #ffffff;
+
+      font-size: 13px;
+
+      text-decoration: none;
+    }
+
+
+    .search-pagination a:hover {
+      background: #122b4b;
+
+      border-color: #122b4b;
+
+      color: #ffffff;
+    }
+
+
+    .search-pagination .active {
+      background: #122b4b;
+
+      border-color: #122b4b;
+
+      color: #ffffff;
+
+      font-weight: 700;
+    }
+
+
+    .search-pagination .dots {
+      border: 0;
+
+      background: transparent;
+
+      min-width: 24px;
+    }
+
+
+    /* =========================================================
+       DARK MODE
+       ========================================================= */
+
+    body.dark-preview .search-toolbar {
+      border-color: rgba(255,255,255,.12);
+    }
+
+
+    body.dark-preview .search-result-count {
+      color: #aeb8c6;
+    }
+
+
+    body.dark-preview .search-result-count strong {
+      color: #ffffff;
+    }
+
+
+    body.dark-preview .search-sort label {
+      color: #aeb8c6;
+    }
+
+
+    body.dark-preview .search-sort select,
+    body.dark-preview .search-sidebar-box,
+    body.dark-preview .search-pagination a,
+    body.dark-preview .search-pagination span {
+      background: #101b2a;
+
+      border-color: #2a3748;
+
+      color: #e9eef5;
+    }
+
+
+    body.dark-preview .search-result-item {
+      border-color: #273446;
+    }
+
+
+    body.dark-preview .search-result-title a {
+      color: #f1f5f9;
+    }
+
+
+    body.dark-preview .search-result-description {
+      color: #aeb8c6;
+    }
+
+
+    body.dark-preview .search-result-meta {
+      color: #7f8b9c;
+    }
+
+
+    body.dark-preview .search-sidebar-title {
+      color: #ffffff;
+
+      border-color: #6c7b90;
+    }
+
+
+    body.dark-preview .popular-search-tags a {
+      background: #172335;
+
+      border-color: #2a3748;
+
+      color: #cbd5e1;
+    }
+
+
+    body.dark-preview .search-popular-list li {
+      border-color: #273446;
+    }
+
+
+    body.dark-preview .search-popular-copy a {
+      color: #e8edf4;
+    }
+
+
+    body.dark-preview .search-pagination .active {
+      background: #315f91;
+
+      border-color: #315f91;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE SEARCH
+       ========================================================= */
+
+    @media (max-width: 1100px) {
+
+      .search-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .search-sidebar {
+        display: grid;
+
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
+        gap: 20px;
+      }
+
+      .search-sidebar-box {
+        margin-bottom: 0;
+      }
+
+    }
+
+
+    @media (max-width: 760px) {
+
+      .search-page {
+        padding-top: 16px;
+
+        padding-bottom: 40px;
+      }
+
+
+      .search-hero {
+        padding: 30px 24px 34px;
+
+        margin-bottom: 22px;
+      }
+
+
+      .search-hero h1 {
+        font-size: 28px;
+      }
+
+
+      .search-toolbar {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 12px;
+      }
+
+
+      .search-sort {
+        width: 100%;
+
+        justify-content: space-between;
+      }
+
+
+      .search-sort select {
+        flex: 1;
+
+        max-width: 220px;
+      }
+
+
+      .search-result-item {
+        grid-template-columns: 145px minmax(0, 1fr);
+
+        gap: 15px;
+
+        padding: 18px 0;
+      }
+
+
+      .search-result-image {
+        height: 105px;
+      }
+
+
+      .search-result-title {
+        font-size: 17px;
+
+        margin-bottom: 7px;
+      }
+
+
+      .search-result-description {
+        font-size: 13px;
+
+        -webkit-line-clamp: 2;
+
+        margin-bottom: 8px;
+      }
+
+
+      .search-result-meta {
+        font-size: 11px;
+      }
+
+
+      .search-sidebar {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    @media (max-width: 520px) {
+
+      .search-hero {
+        padding: 25px 19px 28px;
+
+        border-radius: 4px;
+      }
+
+
+      .search-breadcrumb {
+        font-size: 12px;
+
+        margin-bottom: 18px;
+      }
+
+
+      .search-hero-icon {
+        width: 48px;
+        height: 48px;
+      }
+
+
+      .search-hero-icon svg {
+        width: 23px;
+        height: 23px;
+      }
+
+
+      .search-hero h1 {
+        font-size: 23px;
+      }
+
+
+      .search-hero p {
+        font-size: 13px;
+      }
+
+
+      .search-result-item {
+        grid-template-columns: 1fr;
+
+        gap: 13px;
+      }
+
+
+      .search-result-image {
+        width: 100%;
+
+        height: 180px;
+      }
+
+
+      .search-result-title {
+        font-size: 19px;
+      }
+
+
+      .search-result-description {
+        font-size: 14px;
+      }
+
+
+      .search-pagination {
+        flex-wrap: wrap;
+
+        gap: 5px;
+      }
+
+
+      .search-pagination a,
+      .search-pagination span {
+        min-width: 32px;
+        height: 32px;
+      }
+
+    }
+
+  </style>
+
 </head>
+
+
 <body>
+
+
+<!-- =========================================================
+     HEADER MAB-NEWS
+     SAMA DENGAN HOMEPAGE
+     ========================================================= -->
+
 <header class="site-header">
 
   <div class="container topbar">
 
     <!-- BRAND -->
-    <a class="brand" href="index.html">
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+
       <span class="brand-mark">MAB-</span>
+
       <span class="brand-name">NEWS</span>
-      <small>Fakta. Data. Perspektif.</small>
+
+      <small>
+        Fakta. Data. Perspektif.
+      </small>
+
     </a>
 
 
     <!-- WAKTU DESKTOP -->
-    <div class="header-datetime desktop-datetime" aria-label="Waktu saat ini">
-      <div class="date-line" id="desktopDate">
+
+    <div
+      class="header-datetime desktop-datetime"
+      aria-label="Waktu saat ini"
+    >
+
+      <div
+        class="date-line"
+        id="desktopDate"
+      >
         Minggu, 13 September 2026
       </div>
 
       <div class="time-line">
+
         Pukul:
-        <span id="desktopTime">01:24</span>
+
+        <span id="desktopTime">
+          01:24
+        </span>
+
         WIB
-        <span class="time-separator">|</span>
-        <span id="desktopSeconds">00</span>
-        <span class="time-separator">|</span>
+
+        <span class="time-separator">
+          |
+        </span>
+
+        <span id="desktopSeconds">
+          00
+        </span>
+
+        <span class="time-separator">
+          |
+        </span>
+
       </div>
+
     </div>
 
 
-    <!-- SEARCH -->
-    <form class="search-box" id="headerSearch">
+    <!-- SEARCH HEADER -->
+
+    <form
+      class="search-box"
+      id="headerSearch"
+    >
 
       <input
         id="searchInput"
@@ -55,83 +1170,157 @@
         type="submit"
         aria-label="Cari"
       >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"></circle>
-          <path d="m20 20-4-4"></path>
+
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
+          <circle
+            cx="11"
+            cy="11"
+            r="7"
+          ></circle>
+
+          <path
+            d="m20 20-4-4"
+          ></path>
+
         </svg>
+
       </button>
 
     </form>
 
 
     <!-- HEADER ACTIONS -->
+
     <div class="header-actions">
 
       <!-- LANGGANAN -->
+
       <a
         class="support-btn"
         href="#dukung"
       >
         Langganan
       </a>
-      
-<button
-  type="button"
-  class="icon-btn mobile-search-toggle"
-  id="mobileSearchToggle"
-  aria-label="Buka pencarian"
-  title="Cari"
->
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="11" cy="11" r="7"></circle>
-    <path d="m20 20-4-4"></path>
-  </svg>
-</button>
+
+
+      <!-- MOBILE SEARCH -->
+
+      <button
+        type="button"
+        class="icon-btn mobile-search-toggle"
+        id="mobileSearchToggle"
+        aria-label="Buka pencarian"
+        title="Cari"
+      >
+
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
+          <circle
+            cx="11"
+            cy="11"
+            r="7"
+          ></circle>
+
+          <path
+            d="m20 20-4-4"
+          ></path>
+
+        </svg>
+
+      </button>
 
 
       <!-- MODE -->
+
       <button
         class="icon-btn"
         id="themeToggle"
         aria-label="Mode tampilan"
       >
+
         <svg viewBox="0 0 24 24">
-          <path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-          <circle cx="12" cy="12" r="4"></circle>
+
+          <path
+            d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+          ></path>
+
+          <circle
+            cx="12"
+            cy="12"
+            r="4"
+          ></circle>
+
         </svg>
+
       </button>
 
 
       <!-- AKUN -->
+
       <button
         class="icon-btn"
         aria-label="Akun"
       >
+
         <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="8" r="4"></circle>
-          <path d="M4 21c.9-4 3.5-6 8-6s7.1 2 8 6"></path>
+
+          <circle
+            cx="12"
+            cy="8"
+            r="4"
+          ></circle>
+
+          <path
+            d="M4 21c.9-4 3.5-6 8-6s7.1 2 8 6"
+          ></path>
+
         </svg>
+
       </button>
 
     </div>
 
 
     <!-- WAKTU MOBILE -->
+
     <div
       class="header-datetime mobile-datetime"
       aria-label="Waktu saat ini"
     >
 
       <div class="mobile-time-line">
+
         Pukul:
-        <span id="mobileTime">01:24</span>
+
+        <span id="mobileTime">
+          01:24
+        </span>
+
         WIB
-        <span class="time-separator">|</span>
-        <span id="mobileSeconds">00</span>
-        <span class="time-separator">|</span>
+
+        <span class="time-separator">
+          |
+        </span>
+
+        <span id="mobileSeconds">
+          00
+        </span>
+
+        <span class="time-separator">
+          |
+        </span>
+
         <span id="mobileDate">
           Minggu, 13 September 2026
         </span>
+
       </div>
 
     </div>
@@ -139,7 +1328,10 @@
   </div>
 
 
-  <!-- NAVIGATION -->
+  <!-- =======================================================
+       NAVIGATION
+       ======================================================= -->
+
   <nav class="main-nav">
 
     <div class="container nav-inner">
@@ -153,27 +1345,75 @@
           Beranda
         </a>
 
+
         <div
           class="nav-links"
           id="navLinks"
         >
 
-          <a href="berita.html">Terbaru</a>
-          <a href="berita.html?sort=popular">Terpopuler</a>
-          <a href="kategori.html?kategori=nasional">Nasional</a>
-          <a href="kategori.html?kategori=internasional">Internasional</a>
-          <a href="kategori.html?kategori=ekonomi">Ekonomi</a>
-          <a href="kategori.html?kategori=metro">Metro</a>
-          <a href="kategori.html?kategori=dunia">Dunia</a>
-          <a href="kategori.html?kategori=olahraga">Olahraga</a>
-          <a href="kategori.html?kategori=teknologi">Teknologi</a>
-          <a href="kategori.html?kategori=otomotif">Otomotif</a>
-          <a href="kategori.html?kategori=gaya-hidup">Gaya Hidup</a>
-          <a href="kategori.html?kategori=seni">Seni</a>
-          <a href="kategori.html?kategori=kolom">Kolom</a>
-          <a href="kategori.html?kategori=indeks">Indeks</a>
-          <a href="kategori.html?kategori=foto">Foto</a>
-          <a href="kategori.html?kategori=video">Video</a>
+          <a href="berita.html">
+            Terbaru
+          </a>
+
+          <a href="berita.html?sort=popular">
+            Terpopuler
+          </a>
+
+          <a href="kategori.html?kategori=nasional">
+            Nasional
+          </a>
+
+          <a href="kategori.html?kategori=internasional">
+            Internasional
+          </a>
+
+          <a href="kategori.html?kategori=ekonomi">
+            Ekonomi
+          </a>
+
+          <a href="kategori.html?kategori=metro">
+            Metro
+          </a>
+
+          <a href="kategori.html?kategori=dunia">
+            Dunia
+          </a>
+
+          <a href="kategori.html?kategori=olahraga">
+            Olahraga
+          </a>
+
+          <a href="kategori.html?kategori=teknologi">
+            Teknologi
+          </a>
+
+          <a href="kategori.html?kategori=otomotif">
+            Otomotif
+          </a>
+
+          <a href="kategori.html?kategori=gaya-hidup">
+            Gaya Hidup
+          </a>
+
+          <a href="kategori.html?kategori=seni">
+            Seni
+          </a>
+
+          <a href="kategori.html?kategori=kolom">
+            Kolom
+          </a>
+
+          <a href="kategori.html?kategori=indeks">
+            Indeks
+          </a>
+
+          <a href="kategori.html?kategori=foto">
+            Foto
+          </a>
+
+          <a href="kategori.html?kategori=video">
+            Video
+          </a>
 
         </div>
 
@@ -184,412 +1424,807 @@
   </nav>
 
 </header>
+
+
+
 <!-- =========================================================
-     SEARCH PAGE
-     MAB-NEWS
+     MAIN — HALAMAN PENCARIAN
      ========================================================= -->
 
-<main class="search-page">
+<main class="container search-page">
 
-    <!-- SEARCH HERO -->
-    <section class="search-hero">
 
-        <div class="container">
+  <!-- =======================================================
+       SEARCH HERO
+       ======================================================= -->
 
-            <div class="search-breadcrumb">
-                <a href="index.html">Beranda</a>
-                <span>›</span>
-                <span>Pencarian</span>
-            </div>
+  <section class="search-hero">
 
-            <div class="search-hero-content">
+    <div class="search-breadcrumb">
 
-                <div class="search-hero-icon">
+      <a href="index.html">
+        Beranda
+      </a>
 
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <circle
-                            cx="11"
-                            cy="11"
-                            r="7">
-                        </circle>
+      <span>
+        ›
+      </span>
 
-                        <path
-                            d="m20 20-4-4">
-                        </path>
-                    </svg>
+      <span>
+        Pencarian
+      </span>
 
-                </div>
+    </div>
 
-                <div>
 
-                    <h1 id="searchTitle">
-                        Hasil Pencarian untuk “ekonomi”
-                    </h1>
+    <div class="search-hero-icon">
 
-                    <p id="searchCount">
-                        Ditemukan 128 hasil
-                    </p>
+      <svg viewBox="0 0 24 24">
 
-                </div>
+        <circle
+          cx="11"
+          cy="11"
+          r="7"
+        ></circle>
 
-            </div>
+        <path
+          d="m20 20-4-4"
+        ></path>
+
+      </svg>
+
+    </div>
+
+
+    <h1 id="searchPageTitle">
+      Hasil Pencarian untuk “ekonomi”
+    </h1>
+
+    <p id="searchPageCount">
+      Ditemukan 128 hasil
+    </p>
+
+  </section>
+
+
+
+  <!-- =======================================================
+       SEARCH LAYOUT
+       ======================================================= -->
+
+  <div class="search-layout">
+
+
+    <!-- =====================================================
+         HASIL PENCARIAN
+         ===================================================== -->
+
+    <section class="search-main">
+
+
+      <!-- TOOLBAR -->
+
+      <div class="search-toolbar">
+
+        <p class="search-result-count">
+
+          Menampilkan
+          <strong id="resultStart">
+            1
+          </strong>
+          –
+          <strong id="resultEnd">
+            10
+          </strong>
+
+          dari
+          <strong id="resultTotal">
+            128
+          </strong>
+
+          hasil
+
+        </p>
+
+
+        <div class="search-sort">
+
+          <label for="sortSearch">
+            Urutkan:
+          </label>
+
+          <select id="sortSearch">
+
+            <option value="terbaru">
+              Terbaru
+            </option>
+
+            <option value="relevan">
+              Paling Relevan
+            </option>
+
+            <option value="popular">
+              Terpopuler
+            </option>
+
+          </select>
 
         </div>
+
+      </div>
+
+
+
+      <!-- ===================================================
+           RESULT LIST
+           =================================================== -->
+
+      <div
+        class="search-results"
+        id="searchResults"
+      >
+
+
+        <!-- RESULT 1 -->
+
+        <article class="search-result-item">
+
+          <a
+            class="search-result-image"
+            href="artikel.html"
+          >
+
+            <img
+              src="assets/images/card-market.jpg"
+              alt="Inflasi Mei 2025 Terkendali"
+            >
+
+          </a>
+
+
+          <div class="search-result-content">
+
+            <span class="search-result-category">
+              EKONOMI
+            </span>
+
+            <h2 class="search-result-title">
+
+              <a href="artikel.html">
+                Inflasi Mei 2025 Terkendali di Level 2,4 Persen
+              </a>
+
+            </h2>
+
+            <p class="search-result-description">
+              Inflasi nasional tetap terkendali di tengah perubahan
+              kondisi ekonomi dan perkembangan harga sejumlah komoditas
+              utama.
+            </p>
+
+            <div class="search-result-meta">
+
+              <span>
+                27 Mei 2025
+              </span>
+
+              <span>
+                ·
+              </span>
+
+              <span>
+                10:24 WIB
+              </span>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- RESULT 2 -->
+
+        <article class="search-result-item">
+
+          <a
+            class="search-result-image"
+            href="artikel.html"
+          >
+
+            <img
+              src="assets/images/latest-port.jpg"
+              alt="Ekspor Indonesia"
+            >
+
+          </a>
+
+
+          <div class="search-result-content">
+
+            <span class="search-result-category">
+              EKONOMI
+            </span>
+
+            <h2 class="search-result-title">
+
+              <a href="artikel.html">
+                Ekspor Indonesia Tumbuh 8,6 Persen pada April 2025
+              </a>
+
+            </h2>
+
+            <p class="search-result-description">
+              Kinerja ekspor Indonesia menunjukkan pertumbuhan positif
+              seiring meningkatnya permintaan sejumlah komoditas unggulan
+              di pasar global.
+            </p>
+
+            <div class="search-result-meta">
+
+              <span>
+                27 Mei 2025
+              </span>
+
+              <span>
+                ·
+              </span>
+
+              <span>
+                09:48 WIB
+              </span>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- RESULT 3 -->
+
+        <article class="search-result-item">
+
+          <a
+            class="search-result-image"
+            href="artikel.html"
+          >
+
+            <img
+              src="assets/images/card-market.jpg"
+              alt="IHSG Menguat"
+            >
+
+          </a>
+
+
+          <div class="search-result-content">
+
+            <span class="search-result-category">
+              EKONOMI
+            </span>
+
+            <h2 class="search-result-title">
+
+              <a href="artikel.html">
+                IHSG Ditutup Menguat, Sektor Keuangan Jadi Pendorong Utama
+              </a>
+
+            </h2>
+
+            <p class="search-result-description">
+              Indeks Harga Saham Gabungan kembali menguat dengan sektor
+              keuangan menjadi salah satu pendorong utama perdagangan.
+            </p>
+
+            <div class="search-result-meta">
+
+              <span>
+                27 Mei 2025
+              </span>
+
+              <span>
+                ·
+              </span>
+
+              <span>
+                09:12 WIB
+              </span>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- RESULT 4 -->
+
+        <article class="search-result-item">
+
+          <a
+            class="search-result-image"
+            href="artikel.html"
+          >
+
+            <img
+              src="assets/images/popular-1.jpg"
+              alt="Rupiah Menguat"
+            >
+
+          </a>
+
+
+          <div class="search-result-content">
+
+            <span class="search-result-category">
+              EKONOMI
+            </span>
+
+            <h2 class="search-result-title">
+
+              <a href="artikel.html">
+                Rupiah Menguat Tipis terhadap Dolar AS di Tengah Data Ekonomi Global
+              </a>
+
+            </h2>
+
+            <p class="search-result-description">
+              Nilai tukar rupiah bergerak menguat tipis terhadap dolar
+              Amerika Serikat setelah pelaku pasar mencermati sejumlah
+              indikator ekonomi global.
+            </p>
+
+            <div class="search-result-meta">
+
+              <span>
+                27 Mei 2025
+              </span>
+
+              <span>
+                ·
+              </span>
+
+              <span>
+                08:56 WIB
+              </span>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+
+        <!-- RESULT 5 -->
+
+        <article class="search-result-item">
+
+          <a
+            class="search-result-image"
+            href="artikel.html"
+          >
+
+            <img
+              src="assets/images/card-auto.jpg"
+              alt="Harga BBM"
+            >
+
+          </a>
+
+
+          <div class="search-result-content">
+
+            <span class="search-result-category">
+              EKONOMI
+            </span>
+
+            <h2 class="search-result-title">
+
+              <a href="artikel.html">
+                Harga BBM Terbaru per 27 Mei 2025 di Seluruh Indonesia
+              </a>
+
+            </h2>
+
+            <p class="search-result-description">
+              Berikut informasi terbaru mengenai harga bahan bakar minyak
+              di sejumlah wilayah Indonesia per 27 Mei 2025.
+            </p>
+
+            <div class="search-result-meta">
+
+              <span>
+                27 Mei 2025
+              </span>
+
+              <span>
+                ·
+              </span>
+
+              <span>
+                08:30 WIB
+              </span>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+
+
+      <!-- ===================================================
+           PAGINATION
+           =================================================== -->
+
+      <nav
+        class="search-pagination"
+        aria-label="Navigasi halaman pencarian"
+      >
+
+        <a href="#">
+          «
+        </a>
+
+        <a
+          href="#"
+          class="active"
+        >
+          1
+        </a>
+
+        <a href="#">
+          2
+        </a>
+
+        <a href="#">
+          3
+        </a>
+
+        <a href="#">
+          4
+        </a>
+
+        <a href="#">
+          5
+        </a>
+
+        <span class="dots">
+          ...
+        </span>
+
+        <a href="#">
+          13
+        </a>
+
+        <a href="#">
+          »
+        </a>
+
+      </nav>
+
 
     </section>
 
 
-    <!-- SEARCH CONTENT -->
-    <section class="container search-content">
 
-        <div class="search-layout">
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
 
+    <aside class="search-sidebar">
 
-            <!-- =================================================
-                 HASIL PENCARIAN
-                 ================================================= -->
 
-            <section class="search-results">
+      <!-- ===================================================
+           PENCARIAN POPULER
+           =================================================== -->
 
-                <div class="search-results-top">
+      <section class="search-sidebar-box">
 
-                    <p id="resultInfo">
-                        Menampilkan 1–5 dari 128 hasil
-                    </p>
+        <h2 class="search-sidebar-title">
+          Pencarian Populer
+        </h2>
 
-                    <div class="search-sort">
 
-                        <label for="sortSelect">
-                            Urutkan:
-                        </label>
+        <div class="popular-search-tags">
 
-                        <select id="sortSelect">
+          <a href="search.html?q=inflasi">
+            inflasi
+          </a>
 
-                            <option value="terbaru">
-                                Terbaru
-                            </option>
+          <a href="search.html?q=rupiah">
+            rupiah
+          </a>
 
-                            <option value="terlama">
-                                Terlama
-                            </option>
+          <a href="search.html?q=ihsg">
+            ihsg
+          </a>
 
-                            <option value="popular">
-                                Terpopuler
-                            </option>
+          <a href="search.html?q=bbm">
+            bbm
+          </a>
 
-                        </select>
+          <a href="search.html?q=ekspor">
+            ekspor
+          </a>
 
-                    </div>
+          <a href="search.html?q=subsidi">
+            subsidi
+          </a>
 
-                </div>
+          <a href="search.html?q=apbn">
+            apbn
+          </a>
 
+          <a href="search.html?q=suku+bunga">
+            suku bunga
+          </a>
 
-                <!-- DAFTAR HASIL -->
-                <div
-                    class="search-result-list"
-                    id="searchResultList">
-                </div>
+          <a href="search.html?q=investasi">
+            investasi
+          </a>
 
-
-                <!-- PAGINATION -->
-                <nav
-                    class="search-pagination"
-                    id="searchPagination"
-                    aria-label="Navigasi halaman">
-                </nav>
-
-            </section>
-
-
-            <!-- =================================================
-                 SIDEBAR
-                 ================================================= -->
-
-            <aside class="search-sidebar">
-
-
-                <!-- PENCARIAN POPULER -->
-                <section class="search-sidebar-box">
-
-                    <h2>Pencarian Populer</h2>
-
-                    <div class="popular-searches">
-
-                        <a href="search.html?q=inflasi">
-                            inflasi
-                        </a>
-
-                        <a href="search.html?q=rupiah">
-                            rupiah
-                        </a>
-
-                        <a href="search.html?q=ihsg">
-                            ihsg
-                        </a>
-
-                        <a href="search.html?q=bbm">
-                            bbm
-                        </a>
-
-                        <a href="search.html?q=ekspor">
-                            ekspor
-                        </a>
-
-                        <a href="search.html?q=subsidi">
-                            subsidi
-                        </a>
-
-                        <a href="search.html?q=apbn">
-                            apbn
-                        </a>
-
-                        <a href="search.html?q=suku+bunga">
-                            suku bunga
-                        </a>
-
-                        <a href="search.html?q=investasi">
-                            investasi
-                        </a>
-
-                        <a href="search.html?q=pajak">
-                            pajak
-                        </a>
-
-                    </div>
-
-                </section>
-
-
-                <!-- TERPOPULER -->
-                <section class="search-sidebar-box">
-
-                    <div class="sidebar-heading">
-
-                        <h2>Terpopuler</h2>
-
-                        <a href="berita.html?sort=popular">
-                            Lihat Semua
-                            <span>›</span>
-                        </a>
-
-                    </div>
-
-
-                    <ol class="search-popular-list">
-
-
-                        <li>
-
-                            <span class="search-rank">
-                                1
-                            </span>
-
-                            <a
-                                class="search-popular-copy"
-                                href="artikel.html?id=proyek-strategis-nasional-jawa-tengah">
-
-                                <h3>
-                                    Prabowo Resmikan Proyek Strategis Nasional di Jawa Tengah
-                                </h3>
-
-                                <time>
-                                    27 Mei 2025
-                                </time>
-
-                            </a>
-
-                            <a
-                                href="artikel.html?id=proyek-strategis-nasional-jawa-tengah">
-
-                                <img
-                                    src="assets/images/popular-1.jpg"
-                                    alt="Prabowo Resmikan Proyek Strategis Nasional">
-
-                            </a>
-
-                        </li>
-
-
-                        <li>
-
-                            <span class="search-rank">
-                                2
-                            </span>
-
-                            <a
-                                class="search-popular-copy"
-                                href="artikel.html?id=harga-bbm-terbaru">
-
-                                <h3>
-                                    Harga BBM Terbaru per 27 Mei 2025 di Seluruh Indonesia
-                                </h3>
-
-                                <time>
-                                    27 Mei 2025
-                                </time>
-
-                            </a>
-
-                            <a
-                                href="artikel.html?id=harga-bbm-terbaru">
-
-                                <img
-                                    src="assets/images/popular-2.jpg"
-                                    alt="Harga BBM Terbaru">
-
-                            </a>
-
-                        </li>
-
-
-                        <li>
-
-                            <span class="search-rank">
-                                3
-                            </span>
-
-                            <a
-                                class="search-popular-copy"
-                                href="artikel.html?id=timnas-indonesia-siap-hadapi-jepang">
-
-                                <h3>
-                                    Timnas Indonesia Siap Hadapi Jepang di Laga Kualifikasi Piala Dunia
-                                </h3>
-
-                                <time>
-                                    27 Mei 2025
-                                </time>
-
-                            </a>
-
-                            <a
-                                href="artikel.html?id=timnas-indonesia-siap-hadapi-jepang">
-
-                                <img
-                                    src="assets/images/popular-3.jpg"
-                                    alt="Timnas Indonesia">
-
-                            </a>
-
-                        </li>
-
-
-                        <li>
-
-                            <span class="search-rank">
-                                4
-                            </span>
-
-                            <a
-                                class="search-popular-copy"
-                                href="artikel.html?id=bank-indonesia-pertahankan-suku-bunga">
-
-                                <h3>
-                                    Bank Indonesia Pertahankan Suku Bunga Acuan di Level 6,25 Persen
-                                </h3>
-
-                                <time>
-                                    27 Mei 2025
-                                </time>
-
-                            </a>
-
-                            <a
-                                href="artikel.html?id=bank-indonesia-pertahankan-suku-bunga">
-
-                                <img
-                                    src="assets/images/popular-4.jpg"
-                                    alt="Bank Indonesia">
-
-                            </a>
-
-                        </li>
-
-
-                        <li>
-
-                            <span class="search-rank">
-                                5
-                            </span>
-
-                            <a
-                                class="search-popular-copy"
-                                href="artikel.html?id=gunung-lewotobi">
-
-                                <h3>
-                                    Gunung Lewotobi Laki-laki Erupsi, Status Dinaikkan Jadi Awas
-                                </h3>
-
-                                <time>
-                                    27 Mei 2025
-                                </time>
-
-                            </a>
-
-                            <a
-                                href="artikel.html?id=gunung-lewotobi">
-
-                                <img
-                                    src="assets/images/popular-5.jpg"
-                                    alt="Gunung Lewotobi">
-
-                            </a>
-
-                        </li>
-
-
-                    </ol>
-
-                </section>
-
-
-                <!-- NEWSLETTER -->
-                <section class="search-newsletter">
-
-                    <h2>
-                        Berlangganan Newsletter
-                    </h2>
-
-                    <p>
-                        Dapatkan berita terbaru dan terpilih
-                        langsung di email Anda setiap hari.
-                    </p>
-
-                    <div class="search-newsletter-form">
-
-                        <input
-                            type="email"
-                            placeholder="Masukkan email Anda"
-                            aria-label="Email">
-
-                        <button type="button">
-                            Berlangganan
-                        </button>
-
-                    </div>
-
-                </section>
-
-
-            </aside>
+          <a href="search.html?q=pajak">
+            pajak
+          </a>
 
         </div>
 
-    </section>
+      </section>
+
+
+
+      <!-- ===================================================
+           TERPOPULER
+           =================================================== -->
+
+      <section class="search-sidebar-box">
+
+        <h2 class="search-sidebar-title">
+          Terpopuler
+        </h2>
+
+
+        <ol class="search-popular-list">
+
+
+          <li>
+
+            <span class="search-popular-rank">
+              1
+            </span>
+
+            <div class="search-popular-copy">
+
+              <a href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat">
+                Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat
+              </a>
+
+              <time>
+                12.4K dibaca
+              </time>
+
+            </div>
+
+            <a
+              class="search-popular-image"
+              href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat"
+            >
+
+              <img
+                src="assets/images/popular-1.jpg"
+                alt="Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat"
+              >
+
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <span class="search-popular-rank">
+              2
+            </span>
+
+            <div class="search-popular-copy">
+
+              <a href="artikel.html">
+                Harga BBM Terbaru per 27 Mei 2025 di Seluruh Indonesia
+              </a>
+
+              <time>
+                10.8K dibaca
+              </time>
+
+            </div>
+
+            <a
+              class="search-popular-image"
+              href="artikel.html"
+            >
+
+              <img
+                src="assets/images/card-auto.jpg"
+                alt="Harga BBM Terbaru"
+              >
+
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <span class="search-popular-rank">
+              3
+            </span>
+
+            <div class="search-popular-copy">
+
+              <a href="artikel.html">
+                Timnas Indonesia Siap Hadapi Jepang di Laga Kualifikasi Piala Dunia
+              </a>
+
+              <time>
+                9.7K dibaca
+              </time>
+
+            </div>
+
+            <a
+              class="search-popular-image"
+              href="artikel.html"
+            >
+
+              <img
+                src="assets/images/popular-3.jpg"
+                alt="Timnas Indonesia"
+              >
+
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <span class="search-popular-rank">
+              4
+            </span>
+
+            <div class="search-popular-copy">
+
+              <a href="artikel.html">
+                Bank Indonesia Pertahankan Suku Bunga Acuan di Level 6,25 Persen
+              </a>
+
+              <time>
+                8.9K dibaca
+              </time>
+
+            </div>
+
+            <a
+              class="search-popular-image"
+              href="artikel.html"
+            >
+
+              <img
+                src="assets/images/popular-4.jpg"
+                alt="Bank Indonesia"
+              >
+
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <span class="search-popular-rank">
+              5
+            </span>
+
+            <div class="search-popular-copy">
+
+              <a href="artikel.html">
+                Gunung Lewotobi Laki-laki Erupsi, Status Dinaikkan Jadi Awas
+              </a>
+
+              <time>
+                8.1K dibaca
+              </time>
+
+            </div>
+
+            <a
+              class="search-popular-image"
+              href="artikel.html"
+            >
+
+              <img
+                src="assets/images/popular-5.jpg"
+                alt="Gunung Lewotobi Laki-laki"
+              >
+
+            </a>
+
+          </li>
+
+
+        </ol>
+
+      </section>
+
+
+
+      <!-- ===================================================
+           NEWSLETTER
+           =================================================== -->
+
+      <section class="search-sidebar-box search-newsletter">
+
+        <h2 class="search-sidebar-title">
+          Newsletter
+        </h2>
+
+        <p>
+          Dapatkan berita terbaru dan terpilih langsung
+          di email Anda setiap hari.
+        </p>
+
+        <form class="search-newsletter-form">
+
+          <input
+            type="email"
+            placeholder="Masukkan email Anda"
+            aria-label="Email"
+          >
+
+          <button type="submit">
+            Berlangganan
+          </button>
+
+        </form>
+
+      </section>
+
+
+    </aside>
+
+
+  </div>
 
 </main>
 
 
+
 <!-- =========================================================
      FOOTER MAB-NEWS
+     PERSIS DARI HOMEPAGE
      ========================================================= -->
+
 <footer class="site-footer">
 
   <div class="footer-main">
 
+
     <!-- BRAND -->
+
     <div class="footer-brand">
-      <h2>MAB-NEWS</h2>
+
+      <h2>
+        MAB-NEWS
+      </h2>
 
       <p class="footer-tagline">
         Fakta. Data. Perspektif.
@@ -602,75 +2237,156 @@
       </p>
 
       <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="X">𝕏</a>
-        <a href="#" aria-label="Instagram">◎</a>
-        <a href="#" aria-label="YouTube">▶</a>
+
+        <a
+          href="#"
+          aria-label="Facebook"
+        >
+          f
+        </a>
+
+        <a
+          href="#"
+          aria-label="X"
+        >
+          𝕏
+        </a>
+
+        <a
+          href="#"
+          aria-label="Instagram"
+        >
+          ◎
+        </a>
+
+        <a
+          href="#"
+          aria-label="YouTube"
+        >
+          ▶
+        </a>
+
       </div>
+
     </div>
 
 
     <!-- MENU -->
-    <div class="footer-column">
-      <h3>MENU</h3>
 
-      <a href="index.html">Beranda</a>
-      <a href="berita.html?sort=terbaru">Terbaru</a>
-      <a href="berita.html?sort=popular">Terpopuler</a>
-      <a href="kategori.html">Indeks</a>
-      <a href="kategori.html">Foto</a>
-      <a href="kategori.html">Video</a>
-      <a href="kategori.html">Kolom</a>
-      <a href="#">Kontak Kami</a>
+    <div class="footer-column">
+
+      <h3>
+        MENU
+      </h3>
+
+      <a href="index.html">
+        Beranda
+      </a>
+
+      <a href="berita.html?sort=terbaru">
+        Terbaru
+      </a>
+
+      <a href="berita.html?sort=popular">
+        Terpopuler
+      </a>
+
+      <a href="kategori.html">
+        Indeks
+      </a>
+
+      <a href="kategori.html">
+        Foto
+      </a>
+
+      <a href="kategori.html">
+        Video
+      </a>
+
+      <a href="kategori.html">
+        Kolom
+      </a>
+
+      <a href="#">
+        Kontak Kami
+      </a>
+
     </div>
 
 
     <!-- LAYANAN -->
-    <div class="footer-column">
-      <h3>LAYANAN</h3>
 
-      <a href="#">Pedoman Media Siber</a>
-      <a href="#">Kode Etik Jurnalistik</a>
-      <a href="#">Kebijakan Privasi</a>
-      <a href="#">Redaksi</a>
-      <a href="#">Kontak Kami</a>
+    <div class="footer-column">
+
+      <h3>
+        LAYANAN
+      </h3>
+
+      <a href="#">
+        Pedoman Media Siber
+      </a>
+
+      <a href="#">
+        Kode Etik Jurnalistik
+      </a>
+
+      <a href="#">
+        Kebijakan Privasi
+      </a>
+
+      <a href="#">
+        Redaksi
+      </a>
+
+      <a href="#">
+        Kontak Kami
+      </a>
+
     </div>
 
 
-<!-- NETWORK -->
-<div class="footer-column">
-  <h3>NETWORK</h3>
+    <!-- NETWORK -->
 
-  <a
-    href="https://muhammadaslambik.github.io/mabstore/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    MAB-Store
-  </a>
+    <div class="footer-column">
 
-  <a
-    href="https://muhammadaslambik.github.io/mabvideo/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    MAB-Video
-  </a>
+      <h3>
+        NETWORK
+      </h3>
 
-  <a
-    href="https://memorisejarah.wordpress.com/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Memori Sejarah
-  </a>
-</div>
+      <a
+        href="https://muhammadaslambik.github.io/mabstore/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        MAB-Store
+      </a>
 
+      <a
+        href="https://muhammadaslambik.github.io/mabvideo/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        MAB-Video
+      </a>
+
+      <a
+        href="https://memorisejarah.wordpress.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Memori Sejarah
+      </a>
+
+    </div>
 
 
     <!-- NEWSLETTER -->
+
     <div class="footer-newsletter">
-      <h3>NEWSLETTER</h3>
+
+      <h3>
+        NEWSLETTER
+      </h3>
 
       <p>
         Dapatkan berita terbaru dan terpilih langsung di email Anda
@@ -678,6 +2394,7 @@
       </p>
 
       <div class="newsletter-form">
+
         <input
           type="email"
           placeholder="Masukkan email Anda"
@@ -687,13 +2404,17 @@
         <button type="button">
           Berlangganan
         </button>
+
       </div>
+
     </div>
+
 
   </div>
 
 
   <!-- FOOTER BOTTOM -->
+
   <div class="footer-bottom">
 
     <div class="copyright">
@@ -701,18 +2422,45 @@
     </div>
 
     <div class="footer-links">
-      <a href="#">Tentang Kami</a>
-      <span>|</span>
-      <a href="#">Redaksi</a>
-      <span>|</span>
-      <a href="#">Kontak</a>
+
+      <a href="#">
+        Tentang Kami
+      </a>
+
+      <span>
+        |
+      </span>
+
+      <a href="#">
+        Redaksi
+      </a>
+
+      <span>
+        |
+      </span>
+
+      <a href="#">
+        Kontak
+      </a>
+
     </div>
 
   </div>
 
+
 </footer>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
+
 <script src="js/main.js"></script>
+
 <script src="js/search.js"></script>
 
+
 </body>
+
 </html>
