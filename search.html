@@ -1,1 +1,718 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pencarian — MAB-News</title><link rel="stylesheet" href="css/main.css"></head><body><main class="container" style="padding:60px 0"><h1>Pencarian</h1><p>Halaman pencarian MAB-News akan dikembangkan pada tugas berikutnya.</p><a href="index.html">← Kembali ke Homepage</a></main></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pencarian — MAB-News</title>
+
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/search.css">
+</head>
+<body>
+<header class="site-header">
+
+  <div class="container topbar">
+
+    <!-- BRAND -->
+    <a class="brand" href="index.html">
+      <span class="brand-mark">MAB-</span>
+      <span class="brand-name">NEWS</span>
+      <small>Fakta. Data. Perspektif.</small>
+    </a>
+
+
+    <!-- WAKTU DESKTOP -->
+    <div class="header-datetime desktop-datetime" aria-label="Waktu saat ini">
+      <div class="date-line" id="desktopDate">
+        Minggu, 13 September 2026
+      </div>
+
+      <div class="time-line">
+        Pukul:
+        <span id="desktopTime">01:24</span>
+        WIB
+        <span class="time-separator">|</span>
+        <span id="desktopSeconds">00</span>
+        <span class="time-separator">|</span>
+      </div>
+    </div>
+
+
+    <!-- SEARCH -->
+    <form class="search-box" id="headerSearch">
+
+      <input
+        id="searchInput"
+        type="search"
+        name="q"
+        placeholder="Cari berita, topik, atau kata kunci..."
+        aria-label="Cari berita"
+      >
+
+      <button
+        type="submit"
+        aria-label="Cari"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-4-4"></path>
+        </svg>
+      </button>
+
+    </form>
+
+
+    <!-- HEADER ACTIONS -->
+    <div class="header-actions">
+
+      <!-- LANGGANAN -->
+      <a
+        class="support-btn"
+        href="#dukung"
+      >
+        Langganan
+      </a>
+      
+<button
+  type="button"
+  class="icon-btn mobile-search-toggle"
+  id="mobileSearchToggle"
+  aria-label="Buka pencarian"
+  title="Cari"
+>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="m20 20-4-4"></path>
+  </svg>
+</button>
+
+
+      <!-- MODE -->
+      <button
+        class="icon-btn"
+        id="themeToggle"
+        aria-label="Mode tampilan"
+      >
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          <circle cx="12" cy="12" r="4"></circle>
+        </svg>
+      </button>
+
+
+      <!-- AKUN -->
+      <button
+        class="icon-btn"
+        aria-label="Akun"
+      >
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 21c.9-4 3.5-6 8-6s7.1 2 8 6"></path>
+        </svg>
+      </button>
+
+    </div>
+
+
+    <!-- WAKTU MOBILE -->
+    <div
+      class="header-datetime mobile-datetime"
+      aria-label="Waktu saat ini"
+    >
+
+      <div class="mobile-time-line">
+        Pukul:
+        <span id="mobileTime">01:24</span>
+        WIB
+        <span class="time-separator">|</span>
+        <span id="mobileSeconds">00</span>
+        <span class="time-separator">|</span>
+        <span id="mobileDate">
+          Minggu, 13 September 2026
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- NAVIGATION -->
+  <nav class="main-nav">
+
+    <div class="container nav-inner">
+
+      <div class="mobile-nav">
+
+        <a
+          href="index.html"
+          class="mobile-home active"
+        >
+          Beranda
+        </a>
+
+        <div
+          class="nav-links"
+          id="navLinks"
+        >
+
+          <a href="berita.html">Terbaru</a>
+          <a href="berita.html?sort=popular">Terpopuler</a>
+          <a href="kategori.html?kategori=nasional">Nasional</a>
+          <a href="kategori.html?kategori=internasional">Internasional</a>
+          <a href="kategori.html?kategori=ekonomi">Ekonomi</a>
+          <a href="kategori.html?kategori=metro">Metro</a>
+          <a href="kategori.html?kategori=dunia">Dunia</a>
+          <a href="kategori.html?kategori=olahraga">Olahraga</a>
+          <a href="kategori.html?kategori=teknologi">Teknologi</a>
+          <a href="kategori.html?kategori=otomotif">Otomotif</a>
+          <a href="kategori.html?kategori=gaya-hidup">Gaya Hidup</a>
+          <a href="kategori.html?kategori=seni">Seni</a>
+          <a href="kategori.html?kategori=kolom">Kolom</a>
+          <a href="kategori.html?kategori=indeks">Indeks</a>
+          <a href="kategori.html?kategori=foto">Foto</a>
+          <a href="kategori.html?kategori=video">Video</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+</header>
+<!-- =========================================================
+     SEARCH PAGE
+     MAB-NEWS
+     ========================================================= -->
+
+<main class="search-page">
+
+    <!-- SEARCH HERO -->
+    <section class="search-hero">
+
+        <div class="container">
+
+            <div class="search-breadcrumb">
+                <a href="index.html">Beranda</a>
+                <span>›</span>
+                <span>Pencarian</span>
+            </div>
+
+            <div class="search-hero-content">
+
+                <div class="search-hero-icon">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle
+                            cx="11"
+                            cy="11"
+                            r="7">
+                        </circle>
+
+                        <path
+                            d="m20 20-4-4">
+                        </path>
+                    </svg>
+
+                </div>
+
+                <div>
+
+                    <h1 id="searchTitle">
+                        Hasil Pencarian untuk “ekonomi”
+                    </h1>
+
+                    <p id="searchCount">
+                        Ditemukan 128 hasil
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH CONTENT -->
+    <section class="container search-content">
+
+        <div class="search-layout">
+
+
+            <!-- =================================================
+                 HASIL PENCARIAN
+                 ================================================= -->
+
+            <section class="search-results">
+
+                <div class="search-results-top">
+
+                    <p id="resultInfo">
+                        Menampilkan 1–5 dari 128 hasil
+                    </p>
+
+                    <div class="search-sort">
+
+                        <label for="sortSelect">
+                            Urutkan:
+                        </label>
+
+                        <select id="sortSelect">
+
+                            <option value="terbaru">
+                                Terbaru
+                            </option>
+
+                            <option value="terlama">
+                                Terlama
+                            </option>
+
+                            <option value="popular">
+                                Terpopuler
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DAFTAR HASIL -->
+                <div
+                    class="search-result-list"
+                    id="searchResultList">
+                </div>
+
+
+                <!-- PAGINATION -->
+                <nav
+                    class="search-pagination"
+                    id="searchPagination"
+                    aria-label="Navigasi halaman">
+                </nav>
+
+            </section>
+
+
+            <!-- =================================================
+                 SIDEBAR
+                 ================================================= -->
+
+            <aside class="search-sidebar">
+
+
+                <!-- PENCARIAN POPULER -->
+                <section class="search-sidebar-box">
+
+                    <h2>Pencarian Populer</h2>
+
+                    <div class="popular-searches">
+
+                        <a href="search.html?q=inflasi">
+                            inflasi
+                        </a>
+
+                        <a href="search.html?q=rupiah">
+                            rupiah
+                        </a>
+
+                        <a href="search.html?q=ihsg">
+                            ihsg
+                        </a>
+
+                        <a href="search.html?q=bbm">
+                            bbm
+                        </a>
+
+                        <a href="search.html?q=ekspor">
+                            ekspor
+                        </a>
+
+                        <a href="search.html?q=subsidi">
+                            subsidi
+                        </a>
+
+                        <a href="search.html?q=apbn">
+                            apbn
+                        </a>
+
+                        <a href="search.html?q=suku+bunga">
+                            suku bunga
+                        </a>
+
+                        <a href="search.html?q=investasi">
+                            investasi
+                        </a>
+
+                        <a href="search.html?q=pajak">
+                            pajak
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+                <!-- TERPOPULER -->
+                <section class="search-sidebar-box">
+
+                    <div class="sidebar-heading">
+
+                        <h2>Terpopuler</h2>
+
+                        <a href="berita.html?sort=popular">
+                            Lihat Semua
+                            <span>›</span>
+                        </a>
+
+                    </div>
+
+
+                    <ol class="search-popular-list">
+
+
+                        <li>
+
+                            <span class="search-rank">
+                                1
+                            </span>
+
+                            <a
+                                class="search-popular-copy"
+                                href="artikel.html?id=proyek-strategis-nasional-jawa-tengah">
+
+                                <h3>
+                                    Prabowo Resmikan Proyek Strategis Nasional di Jawa Tengah
+                                </h3>
+
+                                <time>
+                                    27 Mei 2025
+                                </time>
+
+                            </a>
+
+                            <a
+                                href="artikel.html?id=proyek-strategis-nasional-jawa-tengah">
+
+                                <img
+                                    src="assets/images/popular-1.jpg"
+                                    alt="Prabowo Resmikan Proyek Strategis Nasional">
+
+                            </a>
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="search-rank">
+                                2
+                            </span>
+
+                            <a
+                                class="search-popular-copy"
+                                href="artikel.html?id=harga-bbm-terbaru">
+
+                                <h3>
+                                    Harga BBM Terbaru per 27 Mei 2025 di Seluruh Indonesia
+                                </h3>
+
+                                <time>
+                                    27 Mei 2025
+                                </time>
+
+                            </a>
+
+                            <a
+                                href="artikel.html?id=harga-bbm-terbaru">
+
+                                <img
+                                    src="assets/images/popular-2.jpg"
+                                    alt="Harga BBM Terbaru">
+
+                            </a>
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="search-rank">
+                                3
+                            </span>
+
+                            <a
+                                class="search-popular-copy"
+                                href="artikel.html?id=timnas-indonesia-siap-hadapi-jepang">
+
+                                <h3>
+                                    Timnas Indonesia Siap Hadapi Jepang di Laga Kualifikasi Piala Dunia
+                                </h3>
+
+                                <time>
+                                    27 Mei 2025
+                                </time>
+
+                            </a>
+
+                            <a
+                                href="artikel.html?id=timnas-indonesia-siap-hadapi-jepang">
+
+                                <img
+                                    src="assets/images/popular-3.jpg"
+                                    alt="Timnas Indonesia">
+
+                            </a>
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="search-rank">
+                                4
+                            </span>
+
+                            <a
+                                class="search-popular-copy"
+                                href="artikel.html?id=bank-indonesia-pertahankan-suku-bunga">
+
+                                <h3>
+                                    Bank Indonesia Pertahankan Suku Bunga Acuan di Level 6,25 Persen
+                                </h3>
+
+                                <time>
+                                    27 Mei 2025
+                                </time>
+
+                            </a>
+
+                            <a
+                                href="artikel.html?id=bank-indonesia-pertahankan-suku-bunga">
+
+                                <img
+                                    src="assets/images/popular-4.jpg"
+                                    alt="Bank Indonesia">
+
+                            </a>
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="search-rank">
+                                5
+                            </span>
+
+                            <a
+                                class="search-popular-copy"
+                                href="artikel.html?id=gunung-lewotobi">
+
+                                <h3>
+                                    Gunung Lewotobi Laki-laki Erupsi, Status Dinaikkan Jadi Awas
+                                </h3>
+
+                                <time>
+                                    27 Mei 2025
+                                </time>
+
+                            </a>
+
+                            <a
+                                href="artikel.html?id=gunung-lewotobi">
+
+                                <img
+                                    src="assets/images/popular-5.jpg"
+                                    alt="Gunung Lewotobi">
+
+                            </a>
+
+                        </li>
+
+
+                    </ol>
+
+                </section>
+
+
+                <!-- NEWSLETTER -->
+                <section class="search-newsletter">
+
+                    <h2>
+                        Berlangganan Newsletter
+                    </h2>
+
+                    <p>
+                        Dapatkan berita terbaru dan terpilih
+                        langsung di email Anda setiap hari.
+                    </p>
+
+                    <div class="search-newsletter-form">
+
+                        <input
+                            type="email"
+                            placeholder="Masukkan email Anda"
+                            aria-label="Email">
+
+                        <button type="button">
+                            Berlangganan
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+            </aside>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER MAB-NEWS
+     ========================================================= -->
+<footer class="site-footer">
+
+  <div class="footer-main">
+
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <h2>MAB-NEWS</h2>
+
+      <p class="footer-tagline">
+        Fakta. Data. Perspektif.
+      </p>
+
+      <p class="footer-description">
+        MAB-News menyajikan berita terkini dan terpercaya dari Indonesia dan
+        dunia. Kami berkomitmen untuk menjadi sumber informasi yang akurat dan
+        berimbang bagi masyarakat.
+      </p>
+
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="X">𝕏</a>
+        <a href="#" aria-label="Instagram">◎</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
+    </div>
+
+
+    <!-- MENU -->
+    <div class="footer-column">
+      <h3>MENU</h3>
+
+      <a href="index.html">Beranda</a>
+      <a href="berita.html?sort=terbaru">Terbaru</a>
+      <a href="berita.html?sort=popular">Terpopuler</a>
+      <a href="kategori.html">Indeks</a>
+      <a href="kategori.html">Foto</a>
+      <a href="kategori.html">Video</a>
+      <a href="kategori.html">Kolom</a>
+      <a href="#">Kontak Kami</a>
+    </div>
+
+
+    <!-- LAYANAN -->
+    <div class="footer-column">
+      <h3>LAYANAN</h3>
+
+      <a href="#">Pedoman Media Siber</a>
+      <a href="#">Kode Etik Jurnalistik</a>
+      <a href="#">Kebijakan Privasi</a>
+      <a href="#">Redaksi</a>
+      <a href="#">Kontak Kami</a>
+    </div>
+
+
+<!-- NETWORK -->
+<div class="footer-column">
+  <h3>NETWORK</h3>
+
+  <a
+    href="https://muhammadaslambik.github.io/mabstore/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    MAB-Store
+  </a>
+
+  <a
+    href="https://muhammadaslambik.github.io/mabvideo/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    MAB-Video
+  </a>
+
+  <a
+    href="https://memorisejarah.wordpress.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Memori Sejarah
+  </a>
+</div>
+
+
+
+    <!-- NEWSLETTER -->
+    <div class="footer-newsletter">
+      <h3>NEWSLETTER</h3>
+
+      <p>
+        Dapatkan berita terbaru dan terpilih langsung di email Anda
+        setiap hari.
+      </p>
+
+      <div class="newsletter-form">
+        <input
+          type="email"
+          placeholder="Masukkan email Anda"
+          aria-label="Email"
+        >
+
+        <button type="button">
+          Berlangganan
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER BOTTOM -->
+  <div class="footer-bottom">
+
+    <div class="copyright">
+      © 2025 MAB-News. All rights reserved.
+    </div>
+
+    <div class="footer-links">
+      <a href="#">Tentang Kami</a>
+      <span>|</span>
+      <a href="#">Redaksi</a>
+      <span>|</span>
+      <a href="#">Kontak</a>
+    </div>
+
+  </div>
+
+</footer>
+<script src="js/main.js"></script>
+<script src="js/search.js"></script>
+
+</body>
+</html>
