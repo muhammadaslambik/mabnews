@@ -49,6 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerSearchInput =
         document.getElementById("searchInput");
 
+    const emptyState =
+        document.getElementById("searchEmptyState");
+
+    const pagination =
+        document.getElementById("pagination");
+
 
     /* =====================================================
        URL PARAMETER
@@ -327,6 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             const searchOK =
+                Boolean(searchTerm) &&
                 smartMatch(
                     searchTerm,
                     searchableText
@@ -406,13 +413,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /* =================================================
-           RESULT COUNT
+           RESULT COUNT & PESAN KOSONG
         ================================================== */
 
-        resultCount.textContent =
-            searchTerm
-                ? `Menampilkan ${visibleRows.length} berita untuk pencarian "${searchTerm}"`
-                : `Menampilkan ${visibleRows.length} berita`;
+        if (!searchTerm) {
+
+            resultCount.textContent =
+                "Belum ada kata kunci pencarian";
+
+            if (emptyState) {
+
+                emptyState.textContent =
+                    "Ketik kata kunci lalu tekan Enter atau klik ikon pencarian di atas untuk menampilkan berita.";
+
+                emptyState.classList.add(
+                    "is-visible"
+                );
+
+            }
+
+        } else if (visibleRows.length === 0) {
+
+            resultCount.textContent =
+                `Tidak ada berita ditemukan untuk pencarian "${searchTerm}"`;
+
+            if (emptyState) {
+
+                emptyState.textContent =
+                    `Tidak ada berita yang cocok dengan kata kunci "${searchTerm}". Coba kata kunci lain.`;
+
+                emptyState.classList.add(
+                    "is-visible"
+                );
+
+            }
+
+        } else {
+
+            resultCount.textContent =
+                `Menampilkan ${visibleRows.length} berita untuk pencarian "${searchTerm}"`;
+
+            if (emptyState) {
+
+                emptyState.classList.remove(
+                    "is-visible"
+                );
+
+            }
+
+        }
+
+
+        if (pagination) {
+
+            pagination.style.display =
+                (searchTerm && visibleRows.length > 0)
+                    ? ""
+                    : "none";
+
+        }
 
 
         /* =================================================
@@ -484,12 +543,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
         }
-
-
-        const pagination =
-            document.getElementById(
-                "pagination"
-            );
 
 
         orderedRows.forEach(row => {

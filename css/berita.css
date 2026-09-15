@@ -728,6 +728,28 @@
 }
 
 
+/* Pesan kosong (halaman pencarian) */
+.news-list-page .search-empty-state {
+    display: none;
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    color: var(--news-muted);
+
+    font-size: 13px;
+    line-height: 1.6;
+
+    border: 1px dashed var(--news-border);
+    border-radius: 8px;
+}
+
+.news-list-page .search-empty-state.is-visible {
+    display: block;
+}
+
+
 /* =========================================================
    DARK PREVIEW
    ========================================================= */
@@ -811,6 +833,11 @@
 
 .news-list-page.dark-preview .popular-item h3 a {
     color: #e5edf5;
+}
+
+.news-list-page.dark-preview .search-empty-state {
+    color: #a9b5c3;
+    border-color: #263544;
 }
 
 .news-list-page.dark-preview .page-number {
