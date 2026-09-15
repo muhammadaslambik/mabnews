@@ -16,35 +16,35 @@ const categoryData = {
                 title: "Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat",
                 description: "Pemerintah menyiapkan berbagai langkah untuk menjaga daya beli masyarakat di tengah tekanan ekonomi global dan fluktuasi harga komoditas.",
                 date: "30 Mei 2025 08:45 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat.jpg"
             },
             {
                 category: "EKONOMI",
                 title: "Inflasi Mei 2025 Terkendali di Level 2,4 Persen",
                 description: "Badan Pusat Statistik (BPS) melaporkan inflasi Mei 2025 berada di level 2,4 persen secara tahunan (yoy), lebih rendah dibanding bulan sebelumnya.",
                 date: "30 Mei 2025 07:30 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/inflasi-mei-2025-terkendali-di-level-24-persen.jpg"
             },
             {
                 category: "NASIONAL",
                 title: "Hingga April 2025, Realisasi Investasi Capai Rp 456,8 Triliun",
                 description: "Kementerian Investasi/BKPM mencatat realisasi investasi hingga April 2025 mencapai Rp 456,8 triliun, tumbuh 12,7 persen dibanding periode yang sama tahun lalu.",
                 date: "29 Mei 2025 16:20 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/hingga-april-2025-realisasi-investasi-capai-rp-4568-triliun.jpg"
             },
             {
                 category: "NASIONAL",
                 title: "KAI Tambah 36 Perjalanan Jelang Libur Sekolah",
                 description: "PT KAI menambah 36 perjalanan kereta api jarak jauh untuk mengantisipasi lonjakan penumpang selama libur panjang akhir Juni mendatang.",
                 date: "29 Mei 2025 14:10 WIB",
-                image: "assets/images/card-auto.jpg"
+                image: "assets/images/kai-tambah-36-perjalanan-jelang-libur-sekolah.jpg"
             },
             {
                 category: "NASIONAL",
                 title: "Pemerintah Dorong Digitalisasi Layanan Publik di Daerah",
                 description: "Pemerintah terus mendorong percepatan digitalisasi layanan publik di seluruh daerah untuk meningkatkan efisiensi dan transparansi birokrasi.",
                 date: "29 Mei 2025 11:35 WIB",
-                image: "assets/images/card-police.jpg"
+                image: "assets/images/pemerintah-dorong-digitalisasi-layanan-publik-di-daerah.jpg"
             }
         ]
     },
@@ -61,35 +61,35 @@ const categoryData = {
                 title: "Pemimpin Dunia Bahas Tantangan Ekonomi Global",
                 description: "Sejumlah pemimpin dunia membahas berbagai tantangan ekonomi global dan strategi menghadapi ketidakpastian perdagangan internasional.",
                 date: "30 Mei 2025 09:20 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/pemimpin-dunia-bahas-tantangan-ekonomi-global.jpg"
             },
             {
                 category: "INTERNASIONAL",
                 title: "Negara-negara Asia Perkuat Kerja Sama Ekonomi",
                 description: "Kerja sama ekonomi antarnegara Asia terus diperkuat untuk menjaga stabilitas perdagangan dan investasi kawasan.",
                 date: "29 Mei 2025 18:10 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/negara-negara-asia-perkuat-kerja-sama-ekonomi.jpg"
             },
             {
                 category: "INTERNASIONAL",
                 title: "Perkembangan Politik Global Jadi Perhatian Dunia",
                 description: "Perubahan politik di sejumlah negara menjadi perhatian karena berpotensi memengaruhi hubungan internasional.",
                 date: "29 Mei 2025 15:40 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/perkembangan-politik-global-jadi-perhatian-dunia.jpg"
             },
             {
                 category: "INTERNASIONAL",
                 title: "Forum Internasional Bahas Masa Depan Teknologi",
                 description: "Forum internasional mempertemukan berbagai negara untuk membahas perkembangan teknologi dan dampaknya terhadap masyarakat.",
                 date: "29 Mei 2025 12:30 WIB",
-                image: "assets/images/card-openai.jpg"
+                image: "assets/images/forum-internasional-bahas-masa-depan-teknologi.jpg"
             },
             {
                 category: "INTERNASIONAL",
                 title: "Dunia Hadapi Tantangan Perubahan Iklim",
                 description: "Berbagai negara kembali menyerukan kerja sama untuk menghadapi dampak perubahan iklim.",
                 date: "28 Mei 2025 20:10 WIB",
-                image: "assets/images/card-police.jpg"
+                image: "assets/images/dunia-hadapi-tantangan-perubahan-iklim.jpg"
             }
         ]
     },
@@ -106,35 +106,35 @@ const categoryData = {
                 title: "Inflasi Mei 2025 Terkendali di Level 2,4 Persen",
                 description: "Badan Pusat Statistik melaporkan inflasi Mei 2025 tetap terkendali dan berada pada level 2,4 persen secara tahunan.",
                 date: "30 Mei 2025 07:30 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/inflasi-mei-2025-terkendali-di-level-24-persen.jpg"
             },
             {
                 category: "EKONOMI",
                 title: "Realisasi Investasi Indonesia Terus Menguat",
                 description: "Realisasi investasi nasional terus menunjukkan pertumbuhan positif seiring meningkatnya aktivitas ekonomi.",
                 date: "29 Mei 2025 16:20 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/realisasi-investasi-indonesia-terus-menguat.jpg"
             },
             {
                 category: "EKONOMI",
                 title: "Rupiah Bergerak Stabil di Tengah Ketidakpastian Global",
                 description: "Nilai tukar rupiah bergerak relatif stabil setelah pasar merespons perkembangan ekonomi global.",
                 date: "29 Mei 2025 13:40 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/rupiah-bergerak-stabil-di-tengah-ketidakpastian-global.jpg"
             },
             {
                 category: "EKONOMI",
                 title: "Pemerintah Dorong Pertumbuhan UMKM",
                 description: "Pemerintah menyiapkan sejumlah kebijakan untuk memperkuat sektor usaha mikro, kecil, dan menengah.",
                 date: "28 Mei 2025 17:15 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/pemerintah-dorong-pertumbuhan-umkm.jpg"
             },
             {
                 category: "EKONOMI",
                 title: "Perdagangan Indonesia Terus Mengalami Pertumbuhan",
                 description: "Aktivitas perdagangan menunjukkan perkembangan positif seiring meningkatnya permintaan sejumlah komoditas.",
                 date: "28 Mei 2025 10:25 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/perdagangan-indonesia-terus-mengalami-pertumbuhan.jpg"
             }
         ]
     },
@@ -151,35 +151,35 @@ const categoryData = {
                 title: "Layanan Transportasi Kota Terus Ditingkatkan",
                 description: "Pemerintah daerah meningkatkan kualitas transportasi untuk mendukung mobilitas masyarakat perkotaan.",
                 date: "30 Mei 2025 09:00 WIB",
-                image: "assets/images/card-auto.jpg"
+                image: "assets/images/layanan-transportasi-kota-terus-ditingkatkan.jpg"
             },
             {
                 category: "METRO",
                 title: "Sejumlah Jalan Utama Kota Mulai Ditata",
                 description: "Penataan sejumlah ruas jalan dilakukan untuk meningkatkan keamanan dan kenyamanan pengguna jalan.",
                 date: "29 Mei 2025 17:20 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/sejumlah-jalan-utama-kota-mulai-ditata.jpg"
             },
             {
                 category: "METRO",
                 title: "Pelayanan Publik di Kota Mulai Berbasis Digital",
                 description: "Pemerintah kota memperluas penggunaan layanan digital untuk memudahkan masyarakat.",
                 date: "29 Mei 2025 14:00 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/pelayanan-publik-di-kota-mulai-berbasis-digital.jpg"
             },
             {
                 category: "METRO",
                 title: "Masyarakat Diminta Waspada Cuaca Ekstrem",
                 description: "Masyarakat di sejumlah wilayah perkotaan diminta meningkatkan kewaspadaan terhadap perubahan cuaca.",
                 date: "28 Mei 2025 19:15 WIB",
-                image: "assets/images/card-police.jpg"
+                image: "assets/images/masyarakat-diminta-waspada-cuaca-ekstrem.jpg"
             },
             {
                 category: "METRO",
                 title: "Ruang Publik Baru Hadir untuk Warga",
                 description: "Sejumlah ruang publik baru disiapkan untuk meningkatkan kualitas lingkungan perkotaan.",
                 date: "28 Mei 2025 11:10 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/ruang-publik-baru-hadir-untuk-warga.jpg"
             }
         ]
     },
@@ -196,35 +196,35 @@ const categoryData = {
                 title: "Situasi Geopolitik Dunia Terus Menjadi Perhatian",
                 description: "Perkembangan geopolitik global terus menjadi perhatian berbagai negara.",
                 date: "30 Mei 2025 10:20 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/situasi-geopolitik-dunia-terus-menjadi-perhatian.jpg"
             },
             {
                 category: "DUNIA",
                 title: "Negara-negara Dorong Diplomasi untuk Menjaga Perdamaian",
                 description: "Upaya diplomasi kembali didorong untuk menjaga stabilitas dan perdamaian dunia.",
                 date: "29 Mei 2025 18:20 WIB",
-                image: "assets/images/card-police.jpg"
+                image: "assets/images/negara-negara-dorong-diplomasi-untuk-menjaga-perdamaian.jpg"
             },
             {
                 category: "DUNIA",
                 title: "PBB Bahas Tantangan Kemanusiaan Global",
                 description: "Perserikatan Bangsa-Bangsa membahas sejumlah tantangan kemanusiaan yang terjadi di berbagai kawasan.",
                 date: "29 Mei 2025 15:30 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/pbb-bahas-tantangan-kemanusiaan-global.jpg"
             },
             {
                 category: "DUNIA",
                 title: "Kerja Sama Antarnegara Terus Diperkuat",
                 description: "Berbagai negara memperkuat kerja sama dalam menghadapi tantangan global.",
                 date: "28 Mei 2025 16:10 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/kerja-sama-antarnegara-terus-diperkuat.jpg"
             },
             {
                 category: "DUNIA",
                 title: "Perubahan Global Pengaruhi Peta Ekonomi Dunia",
                 description: "Perubahan kondisi global memberikan dampak terhadap perekonomian berbagai negara.",
                 date: "28 Mei 2025 09:40 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/perubahan-global-pengaruhi-peta-ekonomi-dunia.jpg"
             }
         ]
     },
@@ -241,35 +241,35 @@ const categoryData = {
                 title: "Timnas Indonesia Siap Hadapi Jepang di Laga Kualifikasi Piala Dunia",
                 description: "Tim nasional Indonesia terus mempersiapkan diri menghadapi pertandingan penting dalam kualifikasi Piala Dunia.",
                 date: "30 Mei 2025 10:15 WIB",
-                image: "assets/images/popular-3.jpg"
+                image: "assets/images/timnas-indonesia-siap-hadapi-jepang-di-laga-kualifikasi-piala-dunia.jpg"
             },
             {
                 category: "OLAHRAGA",
                 title: "Persiapan Tim Nasional Terus Dimatangkan",
                 description: "Pelatih terus mematangkan strategi dan komposisi pemain menjelang pertandingan berikutnya.",
                 date: "29 Mei 2025 19:10 WIB",
-                image: "assets/images/card-auto.jpg"
+                image: "assets/images/persiapan-tim-nasional-terus-dimatangkan.jpg"
             },
             {
                 category: "OLAHRAGA",
                 title: "Kompetisi Nasional Memasuki Fase Penentuan",
                 description: "Persaingan sejumlah klub semakin ketat menjelang pertandingan penentuan.",
                 date: "29 Mei 2025 15:30 WIB",
-                image: "assets/images/popular-3.jpg"
+                image: "assets/images/kompetisi-nasional-memasuki-fase-penentuan.jpg"
             },
             {
                 category: "OLAHRAGA",
                 title: "Atlet Indonesia Bersiap Hadapi Kompetisi Internasional",
                 description: "Sejumlah atlet nasional bersiap mengikuti kompetisi olahraga tingkat internasional.",
                 date: "28 Mei 2025 13:20 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/atlet-indonesia-bersiap-hadapi-kompetisi-internasional.jpg"
             },
             {
                 category: "OLAHRAGA",
                 title: "Prestasi Olahraga Indonesia Terus Berkembang",
                 description: "Pembinaan atlet menjadi salah satu fokus untuk meningkatkan prestasi olahraga nasional.",
                 date: "28 Mei 2025 09:10 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/prestasi-olahraga-indonesia-terus-berkembang.jpg"
             }
         ]
     },
@@ -286,35 +286,35 @@ const categoryData = {
                 title: "Perkembangan Kecerdasan Buatan Semakin Pesat",
                 description: "Teknologi kecerdasan buatan terus berkembang dan mulai digunakan dalam berbagai sektor kehidupan.",
                 date: "30 Mei 2025 11:00 WIB",
-                image: "assets/images/card-openai.jpg"
+                image: "assets/images/perkembangan-kecerdasan-buatan-semakin-pesat.jpg"
             },
             {
                 category: "TEKNOLOGI",
                 title: "AI Mulai Mengubah Cara Masyarakat Bekerja",
                 description: "Penggunaan AI semakin luas dan mulai mengubah berbagai proses pekerjaan.",
                 date: "29 Mei 2025 16:30 WIB",
-                image: "assets/images/card-openai.jpg"
+                image: "assets/images/ai-mulai-mengubah-cara-masyarakat-bekerja.jpg"
             },
             {
                 category: "TEKNOLOGI",
                 title: "Keamanan Data Menjadi Perhatian Utama",
                 description: "Perlindungan data pribadi semakin penting di tengah meningkatnya aktivitas digital.",
                 date: "29 Mei 2025 14:15 WIB",
-                image: "assets/images/card-police.jpg"
+                image: "assets/images/keamanan-data-menjadi-perhatian-utama.jpg"
             },
             {
                 category: "TEKNOLOGI",
                 title: "Startup Indonesia Terus Mengembangkan Inovasi",
                 description: "Ekosistem startup nasional terus berkembang dengan hadirnya berbagai inovasi baru.",
                 date: "28 Mei 2025 17:40 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/startup-indonesia-terus-mengembangkan-inovasi.jpg"
             },
             {
                 category: "TEKNOLOGI",
                 title: "Transformasi Digital Terus Berlanjut",
                 description: "Transformasi digital menjadi bagian penting dari perkembangan berbagai sektor.",
                 date: "28 Mei 2025 10:30 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/transformasi-digital-terus-berlanjut.jpg"
             }
         ]
     },
@@ -331,35 +331,35 @@ const categoryData = {
                 title: "Industri Kendaraan Listrik Indonesia Terus Berkembang",
                 description: "Industri kendaraan listrik terus menunjukkan perkembangan seiring meningkatnya minat masyarakat.",
                 date: "30 Mei 2025 09:45 WIB",
-                image: "assets/images/card-auto.jpg"
+                image: "assets/images/industri-kendaraan-listrik-indonesia-terus-berkembang.jpg"
             },
             {
                 category: "OTOMOTIF",
                 title: "Produsen Otomotif Siapkan Model Kendaraan Baru",
                 description: "Sejumlah produsen otomotif menyiapkan model kendaraan baru untuk pasar Indonesia.",
                 date: "29 Mei 2025 17:30 WIB",
-                image: "assets/images/card-auto.jpg"
+                image: "assets/images/produsen-otomotif-siapkan-model-kendaraan-baru.jpg"
             },
             {
                 category: "OTOMOTIF",
                 title: "Teknologi Kendaraan Semakin Canggih",
                 description: "Berbagai teknologi baru mulai diterapkan pada kendaraan modern.",
                 date: "29 Mei 2025 13:20 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/teknologi-kendaraan-semakin-canggih.jpg"
             },
             {
                 category: "OTOMOTIF",
                 title: "Penjualan Kendaraan Mulai Menguat",
                 description: "Pasar otomotif menunjukkan tanda-tanda penguatan setelah periode sebelumnya.",
                 date: "28 Mei 2025 15:10 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/penjualan-kendaraan-mulai-menguat.jpg"
             },
             {
                 category: "OTOMOTIF",
                 title: "Kendaraan Ramah Lingkungan Jadi Tren Baru",
                 description: "Kesadaran terhadap lingkungan mendorong perkembangan kendaraan ramah lingkungan.",
                 date: "28 Mei 2025 09:30 WIB",
-                image: "assets/images/card-auto.jpg"
+                image: "assets/images/kendaraan-ramah-lingkungan-jadi-tren-baru.jpg"
             }
         ]
     },
@@ -376,35 +376,35 @@ const categoryData = {
                 title: "Tren Gaya Hidup Digital Semakin Berkembang",
                 description: "Perkembangan teknologi turut memengaruhi berbagai kebiasaan dan gaya hidup masyarakat.",
                 date: "30 Mei 2025 10:30 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/tren-gaya-hidup-digital-semakin-berkembang.jpg"
             },
             {
                 category: "GAYA HIDUP",
                 title: "Destinasi Wisata Favorit Mulai Ramai Dikunjungi",
                 description: "Sejumlah destinasi wisata kembali menjadi pilihan masyarakat untuk menghabiskan waktu liburan.",
                 date: "29 Mei 2025 16:00 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/destinasi-wisata-favorit-mulai-ramai-dikunjungi.jpg"
             },
             {
                 category: "GAYA HIDUP",
                 title: "Tren Kuliner Baru Menarik Perhatian Masyarakat",
                 description: "Berbagai inovasi kuliner terus bermunculan dan menjadi tren baru.",
                 date: "29 Mei 2025 12:30 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/tren-kuliner-baru-menarik-perhatian-masyarakat.jpg"
             },
             {
                 category: "GAYA HIDUP",
                 title: "Masyarakat Semakin Memperhatikan Pola Hidup Seimbang",
                 description: "Kesadaran masyarakat terhadap pola hidup yang lebih seimbang terus meningkat.",
                 date: "28 Mei 2025 15:20 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/masyarakat-semakin-memperhatikan-pola-hidup-seimbang.jpg"
             },
             {
                 category: "GAYA HIDUP",
                 title: "Tren Baru di Kalangan Generasi Muda",
                 description: "Berbagai tren baru berkembang seiring perubahan kebiasaan generasi muda.",
                 date: "28 Mei 2025 09:15 WIB",
-                image: "assets/images/card-openai.jpg"
+                image: "assets/images/tren-baru-di-kalangan-generasi-muda.jpg"
             }
         ]
     },
@@ -421,35 +421,35 @@ const categoryData = {
                 title: "Seniman Indonesia Hadirkan Karya Baru",
                 description: "Sejumlah seniman Indonesia menghadirkan karya baru yang mengangkat berbagai isu sosial dan budaya.",
                 date: "30 Mei 2025 11:20 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/seniman-indonesia-hadirkan-karya-baru.jpg"
             },
             {
                 category: "SENI",
                 title: "Festival Seni dan Budaya Digelar di Jakarta",
                 description: "Festival seni dan budaya menghadirkan berbagai pertunjukan dari seniman lokal.",
                 date: "29 Mei 2025 18:30 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/festival-seni-dan-budaya-digelar-di-jakarta.jpg"
             },
             {
                 category: "SENI",
                 title: "Musik Indonesia Terus Berkembang",
                 description: "Industri musik Indonesia terus melahirkan musisi dan karya baru.",
                 date: "29 Mei 2025 14:20 WIB",
-                image: "assets/images/card-openai.jpg"
+                image: "assets/images/musik-indonesia-terus-berkembang.jpg"
             },
             {
                 category: "SENI",
                 title: "Film Nasional Mendapat Perhatian Positif",
                 description: "Perkembangan perfilman nasional menunjukkan pertumbuhan dan kreativitas yang semakin beragam.",
                 date: "28 Mei 2025 16:00 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/film-nasional-mendapat-perhatian-positif.jpg"
             },
             {
                 category: "SENI",
                 title: "Generasi Muda Dorong Kreativitas Seni Digital",
                 description: "Teknologi digital membuka ruang baru bagi generasi muda untuk berkarya.",
                 date: "28 Mei 2025 10:15 WIB",
-                image: "assets/images/card-openai.jpg"
+                image: "assets/images/generasi-muda-dorong-kreativitas-seni-digital.jpg"
             }
         ]
     },
@@ -466,35 +466,35 @@ const categoryData = {
                 title: "Membaca Arah Perubahan Indonesia di Era Digital",
                 description: "Transformasi digital membawa perubahan besar terhadap kehidupan masyarakat dan tata kelola pemerintahan.",
                 date: "30 Mei 2025 08:30 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/membaca-arah-perubahan-indonesia-di-era-digital.jpg"
             },
             {
                 category: "KOLOM",
                 title: "Mengapa Transformasi Digital Menjadi Penting?",
                 description: "Digitalisasi bukan hanya persoalan teknologi, tetapi juga perubahan cara berpikir dan bekerja.",
                 date: "29 Mei 2025 15:10 WIB",
-                image: "assets/images/card-openai.jpg"
+                image: "assets/images/mengapa-transformasi-digital-menjadi-penting.jpg"
             },
             {
                 category: "KOLOM",
                 title: "Tantangan Indonesia Menghadapi Ekonomi Global",
                 description: "Perubahan ekonomi dunia menuntut Indonesia untuk memperkuat daya saing nasional.",
                 date: "29 Mei 2025 11:30 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/tantangan-indonesia-menghadapi-ekonomi-global.jpg"
             },
             {
                 category: "KOLOM",
                 title: "Membangun Masyarakat yang Melek Informasi",
                 description: "Kemampuan memahami informasi menjadi semakin penting di tengah derasnya arus informasi digital.",
                 date: "28 Mei 2025 17:00 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/membangun-masyarakat-yang-melek-informasi.jpg"
             },
             {
                 category: "KOLOM",
                 title: "Masa Depan Media di Era Kecerdasan Buatan",
                 description: "AI membawa peluang sekaligus tantangan baru bagi industri media.",
                 date: "28 Mei 2025 09:20 WIB",
-                image: "assets/images/card-openai.jpg"
+                image: "assets/images/masa-depan-media-di-era-kecerdasan-buatan.jpg"
             }
         ]
     },
@@ -511,35 +511,35 @@ const categoryData = {
                 title: "Berita Terkini MAB-News Hari Ini",
                 description: "Kumpulan berita terbaru dan informasi penting yang dirangkum oleh redaksi MAB-News.",
                 date: "30 Mei 2025 10:00 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/berita-terkini-mab-news-hari-ini.jpg"
             },
             {
                 category: "INDEKS",
                 title: "Berita Nasional Terbaru",
                 description: "Informasi terbaru dari berbagai wilayah Indonesia.",
                 date: "29 Mei 2025 18:00 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/berita-nasional-terbaru.jpg"
             },
             {
                 category: "INDEKS",
                 title: "Berita Ekonomi Terbaru",
                 description: "Informasi terbaru mengenai ekonomi dan bisnis.",
                 date: "29 Mei 2025 16:00 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/berita-ekonomi-terbaru.jpg"
             },
             {
                 category: "INDEKS",
                 title: "Berita Teknologi Terbaru",
                 description: "Perkembangan teknologi dan inovasi terbaru.",
                 date: "29 Mei 2025 14:00 WIB",
-                image: "assets/images/card-openai.jpg"
+                image: "assets/images/berita-teknologi-terbaru.jpg"
             },
             {
                 category: "INDEKS",
                 title: "Berita Dunia Terbaru",
                 description: "Peristiwa penting yang terjadi di berbagai belahan dunia.",
                 date: "29 Mei 2025 12:00 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/berita-dunia-terbaru.jpg"
             }
         ]
     },
@@ -556,35 +556,35 @@ const categoryData = {
                 title: "Momen Penting Peristiwa Nasional dalam Foto",
                 description: "Kumpulan foto yang merekam berbagai peristiwa penting di Indonesia.",
                 date: "30 Mei 2025 10:20 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/momen-penting-peristiwa-nasional-dalam-foto.jpg"
             },
             {
                 category: "FOTO",
                 title: "Aktivitas Masyarakat dalam Lensa Fotografer",
                 description: "Berbagai aktivitas masyarakat terekam dalam foto jurnalistik.",
                 date: "29 Mei 2025 16:30 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/aktivitas-masyarakat-dalam-lensa-fotografer.jpg"
             },
             {
                 category: "FOTO",
                 title: "Potret Perkembangan Kota Indonesia",
                 description: "Perkembangan kota dan aktivitas masyarakat dalam rangkaian foto.",
                 date: "29 Mei 2025 13:20 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/potret-perkembangan-kota-indonesia.jpg"
             },
             {
                 category: "FOTO",
                 title: "Peristiwa Hari Ini dalam Foto",
                 description: "Momen penting hari ini yang berhasil diabadikan fotografer.",
                 date: "28 Mei 2025 17:10 WIB",
-                image: "assets/images/card-police.jpg"
+                image: "assets/images/peristiwa-hari-ini-dalam-foto.jpg"
             },
             {
                 category: "FOTO",
                 title: "Indonesia dalam Bingkai Fotografi",
                 description: "Berbagai sisi kehidupan Indonesia melalui karya fotografi jurnalistik.",
                 date: "28 Mei 2025 11:30 WIB",
-                image: "assets/images/card-auto.jpg"
+                image: "assets/images/indonesia-dalam-bingkai-fotografi.jpg"
             }
         ]
     },
@@ -601,35 +601,35 @@ const categoryData = {
                 title: "Video: Perkembangan Transformasi Digital Indonesia",
                 description: "Laporan video mengenai perkembangan transformasi digital di Indonesia.",
                 date: "30 Mei 2025 10:30 WIB",
-                image: "assets/images/hero.jpg"
+                image: "assets/images/video-perkembangan-transformasi-digital-indonesia.jpg"
             },
             {
                 category: "VIDEO",
                 title: "Video: Berita Nasional Hari Ini",
                 description: "Rangkuman berita nasional terbaru dalam format video.",
                 date: "29 Mei 2025 18:20 WIB",
-                image: "assets/images/card-police.jpg"
+                image: "assets/images/video-berita-nasional-hari-ini.jpg"
             },
             {
                 category: "VIDEO",
                 title: "Video: Perkembangan Ekonomi Indonesia",
                 description: "Informasi perkembangan ekonomi Indonesia dalam laporan video.",
                 date: "29 Mei 2025 15:10 WIB",
-                image: "assets/images/card-market.jpg"
+                image: "assets/images/video-perkembangan-ekonomi-indonesia.jpg"
             },
             {
                 category: "VIDEO",
                 title: "Video: Teknologi dan Kecerdasan Buatan",
                 description: "Membahas perkembangan AI dan teknologi terbaru.",
                 date: "28 Mei 2025 16:20 WIB",
-                image: "assets/images/card-openai.jpg"
+                image: "assets/images/video-teknologi-dan-kecerdasan-buatan.jpg"
             },
             {
                 category: "VIDEO",
                 title: "Video: Peristiwa Penting Pekan Ini",
                 description: "Rangkuman berbagai peristiwa penting dalam sepekan.",
                 date: "28 Mei 2025 10:10 WIB",
-                image: "assets/images/latest-port.jpg"
+                image: "assets/images/video-peristiwa-penting-pekan-ini.jpg"
             }
         ]
     }

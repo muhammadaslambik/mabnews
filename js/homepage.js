@@ -44,7 +44,7 @@ const popularHeroNews = [
             "Berbagai langkah disiapkan untuk menjaga konsumsi dan daya beli masyarakat di tengah perubahan kondisi ekonomi global.",
 
         image:
-            "assets/images/hero.jpg",
+            "assets/images/pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat.jpg",
 
         date:
             "6 September 2026",
@@ -67,7 +67,7 @@ const popularHeroNews = [
             "Perkembangan kecerdasan buatan terus mengubah cara individu dan organisasi menyelesaikan pekerjaan serta mengolah informasi.",
 
         image:
-            "assets/images/card-openai.jpg",
+            "assets/images/perkembangan-ai-mendorong-perubahan-cara-kerja.jpg",
 
         date:
             "6 September 2026",
@@ -90,7 +90,7 @@ const popularHeroNews = [
             "Aparat keamanan memperkuat pengamanan sekaligus meningkatkan pelayanan publik untuk memberikan rasa aman kepada masyarakat.",
 
         image:
-            "assets/images/card-police.jpg",
+            "assets/images/aparat-perkuat-pengamanan-dan-pelayanan-publik.jpg",
 
         date:
             "6 September 2026",
@@ -113,7 +113,7 @@ const popularHeroNews = [
             "Industri otomotif terus melakukan penyesuaian menghadapi perubahan teknologi, kebutuhan konsumen, dan perkembangan pasar.",
 
         image:
-            "assets/images/card-auto.jpg",
+            "assets/images/industri-otomotif-mulai-beradaptasi-dengan-tren-baru.jpg",
 
         date:
             "6 September 2026",
@@ -136,7 +136,7 @@ const popularHeroNews = [
             "Petugas terus memantau perkembangan aktivitas gunung api dan mengimbau masyarakat mengikuti informasi resmi.",
 
         image:
-            "assets/images/latest-volcano.jpg",
+            "assets/images/aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada.jpg",
 
         date:
             "6 September 2026",
@@ -392,7 +392,7 @@ function setHeroPosition(animate = true) {
 
     heroTrack.style.transition =
         animate
-            ? "transform 0.28s cubic-bezier(.22,.61,.36,1)"
+            ? "transform 0.2s cubic-bezier(.22,.61,.36,1)"
             : "none";
 
 
@@ -981,6 +981,183 @@ if (heroElement) {
 
 
 /* =========================================================
+   GESER 2 JARI DI TRACKPAD (HORIZONTAL WHEEL)
+   ========================================================= */
+
+let heroWheelActive = false;
+
+let heroWheelAccumX = 0;
+
+let heroWheelEndTimer = null;
+
+const HERO_WHEEL_COMMIT = 30;
+
+if (heroElement) {
+
+    heroElement.addEventListener(
+        "wheel",
+        (event) => {
+
+            const deltaX =
+                event.deltaX;
+
+            const deltaY =
+                event.deltaY;
+
+
+            /*
+             * Hanya tanggapi gerakan yang jelas
+             * lebih dominan ke arah horizontal —
+             * ciri khas geser 2 jari di trackpad.
+             * Scroll vertikal biasa (mouse wheel/
+             * trackpad vertikal) dibiarkan lewat
+             * agar halaman tetap bisa di-scroll.
+             */
+
+            if (
+                Math.abs(deltaX) <=
+                Math.abs(deltaY)
+            ) {
+                return;
+            }
+
+
+            event.preventDefault();
+
+
+            /*
+             * Selama drag manual (jari/mouse)
+             * sedang berlangsung, abaikan wheel.
+             */
+
+            if (isDraggingHero) {
+                return;
+            }
+
+
+            /*
+             * Awal gesture: hentikan auto slide
+             * dan mulai ikuti gerakan jari secara
+             * langsung (live), persis seperti
+             * carousel foto di Instagram versi web.
+             */
+
+            if (!heroWheelActive) {
+
+                heroWheelActive = true;
+
+                heroWheelAccumX = 0;
+
+                clearInterval(
+                    heroAutoSlide
+                );
+
+                heroTrack.classList.add(
+                    "dragging"
+                );
+
+            }
+
+
+            heroWheelAccumX -= deltaX;
+
+
+            setHeroDragPosition(
+                heroWheelAccumX
+            );
+
+
+            /*
+             * Satu gesture geser (walaupun panjang
+             * atau berlangsung lama) dianggap masih
+             * SATU gesture yang sama selama event
+             * wheel terus mengalir tanpa jeda.
+             *
+             * Gesture dianggap selesai (jari
+             * diangkat) begitu tidak ada event
+             * wheel selama 60ms.
+             */
+
+            clearTimeout(
+                heroWheelEndTimer
+            );
+
+            heroWheelEndTimer =
+                setTimeout(
+                    () => {
+
+                        heroWheelActive = false;
+
+
+                        heroTrack.classList.remove(
+                            "dragging"
+                        );
+
+
+                        /*
+                         * Sama seperti akhir swipe
+                         * di layar sentuh: kalau
+                         * geserannya cukup jauh,
+                         * lanjut ke slide berikutnya/
+                         * sebelumnya. Kalau tidak,
+                         * kembali ke posisi semula.
+                         */
+
+                        if (
+                            Math.abs(heroWheelAccumX) <
+                            HERO_WHEEL_COMMIT
+                        ) {
+
+                            setHeroPosition(true);
+
+                            startHeroAutoSlide();
+
+                            heroWheelAccumX = 0;
+
+                            return;
+
+                        }
+
+
+                        if (heroWheelAccumX < 0) {
+
+                            currentHero =
+                                normalizeHeroIndex(
+                                    currentHero + 1
+                                );
+
+                        } else {
+
+                            currentHero =
+                                normalizeHeroIndex(
+                                    currentHero - 1
+                                );
+
+                        }
+
+
+                        setHeroPosition(true);
+
+                        updateHeroDots();
+
+                        resetHeroAutoSlide();
+
+                        heroWheelAccumX = 0;
+
+                    },
+                    60
+                );
+
+        },
+        {
+            passive:false
+        }
+    );
+
+}
+
+
+/* =========================================================
    FOCUS DOTS
    ========================================================= */
 
@@ -1059,7 +1236,7 @@ const newsGroups = [
                 "Pasar dan Konsumen Menghadapi Perubahan Baru",
 
             image:
-                "assets/images/card-market.jpg",
+                "assets/images/pasar-dan-konsumen-menghadapi-perubahan-baru.jpg",
 
             alt:
                 "Pasar dan Konsumen",
@@ -1080,7 +1257,7 @@ const newsGroups = [
                 "Aparat Perkuat Pengamanan dan Pelayanan Publik",
 
             image:
-                "assets/images/card-police.jpg",
+                "assets/images/aparat-perkuat-pengamanan-dan-pelayanan-publik.jpg",
 
             alt:
                 "Aparat dan Pelayanan Publik",
@@ -1101,7 +1278,7 @@ const newsGroups = [
                 "Perkembangan AI Mendorong Perubahan Cara Kerja",
 
             image:
-                "assets/images/card-openai.jpg",
+                "assets/images/perkembangan-ai-mendorong-perubahan-cara-kerja.jpg",
 
             alt:
                 "Perkembangan AI",
@@ -1122,7 +1299,7 @@ const newsGroups = [
                 "Industri Otomotif Mulai Beradaptasi dengan Tren Baru",
 
             image:
-                "assets/images/card-auto.jpg",
+                "assets/images/industri-otomotif-mulai-beradaptasi-dengan-tren-baru.jpg",
 
             alt:
                 "Industri Otomotif",
@@ -1151,7 +1328,7 @@ const newsGroups = [
                 "Aktivitas Gunung Api Kembali Dipantau, Warga Diminta Tetap Waspada",
 
             image:
-                "assets/images/latest-volcano.jpg",
+                "assets/images/aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada.jpg",
 
             alt:
                 "Aktivitas Gunung Api",
@@ -1172,7 +1349,7 @@ const newsGroups = [
                 "Arus Logistik Nasional Terus Diperkuat untuk Menekan Biaya Distribusi",
 
             image:
-                "assets/images/latest-port.jpg",
+                "assets/images/arus-logistik-nasional-terus-diperkuat-untuk-menekan-biaya-distribusi.jpg",
 
             alt:
                 "Arus Logistik Nasional",
@@ -1193,7 +1370,7 @@ const newsGroups = [
                 "Inflasi Mei 2025 Terkendali di Level 2,4 Persen",
 
             image:
-                "assets/images/card-market.jpg",
+                "assets/images/inflasi-mei-2025-terkendali-di-level-2-4-persen.jpg",
 
             alt:
                 "Inflasi",
@@ -1214,7 +1391,7 @@ const newsGroups = [
                 "Australia Perketat Aturan Visa untuk Pelajar Internasional",
 
             image:
-                "assets/images/latest-port.jpg",
+                "assets/images/australia-perketat-aturan-visa-untuk-pelajar-internasional.jpg",
 
             alt:
                 "Australia",
@@ -1243,7 +1420,7 @@ const newsGroups = [
                 "Timnas Indonesia Siap Hadapi China di Kualifikasi Piala Dunia 2026",
 
             image:
-                "assets/images/card-police.jpg",
+                "assets/images/timnas-indonesia-siap-hadapi-china-di-kualifikasi-piala-dunia-2026.jpg",
 
             alt:
                 "Timnas Indonesia",
@@ -1264,7 +1441,7 @@ const newsGroups = [
                 "Gaikindo Sebut Penjualan Mobil 2025 Tumbuh Moderat",
 
             image:
-                "assets/images/card-auto.jpg",
+                "assets/images/gaikindo-sebut-penjualan-mobil-2025-tumbuh-moderat.jpg",
 
             alt:
                 "Gaikindo",
@@ -1285,7 +1462,7 @@ const newsGroups = [
                 "Melihat Perubahan Besar di Balik Berita Hari Ini",
 
             image:
-                "assets/images/focus.jpg",
+                "assets/images/melihat-perubahan-besar-di-balik-berita-hari-ini.jpg",
 
             alt:
                 "Fokus MAB-News",
@@ -1306,7 +1483,7 @@ const newsGroups = [
                 "Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat",
 
             image:
-                "assets/images/hero.jpg",
+                "assets/images/pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat.jpg",
 
             alt:
                 "Pemerintah",

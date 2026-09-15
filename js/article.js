@@ -472,6 +472,1176 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Kolaborasi ini diharapkan dapat mempercepat penyediaan akses internet serta perangkat pendukung layanan digital di wilayah yang masih tertinggal.",
                 "Pemerintah menyatakan akan terus membuka ruang kemitraan dengan sektor swasta guna mempercepat pemerataan transformasi digital di seluruh Indonesia."
             ]
+        },
+
+        "inflasi-mei-2025-terkendali-di-level-24-persen": {
+            category: "EKONOMI",
+            title: "Inflasi Mei 2025 Terkendali di Level 2,4 Persen",
+            lead: "Badan Pusat Statistik (BPS) melaporkan inflasi Mei 2025 berada di level 2,4 persen secara tahunan (yoy), lebih rendah dibanding bulan sebelumnya.",
+            date: "30 Mei 2025",
+            time: "07:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/inflasi-mei-2025-terkendali-di-level-24-persen.jpg",
+            caption: "Ilustrasi Inflasi Mei 2025 Terkendali di Level 2,4 Persen.",
+            content: [
+                "Badan Pusat Statistik (BPS) melaporkan inflasi Mei 2025 berada di level 2,4 persen secara tahunan (yoy), lebih rendah dibanding bulan sebelumnya.",
+                "Pemerintah menyebut langkah ini sebagai bagian dari upaya menjaga stabilitas dan kesejahteraan masyarakat secara menyeluruh.",
+                "Sejumlah pemangku kepentingan turut dilibatkan agar kebijakan yang diambil dapat berjalan efektif hingga ke tingkat daerah.",
+                "Pemerintah menegaskan akan terus memantau perkembangan di lapangan dan melakukan penyesuaian kebijakan apabila diperlukan.",
+                "Nasional terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "hingga-april-2025-realisasi-investasi-capai-rp-4568-triliun": {
+            category: "NASIONAL",
+            title: "Hingga April 2025, Realisasi Investasi Capai Rp 456,8 Triliun",
+            lead: "Kementerian Investasi/BKPM mencatat realisasi investasi hingga April 2025 mencapai Rp 456,8 triliun, tumbuh 12,7 persen dibanding periode yang sama tahun lalu.",
+            date: "29 Mei 2025",
+            time: "16:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/hingga-april-2025-realisasi-investasi-capai-rp-4568-triliun.jpg",
+            caption: "Ilustrasi Hingga April 2025, Realisasi Investasi Capai Rp 456,8 Triliun.",
+            content: [
+                "Kementerian Investasi/BKPM mencatat realisasi investasi hingga April 2025 mencapai Rp 456,8 triliun, tumbuh 12,7 persen dibanding periode yang sama tahun lalu.",
+                "Pemerintah menyebut langkah ini sebagai bagian dari upaya menjaga stabilitas dan kesejahteraan masyarakat secara menyeluruh.",
+                "Sejumlah pemangku kepentingan turut dilibatkan agar kebijakan yang diambil dapat berjalan efektif hingga ke tingkat daerah.",
+                "Pemerintah menegaskan akan terus memantau perkembangan di lapangan dan melakukan penyesuaian kebijakan apabila diperlukan.",
+                "Nasional terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "pemimpin-dunia-bahas-tantangan-ekonomi-global": {
+            category: "INTERNASIONAL",
+            title: "Pemimpin Dunia Bahas Tantangan Ekonomi Global",
+            lead: "Sejumlah pemimpin dunia membahas berbagai tantangan ekonomi global dan strategi menghadapi ketidakpastian perdagangan internasional.",
+            date: "30 Mei 2025",
+            time: "09:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/pemimpin-dunia-bahas-tantangan-ekonomi-global.jpg",
+            caption: "Ilustrasi Pemimpin Dunia Bahas Tantangan Ekonomi Global.",
+            content: [
+                "Sejumlah pemimpin dunia membahas berbagai tantangan ekonomi global dan strategi menghadapi ketidakpastian perdagangan internasional.",
+                "Sejumlah negara menyatakan komitmennya untuk terus memperkuat kerja sama demi menjaga stabilitas di kawasan maupun secara global.",
+                "Isu ini turut menjadi perhatian berbagai pihak mengingat dampaknya yang dapat memengaruhi hubungan antarnegara secara luas.",
+                "Para pengamat menilai perkembangan ini perlu terus dicermati mengingat implikasinya terhadap dinamika politik dan ekonomi dunia.",
+                "Internasional terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "negara-negara-asia-perkuat-kerja-sama-ekonomi": {
+            category: "INTERNASIONAL",
+            title: "Negara-negara Asia Perkuat Kerja Sama Ekonomi",
+            lead: "Kerja sama ekonomi antarnegara Asia terus diperkuat untuk menjaga stabilitas perdagangan dan investasi kawasan.",
+            date: "29 Mei 2025",
+            time: "18:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/negara-negara-asia-perkuat-kerja-sama-ekonomi.jpg",
+            caption: "Ilustrasi Negara-negara Asia Perkuat Kerja Sama Ekonomi.",
+            content: [
+                "Kerja sama ekonomi antarnegara Asia terus diperkuat untuk menjaga stabilitas perdagangan dan investasi kawasan.",
+                "Sejumlah negara menyatakan komitmennya untuk terus memperkuat kerja sama demi menjaga stabilitas di kawasan maupun secara global.",
+                "Isu ini turut menjadi perhatian berbagai pihak mengingat dampaknya yang dapat memengaruhi hubungan antarnegara secara luas.",
+                "Para pengamat menilai perkembangan ini perlu terus dicermati mengingat implikasinya terhadap dinamika politik dan ekonomi dunia.",
+                "Internasional terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "perkembangan-politik-global-jadi-perhatian-dunia": {
+            category: "INTERNASIONAL",
+            title: "Perkembangan Politik Global Jadi Perhatian Dunia",
+            lead: "Perubahan politik di sejumlah negara menjadi perhatian karena berpotensi memengaruhi hubungan internasional.",
+            date: "29 Mei 2025",
+            time: "15:40 WIB",
+            author: "MAB-News",
+            image: "assets/images/perkembangan-politik-global-jadi-perhatian-dunia.jpg",
+            caption: "Ilustrasi Perkembangan Politik Global Jadi Perhatian Dunia.",
+            content: [
+                "Perubahan politik di sejumlah negara menjadi perhatian karena berpotensi memengaruhi hubungan internasional.",
+                "Sejumlah negara menyatakan komitmennya untuk terus memperkuat kerja sama demi menjaga stabilitas di kawasan maupun secara global.",
+                "Isu ini turut menjadi perhatian berbagai pihak mengingat dampaknya yang dapat memengaruhi hubungan antarnegara secara luas.",
+                "Para pengamat menilai perkembangan ini perlu terus dicermati mengingat implikasinya terhadap dinamika politik dan ekonomi dunia.",
+                "Internasional terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "forum-internasional-bahas-masa-depan-teknologi": {
+            category: "INTERNASIONAL",
+            title: "Forum Internasional Bahas Masa Depan Teknologi",
+            lead: "Forum internasional mempertemukan berbagai negara untuk membahas perkembangan teknologi dan dampaknya terhadap masyarakat.",
+            date: "29 Mei 2025",
+            time: "12:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/forum-internasional-bahas-masa-depan-teknologi.jpg",
+            caption: "Ilustrasi Forum Internasional Bahas Masa Depan Teknologi.",
+            content: [
+                "Forum internasional mempertemukan berbagai negara untuk membahas perkembangan teknologi dan dampaknya terhadap masyarakat.",
+                "Sejumlah negara menyatakan komitmennya untuk terus memperkuat kerja sama demi menjaga stabilitas di kawasan maupun secara global.",
+                "Isu ini turut menjadi perhatian berbagai pihak mengingat dampaknya yang dapat memengaruhi hubungan antarnegara secara luas.",
+                "Para pengamat menilai perkembangan ini perlu terus dicermati mengingat implikasinya terhadap dinamika politik dan ekonomi dunia.",
+                "Internasional terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "dunia-hadapi-tantangan-perubahan-iklim": {
+            category: "INTERNASIONAL",
+            title: "Dunia Hadapi Tantangan Perubahan Iklim",
+            lead: "Berbagai negara kembali menyerukan kerja sama untuk menghadapi dampak perubahan iklim.",
+            date: "28 Mei 2025",
+            time: "20:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/dunia-hadapi-tantangan-perubahan-iklim.jpg",
+            caption: "Ilustrasi Dunia Hadapi Tantangan Perubahan Iklim.",
+            content: [
+                "Berbagai negara kembali menyerukan kerja sama untuk menghadapi dampak perubahan iklim.",
+                "Sejumlah negara menyatakan komitmennya untuk terus memperkuat kerja sama demi menjaga stabilitas di kawasan maupun secara global.",
+                "Isu ini turut menjadi perhatian berbagai pihak mengingat dampaknya yang dapat memengaruhi hubungan antarnegara secara luas.",
+                "Para pengamat menilai perkembangan ini perlu terus dicermati mengingat implikasinya terhadap dinamika politik dan ekonomi dunia.",
+                "Internasional terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "realisasi-investasi-indonesia-terus-menguat": {
+            category: "EKONOMI",
+            title: "Realisasi Investasi Indonesia Terus Menguat",
+            lead: "Realisasi investasi nasional terus menunjukkan pertumbuhan positif seiring meningkatnya aktivitas ekonomi.",
+            date: "29 Mei 2025",
+            time: "16:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/realisasi-investasi-indonesia-terus-menguat.jpg",
+            caption: "Ilustrasi Realisasi Investasi Indonesia Terus Menguat.",
+            content: [
+                "Realisasi investasi nasional terus menunjukkan pertumbuhan positif seiring meningkatnya aktivitas ekonomi.",
+                "Sejumlah pelaku usaha menyambut positif perkembangan ini karena dinilai dapat memberikan dampak baik terhadap iklim usaha nasional.",
+                "Pemerintah menyebut kebijakan yang diambil bertujuan menjaga stabilitas ekonomi sekaligus mendorong pertumbuhan yang berkelanjutan.",
+                "Ke depan, pemerintah dan pelaku usaha diharapkan dapat terus bersinergi guna menghadapi tantangan ekonomi yang dinamis.",
+                "Ekonomi terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "rupiah-bergerak-stabil-di-tengah-ketidakpastian-global": {
+            category: "EKONOMI",
+            title: "Rupiah Bergerak Stabil di Tengah Ketidakpastian Global",
+            lead: "Nilai tukar rupiah bergerak relatif stabil setelah pasar merespons perkembangan ekonomi global.",
+            date: "29 Mei 2025",
+            time: "13:40 WIB",
+            author: "MAB-News",
+            image: "assets/images/rupiah-bergerak-stabil-di-tengah-ketidakpastian-global.jpg",
+            caption: "Ilustrasi Rupiah Bergerak Stabil di Tengah Ketidakpastian Global.",
+            content: [
+                "Nilai tukar rupiah bergerak relatif stabil setelah pasar merespons perkembangan ekonomi global.",
+                "Sejumlah pelaku usaha menyambut positif perkembangan ini karena dinilai dapat memberikan dampak baik terhadap iklim usaha nasional.",
+                "Pemerintah menyebut kebijakan yang diambil bertujuan menjaga stabilitas ekonomi sekaligus mendorong pertumbuhan yang berkelanjutan.",
+                "Ke depan, pemerintah dan pelaku usaha diharapkan dapat terus bersinergi guna menghadapi tantangan ekonomi yang dinamis.",
+                "Ekonomi terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "pemerintah-dorong-pertumbuhan-umkm": {
+            category: "EKONOMI",
+            title: "Pemerintah Dorong Pertumbuhan UMKM",
+            lead: "Pemerintah menyiapkan sejumlah kebijakan untuk memperkuat sektor usaha mikro, kecil, dan menengah.",
+            date: "28 Mei 2025",
+            time: "17:15 WIB",
+            author: "MAB-News",
+            image: "assets/images/pemerintah-dorong-pertumbuhan-umkm.jpg",
+            caption: "Ilustrasi Pemerintah Dorong Pertumbuhan UMKM.",
+            content: [
+                "Pemerintah menyiapkan sejumlah kebijakan untuk memperkuat sektor usaha mikro, kecil, dan menengah.",
+                "Sejumlah pelaku usaha menyambut positif perkembangan ini karena dinilai dapat memberikan dampak baik terhadap iklim usaha nasional.",
+                "Pemerintah menyebut kebijakan yang diambil bertujuan menjaga stabilitas ekonomi sekaligus mendorong pertumbuhan yang berkelanjutan.",
+                "Ke depan, pemerintah dan pelaku usaha diharapkan dapat terus bersinergi guna menghadapi tantangan ekonomi yang dinamis.",
+                "Ekonomi terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "perdagangan-indonesia-terus-mengalami-pertumbuhan": {
+            category: "EKONOMI",
+            title: "Perdagangan Indonesia Terus Mengalami Pertumbuhan",
+            lead: "Aktivitas perdagangan menunjukkan perkembangan positif seiring meningkatnya permintaan sejumlah komoditas.",
+            date: "28 Mei 2025",
+            time: "10:25 WIB",
+            author: "MAB-News",
+            image: "assets/images/perdagangan-indonesia-terus-mengalami-pertumbuhan.jpg",
+            caption: "Ilustrasi Perdagangan Indonesia Terus Mengalami Pertumbuhan.",
+            content: [
+                "Aktivitas perdagangan menunjukkan perkembangan positif seiring meningkatnya permintaan sejumlah komoditas.",
+                "Sejumlah pelaku usaha menyambut positif perkembangan ini karena dinilai dapat memberikan dampak baik terhadap iklim usaha nasional.",
+                "Pemerintah menyebut kebijakan yang diambil bertujuan menjaga stabilitas ekonomi sekaligus mendorong pertumbuhan yang berkelanjutan.",
+                "Ke depan, pemerintah dan pelaku usaha diharapkan dapat terus bersinergi guna menghadapi tantangan ekonomi yang dinamis.",
+                "Ekonomi terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "layanan-transportasi-kota-terus-ditingkatkan": {
+            category: "METRO",
+            title: "Layanan Transportasi Kota Terus Ditingkatkan",
+            lead: "Pemerintah daerah meningkatkan kualitas transportasi untuk mendukung mobilitas masyarakat perkotaan.",
+            date: "30 Mei 2025",
+            time: "09:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/layanan-transportasi-kota-terus-ditingkatkan.jpg",
+            caption: "Ilustrasi Layanan Transportasi Kota Terus Ditingkatkan.",
+            content: [
+                "Pemerintah daerah meningkatkan kualitas transportasi untuk mendukung mobilitas masyarakat perkotaan.",
+                "Pemerintah kota menyebut langkah ini sebagai bagian dari upaya meningkatkan kenyamanan dan kualitas hidup warga di perkotaan.",
+                "Sejumlah warga menyambut baik perkembangan ini karena dinilai dapat mempermudah aktivitas sehari-hari di tengah kota.",
+                "Pemerintah kota berkomitmen untuk terus mengevaluasi dan meningkatkan pelayanan demi kenyamanan bersama.",
+                "Metro terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "sejumlah-jalan-utama-kota-mulai-ditata": {
+            category: "METRO",
+            title: "Sejumlah Jalan Utama Kota Mulai Ditata",
+            lead: "Penataan sejumlah ruas jalan dilakukan untuk meningkatkan keamanan dan kenyamanan pengguna jalan.",
+            date: "29 Mei 2025",
+            time: "17:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/sejumlah-jalan-utama-kota-mulai-ditata.jpg",
+            caption: "Ilustrasi Sejumlah Jalan Utama Kota Mulai Ditata.",
+            content: [
+                "Penataan sejumlah ruas jalan dilakukan untuk meningkatkan keamanan dan kenyamanan pengguna jalan.",
+                "Pemerintah kota menyebut langkah ini sebagai bagian dari upaya meningkatkan kenyamanan dan kualitas hidup warga di perkotaan.",
+                "Sejumlah warga menyambut baik perkembangan ini karena dinilai dapat mempermudah aktivitas sehari-hari di tengah kota.",
+                "Pemerintah kota berkomitmen untuk terus mengevaluasi dan meningkatkan pelayanan demi kenyamanan bersama.",
+                "Metro terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "pelayanan-publik-di-kota-mulai-berbasis-digital": {
+            category: "METRO",
+            title: "Pelayanan Publik di Kota Mulai Berbasis Digital",
+            lead: "Pemerintah kota memperluas penggunaan layanan digital untuk memudahkan masyarakat.",
+            date: "29 Mei 2025",
+            time: "14:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/pelayanan-publik-di-kota-mulai-berbasis-digital.jpg",
+            caption: "Ilustrasi Pelayanan Publik di Kota Mulai Berbasis Digital.",
+            content: [
+                "Pemerintah kota memperluas penggunaan layanan digital untuk memudahkan masyarakat.",
+                "Pemerintah kota menyebut langkah ini sebagai bagian dari upaya meningkatkan kenyamanan dan kualitas hidup warga di perkotaan.",
+                "Sejumlah warga menyambut baik perkembangan ini karena dinilai dapat mempermudah aktivitas sehari-hari di tengah kota.",
+                "Pemerintah kota berkomitmen untuk terus mengevaluasi dan meningkatkan pelayanan demi kenyamanan bersama.",
+                "Metro terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "masyarakat-diminta-waspada-cuaca-ekstrem": {
+            category: "METRO",
+            title: "Masyarakat Diminta Waspada Cuaca Ekstrem",
+            lead: "Masyarakat di sejumlah wilayah perkotaan diminta meningkatkan kewaspadaan terhadap perubahan cuaca.",
+            date: "28 Mei 2025",
+            time: "19:15 WIB",
+            author: "MAB-News",
+            image: "assets/images/masyarakat-diminta-waspada-cuaca-ekstrem.jpg",
+            caption: "Ilustrasi Masyarakat Diminta Waspada Cuaca Ekstrem.",
+            content: [
+                "Masyarakat di sejumlah wilayah perkotaan diminta meningkatkan kewaspadaan terhadap perubahan cuaca.",
+                "Pemerintah kota menyebut langkah ini sebagai bagian dari upaya meningkatkan kenyamanan dan kualitas hidup warga di perkotaan.",
+                "Sejumlah warga menyambut baik perkembangan ini karena dinilai dapat mempermudah aktivitas sehari-hari di tengah kota.",
+                "Pemerintah kota berkomitmen untuk terus mengevaluasi dan meningkatkan pelayanan demi kenyamanan bersama.",
+                "Metro terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "ruang-publik-baru-hadir-untuk-warga": {
+            category: "METRO",
+            title: "Ruang Publik Baru Hadir untuk Warga",
+            lead: "Sejumlah ruang publik baru disiapkan untuk meningkatkan kualitas lingkungan perkotaan.",
+            date: "28 Mei 2025",
+            time: "11:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/ruang-publik-baru-hadir-untuk-warga.jpg",
+            caption: "Ilustrasi Ruang Publik Baru Hadir untuk Warga.",
+            content: [
+                "Sejumlah ruang publik baru disiapkan untuk meningkatkan kualitas lingkungan perkotaan.",
+                "Pemerintah kota menyebut langkah ini sebagai bagian dari upaya meningkatkan kenyamanan dan kualitas hidup warga di perkotaan.",
+                "Sejumlah warga menyambut baik perkembangan ini karena dinilai dapat mempermudah aktivitas sehari-hari di tengah kota.",
+                "Pemerintah kota berkomitmen untuk terus mengevaluasi dan meningkatkan pelayanan demi kenyamanan bersama.",
+                "Metro terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "situasi-geopolitik-dunia-terus-menjadi-perhatian": {
+            category: "DUNIA",
+            title: "Situasi Geopolitik Dunia Terus Menjadi Perhatian",
+            lead: "Perkembangan geopolitik global terus menjadi perhatian berbagai negara.",
+            date: "30 Mei 2025",
+            time: "10:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/situasi-geopolitik-dunia-terus-menjadi-perhatian.jpg",
+            caption: "Ilustrasi Situasi Geopolitik Dunia Terus Menjadi Perhatian.",
+            content: [
+                "Perkembangan geopolitik global terus menjadi perhatian berbagai negara.",
+                "Perkembangan ini turut mendapat sorotan dari berbagai negara mengingat dampaknya terhadap stabilitas kawasan maupun global.",
+                "Sejumlah pihak internasional menekankan pentingnya dialog dan kerja sama untuk menghadapi tantangan yang ada bersama-sama.",
+                "Situasi ini diperkirakan akan terus berkembang dan menjadi perhatian utama dalam berbagai forum internasional mendatang.",
+                "Dunia terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "negara-negara-dorong-diplomasi-untuk-menjaga-perdamaian": {
+            category: "DUNIA",
+            title: "Negara-negara Dorong Diplomasi untuk Menjaga Perdamaian",
+            lead: "Upaya diplomasi kembali didorong untuk menjaga stabilitas dan perdamaian dunia.",
+            date: "29 Mei 2025",
+            time: "18:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/negara-negara-dorong-diplomasi-untuk-menjaga-perdamaian.jpg",
+            caption: "Ilustrasi Negara-negara Dorong Diplomasi untuk Menjaga Perdamaian.",
+            content: [
+                "Upaya diplomasi kembali didorong untuk menjaga stabilitas dan perdamaian dunia.",
+                "Perkembangan ini turut mendapat sorotan dari berbagai negara mengingat dampaknya terhadap stabilitas kawasan maupun global.",
+                "Sejumlah pihak internasional menekankan pentingnya dialog dan kerja sama untuk menghadapi tantangan yang ada bersama-sama.",
+                "Situasi ini diperkirakan akan terus berkembang dan menjadi perhatian utama dalam berbagai forum internasional mendatang.",
+                "Dunia terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "pbb-bahas-tantangan-kemanusiaan-global": {
+            category: "DUNIA",
+            title: "PBB Bahas Tantangan Kemanusiaan Global",
+            lead: "Perserikatan Bangsa-Bangsa membahas sejumlah tantangan kemanusiaan yang terjadi di berbagai kawasan.",
+            date: "29 Mei 2025",
+            time: "15:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/pbb-bahas-tantangan-kemanusiaan-global.jpg",
+            caption: "Ilustrasi PBB Bahas Tantangan Kemanusiaan Global.",
+            content: [
+                "Perserikatan Bangsa-Bangsa membahas sejumlah tantangan kemanusiaan yang terjadi di berbagai kawasan.",
+                "Perkembangan ini turut mendapat sorotan dari berbagai negara mengingat dampaknya terhadap stabilitas kawasan maupun global.",
+                "Sejumlah pihak internasional menekankan pentingnya dialog dan kerja sama untuk menghadapi tantangan yang ada bersama-sama.",
+                "Situasi ini diperkirakan akan terus berkembang dan menjadi perhatian utama dalam berbagai forum internasional mendatang.",
+                "Dunia terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "kerja-sama-antarnegara-terus-diperkuat": {
+            category: "DUNIA",
+            title: "Kerja Sama Antarnegara Terus Diperkuat",
+            lead: "Berbagai negara memperkuat kerja sama dalam menghadapi tantangan global.",
+            date: "28 Mei 2025",
+            time: "16:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/kerja-sama-antarnegara-terus-diperkuat.jpg",
+            caption: "Ilustrasi Kerja Sama Antarnegara Terus Diperkuat.",
+            content: [
+                "Berbagai negara memperkuat kerja sama dalam menghadapi tantangan global.",
+                "Perkembangan ini turut mendapat sorotan dari berbagai negara mengingat dampaknya terhadap stabilitas kawasan maupun global.",
+                "Sejumlah pihak internasional menekankan pentingnya dialog dan kerja sama untuk menghadapi tantangan yang ada bersama-sama.",
+                "Situasi ini diperkirakan akan terus berkembang dan menjadi perhatian utama dalam berbagai forum internasional mendatang.",
+                "Dunia terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "perubahan-global-pengaruhi-peta-ekonomi-dunia": {
+            category: "DUNIA",
+            title: "Perubahan Global Pengaruhi Peta Ekonomi Dunia",
+            lead: "Perubahan kondisi global memberikan dampak terhadap perekonomian berbagai negara.",
+            date: "28 Mei 2025",
+            time: "09:40 WIB",
+            author: "MAB-News",
+            image: "assets/images/perubahan-global-pengaruhi-peta-ekonomi-dunia.jpg",
+            caption: "Ilustrasi Perubahan Global Pengaruhi Peta Ekonomi Dunia.",
+            content: [
+                "Perubahan kondisi global memberikan dampak terhadap perekonomian berbagai negara.",
+                "Perkembangan ini turut mendapat sorotan dari berbagai negara mengingat dampaknya terhadap stabilitas kawasan maupun global.",
+                "Sejumlah pihak internasional menekankan pentingnya dialog dan kerja sama untuk menghadapi tantangan yang ada bersama-sama.",
+                "Situasi ini diperkirakan akan terus berkembang dan menjadi perhatian utama dalam berbagai forum internasional mendatang.",
+                "Dunia terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "persiapan-tim-nasional-terus-dimatangkan": {
+            category: "OLAHRAGA",
+            title: "Persiapan Tim Nasional Terus Dimatangkan",
+            lead: "Pelatih terus mematangkan strategi dan komposisi pemain menjelang pertandingan berikutnya.",
+            date: "29 Mei 2025",
+            time: "19:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/persiapan-tim-nasional-terus-dimatangkan.jpg",
+            caption: "Ilustrasi Persiapan Tim Nasional Terus Dimatangkan.",
+            content: [
+                "Pelatih terus mematangkan strategi dan komposisi pemain menjelang pertandingan berikutnya.",
+                "Tim pelatih terus memantapkan strategi dan performa atlet menjelang laga maupun kompetisi mendatang.",
+                "Dukungan dari suporter dinilai menjadi salah satu faktor penting yang dapat meningkatkan motivasi para atlet di lapangan.",
+                "Semua pihak berharap performa yang ditunjukkan dapat membawa hasil terbaik bagi olahraga Indonesia ke depannya.",
+                "Olahraga terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "kompetisi-nasional-memasuki-fase-penentuan": {
+            category: "OLAHRAGA",
+            title: "Kompetisi Nasional Memasuki Fase Penentuan",
+            lead: "Persaingan sejumlah klub semakin ketat menjelang pertandingan penentuan.",
+            date: "29 Mei 2025",
+            time: "15:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/kompetisi-nasional-memasuki-fase-penentuan.jpg",
+            caption: "Ilustrasi Kompetisi Nasional Memasuki Fase Penentuan.",
+            content: [
+                "Persaingan sejumlah klub semakin ketat menjelang pertandingan penentuan.",
+                "Tim pelatih terus memantapkan strategi dan performa atlet menjelang laga maupun kompetisi mendatang.",
+                "Dukungan dari suporter dinilai menjadi salah satu faktor penting yang dapat meningkatkan motivasi para atlet di lapangan.",
+                "Semua pihak berharap performa yang ditunjukkan dapat membawa hasil terbaik bagi olahraga Indonesia ke depannya.",
+                "Olahraga terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "atlet-indonesia-bersiap-hadapi-kompetisi-internasional": {
+            category: "OLAHRAGA",
+            title: "Atlet Indonesia Bersiap Hadapi Kompetisi Internasional",
+            lead: "Sejumlah atlet nasional bersiap mengikuti kompetisi olahraga tingkat internasional.",
+            date: "28 Mei 2025",
+            time: "13:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/atlet-indonesia-bersiap-hadapi-kompetisi-internasional.jpg",
+            caption: "Ilustrasi Atlet Indonesia Bersiap Hadapi Kompetisi Internasional.",
+            content: [
+                "Sejumlah atlet nasional bersiap mengikuti kompetisi olahraga tingkat internasional.",
+                "Tim pelatih terus memantapkan strategi dan performa atlet menjelang laga maupun kompetisi mendatang.",
+                "Dukungan dari suporter dinilai menjadi salah satu faktor penting yang dapat meningkatkan motivasi para atlet di lapangan.",
+                "Semua pihak berharap performa yang ditunjukkan dapat membawa hasil terbaik bagi olahraga Indonesia ke depannya.",
+                "Olahraga terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "prestasi-olahraga-indonesia-terus-berkembang": {
+            category: "OLAHRAGA",
+            title: "Prestasi Olahraga Indonesia Terus Berkembang",
+            lead: "Pembinaan atlet menjadi salah satu fokus untuk meningkatkan prestasi olahraga nasional.",
+            date: "28 Mei 2025",
+            time: "09:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/prestasi-olahraga-indonesia-terus-berkembang.jpg",
+            caption: "Ilustrasi Prestasi Olahraga Indonesia Terus Berkembang.",
+            content: [
+                "Pembinaan atlet menjadi salah satu fokus untuk meningkatkan prestasi olahraga nasional.",
+                "Tim pelatih terus memantapkan strategi dan performa atlet menjelang laga maupun kompetisi mendatang.",
+                "Dukungan dari suporter dinilai menjadi salah satu faktor penting yang dapat meningkatkan motivasi para atlet di lapangan.",
+                "Semua pihak berharap performa yang ditunjukkan dapat membawa hasil terbaik bagi olahraga Indonesia ke depannya.",
+                "Olahraga terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "perkembangan-kecerdasan-buatan-semakin-pesat": {
+            category: "TEKNOLOGI",
+            title: "Perkembangan Kecerdasan Buatan Semakin Pesat",
+            lead: "Teknologi kecerdasan buatan terus berkembang dan mulai digunakan dalam berbagai sektor kehidupan.",
+            date: "30 Mei 2025",
+            time: "11:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/perkembangan-kecerdasan-buatan-semakin-pesat.jpg",
+            caption: "Ilustrasi Perkembangan Kecerdasan Buatan Semakin Pesat.",
+            content: [
+                "Teknologi kecerdasan buatan terus berkembang dan mulai digunakan dalam berbagai sektor kehidupan.",
+                "Perkembangan ini dinilai dapat membawa dampak signifikan terhadap cara masyarakat mengakses dan memanfaatkan teknologi sehari-hari.",
+                "Sejumlah pelaku industri menilai inovasi tersebut berpotensi mendorong efisiensi sekaligus membuka peluang baru di berbagai sektor.",
+                "Ke depan, adopsi teknologi ini diperkirakan akan terus berkembang seiring meningkatnya kebutuhan masyarakat akan solusi digital.",
+                "Teknologi terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "ai-mulai-mengubah-cara-masyarakat-bekerja": {
+            category: "TEKNOLOGI",
+            title: "AI Mulai Mengubah Cara Masyarakat Bekerja",
+            lead: "Penggunaan AI semakin luas dan mulai mengubah berbagai proses pekerjaan.",
+            date: "29 Mei 2025",
+            time: "16:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/ai-mulai-mengubah-cara-masyarakat-bekerja.jpg",
+            caption: "Ilustrasi AI Mulai Mengubah Cara Masyarakat Bekerja.",
+            content: [
+                "Penggunaan AI semakin luas dan mulai mengubah berbagai proses pekerjaan.",
+                "Perkembangan ini dinilai dapat membawa dampak signifikan terhadap cara masyarakat mengakses dan memanfaatkan teknologi sehari-hari.",
+                "Sejumlah pelaku industri menilai inovasi tersebut berpotensi mendorong efisiensi sekaligus membuka peluang baru di berbagai sektor.",
+                "Ke depan, adopsi teknologi ini diperkirakan akan terus berkembang seiring meningkatnya kebutuhan masyarakat akan solusi digital.",
+                "Teknologi terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "keamanan-data-menjadi-perhatian-utama": {
+            category: "TEKNOLOGI",
+            title: "Keamanan Data Menjadi Perhatian Utama",
+            lead: "Perlindungan data pribadi semakin penting di tengah meningkatnya aktivitas digital.",
+            date: "29 Mei 2025",
+            time: "14:15 WIB",
+            author: "MAB-News",
+            image: "assets/images/keamanan-data-menjadi-perhatian-utama.jpg",
+            caption: "Ilustrasi Keamanan Data Menjadi Perhatian Utama.",
+            content: [
+                "Perlindungan data pribadi semakin penting di tengah meningkatnya aktivitas digital.",
+                "Perkembangan ini dinilai dapat membawa dampak signifikan terhadap cara masyarakat mengakses dan memanfaatkan teknologi sehari-hari.",
+                "Sejumlah pelaku industri menilai inovasi tersebut berpotensi mendorong efisiensi sekaligus membuka peluang baru di berbagai sektor.",
+                "Ke depan, adopsi teknologi ini diperkirakan akan terus berkembang seiring meningkatnya kebutuhan masyarakat akan solusi digital.",
+                "Teknologi terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "startup-indonesia-terus-mengembangkan-inovasi": {
+            category: "TEKNOLOGI",
+            title: "Startup Indonesia Terus Mengembangkan Inovasi",
+            lead: "Ekosistem startup nasional terus berkembang dengan hadirnya berbagai inovasi baru.",
+            date: "28 Mei 2025",
+            time: "17:40 WIB",
+            author: "MAB-News",
+            image: "assets/images/startup-indonesia-terus-mengembangkan-inovasi.jpg",
+            caption: "Ilustrasi Startup Indonesia Terus Mengembangkan Inovasi.",
+            content: [
+                "Ekosistem startup nasional terus berkembang dengan hadirnya berbagai inovasi baru.",
+                "Perkembangan ini dinilai dapat membawa dampak signifikan terhadap cara masyarakat mengakses dan memanfaatkan teknologi sehari-hari.",
+                "Sejumlah pelaku industri menilai inovasi tersebut berpotensi mendorong efisiensi sekaligus membuka peluang baru di berbagai sektor.",
+                "Ke depan, adopsi teknologi ini diperkirakan akan terus berkembang seiring meningkatnya kebutuhan masyarakat akan solusi digital.",
+                "Teknologi terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "transformasi-digital-terus-berlanjut": {
+            category: "TEKNOLOGI",
+            title: "Transformasi Digital Terus Berlanjut",
+            lead: "Transformasi digital menjadi bagian penting dari perkembangan berbagai sektor.",
+            date: "28 Mei 2025",
+            time: "10:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/transformasi-digital-terus-berlanjut.jpg",
+            caption: "Ilustrasi Transformasi Digital Terus Berlanjut.",
+            content: [
+                "Transformasi digital menjadi bagian penting dari perkembangan berbagai sektor.",
+                "Perkembangan ini dinilai dapat membawa dampak signifikan terhadap cara masyarakat mengakses dan memanfaatkan teknologi sehari-hari.",
+                "Sejumlah pelaku industri menilai inovasi tersebut berpotensi mendorong efisiensi sekaligus membuka peluang baru di berbagai sektor.",
+                "Ke depan, adopsi teknologi ini diperkirakan akan terus berkembang seiring meningkatnya kebutuhan masyarakat akan solusi digital.",
+                "Teknologi terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "industri-kendaraan-listrik-indonesia-terus-berkembang": {
+            category: "OTOMOTIF",
+            title: "Industri Kendaraan Listrik Indonesia Terus Berkembang",
+            lead: "Industri kendaraan listrik terus menunjukkan perkembangan seiring meningkatnya minat masyarakat.",
+            date: "30 Mei 2025",
+            time: "09:45 WIB",
+            author: "MAB-News",
+            image: "assets/images/industri-kendaraan-listrik-indonesia-terus-berkembang.jpg",
+            caption: "Ilustrasi Industri Kendaraan Listrik Indonesia Terus Berkembang.",
+            content: [
+                "Industri kendaraan listrik terus menunjukkan perkembangan seiring meningkatnya minat masyarakat.",
+                "Produsen menyebut perkembangan ini sebagai bagian dari upaya menghadirkan produk yang sesuai dengan kebutuhan pasar saat ini.",
+                "Konsumen dinilai semakin selektif dalam memilih kendaraan, terutama yang menawarkan efisiensi dan teknologi terkini.",
+                "Ke depan, industri otomotif nasional diperkirakan masih akan terus bertumbuh seiring meningkatnya permintaan pasar.",
+                "Otomotif terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "produsen-otomotif-siapkan-model-kendaraan-baru": {
+            category: "OTOMOTIF",
+            title: "Produsen Otomotif Siapkan Model Kendaraan Baru",
+            lead: "Sejumlah produsen otomotif menyiapkan model kendaraan baru untuk pasar Indonesia.",
+            date: "29 Mei 2025",
+            time: "17:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/produsen-otomotif-siapkan-model-kendaraan-baru.jpg",
+            caption: "Ilustrasi Produsen Otomotif Siapkan Model Kendaraan Baru.",
+            content: [
+                "Sejumlah produsen otomotif menyiapkan model kendaraan baru untuk pasar Indonesia.",
+                "Produsen menyebut perkembangan ini sebagai bagian dari upaya menghadirkan produk yang sesuai dengan kebutuhan pasar saat ini.",
+                "Konsumen dinilai semakin selektif dalam memilih kendaraan, terutama yang menawarkan efisiensi dan teknologi terkini.",
+                "Ke depan, industri otomotif nasional diperkirakan masih akan terus bertumbuh seiring meningkatnya permintaan pasar.",
+                "Otomotif terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "teknologi-kendaraan-semakin-canggih": {
+            category: "OTOMOTIF",
+            title: "Teknologi Kendaraan Semakin Canggih",
+            lead: "Berbagai teknologi baru mulai diterapkan pada kendaraan modern.",
+            date: "29 Mei 2025",
+            time: "13:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/teknologi-kendaraan-semakin-canggih.jpg",
+            caption: "Ilustrasi Teknologi Kendaraan Semakin Canggih.",
+            content: [
+                "Berbagai teknologi baru mulai diterapkan pada kendaraan modern.",
+                "Produsen menyebut perkembangan ini sebagai bagian dari upaya menghadirkan produk yang sesuai dengan kebutuhan pasar saat ini.",
+                "Konsumen dinilai semakin selektif dalam memilih kendaraan, terutama yang menawarkan efisiensi dan teknologi terkini.",
+                "Ke depan, industri otomotif nasional diperkirakan masih akan terus bertumbuh seiring meningkatnya permintaan pasar.",
+                "Otomotif terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "penjualan-kendaraan-mulai-menguat": {
+            category: "OTOMOTIF",
+            title: "Penjualan Kendaraan Mulai Menguat",
+            lead: "Pasar otomotif menunjukkan tanda-tanda penguatan setelah periode sebelumnya.",
+            date: "28 Mei 2025",
+            time: "15:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/penjualan-kendaraan-mulai-menguat.jpg",
+            caption: "Ilustrasi Penjualan Kendaraan Mulai Menguat.",
+            content: [
+                "Pasar otomotif menunjukkan tanda-tanda penguatan setelah periode sebelumnya.",
+                "Produsen menyebut perkembangan ini sebagai bagian dari upaya menghadirkan produk yang sesuai dengan kebutuhan pasar saat ini.",
+                "Konsumen dinilai semakin selektif dalam memilih kendaraan, terutama yang menawarkan efisiensi dan teknologi terkini.",
+                "Ke depan, industri otomotif nasional diperkirakan masih akan terus bertumbuh seiring meningkatnya permintaan pasar.",
+                "Otomotif terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "kendaraan-ramah-lingkungan-jadi-tren-baru": {
+            category: "OTOMOTIF",
+            title: "Kendaraan Ramah Lingkungan Jadi Tren Baru",
+            lead: "Kesadaran terhadap lingkungan mendorong perkembangan kendaraan ramah lingkungan.",
+            date: "28 Mei 2025",
+            time: "09:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/kendaraan-ramah-lingkungan-jadi-tren-baru.jpg",
+            caption: "Ilustrasi Kendaraan Ramah Lingkungan Jadi Tren Baru.",
+            content: [
+                "Kesadaran terhadap lingkungan mendorong perkembangan kendaraan ramah lingkungan.",
+                "Produsen menyebut perkembangan ini sebagai bagian dari upaya menghadirkan produk yang sesuai dengan kebutuhan pasar saat ini.",
+                "Konsumen dinilai semakin selektif dalam memilih kendaraan, terutama yang menawarkan efisiensi dan teknologi terkini.",
+                "Ke depan, industri otomotif nasional diperkirakan masih akan terus bertumbuh seiring meningkatnya permintaan pasar.",
+                "Otomotif terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "tren-gaya-hidup-digital-semakin-berkembang": {
+            category: "GAYA HIDUP",
+            title: "Tren Gaya Hidup Digital Semakin Berkembang",
+            lead: "Perkembangan teknologi turut memengaruhi berbagai kebiasaan dan gaya hidup masyarakat.",
+            date: "30 Mei 2025",
+            time: "10:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/tren-gaya-hidup-digital-semakin-berkembang.jpg",
+            caption: "Ilustrasi Tren Gaya Hidup Digital Semakin Berkembang.",
+            content: [
+                "Perkembangan teknologi turut memengaruhi berbagai kebiasaan dan gaya hidup masyarakat.",
+                "Tren ini dinilai mencerminkan perubahan gaya hidup masyarakat yang semakin dinamis di tengah perkembangan zaman.",
+                "Sejumlah kalangan menilai perkembangan ini turut membuka peluang baru bagi pelaku usaha di sektor terkait.",
+                "Fenomena ini diperkirakan akan terus berkembang seiring meningkatnya minat masyarakat terhadap gaya hidup baru tersebut.",
+                "Gaya Hidup terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "destinasi-wisata-favorit-mulai-ramai-dikunjungi": {
+            category: "GAYA HIDUP",
+            title: "Destinasi Wisata Favorit Mulai Ramai Dikunjungi",
+            lead: "Sejumlah destinasi wisata kembali menjadi pilihan masyarakat untuk menghabiskan waktu liburan.",
+            date: "29 Mei 2025",
+            time: "16:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/destinasi-wisata-favorit-mulai-ramai-dikunjungi.jpg",
+            caption: "Ilustrasi Destinasi Wisata Favorit Mulai Ramai Dikunjungi.",
+            content: [
+                "Sejumlah destinasi wisata kembali menjadi pilihan masyarakat untuk menghabiskan waktu liburan.",
+                "Tren ini dinilai mencerminkan perubahan gaya hidup masyarakat yang semakin dinamis di tengah perkembangan zaman.",
+                "Sejumlah kalangan menilai perkembangan ini turut membuka peluang baru bagi pelaku usaha di sektor terkait.",
+                "Fenomena ini diperkirakan akan terus berkembang seiring meningkatnya minat masyarakat terhadap gaya hidup baru tersebut.",
+                "Gaya Hidup terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "tren-kuliner-baru-menarik-perhatian-masyarakat": {
+            category: "GAYA HIDUP",
+            title: "Tren Kuliner Baru Menarik Perhatian Masyarakat",
+            lead: "Berbagai inovasi kuliner terus bermunculan dan menjadi tren baru.",
+            date: "29 Mei 2025",
+            time: "12:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/tren-kuliner-baru-menarik-perhatian-masyarakat.jpg",
+            caption: "Ilustrasi Tren Kuliner Baru Menarik Perhatian Masyarakat.",
+            content: [
+                "Berbagai inovasi kuliner terus bermunculan dan menjadi tren baru.",
+                "Tren ini dinilai mencerminkan perubahan gaya hidup masyarakat yang semakin dinamis di tengah perkembangan zaman.",
+                "Sejumlah kalangan menilai perkembangan ini turut membuka peluang baru bagi pelaku usaha di sektor terkait.",
+                "Fenomena ini diperkirakan akan terus berkembang seiring meningkatnya minat masyarakat terhadap gaya hidup baru tersebut.",
+                "Gaya Hidup terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "masyarakat-semakin-memperhatikan-pola-hidup-seimbang": {
+            category: "GAYA HIDUP",
+            title: "Masyarakat Semakin Memperhatikan Pola Hidup Seimbang",
+            lead: "Kesadaran masyarakat terhadap pola hidup yang lebih seimbang terus meningkat.",
+            date: "28 Mei 2025",
+            time: "15:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/masyarakat-semakin-memperhatikan-pola-hidup-seimbang.jpg",
+            caption: "Ilustrasi Masyarakat Semakin Memperhatikan Pola Hidup Seimbang.",
+            content: [
+                "Kesadaran masyarakat terhadap pola hidup yang lebih seimbang terus meningkat.",
+                "Tren ini dinilai mencerminkan perubahan gaya hidup masyarakat yang semakin dinamis di tengah perkembangan zaman.",
+                "Sejumlah kalangan menilai perkembangan ini turut membuka peluang baru bagi pelaku usaha di sektor terkait.",
+                "Fenomena ini diperkirakan akan terus berkembang seiring meningkatnya minat masyarakat terhadap gaya hidup baru tersebut.",
+                "Gaya Hidup terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "tren-baru-di-kalangan-generasi-muda": {
+            category: "GAYA HIDUP",
+            title: "Tren Baru di Kalangan Generasi Muda",
+            lead: "Berbagai tren baru berkembang seiring perubahan kebiasaan generasi muda.",
+            date: "28 Mei 2025",
+            time: "09:15 WIB",
+            author: "MAB-News",
+            image: "assets/images/tren-baru-di-kalangan-generasi-muda.jpg",
+            caption: "Ilustrasi Tren Baru di Kalangan Generasi Muda.",
+            content: [
+                "Berbagai tren baru berkembang seiring perubahan kebiasaan generasi muda.",
+                "Tren ini dinilai mencerminkan perubahan gaya hidup masyarakat yang semakin dinamis di tengah perkembangan zaman.",
+                "Sejumlah kalangan menilai perkembangan ini turut membuka peluang baru bagi pelaku usaha di sektor terkait.",
+                "Fenomena ini diperkirakan akan terus berkembang seiring meningkatnya minat masyarakat terhadap gaya hidup baru tersebut.",
+                "Gaya Hidup terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "seniman-indonesia-hadirkan-karya-baru": {
+            category: "SENI",
+            title: "Seniman Indonesia Hadirkan Karya Baru",
+            lead: "Sejumlah seniman Indonesia menghadirkan karya baru yang mengangkat berbagai isu sosial dan budaya.",
+            date: "30 Mei 2025",
+            time: "11:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/seniman-indonesia-hadirkan-karya-baru.jpg",
+            caption: "Ilustrasi Seniman Indonesia Hadirkan Karya Baru.",
+            content: [
+                "Sejumlah seniman Indonesia menghadirkan karya baru yang mengangkat berbagai isu sosial dan budaya.",
+                "Karya ini mendapat apresiasi positif dari berbagai kalangan karena dinilai menghadirkan perspektif baru yang segar.",
+                "Para pelaku seni menilai perkembangan ini dapat menjadi ruang baru bagi eksplorasi kreativitas di tanah air.",
+                "Dukungan terhadap perkembangan seni dan budaya nasional diharapkan terus tumbuh dari berbagai pihak ke depannya.",
+                "Seni terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "festival-seni-dan-budaya-digelar-di-jakarta": {
+            category: "SENI",
+            title: "Festival Seni dan Budaya Digelar di Jakarta",
+            lead: "Festival seni dan budaya menghadirkan berbagai pertunjukan dari seniman lokal.",
+            date: "29 Mei 2025",
+            time: "18:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/festival-seni-dan-budaya-digelar-di-jakarta.jpg",
+            caption: "Ilustrasi Festival Seni dan Budaya Digelar di Jakarta.",
+            content: [
+                "Festival seni dan budaya menghadirkan berbagai pertunjukan dari seniman lokal.",
+                "Karya ini mendapat apresiasi positif dari berbagai kalangan karena dinilai menghadirkan perspektif baru yang segar.",
+                "Para pelaku seni menilai perkembangan ini dapat menjadi ruang baru bagi eksplorasi kreativitas di tanah air.",
+                "Dukungan terhadap perkembangan seni dan budaya nasional diharapkan terus tumbuh dari berbagai pihak ke depannya.",
+                "Seni terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "musik-indonesia-terus-berkembang": {
+            category: "SENI",
+            title: "Musik Indonesia Terus Berkembang",
+            lead: "Industri musik Indonesia terus melahirkan musisi dan karya baru.",
+            date: "29 Mei 2025",
+            time: "14:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/musik-indonesia-terus-berkembang.jpg",
+            caption: "Ilustrasi Musik Indonesia Terus Berkembang.",
+            content: [
+                "Industri musik Indonesia terus melahirkan musisi dan karya baru.",
+                "Karya ini mendapat apresiasi positif dari berbagai kalangan karena dinilai menghadirkan perspektif baru yang segar.",
+                "Para pelaku seni menilai perkembangan ini dapat menjadi ruang baru bagi eksplorasi kreativitas di tanah air.",
+                "Dukungan terhadap perkembangan seni dan budaya nasional diharapkan terus tumbuh dari berbagai pihak ke depannya.",
+                "Seni terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "film-nasional-mendapat-perhatian-positif": {
+            category: "SENI",
+            title: "Film Nasional Mendapat Perhatian Positif",
+            lead: "Perkembangan perfilman nasional menunjukkan pertumbuhan dan kreativitas yang semakin beragam.",
+            date: "28 Mei 2025",
+            time: "16:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/film-nasional-mendapat-perhatian-positif.jpg",
+            caption: "Ilustrasi Film Nasional Mendapat Perhatian Positif.",
+            content: [
+                "Perkembangan perfilman nasional menunjukkan pertumbuhan dan kreativitas yang semakin beragam.",
+                "Karya ini mendapat apresiasi positif dari berbagai kalangan karena dinilai menghadirkan perspektif baru yang segar.",
+                "Para pelaku seni menilai perkembangan ini dapat menjadi ruang baru bagi eksplorasi kreativitas di tanah air.",
+                "Dukungan terhadap perkembangan seni dan budaya nasional diharapkan terus tumbuh dari berbagai pihak ke depannya.",
+                "Seni terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "generasi-muda-dorong-kreativitas-seni-digital": {
+            category: "SENI",
+            title: "Generasi Muda Dorong Kreativitas Seni Digital",
+            lead: "Teknologi digital membuka ruang baru bagi generasi muda untuk berkarya.",
+            date: "28 Mei 2025",
+            time: "10:15 WIB",
+            author: "MAB-News",
+            image: "assets/images/generasi-muda-dorong-kreativitas-seni-digital.jpg",
+            caption: "Ilustrasi Generasi Muda Dorong Kreativitas Seni Digital.",
+            content: [
+                "Teknologi digital membuka ruang baru bagi generasi muda untuk berkarya.",
+                "Karya ini mendapat apresiasi positif dari berbagai kalangan karena dinilai menghadirkan perspektif baru yang segar.",
+                "Para pelaku seni menilai perkembangan ini dapat menjadi ruang baru bagi eksplorasi kreativitas di tanah air.",
+                "Dukungan terhadap perkembangan seni dan budaya nasional diharapkan terus tumbuh dari berbagai pihak ke depannya.",
+                "Seni terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "membaca-arah-perubahan-indonesia-di-era-digital": {
+            category: "KOLOM",
+            title: "Membaca Arah Perubahan Indonesia di Era Digital",
+            lead: "Transformasi digital membawa perubahan besar terhadap kehidupan masyarakat dan tata kelola pemerintahan.",
+            date: "30 Mei 2025",
+            time: "08:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/membaca-arah-perubahan-indonesia-di-era-digital.jpg",
+            caption: "Ilustrasi Membaca Arah Perubahan Indonesia di Era Digital.",
+            content: [
+                "Transformasi digital membawa perubahan besar terhadap kehidupan masyarakat dan tata kelola pemerintahan.",
+                "Perspektif ini penting untuk dicermati mengingat dampaknya yang dapat memengaruhi arah kebijakan maupun pandangan publik.",
+                "Berbagai sudut pandang perlu dipertimbangkan agar pembahasan suatu isu dapat dipahami secara lebih utuh dan berimbang.",
+                "Diskusi mengenai topik ini diharapkan dapat terus berkembang guna memperkaya wawasan masyarakat secara luas.",
+                "Kolom terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "mengapa-transformasi-digital-menjadi-penting": {
+            category: "KOLOM",
+            title: "Mengapa Transformasi Digital Menjadi Penting?",
+            lead: "Digitalisasi bukan hanya persoalan teknologi, tetapi juga perubahan cara berpikir dan bekerja.",
+            date: "29 Mei 2025",
+            time: "15:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/mengapa-transformasi-digital-menjadi-penting.jpg",
+            caption: "Ilustrasi Mengapa Transformasi Digital Menjadi Penting?.",
+            content: [
+                "Digitalisasi bukan hanya persoalan teknologi, tetapi juga perubahan cara berpikir dan bekerja.",
+                "Perspektif ini penting untuk dicermati mengingat dampaknya yang dapat memengaruhi arah kebijakan maupun pandangan publik.",
+                "Berbagai sudut pandang perlu dipertimbangkan agar pembahasan suatu isu dapat dipahami secara lebih utuh dan berimbang.",
+                "Diskusi mengenai topik ini diharapkan dapat terus berkembang guna memperkaya wawasan masyarakat secara luas.",
+                "Kolom terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "tantangan-indonesia-menghadapi-ekonomi-global": {
+            category: "KOLOM",
+            title: "Tantangan Indonesia Menghadapi Ekonomi Global",
+            lead: "Perubahan ekonomi dunia menuntut Indonesia untuk memperkuat daya saing nasional.",
+            date: "29 Mei 2025",
+            time: "11:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/tantangan-indonesia-menghadapi-ekonomi-global.jpg",
+            caption: "Ilustrasi Tantangan Indonesia Menghadapi Ekonomi Global.",
+            content: [
+                "Perubahan ekonomi dunia menuntut Indonesia untuk memperkuat daya saing nasional.",
+                "Perspektif ini penting untuk dicermati mengingat dampaknya yang dapat memengaruhi arah kebijakan maupun pandangan publik.",
+                "Berbagai sudut pandang perlu dipertimbangkan agar pembahasan suatu isu dapat dipahami secara lebih utuh dan berimbang.",
+                "Diskusi mengenai topik ini diharapkan dapat terus berkembang guna memperkaya wawasan masyarakat secara luas.",
+                "Kolom terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "membangun-masyarakat-yang-melek-informasi": {
+            category: "KOLOM",
+            title: "Membangun Masyarakat yang Melek Informasi",
+            lead: "Kemampuan memahami informasi menjadi semakin penting di tengah derasnya arus informasi digital.",
+            date: "28 Mei 2025",
+            time: "17:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/membangun-masyarakat-yang-melek-informasi.jpg",
+            caption: "Ilustrasi Membangun Masyarakat yang Melek Informasi.",
+            content: [
+                "Kemampuan memahami informasi menjadi semakin penting di tengah derasnya arus informasi digital.",
+                "Perspektif ini penting untuk dicermati mengingat dampaknya yang dapat memengaruhi arah kebijakan maupun pandangan publik.",
+                "Berbagai sudut pandang perlu dipertimbangkan agar pembahasan suatu isu dapat dipahami secara lebih utuh dan berimbang.",
+                "Diskusi mengenai topik ini diharapkan dapat terus berkembang guna memperkaya wawasan masyarakat secara luas.",
+                "Kolom terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "masa-depan-media-di-era-kecerdasan-buatan": {
+            category: "KOLOM",
+            title: "Masa Depan Media di Era Kecerdasan Buatan",
+            lead: "AI membawa peluang sekaligus tantangan baru bagi industri media.",
+            date: "28 Mei 2025",
+            time: "09:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/masa-depan-media-di-era-kecerdasan-buatan.jpg",
+            caption: "Ilustrasi Masa Depan Media di Era Kecerdasan Buatan.",
+            content: [
+                "AI membawa peluang sekaligus tantangan baru bagi industri media.",
+                "Perspektif ini penting untuk dicermati mengingat dampaknya yang dapat memengaruhi arah kebijakan maupun pandangan publik.",
+                "Berbagai sudut pandang perlu dipertimbangkan agar pembahasan suatu isu dapat dipahami secara lebih utuh dan berimbang.",
+                "Diskusi mengenai topik ini diharapkan dapat terus berkembang guna memperkaya wawasan masyarakat secara luas.",
+                "Kolom terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "berita-terkini-mab-news-hari-ini": {
+            category: "INDEKS",
+            title: "Berita Terkini MAB-News Hari Ini",
+            lead: "Kumpulan berita terbaru dan informasi penting yang dirangkum oleh redaksi MAB-News.",
+            date: "30 Mei 2025",
+            time: "10:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/berita-terkini-mab-news-hari-ini.jpg",
+            caption: "Ilustrasi Berita Terkini MAB-News Hari Ini.",
+            content: [
+                "Kumpulan berita terbaru dan informasi penting yang dirangkum oleh redaksi MAB-News.",
+                "Rangkuman ini menghadirkan berbagai perkembangan terkini yang perlu diketahui pembaca dari berbagai bidang.",
+                "MAB-News berupaya menghadirkan informasi yang akurat dan mudah dipahami bagi seluruh pembaca.",
+                "Pembaca dapat terus mengikuti perkembangan berita terbaru melalui kanal resmi MAB-News.",
+                "Indeks terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "berita-nasional-terbaru": {
+            category: "INDEKS",
+            title: "Berita Nasional Terbaru",
+            lead: "Informasi terbaru dari berbagai wilayah Indonesia.",
+            date: "29 Mei 2025",
+            time: "18:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/berita-nasional-terbaru.jpg",
+            caption: "Ilustrasi Berita Nasional Terbaru.",
+            content: [
+                "Informasi terbaru dari berbagai wilayah Indonesia.",
+                "Rangkuman ini menghadirkan berbagai perkembangan terkini yang perlu diketahui pembaca dari berbagai bidang.",
+                "MAB-News berupaya menghadirkan informasi yang akurat dan mudah dipahami bagi seluruh pembaca.",
+                "Pembaca dapat terus mengikuti perkembangan berita terbaru melalui kanal resmi MAB-News.",
+                "Indeks terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "berita-ekonomi-terbaru": {
+            category: "INDEKS",
+            title: "Berita Ekonomi Terbaru",
+            lead: "Informasi terbaru mengenai ekonomi dan bisnis.",
+            date: "29 Mei 2025",
+            time: "16:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/berita-ekonomi-terbaru.jpg",
+            caption: "Ilustrasi Berita Ekonomi Terbaru.",
+            content: [
+                "Informasi terbaru mengenai ekonomi dan bisnis.",
+                "Rangkuman ini menghadirkan berbagai perkembangan terkini yang perlu diketahui pembaca dari berbagai bidang.",
+                "MAB-News berupaya menghadirkan informasi yang akurat dan mudah dipahami bagi seluruh pembaca.",
+                "Pembaca dapat terus mengikuti perkembangan berita terbaru melalui kanal resmi MAB-News.",
+                "Indeks terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "berita-teknologi-terbaru": {
+            category: "INDEKS",
+            title: "Berita Teknologi Terbaru",
+            lead: "Perkembangan teknologi dan inovasi terbaru.",
+            date: "29 Mei 2025",
+            time: "14:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/berita-teknologi-terbaru.jpg",
+            caption: "Ilustrasi Berita Teknologi Terbaru.",
+            content: [
+                "Perkembangan teknologi dan inovasi terbaru.",
+                "Rangkuman ini menghadirkan berbagai perkembangan terkini yang perlu diketahui pembaca dari berbagai bidang.",
+                "MAB-News berupaya menghadirkan informasi yang akurat dan mudah dipahami bagi seluruh pembaca.",
+                "Pembaca dapat terus mengikuti perkembangan berita terbaru melalui kanal resmi MAB-News.",
+                "Indeks terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "berita-dunia-terbaru": {
+            category: "INDEKS",
+            title: "Berita Dunia Terbaru",
+            lead: "Peristiwa penting yang terjadi di berbagai belahan dunia.",
+            date: "29 Mei 2025",
+            time: "12:00 WIB",
+            author: "MAB-News",
+            image: "assets/images/berita-dunia-terbaru.jpg",
+            caption: "Ilustrasi Berita Dunia Terbaru.",
+            content: [
+                "Peristiwa penting yang terjadi di berbagai belahan dunia.",
+                "Rangkuman ini menghadirkan berbagai perkembangan terkini yang perlu diketahui pembaca dari berbagai bidang.",
+                "MAB-News berupaya menghadirkan informasi yang akurat dan mudah dipahami bagi seluruh pembaca.",
+                "Pembaca dapat terus mengikuti perkembangan berita terbaru melalui kanal resmi MAB-News.",
+                "Indeks terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "momen-penting-peristiwa-nasional-dalam-foto": {
+            category: "FOTO",
+            title: "Momen Penting Peristiwa Nasional dalam Foto",
+            lead: "Kumpulan foto yang merekam berbagai peristiwa penting di Indonesia.",
+            date: "30 Mei 2025",
+            time: "10:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/momen-penting-peristiwa-nasional-dalam-foto.jpg",
+            caption: "Ilustrasi Momen Penting Peristiwa Nasional dalam Foto.",
+            content: [
+                "Kumpulan foto yang merekam berbagai peristiwa penting di Indonesia.",
+                "Momen ini diabadikan untuk memberikan gambaran nyata mengenai perkembangan yang terjadi di lapangan.",
+                "Melalui rangkaian foto ini, pembaca diharapkan dapat lebih memahami konteks dari peristiwa yang berlangsung.",
+                "MAB-News akan terus menghadirkan dokumentasi visual dari berbagai peristiwa penting di tanah air.",
+                "Foto terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "aktivitas-masyarakat-dalam-lensa-fotografer": {
+            category: "FOTO",
+            title: "Aktivitas Masyarakat dalam Lensa Fotografer",
+            lead: "Berbagai aktivitas masyarakat terekam dalam foto jurnalistik.",
+            date: "29 Mei 2025",
+            time: "16:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/aktivitas-masyarakat-dalam-lensa-fotografer.jpg",
+            caption: "Ilustrasi Aktivitas Masyarakat dalam Lensa Fotografer.",
+            content: [
+                "Berbagai aktivitas masyarakat terekam dalam foto jurnalistik.",
+                "Momen ini diabadikan untuk memberikan gambaran nyata mengenai perkembangan yang terjadi di lapangan.",
+                "Melalui rangkaian foto ini, pembaca diharapkan dapat lebih memahami konteks dari peristiwa yang berlangsung.",
+                "MAB-News akan terus menghadirkan dokumentasi visual dari berbagai peristiwa penting di tanah air.",
+                "Foto terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "potret-perkembangan-kota-indonesia": {
+            category: "FOTO",
+            title: "Potret Perkembangan Kota Indonesia",
+            lead: "Perkembangan kota dan aktivitas masyarakat dalam rangkaian foto.",
+            date: "29 Mei 2025",
+            time: "13:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/potret-perkembangan-kota-indonesia.jpg",
+            caption: "Ilustrasi Potret Perkembangan Kota Indonesia.",
+            content: [
+                "Perkembangan kota dan aktivitas masyarakat dalam rangkaian foto.",
+                "Momen ini diabadikan untuk memberikan gambaran nyata mengenai perkembangan yang terjadi di lapangan.",
+                "Melalui rangkaian foto ini, pembaca diharapkan dapat lebih memahami konteks dari peristiwa yang berlangsung.",
+                "MAB-News akan terus menghadirkan dokumentasi visual dari berbagai peristiwa penting di tanah air.",
+                "Foto terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "peristiwa-hari-ini-dalam-foto": {
+            category: "FOTO",
+            title: "Peristiwa Hari Ini dalam Foto",
+            lead: "Momen penting hari ini yang berhasil diabadikan fotografer.",
+            date: "28 Mei 2025",
+            time: "17:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/peristiwa-hari-ini-dalam-foto.jpg",
+            caption: "Ilustrasi Peristiwa Hari Ini dalam Foto.",
+            content: [
+                "Momen penting hari ini yang berhasil diabadikan fotografer.",
+                "Momen ini diabadikan untuk memberikan gambaran nyata mengenai perkembangan yang terjadi di lapangan.",
+                "Melalui rangkaian foto ini, pembaca diharapkan dapat lebih memahami konteks dari peristiwa yang berlangsung.",
+                "MAB-News akan terus menghadirkan dokumentasi visual dari berbagai peristiwa penting di tanah air.",
+                "Foto terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "indonesia-dalam-bingkai-fotografi": {
+            category: "FOTO",
+            title: "Indonesia dalam Bingkai Fotografi",
+            lead: "Berbagai sisi kehidupan Indonesia melalui karya fotografi jurnalistik.",
+            date: "28 Mei 2025",
+            time: "11:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/indonesia-dalam-bingkai-fotografi.jpg",
+            caption: "Ilustrasi Indonesia dalam Bingkai Fotografi.",
+            content: [
+                "Berbagai sisi kehidupan Indonesia melalui karya fotografi jurnalistik.",
+                "Momen ini diabadikan untuk memberikan gambaran nyata mengenai perkembangan yang terjadi di lapangan.",
+                "Melalui rangkaian foto ini, pembaca diharapkan dapat lebih memahami konteks dari peristiwa yang berlangsung.",
+                "MAB-News akan terus menghadirkan dokumentasi visual dari berbagai peristiwa penting di tanah air.",
+                "Foto terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "video-perkembangan-transformasi-digital-indonesia": {
+            category: "VIDEO",
+            title: "Video: Perkembangan Transformasi Digital Indonesia",
+            lead: "Laporan video mengenai perkembangan transformasi digital di Indonesia.",
+            date: "30 Mei 2025",
+            time: "10:30 WIB",
+            author: "MAB-News",
+            image: "assets/images/video-perkembangan-transformasi-digital-indonesia.jpg",
+            caption: "Ilustrasi Video: Perkembangan Transformasi Digital Indonesia.",
+            content: [
+                "Laporan video mengenai perkembangan transformasi digital di Indonesia.",
+                "Liputan ini menghadirkan gambaran menyeluruh mengenai perkembangan terkini melalui format visual yang lebih mudah dipahami.",
+                "Melalui tayangan ini, pembaca dan pemirsa dapat mengikuti perkembangan secara lebih interaktif.",
+                "MAB-News akan terus menghadirkan liputan video dari berbagai peristiwa penting bagi pemirsa di tanah air.",
+                "Video terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "video-berita-nasional-hari-ini": {
+            category: "VIDEO",
+            title: "Video: Berita Nasional Hari Ini",
+            lead: "Rangkuman berita nasional terbaru dalam format video.",
+            date: "29 Mei 2025",
+            time: "18:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/video-berita-nasional-hari-ini.jpg",
+            caption: "Ilustrasi Video: Berita Nasional Hari Ini.",
+            content: [
+                "Rangkuman berita nasional terbaru dalam format video.",
+                "Liputan ini menghadirkan gambaran menyeluruh mengenai perkembangan terkini melalui format visual yang lebih mudah dipahami.",
+                "Melalui tayangan ini, pembaca dan pemirsa dapat mengikuti perkembangan secara lebih interaktif.",
+                "MAB-News akan terus menghadirkan liputan video dari berbagai peristiwa penting bagi pemirsa di tanah air.",
+                "Video terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "video-perkembangan-ekonomi-indonesia": {
+            category: "VIDEO",
+            title: "Video: Perkembangan Ekonomi Indonesia",
+            lead: "Informasi perkembangan ekonomi Indonesia dalam laporan video.",
+            date: "29 Mei 2025",
+            time: "15:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/video-perkembangan-ekonomi-indonesia.jpg",
+            caption: "Ilustrasi Video: Perkembangan Ekonomi Indonesia.",
+            content: [
+                "Informasi perkembangan ekonomi Indonesia dalam laporan video.",
+                "Liputan ini menghadirkan gambaran menyeluruh mengenai perkembangan terkini melalui format visual yang lebih mudah dipahami.",
+                "Melalui tayangan ini, pembaca dan pemirsa dapat mengikuti perkembangan secara lebih interaktif.",
+                "MAB-News akan terus menghadirkan liputan video dari berbagai peristiwa penting bagi pemirsa di tanah air.",
+                "Video terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "video-teknologi-dan-kecerdasan-buatan": {
+            category: "VIDEO",
+            title: "Video: Teknologi dan Kecerdasan Buatan",
+            lead: "Membahas perkembangan AI dan teknologi terbaru.",
+            date: "28 Mei 2025",
+            time: "16:20 WIB",
+            author: "MAB-News",
+            image: "assets/images/video-teknologi-dan-kecerdasan-buatan.jpg",
+            caption: "Ilustrasi Video: Teknologi dan Kecerdasan Buatan.",
+            content: [
+                "Membahas perkembangan AI dan teknologi terbaru.",
+                "Liputan ini menghadirkan gambaran menyeluruh mengenai perkembangan terkini melalui format visual yang lebih mudah dipahami.",
+                "Melalui tayangan ini, pembaca dan pemirsa dapat mengikuti perkembangan secara lebih interaktif.",
+                "MAB-News akan terus menghadirkan liputan video dari berbagai peristiwa penting bagi pemirsa di tanah air.",
+                "Video terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
+        },
+
+        "video-peristiwa-penting-pekan-ini": {
+            category: "VIDEO",
+            title: "Video: Peristiwa Penting Pekan Ini",
+            lead: "Rangkuman berbagai peristiwa penting dalam sepekan.",
+            date: "28 Mei 2025",
+            time: "10:10 WIB",
+            author: "MAB-News",
+            image: "assets/images/video-peristiwa-penting-pekan-ini.jpg",
+            caption: "Ilustrasi Video: Peristiwa Penting Pekan Ini.",
+            content: [
+                "Rangkuman berbagai peristiwa penting dalam sepekan.",
+                "Liputan ini menghadirkan gambaran menyeluruh mengenai perkembangan terkini melalui format visual yang lebih mudah dipahami.",
+                "Melalui tayangan ini, pembaca dan pemirsa dapat mengikuti perkembangan secara lebih interaktif.",
+                "MAB-News akan terus menghadirkan liputan video dari berbagai peristiwa penting bagi pemirsa di tanah air.",
+                "Video terus menjadi perhatian MAB-News dalam menghadirkan informasi terkini bagi pembaca."
+            ]
         }
 
     };
