@@ -1,35 +1,18 @@
-MAB-News CMS
-=============
+README-CMS — MAB-News
+========================
 
-README-CMS.txt adalah dokumentasi utama seluruh CMS MAB-News.
+Halaman yang ditambahkan:
+- admin/tambah-artikel.html
+- admin-css/tambah-artikel.css
+- admin-js/tambah-artikel.js
 
-MODUL ARTICLES
---------------
-Articles adalah modul khusus CMS/admin untuk mengelola konten berita.
-Ini bukan halaman artikel publik portal.
+Halaman "Tambah Artikel" ini adalah bagian dari CMS MAB-News.
+Fungsinya untuk membuat dan menyiapkan konten artikel/berita yang nantinya
+dikelola melalui CMS dan ditampilkan pada portal publik.
 
-File:
-- admin/articles.html
-- admin-css/articles.css
-- admin-js/articles.js
-
-Shared:
-- admin-css/admin.css
-- admin-js/admin.js
-
-Struktur CMS:
-- Dashboard
-- Articles
-  - All Articles
-  - Add Article
-  - Draft
-- Categories
-- Media
-- Users
-- Settings
-- More
+Desain mengikuti corak Dashboard CMS dan modul Articles.
 
 Catatan:
-Tampilan Articles menggunakan shared admin.css dan pola layout Dashboard
-agar header, sidebar, warna, typography, tombol, dark mode, dan responsive
-tetap konsisten antar halaman CMS.
+Versi ini adalah frontend/static. Tombol simpan/publikasi masih berupa simulasi
+dan belum menyimpan data ke database. Integrasi backend/API dapat ditambahkan
+pada tahap berikutnya.
