@@ -156,17 +156,11 @@ let currentHero = 0;
 
 let heroAutoSlide = null;
 
-let isDraggingHero = false;
+let isHeroInteracting = false;
 
-let touchStartX = 0;
+let heroScrollEndTimer = null;
 
-let touchStartY = 0;
-
-let currentDragX = 0;
-
-let heroMoved = false;
-
-const SWIPE_THRESHOLD = 50;
+let heroResizeTimer = null;
 
 
 /* =========================================================
@@ -273,7 +267,7 @@ function renderHero() {
 
     renderHeroDots();
 
-    setHeroPosition(false);
+    goToHero(0, false);
 
 }
 
@@ -369,82 +363,6 @@ function updateHeroDots() {
 
 
 /* =========================================================
-   HITUNG OFFSET
-   ========================================================= */
-
-function getHeroBaseOffset() {
-
-    return -(currentHero * 100);
-
-}
-
-
-/* =========================================================
-   SET POSISI HERO
-   ========================================================= */
-
-function setHeroPosition(animate = true) {
-
-    if (!heroTrack) {
-        return;
-    }
-
-
-    heroTrack.style.transition =
-        animate
-            ? "transform 0.2s cubic-bezier(.22,.61,.36,1)"
-            : "none";
-
-
-    heroTrack.style.transform =
-        `translate3d(${getHeroBaseOffset()}%, 0, 0)`;
-
-
-}
-
-
-/* =========================================================
-   POSISI SAAT DRAG
-   ========================================================= */
-
-function setHeroDragPosition(deltaX) {
-
-    if (!heroTrack) {
-        return;
-    }
-
-
-    const width =
-        heroElement
-            ? heroElement.clientWidth
-            : 1;
-
-
-    if (!width) {
-        return;
-    }
-
-
-    const deltaPercent =
-        (deltaX / width) * 100;
-
-
-    const position =
-        getHeroBaseOffset() +
-        deltaPercent;
-
-
-    heroTrack.style.transition =
-        "none";
-
-
-    heroTrack.style.transform =
-        `translate3d(${position}%, 0, 0)`;
-
-}
-
-
-/* =========================================================
    NORMALISASI INDEX
    ========================================================= */
 
@@ -475,18 +393,37 @@ function normalizeHeroIndex(index) {
 
 /* =========================================================
    PINDAH HERO
+
+   Memakai native horizontal scroll (persis seperti strip
+   navigasi kategori) — jadi geser 2 jari di trackpad, swipe
+   di layar sentuh, maupun shift+scroll mouse, semuanya
+   otomatis langsung ditangani browser tanpa simulasi JS,
+   sehingga responsifnya sama seperti scroll bawaan browser.
    ========================================================= */
 
 function goToHero(
     index,
+    animate = true,
     restartTimer = true
 ) {
+
+    if (!heroTrack) {
+        return;
+    }
+
 
     currentHero =
         normalizeHeroIndex(index);
 
 
-    setHeroPosition(true);
+    heroTrack.scrollTo({
+        left:
+            currentHero *
+            heroTrack.clientWidth,
+        behavior:
+            animate ? "smooth" : "auto"
+    });
+
 
     updateHeroDots();
 
@@ -573,334 +510,58 @@ if (heroNext) {
 
 
 /* =========================================================
-   TOUCH START
+   SINKRONKAN INDEX SAAT USER SCROLL SENDIRI
+   (geser 2 jari trackpad, swipe layar sentuh, dst.)
    ========================================================= */
 
 if (heroTrack) {
 
     heroTrack.addEventListener(
-        "touchstart",
-        (event) => {
+        "scroll",
+        () => {
 
-            if (
-                !event.touches ||
-                !event.touches.length
-            ) {
-                return;
-            }
-
-
-            const touch =
-                event.touches[0];
-
-
-            touchStartX =
-                touch.clientX;
-
-            touchStartY =
-                touch.clientY;
-
-            currentDragX =
-                touch.clientX;
-
-            heroMoved = false;
-
-            isDraggingHero = true;
-
-
-            heroTrack.classList.add(
-                "dragging"
-            );
-
-
-            /*
-             * Saat jari mulai menyentuh,
-             * hentikan auto slide.
-             */
+            isHeroInteracting = true;
 
             clearInterval(
                 heroAutoSlide
             );
 
 
-            heroTrack.style.transition =
-                "none";
-
-        },
-        {
-            passive:true
-        }
-    );
-
-
-    /* =====================================================
-       TOUCH MOVE
-       ===================================================== */
-
-    heroTrack.addEventListener(
-        "touchmove",
-        (event) => {
-
-            if (
-                !isDraggingHero ||
-                !event.touches ||
-                !event.touches.length
-            ) {
-                return;
-            }
-
-
-            const touch =
-                event.touches[0];
-
-
-            currentDragX =
-                touch.clientX;
-
-
-            const currentY =
-                touch.clientY;
-
-
-            const deltaX =
-                currentDragX -
-                touchStartX;
-
-
-            const deltaY =
-                currentY -
-                touchStartY;
-
-
-            /*
-             * Jika gerakan lebih vertikal,
-             * biarkan browser melakukan scroll.
-             */
-
-            if (
-                !heroMoved &&
-                Math.abs(deltaY) >
-                Math.abs(deltaX) &&
-                Math.abs(deltaY) > 8
-            ) {
-
-                isDraggingHero = false;
-
-                heroTrack.classList.remove(
-                    "dragging"
-                );
-
-                setHeroPosition(true);
-
-                startHeroAutoSlide();
-
-                return;
-
-            }
-
-
-            /*
-             * Mulai dianggap horizontal
-             * setelah bergerak minimal.
-             */
-
-            if (
-                Math.abs(deltaX) > 5 &&
-                Math.abs(deltaX) >
-                Math.abs(deltaY)
-            ) {
-
-                heroMoved = true;
-
-            }
-
-
-            if (heroMoved) {
-
-                /*
-                 * INI YANG MEMBUAT SLIDE
-                 * BENAR-BENAR MENGIKUTI JARI.
-                 *
-                 * Misalnya artikel 1 digeser
-                 * 50% ke kiri,
-                 * artikel 2 otomatis terlihat 50%.
-                 */
-
-                setHeroDragPosition(
-                    deltaX
-                );
-
-            }
-
-        },
-        {
-            passive:true
-        }
-    );
-
-
-    /* =====================================================
-       TOUCH END
-       ===================================================== */
-
-    heroTrack.addEventListener(
-        "touchend",
-        () => {
-
-            if (!isDraggingHero) {
-                return;
-            }
-
-
-            isDraggingHero = false;
-
-
-            heroTrack.classList.remove(
-                "dragging"
+            clearTimeout(
+                heroScrollEndTimer
             );
 
+            heroScrollEndTimer =
+                setTimeout(
+                    () => {
 
-            const deltaX =
-                currentDragX -
-                touchStartX;
-
-
-            /*
-             * Kalau tidak benar-benar
-             * horizontal swipe,
-             * kembalikan posisi.
-             */
-
-            if (
-                !heroMoved ||
-                Math.abs(deltaX) <
-                SWIPE_THRESHOLD
-            ) {
-
-                setHeroPosition(true);
-
-                startHeroAutoSlide();
-
-                return;
-
-            }
+                        isHeroInteracting = false;
 
 
-            /*
-             * SWIPE KIRI
-             *
-             * Artikel berikutnya.
-             */
+                        const width =
+                            heroTrack.clientWidth ||
+                            1;
 
-            if (deltaX < 0) {
+                        currentHero =
+                            normalizeHeroIndex(
+                                Math.round(
+                                    heroTrack.scrollLeft /
+                                    width
+                                )
+                            );
 
-                currentHero =
-                    normalizeHeroIndex(
-                        currentHero + 1
-                    );
+                        updateHeroDots();
 
-            }
+                        startHeroAutoSlide();
 
-
-            /*
-             * SWIPE KANAN
-             *
-             * Artikel sebelumnya.
-             */
-
-            else {
-
-                currentHero =
-                    normalizeHeroIndex(
-                        currentHero - 1
-                    );
-
-            }
-
-
-            /*
-             * Setelah jari dilepas,
-             * slide langsung menyelesaikan
-             * perpindahannya.
-             */
-
-            setHeroPosition(true);
-
-            updateHeroDots();
-
-            startHeroAutoSlide();
+                    },
+                    100
+                );
 
         },
         {
             passive:true
         }
-    );
-
-
-    /* =====================================================
-       TOUCH CANCEL
-       ===================================================== */
-
-    heroTrack.addEventListener(
-        "touchcancel",
-        () => {
-
-            isDraggingHero = false;
-
-            heroMoved = false;
-
-            heroTrack.classList.remove(
-                "dragging"
-            );
-
-
-            setHeroPosition(true);
-
-            startHeroAutoSlide();
-
-        },
-        {
-            passive:true
-        }
-    );
-
-
-    /* =====================================================
-       CEGah DRAG IMAGE
-       ===================================================== */
-
-    heroTrack.addEventListener(
-        "dragstart",
-        (event) => {
-
-            event.preventDefault();
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   CEGAH KLIK LINK SAAT SWIPE
-   ========================================================= */
-
-if (heroTrack) {
-
-    heroTrack.addEventListener(
-        "click",
-        (event) => {
-
-            if (heroMoved) {
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-            }
-
-        },
-        true
     );
 
 }
@@ -921,7 +582,7 @@ function startHeroAutoSlide() {
         setInterval(
             () => {
 
-                if (isDraggingHero) {
+                if (isHeroInteracting) {
                     return;
                 }
 
@@ -968,7 +629,7 @@ if (heroElement) {
         "mouseleave",
         () => {
 
-            if (!isDraggingHero) {
+            if (!isHeroInteracting) {
 
                 startHeroAutoSlide();
 
@@ -981,180 +642,34 @@ if (heroElement) {
 
 
 /* =========================================================
-   GESER 2 JARI DI TRACKPAD (HORIZONTAL WHEEL)
+   RAPIKAN POSISI SAAT UKURAN LAYAR BERUBAH
    ========================================================= */
 
-let heroWheelActive = false;
+window.addEventListener(
+    "resize",
+    () => {
 
-let heroWheelAccumX = 0;
+        clearTimeout(
+            heroResizeTimer
+        );
 
-let heroWheelEndTimer = null;
+        heroResizeTimer =
+            setTimeout(
+                () => {
 
-const HERO_WHEEL_COMMIT = 30;
+                    goToHero(
+                        currentHero,
+                        false,
+                        false
+                    );
 
-if (heroElement) {
-
-    heroElement.addEventListener(
-        "wheel",
-        (event) => {
-
-            const deltaX =
-                event.deltaX;
-
-            const deltaY =
-                event.deltaY;
-
-
-            /*
-             * Hanya tanggapi gerakan yang jelas
-             * lebih dominan ke arah horizontal —
-             * ciri khas geser 2 jari di trackpad.
-             * Scroll vertikal biasa (mouse wheel/
-             * trackpad vertikal) dibiarkan lewat
-             * agar halaman tetap bisa di-scroll.
-             */
-
-            if (
-                Math.abs(deltaX) <=
-                Math.abs(deltaY)
-            ) {
-                return;
-            }
-
-
-            event.preventDefault();
-
-
-            /*
-             * Selama drag manual (jari/mouse)
-             * sedang berlangsung, abaikan wheel.
-             */
-
-            if (isDraggingHero) {
-                return;
-            }
-
-
-            /*
-             * Awal gesture: hentikan auto slide
-             * dan mulai ikuti gerakan jari secara
-             * langsung (live), persis seperti
-             * carousel foto di Instagram versi web.
-             */
-
-            if (!heroWheelActive) {
-
-                heroWheelActive = true;
-
-                heroWheelAccumX = 0;
-
-                clearInterval(
-                    heroAutoSlide
-                );
-
-                heroTrack.classList.add(
-                    "dragging"
-                );
-
-            }
-
-
-            heroWheelAccumX -= deltaX;
-
-
-            setHeroDragPosition(
-                heroWheelAccumX
+                },
+                150
             );
 
+    }
+);
 
-            /*
-             * Satu gesture geser (walaupun panjang
-             * atau berlangsung lama) dianggap masih
-             * SATU gesture yang sama selama event
-             * wheel terus mengalir tanpa jeda.
-             *
-             * Gesture dianggap selesai (jari
-             * diangkat) begitu tidak ada event
-             * wheel selama 60ms.
-             */
-
-            clearTimeout(
-                heroWheelEndTimer
-            );
-
-            heroWheelEndTimer =
-                setTimeout(
-                    () => {
-
-                        heroWheelActive = false;
-
-
-                        heroTrack.classList.remove(
-                            "dragging"
-                        );
-
-
-                        /*
-                         * Sama seperti akhir swipe
-                         * di layar sentuh: kalau
-                         * geserannya cukup jauh,
-                         * lanjut ke slide berikutnya/
-                         * sebelumnya. Kalau tidak,
-                         * kembali ke posisi semula.
-                         */
-
-                        if (
-                            Math.abs(heroWheelAccumX) <
-                            HERO_WHEEL_COMMIT
-                        ) {
-
-                            setHeroPosition(true);
-
-                            startHeroAutoSlide();
-
-                            heroWheelAccumX = 0;
-
-                            return;
-
-                        }
-
-
-                        if (heroWheelAccumX < 0) {
-
-                            currentHero =
-                                normalizeHeroIndex(
-                                    currentHero + 1
-                                );
-
-                        } else {
-
-                            currentHero =
-                                normalizeHeroIndex(
-                                    currentHero - 1
-                                );
-
-                        }
-
-
-                        setHeroPosition(true);
-
-                        updateHeroDots();
-
-                        resetHeroAutoSlide();
-
-                        heroWheelAccumX = 0;
-
-                    },
-                    60
-                );
-
-        },
-        {
-            passive:false
-        }
-    );
-
-}
 
 
 /* =========================================================
@@ -1678,6 +1193,8 @@ if (mainNewsButton) {
    ========================================================= */
 
 renderHero();
+
+startHeroAutoSlide();
 
 
 /* =========================================================
