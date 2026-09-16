@@ -527,6 +527,40 @@ if (heroTrack) {
             );
 
 
+            /*
+             * Update dot SEKARANG JUGA, mengikuti
+             * posisi scroll saat ini secara langsung
+             * (live), tanpa menunggu scroll berhenti.
+             */
+
+            const width =
+                heroTrack.clientWidth ||
+                1;
+
+            const liveIndex =
+                normalizeHeroIndex(
+                    Math.round(
+                        heroTrack.scrollLeft /
+                        width
+                    )
+                );
+
+            if (liveIndex !== currentHero) {
+
+                currentHero = liveIndex;
+
+                updateHeroDots();
+
+            }
+
+
+            /*
+             * Debounce ini hanya dipakai untuk tahu
+             * kapan scroll benar-benar berhenti —
+             * supaya auto-slide bisa dijalankan lagi.
+             * Tidak lagi menunda update dot.
+             */
+
             clearTimeout(
                 heroScrollEndTimer
             );
@@ -536,21 +570,6 @@ if (heroTrack) {
                     () => {
 
                         isHeroInteracting = false;
-
-
-                        const width =
-                            heroTrack.clientWidth ||
-                            1;
-
-                        currentHero =
-                            normalizeHeroIndex(
-                                Math.round(
-                                    heroTrack.scrollLeft /
-                                    width
-                                )
-                            );
-
-                        updateHeroDots();
 
                         startHeroAutoSlide();
 
