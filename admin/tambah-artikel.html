@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tambah Artikel — MAB-News CMS</title>
-<link rel="stylesheet" href="../admin-css/admin.css">
-<link rel="stylesheet" href="../admin-css/tambah-artikel.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambah Artikel — MAB-News CMS</title>
+  <link rel="stylesheet" href="../admin-css/admin.css">
+  <link rel="stylesheet" href="../admin-css/tambah-artikel.css">
 </head>
 <body>
+
 <header class="topbar">
   <div class="brand"><button class="hamburger" id="menuBtn">☰</button><span class="brand-blue">MAB-</span>News <b>CMS</b></div>
   <div class="top-actions">
@@ -31,12 +32,18 @@
     <a href="#"><span>♟</span>Pengguna</a>
     <button class="nav-group open" data-menu="settingMenu"><span>⚙</span>Pengaturan <b>⌃</b></button>
     <div class="submenu open" id="settingMenu">
-      <a href="#">◈　Umum</a><a href="#">◉　Website</a><a href="#">▣　Tampilan</a>
-      <a href="#">✉　SEO</a><a href="#">✉　Email</a><a href="#">▣　Backup</a><a href="#">▣　Keamanan</a>
+      <a href="#">◈　Umum</a>
+      <a href="#">◉　Website</a>
+      <a href="#">▣　Tampilan</a>
+      <a href="#">✉　SEO</a>
+      <a href="#">✉　Email</a>
+      <a href="#">▣　Backup</a>
+      <a href="#">▣　Keamanan</a>
     </div>
     <button class="nav-group" data-menu="moreMenu"><span>•••</span>Lainnya <b>⌄</b></button>
     <div class="submenu" id="moreMenu">
-      <a href="#">Atur Sidebar</a><a href="#">Export & Impor</a>
+      <a href="#">Atur Sidebar</a>
+      <a href="#">Export & Impor</a>
     </div>
   </nav>
   <div class="profile-bottom">
@@ -47,7 +54,7 @@
 </aside>
 
 <main class="main">
-  <div class="breadcrumb"><a href="admin.html">Dashboard</a><span>›</span><a href="articles.html">Artikel</a><span>›</span>Tambah Artikel</div>
+  <div class="breadcrumb"><a href="admin.html">Dashboard</a><span>›</span><a href="artikel.html">Artikel</a><span>›</span>Tambah Artikel</div>
 
   <div class="page-header">
     <div class="heading">
@@ -57,19 +64,19 @@
     <a class="back-btn" href="artikel.html">←　Kembali ke Semua Artikel</a>
   </div>
 
-  <div class="layout">
+  <form class="layout" id="articleForm" novalidate>
     <section class="card editor-card">
       <label>Judul Artikel <em>*</em></label>
-      <div class="input-wrap"><input id="title" maxlength="200" placeholder="Masukkan judul artikel yang menarik..."></div>
+      <div class="input-wrap"><input id="title" maxlength="200" placeholder="Masukkan judul artikel yang menarik..." autocomplete="off"></div>
       <div class="counter"><span id="titleCount">0</span>/200 karakter</div>
 
       <label>Slug URL <em>*</em></label>
-      <div class="slug-row"><span>https://mab-news.com/artikel/</span><input id="slug" placeholder="slug-url-otomatis"><button id="regenSlug">↻</button></div>
+      <div class="slug-row"><span>https://mab-news.com/artikel/</span><input id="slug" placeholder="slug-url-otomatis" autocomplete="off"><button type="button" id="regenSlug" title="Buat ulang slug dari judul">↻</button></div>
       <p class="help">Slug akan dibuat otomatis dari judul. Anda bisa mengubahnya jika diperlukan.</p>
 
       <div class="two-col">
-        <div><label>Penulis <em>*</em></label><div class="input-wrap with-icon"><span>●</span><input id="author" placeholder="Masukkan nama penulis..."></div></div>
-        <div><label>Kategori <em>*</em></label><div class="select-wrap"><span>■</span><select id="category"><option value="">Pilih kategori</option><option>Nasional</option><option>Internasional</option><option>Ekonomi</option><option>Teknologi</option><option>Olahraga</option><option>Gaya Hidup</option></select></div><button class="new-category">＋ Tambah Kategori Baru</button></div>
+        <div><label>Penulis <em>*</em></label><div class="input-wrap with-icon"><span>●</span><input id="author" placeholder="Masukkan nama penulis..." autocomplete="off"></div></div>
+        <div><label>Kategori <em>*</em></label><div class="select-wrap"><span>■</span><select id="category"><option value="">Pilih kategori</option></select></div><button type="button" class="new-category">＋ Tambah Kategori Baru</button></div>
       </div>
 
       <label>Ringkasan (Lead) <em>*</em></label>
@@ -79,10 +86,26 @@
       <label>Konten Artikel <em>*</em></label>
       <div class="editor">
         <div class="toolbar">
-          <select id="format"><option>Paragraf</option><option>Heading 2</option><option>Heading 3</option></select>
-          <button data-cmd="bold"><b>B</b></button><button data-cmd="italic"><i>I</i></button><button data-cmd="underline"><u>U</u></button><button data-cmd="strikeThrough"><s>S</s></button>
-          <button data-cmd="insertUnorderedList">☷</button><button data-cmd="justifyLeft">≡</button><button data-cmd="justifyCenter">≡</button><button data-cmd="justifyRight">≡</button>
-          <button data-cmd="formatBlock" data-value="blockquote">❝</button><button id="linkBtn">↗</button><button id="imageBtn">▧</button><button id="videoBtn">▣</button><button data-cmd="insertTable">▦</button><button data-cmd="removeFormat">&lt;/&gt;</button><button id="fullscreenBtn">⛶</button>
+          <select id="format">
+            <option value="p">Paragraf</option>
+            <option value="h2">Heading 2</option>
+            <option value="h3">Heading 3</option>
+          </select>
+          <button type="button" data-cmd="bold" title="Tebal"><b>B</b></button>
+          <button type="button" data-cmd="italic" title="Miring"><i>I</i></button>
+          <button type="button" data-cmd="underline" title="Garis bawah"><u>U</u></button>
+          <button type="button" data-cmd="strikeThrough" title="Coret"><s>S</s></button>
+          <button type="button" data-cmd="insertUnorderedList" title="Daftar">☷</button>
+          <button type="button" data-cmd="justifyLeft" title="Rata kiri">≡</button>
+          <button type="button" data-cmd="justifyCenter" title="Rata tengah">≡</button>
+          <button type="button" data-cmd="justifyRight" title="Rata kanan">≡</button>
+          <button type="button" data-cmd="formatBlock" data-value="blockquote" title="Kutipan">❝</button>
+          <button type="button" id="linkBtn" title="Sisipkan tautan">↗</button>
+          <button type="button" id="imageBtn" title="Sisipkan gambar (URL)">▧</button>
+          <button type="button" id="videoBtn" title="Sisipkan video (URL)">▣</button>
+          <button type="button" data-cmd="insertTable" title="Tabel (belum didukung browser)">▦</button>
+          <button type="button" data-cmd="removeFormat" title="Hapus format">&lt;/&gt;</button>
+          <button type="button" id="fullscreenBtn" title="Layar penuh">⛶</button>
         </div>
         <div id="content" class="content-edit" contenteditable="true" data-placeholder="Tulis konten artikel di sini..."></div>
         <div class="editor-footer"><span id="wordCount">0 kata</span></div>
@@ -90,13 +113,29 @@
 
       <label class="section-label">Gambar Utama (Featured Image) <em>*</em></label>
       <div class="image-area">
-        <label class="upload-box" for="imageInput"><div class="upload-icon">☁</div><strong>Klik untuk mengunggah gambar</strong><small>atau seret dan lepas gambar di sini</small><small>Format: JPG, PNG, WebP　|　Maksimal: 5 MB</small><input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp"></label>
+        <label class="upload-box" for="imageInput" id="uploadBox">
+          <div class="upload-placeholder" id="uploadPlaceholder">
+            <div class="upload-icon">☁</div>
+            <strong>Klik untuk mengunggah gambar</strong>
+            <small>atau seret dan lepas gambar di sini</small>
+            <small>Format: JPG, PNG, WebP　|　Maksimal: 5 MB</small>
+          </div>
+          <div class="upload-preview" id="uploadPreview" hidden>
+            <img id="uploadPreviewImg" alt="Pratinjau gambar utama">
+            <div class="upload-preview-status" id="uploadStatus"></div>
+            <button type="button" class="remove-image-btn" id="removeImageBtn" title="Hapus gambar">✕</button>
+          </div>
+          <input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp">
+        </label>
         <div class="tips"><strong>ⓘ　Tips Gambar</strong><ul><li>Gunakan gambar dengan kualitas tinggi</li><li>Disarankan ukuran 1200 × 630 piksel</li><li>Format yang didukung: JPG, PNG, WebP</li><li>Maksimal ukuran file: 5 MB</li><li>Pilih gambar yang relevan dengan isi artikel</li></ul></div>
       </div>
-      <div id="preview" class="preview"></div>
+
+      <label class="section-label">URL Gambar</label>
+      <div class="input-wrap"><input id="imageUrl" placeholder="URL muncul otomatis setelah gambar selesai diunggah..." readonly></div>
+      <p class="help">URL ini otomatis terisi setelah gambar berhasil diunggah, dan akan disimpan bersama artikel.</p>
 
       <label>◆　Tags</label>
-      <div class="tags-input"><div id="tags"></div><input id="tagInput" placeholder="Tambahkan tag, lalu tekan Enter..."></div>
+      <div class="tags-input"><div id="tags"></div><input id="tagInput" placeholder="Tambahkan tag, lalu tekan Enter..." autocomplete="off"></div>
       <p class="help">Gunakan tag untuk memudahkan pencarian (pisahkan dengan Enter)</p>
     </section>
 
@@ -108,7 +147,7 @@
         <label class="radio"><input type="radio" name="status" value="draft"> Simpan sebagai draft</label>
         <label class="radio"><input type="radio" name="status" value="schedule"> Jadwalkan publikasi</label>
         <label class="mini-label date-label">Tanggal Publikasi</label>
-        <input class="date-input" id="publishDate" type="datetime-local">
+        <input class="date-input" id="publishDate" type="datetime-local" disabled>
         <p class="help">Akan menggunakan waktu server (WIB)</p>
       </section>
 
@@ -123,68 +162,39 @@
         <textarea id="meta" maxlength="160" placeholder="Tulis meta deskripsi untuk SEO..."></textarea>
         <div class="counter"><span id="metaCount">0</span>/160 karakter</div>
         <label class="mini-label">Kata Kunci</label>
-        <input id="keywords" placeholder="Masukkan kata kunci, pisahkan dengan koma...">
+        <input id="keywords" placeholder="Masukkan kata kunci, pisahkan dengan koma..." autocomplete="off">
       </section>
 
       <section class="card side-card">
         <h3>⚙　Opsi Lainnya</h3>
-        <label class="check"><input type="checkbox" checked> Izinkan komentar</label>
-        <label class="check"><input type="checkbox" checked> Tampilkan di halaman utama</label>
-        <label class="check"><input type="checkbox"> Artikel pilihan (highlight)</label>
+        <label class="check"><input id="allowComments" type="checkbox" checked> Izinkan komentar</label>
+        <label class="check"><input id="showHomepage2" type="checkbox" checked> Tampilkan di halaman utama</label>
+        <label class="check"><input id="featured" type="checkbox"> Artikel pilihan (highlight)</label>
       </section>
-      <div class="save-actions"><button id="saveDraft" class="save">▣　Simpan Draft</button><button id="publish" class="publish">➤　Publikasikan Artikel</button></div>
+
+      <div class="save-actions">
+        <button type="button" id="previewBtn" class="preview-btn">👁　Preview</button>
+        <button type="button" id="saveDraft" class="save">▣　Simpan Draft</button>
+        <button type="button" id="publish" class="publish">➤　Publikasikan Artikel</button>
+      </div>
     </aside>
-  </div>
+  </form>
   <footer>©2025 MAB-News CMS. Semua hak dilindungi.</footer>
 </main>
+
+<div class="preview-modal" id="previewModal" hidden>
+  <div class="preview-modal-inner">
+    <div class="preview-modal-head">
+      <strong>Pratinjau Artikel</strong>
+      <button type="button" id="closePreview" title="Tutup">✕</button>
+    </div>
+    <div class="preview-modal-body" id="previewBody"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
-🚀 Publikasikan Berita</button></div>
-    </aside>
-  </div>
-</main>
-
-<!-- PENTING: Panggil skrip API sentral dan skrip logika di ujung sebelum tag penutup body -->
 <script src="../js/api.js"></script>
-<script src="../admin-js/tambah-artikel.js"></script>
-
-<script>
-  // Script interaktif lokal untuk mempermudah perhitungan karakter input secara real-time
-  document.getElementById('title').addEventListener('input', function() {
-    document.getElementById('titleCount').textContent = this.value.length;
-  });
-
-  document.getElementById('lead').addEventListener('input', function() {
-    document.getElementById('leadCount').textContent = this.value.length;
-  });
-
-  document.getElementById('meta').addEventListener('input', function() {
-    document.getElementById('metaCount').textContent = this.value.length;
-  });
-
-  // Pratinjau Gambar saat file dipilih
-  document.getElementById('imageInput').addEventListener('change', function(e) {
-    const previewContainer = document.getElementById('preview');
-    previewContainer.innerHTML = '';
-    if(this.files && this.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.style.maxWidth = '100%';
-        img.style.maxHeight = '250px';
-        img.style.borderRadius = '6px';
-        img.style.marginTop = '15px';
-        previewContainer.appendChild(img);
-      }
-      reader.readAsDataURL(this.files[0]);
-    }
-  });
-</script>
-</body>
-</html>
-
-
 <script src="../admin-js/tambah-artikel.js"></script>
 </body>
 </html>
