@@ -7,20 +7,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 1. MEMUAT KATEGORI OTOMATIS DARI DATABASE NEON (ONLINE)
     // =========================================================
     try {
-        // Mengambil data dari endpoint categories di Vercel backend Anda
         const response = await fetch(`${API_BASE_URL}/api/categories`);
         if (!response.ok) throw new Error("Gagal mengambil data kategori.");
         
         const categories = await response.json();
-        
-        // Bersihkan opsi bawaan HTML, sisakan opsi pertama
         selectKategori.innerHTML = '<option value="">Pilih kategori</option>';
         
-        // Masukkan data kategori dari Neon ke dropdown secara dinamis
         categories.forEach(kat => {
             const option = document.createElement("option");
-            option.value = kat.id; // Menyimpan ID kategori asli dari DB
-            option.textContent = kat.name; // Menampilkan nama kategori di UI
+            option.value = kat.id;
+            option.textContent = kat.name;
             selectKategori.appendChild(option);
         });
     } catch (error) {
@@ -35,48 +31,47 @@ document.addEventListener("DOMContentLoaded", async () => {
         btnPublish.addEventListener("click", async (e) => {
             e.preventDefault();
 
-            // Ambil seluruh nilai komponen input dari form HTML Anda
+            // Mengambil data dari element HTML yang sesuai screenshot Anda
             const judul = document.getElementById("title").value.trim();
             const categoryId = selectKategori.value;
             const ringkasan = document.getElementById("lead").value.trim();
-            
-            // Mengambil konten dari div contenteditable Anda
             const kontenTextarea = document.getElementById("content");
             const kontenHtml = kontenTextarea ? kontenTextarea.innerHTML.trim() : "";
 
-            // Validasi field wajib isi
+            // Validasi input teks wajib isi
             if (!judul || !categoryId || !ringkasan || !kontenHtml) {
                 showToast("Harap isi semua kolom bertanda bintang (*)", "error");
                 return;
             }
 
-            if (imageInput.files.length === 0) {
-                showToast("Harap pilih gambar utama artikel terlebih dahulu!", "error");
+            // Validasi gambar wajib diisi agar tidak memicu 'Failed to fetch'
+            if (!imageInput.files || imageInput.files.length === 0) {
+                showToast("Harap klik dan unggah gambar utama terlebih dahulu!", "error");
                 return;
             }
 
-            // Kunci tombol agar tidak diklik dua kali oleh user
+            // Kunci tombol saat proses kirim data berlangsung
             btnPublish.textContent = "Sedang Mempublikasikan...";
             btnPublish.disabled = true;
 
             try {
-                // TAHAP A: Unggah File Fisik Gambar ke Backend Vercel -> CDN ImageKit
+                // TAHAP A: Unggah File Fisik Gambar ke ImageKit
                 const formData = new FormData();
-                formData.append("image", imageInput.files[0]);
+                formData.append("image", imageInput.files[0]); // Ambil file pertama
 
                 const uploadResponse = await fetch(`${API_BASE_URL}/api/upload`, {
                     method: "POST",
-                    body: formData // Mengirimkan file biner mentah
+                    body: formData
                 });
 
                 if (!uploadResponse.ok) throw new Error("Gagal mengunggah gambar ke ImageKit.");
                 const uploadResult = await uploadResponse.json();
-                const imageUrl = uploadResult.url; // Dapatkan tautan gambar resmi
+                const imageUrl = uploadResult.url;
 
-                // TAHAP B: Kirim Data Payload Konten ke Backend Vercel -> Database Neon
+                // TAHAP B: Kirim Payload Data Berita Lengkap ke Neon
                 const payloadArtikel = {
                     title: judul,
-                    content: kontenHtml, // Mengirim teks berformat HTML dari editor
+                    content: kontenHtml,
                     categoryId: parseInt(categoryId),
                     imageUrl: imageUrl
                 };
@@ -91,27 +86,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 if (!simpanResponse.ok) throw new Error("Gagal menyimpan tulisan ke database Neon.");
 
-                // Notifikasi Sukses dan Reset Halaman Form
                 showToast("Artikel berita berhasil dipublikasikan secara online!", "success");
-                setTimeout(() => {
-                    window.location.reload(); // Refresh halaman agar form bersih kembali
-                }, 2000);
+                
+                // Kosongkan editor setelah sukses
+                document.getElementById("title").value = "";
+                document.getElementById("lead").value = "";
+                if(kontenTextarea) kontenTextarea.innerHTML = "";
+                imageInput.value = "";
+                document.getElementById("preview").innerHTML = "";
+                selectKategori.value = "";
 
             } catch (error) {
                 console.error("Proses gagal:", error);
                 showToast(`Terjadi kesalahan: ${error.message}`, "error");
+            } finally {
                 resetTombol();
             }
         });
     }
 
-    // Fungsi pembantu untuk mengembalikan teks tombol publikasi
     function resetTombol() {
-        btnPublish.textContent = "➤ Publikasikan Artikel";
+        btnPublish.innerHTML = "➤　Publikasikan Artikel";
         btnPublish.disabled = false;
     }
 
-    // Fungsi pembantu untuk menampilkan notifikasi toast (sesuai elemen id="toast" Anda)
     function showToast(message, type = "success") {
         const toast = document.getElementById("toast");
         if (toast) {
