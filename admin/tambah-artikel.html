@@ -138,6 +138,53 @@
   <footer>©2025 MAB-News CMS. Semua hak dilindungi.</footer>
 </main>
 <div class="toast" id="toast"></div>
+
+🚀 Publikasikan Berita</button></div>
+    </aside>
+  </div>
+</main>
+
+<!-- PENTING: Panggil skrip API sentral dan skrip logika di ujung sebelum tag penutup body -->
+<script src="../js/api.js"></script>
+<script src="../admin-js/tambah-artikel.js"></script>
+
+<script>
+  // Script interaktif lokal untuk mempermudah perhitungan karakter input secara real-time
+  document.getElementById('title').addEventListener('input', function() {
+    document.getElementById('titleCount').textContent = this.value.length;
+  });
+
+  document.getElementById('lead').addEventListener('input', function() {
+    document.getElementById('leadCount').textContent = this.value.length;
+  });
+
+  document.getElementById('meta').addEventListener('input', function() {
+    document.getElementById('metaCount').textContent = this.value.length;
+  });
+
+  // Pratinjau Gambar saat file dipilih
+  document.getElementById('imageInput').addEventListener('change', function(e) {
+    const previewContainer = document.getElementById('preview');
+    previewContainer.innerHTML = '';
+    if(this.files && this.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.maxWidth = '100%';
+        img.style.maxHeight = '250px';
+        img.style.borderRadius = '6px';
+        img.style.marginTop = '15px';
+        previewContainer.appendChild(img);
+      }
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+</script>
+</body>
+</html>
+
+
 <script src="../admin-js/tambah-artikel.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 // Untuk tahap berikutnya, endpoint artikel, kategori, media, dan auth
 // dapat dipusatkan di sini agar frontend mudah dipindahkan dari mock data ke API.
 
-const API_BASE_URL = "";
+const API_BASE_URL = "https://vercel.app";
 
 async function apiFetch(endpoint, options = {}) {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
