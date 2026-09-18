@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Atur Sidebar - MAB-News CMS</title>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- CSS Halaman -->
+    <link rel="stylesheet" href="../admin-css/sidebar-config.css">
+</head>
+
+<body>
+
+<div class="cms-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+    <aside class="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="logo">
+
+                <i class="fa-solid fa-bars logo-icon"></i>
+
+                <h2>
+                    MAB-<span>News CMS</span>
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             NAVIGATION
+             ================================================= -->
+        <nav class="sidebar-nav">
+
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="nav-item">
+
+                <i class="fa-solid fa-house"></i>
+
+                Dashboard
+
+            </a>
+
+
+            <!-- Artikel -->
+            <a href="artikel.html" class="nav-item">
+
+                <i class="fa-solid fa-file-invoice"></i>
+
+                Artikel
+
+                <i class="fa-solid fa-chevron-right arrow-right"></i>
+
+            </a>
+
+
+            <!-- Kategori -->
+            <a href="kategori.html" class="nav-item">
+
+                <i class="fa-solid fa-folder"></i>
+
+                Kategori
+
+            </a>
+
+
+            <!-- Media -->
+            <a href="media.html" class="nav-item">
+
+                <i class="fa-solid fa-image"></i>
+
+                Media
+
+            </a>
+
+
+            <!-- Pengguna -->
+            <a href="pengguna.html" class="nav-item">
+
+                <i class="fa-solid fa-users"></i>
+
+                Pengguna
+
+            </a>
+
+
+            <!-- =================================================
+                 PENGATURAN
+                 ================================================= -->
+            <div class="nav-dropdown open">
+
+                <a
+                    href="#"
+                    class="nav-item dropdown-toggle active-parent"
+                >
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    Pengaturan
+
+                    <i class="fa-solid fa-chevron-down arrow-right"></i>
+
+                </a>
+
+
+                <div class="dropdown-menu">
+
+                    <a href="umum.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Umum
+
+                    </a>
+
+
+                    <a href="website.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Website
+
+                    </a>
+
+
+                    <a href="tampilan.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Tampilan
+
+                    </a>
+
+
+                    <a href="seo.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        SEO
+
+                    </a>
+
+
+                    <a href="email.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Email
+
+                    </a>
+
+
+                    <a href="backup.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Backup
+
+                    </a>
+
+
+                    <a href="keamanan.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Keamanan
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 LAINNYA
+                 ================================================= -->
+            <div class="nav-dropdown open">
+
+                <a
+                    href="#"
+                    class="nav-item dropdown-toggle active-parent"
+                >
+
+                    <i class="fa-solid fa-ellipsis"></i>
+
+                    Lainnya
+
+                    <i class="fa-solid fa-chevron-down arrow-right"></i>
+
+                </a>
+
+
+                <div class="dropdown-menu">
+
+                    <a href="laman.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Laman
+
+                    </a>
+
+
+                    <a href="statistik.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Statistik
+
+                    </a>
+
+
+                    <a href="iklan.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Iklan
+
+                    </a>
+
+
+                    <a href="perangkat.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Perangkat
+
+                    </a>
+
+
+                    <a href="domain.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        Domain & Hosting
+
+                    </a>
+
+
+                    <a href="api.html">
+
+                        <i class="fa-regular fa-circle dot-icon"></i>
+
+                        BackEnd & API
+
+                    </a>
+
+
+                    <!-- ATUR SIDEBAR AKTIF -->
+                    <a
+                        href="sidebar-config.html"
+                        class="active-sub-item"
+                    >
+
+                        <i class="fa-solid fa-sliders"></i>
+
+                        Atur Sidebar
+
+                    </a>
+
+
+                    <a href="export-import.html">
+
+                        <i class="fa-solid fa-file-export"></i>
+
+                        Export & Impor
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+        <!-- =================================================
+             PROFILE
+             ================================================= -->
+        <div class="sidebar-profile">
+
+            <div class="profile-avatar">
+
+                <i class="fa-solid fa-user-large"></i>
+
+            </div>
+
+
+            <div class="profile-info">
+
+                <h4>Muhammad Aslambik</h4>
+
+                <p>Administrator</p>
+
+            </div>
+
+
+            <i class="fa-solid fa-chevron-right profile-arrow"></i>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+    <main class="main-container">
+
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+
+                <h1>Atur Sidebar</h1>
+
+                <p>
+                    Kelola menu sidebar yang tampil pada MAB-News CMS.
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button
+                    type="button"
+                    class="icon-button"
+                    id="themeToggle"
+                    title="Mode Gelap/Terang"
+                    aria-label="Mode Gelap/Terang"
+                >
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="icon-button"
+                    title="Notifikasi"
+                    aria-label="Notifikasi"
+                >
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="account-button"
+                    id="accountButton"
+                >
+
+                    <span class="account-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+
+                    <span class="account-name">
+                        Muhammad Aslambik
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- CONTENT -->
+        <section class="content-area">
+
+
+            <!-- PAGE HEADER -->
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>Konfigurasi Sidebar</h2>
+
+                    <p>
+                        Atur menu, urutan, dan status tampilan sidebar CMS.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SETTINGS CARD
+                 ================================================= -->
+            <div class="settings-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>Menu Sidebar</h3>
+
+                        <p>
+                            Aktifkan atau nonaktifkan menu yang ingin
+                            ditampilkan pada sidebar.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MENU LIST -->
+                <div class="menu-list" id="menuList">
+
+
+                    <!-- DASHBOARD -->
+                    <div
+                        class="menu-row"
+                        draggable="true"
+                        data-menu="dashboard"
+                    >
+
+                        <div class="drag-handle">
+                            <i class="fa-solid fa-grip-vertical"></i>
+                        </div>
+
+
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+
+
+                        <div class="menu-information">
+
+                            <strong>Dashboard</strong>
+
+                            <span>
+                                Halaman utama dashboard CMS.
+                            </span>
+
+                        </div>
+
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-toggle="dashboard"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- ARTIKEL -->
+                    <div
+                        class="menu-row"
+                        draggable="true"
+                        data-menu="artikel"
+                    >
+
+                        <div class="drag-handle">
+                            <i class="fa-solid fa-grip-vertical"></i>
+                        </div>
+
+
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-file-invoice"></i>
+                        </div>
+
+
+                        <div class="menu-information">
+
+                            <strong>Artikel</strong>
+
+                            <span>
+                                Semua artikel, tambah artikel, dan draft.
+                            </span>
+
+                        </div>
+
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-toggle="artikel"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- KATEGORI -->
+                    <div
+                        class="menu-row"
+                        draggable="true"
+                        data-menu="kategori"
+                    >
+
+                        <div class="drag-handle">
+                            <i class="fa-solid fa-grip-vertical"></i>
+                        </div>
+
+
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-folder"></i>
+                        </div>
+
+
+                        <div class="menu-information">
+
+                            <strong>Kategori</strong>
+
+                            <span>
+                                Pengelolaan kategori berita.
+                            </span>
+
+                        </div>
+
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-toggle="kategori"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- MEDIA -->
+                    <div
+                        class="menu-row"
+                        draggable="true"
+                        data-menu="media"
+                    >
+
+                        <div class="drag-handle">
+                            <i class="fa-solid fa-grip-vertical"></i>
+                        </div>
+
+
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-image"></i>
+                        </div>
+
+
+                        <div class="menu-information">
+
+                            <strong>Media</strong>
+
+                            <span>
+                                Kelola gambar dan file media.
+                            </span>
+
+                        </div>
+
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-toggle="media"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- PENGGUNA -->
+                    <div
+                        class="menu-row"
+                        draggable="true"
+                        data-menu="pengguna"
+                    >
+
+                        <div class="drag-handle">
+                            <i class="fa-solid fa-grip-vertical"></i>
+                        </div>
+
+
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+
+                        <div class="menu-information">
+
+                            <strong>Pengguna</strong>
+
+                            <span>
+                                Pengelolaan akun administrator.
+                            </span>
+
+                        </div>
+
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-toggle="pengguna"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- PENGATURAN -->
+                    <div
+                        class="menu-row"
+                        draggable="true"
+                        data-menu="pengaturan"
+                    >
+
+                        <div class="drag-handle">
+                            <i class="fa-solid fa-grip-vertical"></i>
+                        </div>
+
+
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-gear"></i>
+                        </div>
+
+
+                        <div class="menu-information">
+
+                            <strong>Pengaturan</strong>
+
+                            <span>
+                                Pengaturan umum dan konfigurasi website.
+                            </span>
+
+                        </div>
+
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-toggle="pengaturan"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- LAINNYA -->
+                    <div
+                        class="menu-row"
+                        draggable="true"
+                        data-menu="lainnya"
+                    >
+
+                        <div class="drag-handle">
+                            <i class="fa-solid fa-grip-vertical"></i>
+                        </div>
+
+
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+
+
+                        <div class="menu-information">
+
+                            <strong>Lainnya</strong>
+
+                            <span>
+                                Laman, statistik, iklan, API, dan tools lainnya.
+                            </span>
+
+                        </div>
+
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                checked
+                                data-toggle="lainnya"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CARD FOOTER -->
+                <div class="card-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="resetButton"
+                    >
+
+                        <i class="fa-solid fa-rotate-left"></i>
+
+                        Reset
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="saveButton"
+                    >
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Simpan Perubahan
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PREVIEW
+                 ================================================= -->
+            <div class="preview-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>Preview Sidebar</h3>
+
+                        <p>
+                            Pratinjau perubahan menu sidebar.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preview-wrapper">
+
+                    <div class="preview-sidebar">
+
+                        <div class="preview-title">
+
+                            <i class="fa-solid fa-bars"></i>
+
+                            <strong>
+                                MAB-<span>News CMS</span>
+                            </strong>
+
+                        </div>
+
+
+                        <div class="preview-menu">
+
+                            <div
+                                class="preview-item"
+                                data-preview="dashboard"
+                            >
+                                <i class="fa-solid fa-house"></i>
+                                Dashboard
+                            </div>
+
+
+                            <div
+                                class="preview-item"
+                                data-preview="artikel"
+                            >
+                                <i class="fa-solid fa-file-invoice"></i>
+                                Artikel
+                            </div>
+
+
+                            <div
+                                class="preview-item"
+                                data-preview="kategori"
+                            >
+                                <i class="fa-solid fa-folder"></i>
+                                Kategori
+                            </div>
+
+
+                            <div
+                                class="preview-item"
+                                data-preview="media"
+                            >
+                                <i class="fa-solid fa-image"></i>
+                                Media
+                            </div>
+
+
+                            <div
+                                class="preview-item"
+                                data-preview="pengguna"
+                            >
+                                <i class="fa-solid fa-users"></i>
+                                Pengguna
+                            </div>
+
+
+                            <div
+                                class="preview-item"
+                                data-preview="pengaturan"
+                            >
+                                <i class="fa-solid fa-gear"></i>
+                                Pengaturan
+                            </div>
+
+
+                            <div
+                                class="preview-item"
+                                data-preview="lainnya"
+                            >
+                                <i class="fa-solid fa-ellipsis"></i>
+                                Lainnya
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+
+            ©2025 MAB-News CMS. Semua hak dilindungi.
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- JavaScript -->
+<script src="../admin-js/sidebar-config.js"></script>
+
+</body>
+</html>
