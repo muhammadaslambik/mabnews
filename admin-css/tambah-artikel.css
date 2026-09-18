@@ -798,6 +798,23 @@ nav > a:hover, nav .nav-group:hover {
   flex-wrap: wrap;
 }
 
+.published-link {
+  text-align: right;
+  font-size: 11px;
+  color: #0f5d3a;
+  margin: 10px 0 0;
+}
+
+.published-link a {
+  color: #076dff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.published-link a:hover {
+  text-decoration: underline;
+}
+
 .save, .publish, .preview-btn {
   height: 40px;
   border-radius: 5px;
@@ -954,6 +971,12 @@ footer {
   font-size: 11px;
   color: #6684ac;
   margin: 0 0 14px;
+}
+
+.preview-modal-body .pv-url {
+  color: #076dff;
+  margin: -10px 0 14px;
+  word-break: break-all;
 }
 
 .preview-modal-body .pv-lead {

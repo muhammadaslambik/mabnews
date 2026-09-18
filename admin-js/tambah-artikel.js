@@ -42,6 +42,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const btnPreview = document.getElementById("previewBtn");
 
   const toast = document.getElementById("toast");
+  const publishedLink = document.getElementById("publishedLink");
+  const publishedLinkAnchor = document.getElementById("publishedLinkAnchor");
   const previewModal = document.getElementById("previewModal");
   const previewBody = document.getElementById("previewBody");
   const closePreviewBtn = document.getElementById("closePreview");
@@ -87,7 +89,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/categories`);
     if (!response.ok) throw new Error("Gagal mengambil data kategori.");
-    const categories = await response.json();
+    const raw = await response.json();
+    // Backend bisa membalas array langsung [...] atau dibungkus
+    // {data: [...]} (seperti endpoint /api/articles) — tangani dua-duanya.
+    const categories = Array.isArray(raw) ? raw : (raw.data || raw.categories || []);
+
+    if (!categories.length) {
+      throw new Error("Daftar kategori kosong dari server.");
+    }
 
     selectKategori.innerHTML = '<option value="">Pilih kategori</option>';
     categories.forEach((kat) => {
@@ -107,6 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   titleInput.addEventListener("input", () => {
     titleCount.textContent = titleInput.value.length;
     slugInput.value = slugify(titleInput.value);
+    if (!publishedLink.hidden) publishedLink.hidden = true;
   });
 
   regenSlugBtn.addEventListener("click", () => {
@@ -490,6 +500,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       showToast(successMessage, "success");
       clearLocalDraft();
+      if (data.slugPreview) {
+        publishedLinkAnchor.href = `${PUBLIC_ARTICLE_URL_BASE}${data.slugPreview}`;
+        publishedLink.hidden = false;
+      }
       resetForm();
     } catch (error) {
       console.error("Proses gagal:", error);
@@ -617,12 +631,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tagsHtml = data.tags.length
       ? `<div class="pv-tags">${data.tags.map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>`
       : "";
+    const realUrl = data.slugPreview ? `${PUBLIC_ARTICLE_URL_BASE}${data.slugPreview}` : "";
 
     previewBody.innerHTML = `
       ${imageHtml}
       ${categoryHtml}
       <h1 class="pv-title">${titleHtml}</h1>
-      <p class="pv-meta">Oleh ${escapeHtml(data.author || "-")} · ${dateStr} · /artikel/${escapeHtml(data.slugPreview || "-")}</p>
+      <p class="pv-meta">Oleh ${escapeHtml(data.author || "-")} · ${dateStr}</p>
+      ${realUrl ? `<p class="pv-meta pv-url">${escapeHtml(realUrl)}</p>` : ""}
       ${leadHtml}
       <div class="pv-content">${contentHtml}</div>
       ${tagsHtml}

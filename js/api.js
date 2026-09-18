@@ -19,6 +19,15 @@ const API_BASE_URL = "https://mabnews-backend.vercel.app";
 const IMAGEKIT_PUBLIC_KEY = "public_UTu0O5OC0Ie+08TZQHbvc8eBpRE=";
 const IMAGEKIT_URL_ENDPOINT = "https://ik.imagekit.io/mabnews";
 
+// ---------------------------------------------------------------
+// URL situs publik MAB-News (GitHub Pages), dipakai untuk membentuk
+// tautan artikel yang sesungguhnya (Preview & link "Lihat Artikel"
+// setelah publish). Bagian visual "https://mab-news.com/artikel/"
+// di form Tambah Artikel sengaja dibiarkan sebagai contoh tampilan
+// saja — bukan URL yang benar-benar dipakai.
+// ---------------------------------------------------------------
+const PUBLIC_ARTICLE_URL_BASE = "https://muhammadaslambik.github.io/mabnews/artikel.html?id=";
+
 async function apiFetch(endpoint, options = {}) {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     headers: { "Content-Type": "application/json", ...(options.headers || {}) },
