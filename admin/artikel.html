@@ -63,10 +63,10 @@
 </div>
 
 <section class="article-stats">
-<div><span>Total Articles</span><strong id="totalCount">24</strong><small>Semua articles</small></div>
-<div><span>Published</span><strong id="publishedCount">18</strong><small>Articles aktif</small></div>
-<div><span>Draft</span><strong id="draftCount">4</strong><small>Belum diterbitkan</small></div>
-<div><span>Archived</span><strong id="archivedCount">2</strong><small>Diarsipkan</small></div>
+  <div><span>Total Articles</span><strong id="totalCount">0</strong><small>Semua articles</small></div>
+  <div><span>Populer</span><strong id="publishedCount">0</strong><small>Ditandai populer</small></div>
+  <div><span>Kategori</span><strong id="draftCount">0</strong><small>Jumlah kategori aktif</small></div>
+  <div><span>Ditampilkan</span><strong id="archivedCount">0</strong><small>Di halaman ini</small></div>
 </section>
 
 <section class="panel articles-panel">
@@ -75,16 +75,19 @@
 <div class="article-tools"><input id="tableSearch" type="search" placeholder="Search articles..."><select id="pageSize"><option value="10">10</option><option value="15">15</option><option value="24">24</option></select></div>
 </div>
 <div class="article-filter-panel" id="filterPanel">
+  <select id="categoryFilter"><option value="all">Semua Kategori</option></select>
+</div>
 <select id="statusFilter"><option value="all">Semua Status</option><option>Published</option><option>Draft</option><option>Archived</option></select>
 <select id="categoryFilter"><option value="all">Semua Kategori</option><option>Ekonomi</option><option>Teknologi</option><option>Nasional</option><option>Internasional</option><option>Olahraga</option></select>
 </div>
-<div class="table-scroll"><table><thead><tr><th><input id="selectAll" type="checkbox"></th><th>No</th><th>Judul Article</th><th>Kategori</th><th>Penulis</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="articleBody"></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th><input id="selectAll" type="checkbox"></th><th>No</th><th>Judul Article</th><th>Kategori</th><th>Penulis</th><th>Tanggal</th><th>Populer</th><th>Aksi</th></tr></thead><tbody id="articleBody"></tbody></table></div>
 <div class="article-pagination"><span id="pageInfo"></span><div id="pagination"></div></div>
 </section>
 </div>
 <footer class="cms-footer">©2025 MAB-News CMS. Semua hak dilindungi.</footer>
 </main>
 <div class="toast" id="toast"></div>
+<script src="../js/api.js"></script>
 <script src="../admin-js/dashboard.js"></script>
 <script src="../admin-js/artikel.js"></script>
 </div>
