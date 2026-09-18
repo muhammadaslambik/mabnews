@@ -45,6 +45,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const publishedLink = document.getElementById("publishedLink");
   const publishedLinkAnchor = document.getElementById("publishedLinkAnchor");
   const previewModal = document.getElementById("previewModal");
+  const params = new URLSearchParams(location.search);
+const editSlug = params.get("slug");
+let originalArticle = null;
   const previewBody = document.getElementById("previewBody");
   const closePreviewBtn = document.getElementById("closePreview");
 
@@ -110,6 +113,40 @@ document.addEventListener("DOMContentLoaded", async () => {
     showToast("Gagal memuat daftar kategori dari database.", "error");
   }
 
+if (editSlug) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/articles/${editSlug}`);
+    if (!res.ok) throw new Error("Artikel tidak ditemukan.");
+    const { data } = await res.json();
+    originalArticle = data;
+    titleInput.value = data.title;
+    titleCount.textContent = data.title.length;
+    slugInput.value = data.slug;
+    authorInput.value = data.author || "";
+    leadInput.value = data.lead || "";
+    leadCount.textContent = (data.lead || "").length;
+    (data.content || []).forEach(p => {
+      const el = document.createElement("p");
+      el.textContent = p;
+      contentEl.appendChild(el);
+    });
+    updateWordCount();
+    captionInput.value = data.caption || "";
+    featuredCheck.checked = !!data.is_popular;
+    if (data.category?.key) selectKategori.value = data.category.key;
+    if (data.image_url) {
+      uploadedImageUrl = data.image_url;
+      imageUrlInput.value = data.image_url;
+      uploadPreviewImg.src = data.image_url;
+      uploadPlaceholder.hidden = true;
+      uploadPreview.hidden = false;
+    }
+    btnPublish.textContent = "💾 Simpan Perubahan";
+    document.querySelector(".heading h1").textContent = "Edit Artikel";
+  } catch (error) {
+    showToast(`Gagal memuat artikel untuk diedit: ${error.message}`, "error");
+  }
+}
   // ---------------------------------------------------------
   // 2. Hitung karakter + slug otomatis dari judul
   // ---------------------------------------------------------
@@ -488,11 +525,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         is_popular: data.is_popular,
       };
 
-      const res = await fetch(`${API_BASE_URL}/api/articles`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(serverPayload),
-      });
+const res = await fetch(
+  editSlug ? `${API_BASE_URL}/api/articles/${editSlug}` : `${API_BASE_URL}/api/articles`,
+  {
+    method: editSlug ? "PUT" : "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(serverPayload),
+  }
+);
       if (!res.ok) {
         let detail = "";
         try { detail = (await res.json()).error || ""; } catch (_) { /* ignore */ }
