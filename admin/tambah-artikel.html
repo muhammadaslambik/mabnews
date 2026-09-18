@@ -70,9 +70,9 @@
       <div class="input-wrap"><input id="title" maxlength="200" placeholder="Masukkan judul artikel yang menarik..." autocomplete="off"></div>
       <div class="counter"><span id="titleCount">0</span>/200 karakter</div>
 
-      <label>Slug URL <em>*</em></label>
-      <div class="slug-row"><span>https://mab-news.com/artikel/</span><input id="slug" placeholder="slug-url-otomatis" autocomplete="off"><button type="button" id="regenSlug" title="Buat ulang slug dari judul">↻</button></div>
-      <p class="help">Slug akan dibuat otomatis dari judul. Anda bisa mengubahnya jika diperlukan.</p>
+      <label>Slug URL (pratinjau)</label>
+      <div class="slug-row"><span>https://mab-news.com/artikel/</span><input id="slug" placeholder="slug-url-otomatis" readonly><button type="button" id="regenSlug" title="Sinkronkan ulang dari judul">↻</button></div>
+      <p class="help">Slug dibuat otomatis oleh server dari Judul saat artikel disimpan — kolom ini hanya pratinjau dan tidak bisa diedit manual.</p>
 
       <div class="two-col">
         <div><label>Penulis <em>*</em></label><div class="input-wrap with-icon"><span>●</span><input id="author" placeholder="Masukkan nama penulis..." autocomplete="off"></div></div>
@@ -134,7 +134,10 @@
       <div class="input-wrap"><input id="imageUrl" placeholder="URL muncul otomatis setelah gambar selesai diunggah..." readonly></div>
       <p class="help">URL ini otomatis terisi setelah gambar berhasil diunggah, dan akan disimpan bersama artikel.</p>
 
-      <label>◆　Tags</label>
+      <label>Keterangan Gambar (Caption)</label>
+      <div class="input-wrap"><input id="caption" placeholder="Keterangan singkat untuk gambar utama (opsional)..." autocomplete="off"></div>
+
+      <label>◆　Tags <small style="font-weight:400;color:#8aa0bd">(belum tersimpan ke server — lihat catatan di bawah)</small></label>
       <div class="tags-input"><div id="tags"></div><input id="tagInput" placeholder="Tambahkan tag, lalu tekan Enter..." autocomplete="off"></div>
       <p class="help">Gunakan tag untuk memudahkan pencarian (pisahkan dengan Enter)</p>
     </section>
@@ -148,7 +151,7 @@
         <label class="radio"><input type="radio" name="status" value="schedule"> Jadwalkan publikasi</label>
         <label class="mini-label date-label">Tanggal Publikasi</label>
         <input class="date-input" id="publishDate" type="datetime-local" disabled>
-        <p class="help">Akan menggunakan waktu server (WIB)</p>
+        <p class="help">Backend saat ini langsung mempublikasikan artikel begitu disimpan — opsi "Jadwalkan" & "Draft" di server belum didukung. Gunakan tombol "Simpan Draft" untuk menyimpan sementara di perangkat ini.</p>
       </section>
 
       <section class="card side-card">
@@ -167,9 +170,9 @@
 
       <section class="card side-card">
         <h3>⚙　Opsi Lainnya</h3>
-        <label class="check"><input id="allowComments" type="checkbox" checked> Izinkan komentar</label>
-        <label class="check"><input id="showHomepage2" type="checkbox" checked> Tampilkan di halaman utama</label>
-        <label class="check"><input id="featured" type="checkbox"> Artikel pilihan (highlight)</label>
+        <label class="check"><input id="allowComments" type="checkbox" checked> Izinkan komentar <small style="color:#8aa0bd">(belum tersimpan ke server)</small></label>
+        <label class="check"><input id="showHomepage2" type="checkbox" checked> Tampilkan di halaman utama <small style="color:#8aa0bd">(belum tersimpan ke server)</small></label>
+        <label class="check"><input id="featured" type="checkbox"> Artikel pilihan / populer (is_popular)</label>
       </section>
 
       <div class="save-actions">
@@ -195,6 +198,7 @@
 <div class="toast" id="toast"></div>
 
 <script src="../js/api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/imagekit-javascript@latest/dist/imagekit.min.js"></script>
 <script src="../admin-js/tambah-artikel.js"></script>
 </body>
 </html>

@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const uploadStatus = document.getElementById("uploadStatus");
   const removeImageBtn = document.getElementById("removeImageBtn");
   const imageUrlInput = document.getElementById("imageUrl");
+  const captionInput = document.getElementById("caption");
 
   const tagsWrap = document.getElementById("tags");
   const tagInput = document.getElementById("tagInput");
@@ -46,9 +47,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const closePreviewBtn = document.getElementById("closePreview");
 
   let tags = [];
-  let slugManuallyEdited = false;
   let uploadedImageUrl = "";
   let isUploadingImage = false;
+  const DRAFT_STORAGE_KEY = "mabnews_draft_tambah_artikel";
 
   // ---------------------------------------------------------
   // Util
@@ -91,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     selectKategori.innerHTML = '<option value="">Pilih kategori</option>';
     categories.forEach((kat) => {
       const option = document.createElement("option");
-      option.value = kat.id;
+      option.value = kat.key;
       option.textContent = kat.name;
       selectKategori.appendChild(option);
     });
@@ -105,18 +106,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ---------------------------------------------------------
   titleInput.addEventListener("input", () => {
     titleCount.textContent = titleInput.value.length;
-    if (!slugManuallyEdited) {
-      slugInput.value = slugify(titleInput.value);
-    }
-  });
-
-  slugInput.addEventListener("input", () => {
-    slugManuallyEdited = slugInput.value.trim() !== "";
+    slugInput.value = slugify(titleInput.value);
   });
 
   regenSlugBtn.addEventListener("click", () => {
     slugInput.value = slugify(titleInput.value);
-    slugManuallyEdited = false;
     if (!titleInput.value.trim()) {
       showToast("Isi judul artikel dulu untuk membuat slug.", "error");
     }
@@ -259,19 +253,63 @@ document.addEventListener("DOMContentLoaded", async () => {
     uploadPlaceholder.hidden = false;
   }
 
+  // ImageKit mengunggah gambar LANGSUNG dari browser ke ImageKit
+  // (bukan ke backend kita). Backend hanya menyediakan signature
+  // sementara lewat GET /api/upload/auth, sesuai dokumentasi resmi
+  // mabnews-backend.
+  let imagekitInstance = null;
+  if (typeof ImageKit !== "undefined") {
+    imagekitInstance = new ImageKit({
+      publicKey: IMAGEKIT_PUBLIC_KEY,
+      urlEndpoint: IMAGEKIT_URL_ENDPOINT,
+    });
+  }
+
+  function imagekitUpload(params) {
+    return new Promise((resolve, reject) => {
+      imagekitInstance.upload(params, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+  }
+
   async function uploadImageNow(file) {
     isUploadingImage = true;
     uploadStatus.textContent = "Mengunggah gambar...";
     imageUrlInput.value = "";
     uploadedImageUrl = "";
+
+    if (!imagekitInstance) {
+      uploadStatus.textContent = "Gagal: SDK ImageKit belum termuat.";
+      showToast("SDK ImageKit gagal dimuat. Periksa koneksi internet lalu muat ulang halaman.", "error");
+      isUploadingImage = false;
+      return;
+    }
+    if (IMAGEKIT_PUBLIC_KEY.startsWith("GANTI_DENGAN")) {
+      uploadStatus.textContent = "Gagal: Public Key ImageKit belum diisi.";
+      showToast("Isi dulu IMAGEKIT_PUBLIC_KEY & IMAGEKIT_URL_ENDPOINT di js/api.js.", "error");
+      isUploadingImage = false;
+      return;
+    }
+
     try {
-      const formData = new FormData();
-      formData.append("image", file);
-      const res = await fetch(`${API_BASE_URL}/api/upload`, { method: "POST", body: formData });
-      if (!res.ok) throw new Error("Server menolak unggahan gambar.");
-      const result = await res.json();
-      uploadedImageUrl = result.url || result.imageUrl || "";
-      if (!uploadedImageUrl) throw new Error("Server tidak mengembalikan URL gambar.");
+      // TAHAP A: Minta signature sementara dari backend
+      const authRes = await fetch(`${API_BASE_URL}/api/upload/auth`);
+      if (!authRes.ok) throw new Error("Gagal mengambil signature upload dari server.");
+      const auth = await authRes.json();
+
+      // TAHAP B: Unggah file langsung ke ImageKit pakai signature tadi
+      const result = await imagekitUpload({
+        file,
+        fileName: file.name,
+        token: auth.token,
+        expire: auth.expire,
+        signature: auth.signature,
+      });
+
+      uploadedImageUrl = result.url || "";
+      if (!uploadedImageUrl) throw new Error("ImageKit tidak mengembalikan URL gambar.");
       imageUrlInput.value = uploadedImageUrl;
       uploadStatus.textContent = "";
       showToast("Gambar berhasil diunggah.", "success");
@@ -337,39 +375,64 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ---------------------------------------------------------
   // 7. Kumpulkan & validasi data form
   // ---------------------------------------------------------
+
+  // Kolom `content` di database adalah jsonb array paragraf teks polos
+  // (bukan HTML). Jadi setiap blok di editor (p/h2/h3/blockquote/li)
+  // diubah jadi satu string teks dalam array. Format tebal/miring/link
+  // dari toolbar TIDAK ikut tersimpan — hanya teksnya.
+  function buildContentArray() {
+    const blocks = [];
+    const pushText = (raw) => {
+      const text = raw.replace(/\s+/g, " ").trim();
+      if (text) blocks.push(text);
+    };
+
+    Array.from(contentEl.childNodes).forEach((node) => {
+      if (node.nodeType === 3) {
+        pushText(node.textContent);
+        return;
+      }
+      if (node.nodeType !== 1) return;
+
+      const tag = node.tagName;
+      if (tag === "UL" || tag === "OL") {
+        Array.from(node.querySelectorAll("li")).forEach((li) => pushText(li.textContent));
+      } else {
+        pushText(node.textContent);
+      }
+    });
+
+    return blocks;
+  }
+
   function gatherFormData() {
-    const status = document.querySelector('input[name="status"]:checked').value;
     const categoryOption = selectKategori.options[selectKategori.selectedIndex];
     return {
+      // ---- field yang benar-benar dikirim ke POST /api/articles ----
       title: titleInput.value.trim(),
-      slug: (slugInput.value.trim() || slugify(titleInput.value)),
-      author: authorInput.value.trim(),
-      categoryId: selectKategori.value ? parseInt(selectKategori.value, 10) : null,
+      lead: leadInput.value.trim(),
+      content: buildContentArray(),
+      image_url: uploadedImageUrl,
+      caption: captionInput.value.trim(),
+      author: authorInput.value.trim() || "MAB-News",
+      category_key: selectKategori.value || null,
+      is_popular: featuredCheck.checked,
+      // ---- info tambahan untuk pratinjau / draft lokal saja ----
+      slugPreview: slugInput.value.trim() || slugify(titleInput.value),
       categoryName: categoryOption && selectKategori.value ? categoryOption.textContent : "",
-      excerpt: leadInput.value.trim(),
-      content: contentEl.innerHTML.trim(),
-      imageUrl: uploadedImageUrl,
       tags: tags.slice(),
-      status,
-      publishDate: publishDateInput.value || null,
-      showOnHomepage: homepageToggle.checked,
-      allowComments: allowCommentsCheck.checked,
-      featured: featuredCheck.checked,
-      metaDescription: metaInput.value.trim(),
-      metaKeywords: keywordsInput.value.trim(),
     };
   }
 
   function validate(data, requireFull) {
     const errors = [];
     if (!data.title) errors.push("Judul Artikel");
-    if (!data.slug) errors.push("Slug URL");
     if (requireFull) {
       if (!data.author) errors.push("Penulis");
-      if (!data.categoryId) errors.push("Kategori");
-      if (!data.excerpt) errors.push("Ringkasan (Lead)");
-      if (!data.content) errors.push("Konten Artikel");
-      if (!data.imageUrl) errors.push("Gambar Utama");
+      if (!data.category_key) errors.push("Kategori");
+      if (!data.lead) errors.push("Ringkasan (Lead)");
+      if (!data.content.length) errors.push("Konten Artikel");
+      if (!data.image_url) errors.push("Gambar Utama");
     }
     return errors;
   }
@@ -378,7 +441,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     titleInput.value = "";
     titleCount.textContent = "0";
     slugInput.value = "";
-    slugManuallyEdited = false;
     authorInput.value = "";
     selectKategori.value = "";
     leadInput.value = "";
@@ -386,6 +448,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     contentEl.innerHTML = "";
     updateWordCount();
     resetImage();
+    captionInput.value = "";
     tags = [];
     renderTags();
     metaInput.value = "";
@@ -393,6 +456,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     keywordsInput.value = "";
     publishDateInput.value = "";
     publishDateInput.disabled = true;
+    featuredCheck.checked = false;
     document.querySelector('input[name="status"][value="publish"]').checked = true;
   }
 
@@ -401,13 +465,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     const originalLabel = button.textContent;
     button.textContent = "Memproses...";
     try {
+      // Hanya kirim field yang benar-benar dikenali backend
+      // (lihat sql/schema.sql & articlesController.js).
+      const serverPayload = {
+        title: data.title,
+        lead: data.lead,
+        content: data.content,
+        image_url: data.image_url,
+        caption: data.caption,
+        author: data.author,
+        category_key: data.category_key,
+        is_popular: data.is_popular,
+      };
+
       const res = await fetch(`${API_BASE_URL}/api/articles`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(serverPayload),
       });
-      if (!res.ok) throw new Error(`Gagal menyimpan artikel (status ${res.status}).`);
+      if (!res.ok) {
+        let detail = "";
+        try { detail = (await res.json()).error || ""; } catch (_) { /* ignore */ }
+        throw new Error(detail || `Gagal menyimpan artikel (status ${res.status}).`);
+      }
       showToast(successMessage, "success");
+      clearLocalDraft();
       resetForm();
     } catch (error) {
       console.error("Proses gagal:", error);
@@ -419,7 +501,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // ---------------------------------------------------------
-  // 8. Tombol Publikasikan
+  // 8. Tombol Publikasikan (satu-satunya jalur yang benar-benar
+  //    mengirim artikel ke server — backend tidak mengenal status
+  //    draft/terjadwal, begitu dikirim langsung tampil publik)
   // ---------------------------------------------------------
   btnPublish.addEventListener("click", async () => {
     if (isUploadingImage) {
@@ -427,7 +511,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
     const data = gatherFormData();
-    data.status = "publish";
     const errors = validate(data, true);
     if (errors.length) {
       showToast(`Harap lengkapi: ${errors.join(", ")}.`, "error");
@@ -437,29 +520,86 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // ---------------------------------------------------------
-  // 9. Tombol Simpan Draft
+  // 9. Tombol Simpan Draft — backend BELUM punya kolom/status
+  //    draft sama sekali, jadi draft disimpan di localStorage
+  //    browser ini saja (bukan ke server) dan bisa dipulihkan
+  //    lagi saat halaman ini dibuka ulang di browser yang sama.
   // ---------------------------------------------------------
-  btnDraft.addEventListener("click", async () => {
-    if (isUploadingImage) {
-      showToast("Tunggu proses unggah gambar selesai terlebih dahulu.", "error");
-      return;
-    }
+  function clearLocalDraft() {
+    try { localStorage.removeItem(DRAFT_STORAGE_KEY); } catch (_) { /* ignore */ }
+  }
+
+  btnDraft.addEventListener("click", () => {
     const data = gatherFormData();
-    data.status = "draft";
-    const errors = validate(data, false);
-    if (errors.length) {
-      showToast(`Harap lengkapi: ${errors.join(", ")}.`, "error");
+    if (!data.title) {
+      showToast("Isi judul artikel dulu untuk menyimpan draft.", "error");
       return;
     }
-    await submitArticle(data, btnDraft, "Draft berhasil disimpan.", "▣　Simpan Draft");
+    try {
+      localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify({ ...data, savedAt: Date.now() }));
+      showToast("Draft disimpan di perangkat ini (backend belum mendukung draft di server).", "success");
+    } catch (error) {
+      console.error("Gagal menyimpan draft lokal:", error);
+      showToast(`Gagal menyimpan draft: ${error.message}`, "error");
+    }
   });
+
+  function restoreLocalDraftIfAny() {
+    let saved;
+    try {
+      const raw = localStorage.getItem(DRAFT_STORAGE_KEY);
+      if (!raw) return;
+      saved = JSON.parse(raw);
+    } catch (_) {
+      return;
+    }
+    if (!saved || !saved.title) return;
+
+    const savedDate = saved.savedAt ? new Date(saved.savedAt).toLocaleString("id-ID") : "";
+    const wantsRestore = confirm(
+      `Ditemukan draft tersimpan di perangkat ini: "${saved.title}"${savedDate ? ` (disimpan ${savedDate})` : ""}.\n\nMuat draft ini?`
+    );
+    if (!wantsRestore) return;
+
+    titleInput.value = saved.title || "";
+    titleCount.textContent = titleInput.value.length;
+    slugInput.value = saved.slugPreview || slugify(titleInput.value);
+    authorInput.value = saved.author || "";
+    leadInput.value = saved.lead || "";
+    leadCount.textContent = leadInput.value.length;
+    contentEl.innerHTML = "";
+    (saved.content || []).forEach((paragraph) => {
+      const p = document.createElement("p");
+      p.textContent = paragraph;
+      contentEl.appendChild(p);
+    });
+    updateWordCount();
+    captionInput.value = saved.caption || "";
+    featuredCheck.checked = !!saved.is_popular;
+    tags = Array.isArray(saved.tags) ? saved.tags.slice() : [];
+    renderTags();
+
+    if (saved.image_url) {
+      uploadedImageUrl = saved.image_url;
+      imageUrlInput.value = saved.image_url;
+      uploadPreviewImg.src = saved.image_url;
+      uploadPlaceholder.hidden = true;
+      uploadPreview.hidden = false;
+    }
+
+    if (saved.category_key) {
+      selectKategori.value = saved.category_key;
+    }
+
+    showToast("Draft berhasil dipulihkan.", "success");
+  }
 
   // ---------------------------------------------------------
   // 10. Tombol Preview
   // ---------------------------------------------------------
   function renderPreview(data) {
-    const imageHtml = data.imageUrl
-      ? `<img class="pv-image" src="${data.imageUrl}" alt="">`
+    const imageHtml = data.image_url
+      ? `<img class="pv-image" src="${data.image_url}" alt="">`
       : "";
     const categoryHtml = data.categoryName
       ? `<span class="pv-category">${escapeHtml(data.categoryName)}</span>`
@@ -470,8 +610,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const dateStr = new Date().toLocaleDateString("id-ID", {
       day: "numeric", month: "long", year: "numeric",
     });
-    const leadHtml = data.excerpt ? `<p class="pv-lead">${escapeHtml(data.excerpt)}</p>` : "";
-    const contentHtml = data.content || '<p class="pv-empty">(Konten belum diisi)</p>';
+    const leadHtml = data.lead ? `<p class="pv-lead">${escapeHtml(data.lead)}</p>` : "";
+    const contentHtml = data.content.length
+      ? data.content.map((p) => `<p>${escapeHtml(p)}</p>`).join("")
+      : '<p class="pv-empty">(Konten belum diisi)</p>';
     const tagsHtml = data.tags.length
       ? `<div class="pv-tags">${data.tags.map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join("")}</div>`
       : "";
@@ -480,7 +622,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       ${imageHtml}
       ${categoryHtml}
       <h1 class="pv-title">${titleHtml}</h1>
-      <p class="pv-meta">Oleh ${escapeHtml(data.author || "-")} · ${dateStr} · /artikel/${escapeHtml(data.slug || "-")}</p>
+      <p class="pv-meta">Oleh ${escapeHtml(data.author || "-")} · ${dateStr} · /artikel/${escapeHtml(data.slugPreview || "-")}</p>
       ${leadHtml}
       <div class="pv-content">${contentHtml}</div>
       ${tagsHtml}
@@ -489,7 +631,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   btnPreview.addEventListener("click", () => {
     const data = gatherFormData();
-    if (!data.title && !data.content) {
+    if (!data.title && !data.content.length) {
       showToast("Isi judul atau konten dulu sebelum melihat pratinjau.", "error");
       return;
     }
@@ -510,4 +652,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ---------------------------------------------------------
   renderTags();
   publishDateInput.disabled = true;
+  restoreLocalDraftIfAny();
 });
