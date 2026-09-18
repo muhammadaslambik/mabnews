@@ -1,648 +1,128 @@
 /* =========================================================
-   MAB-NEWS — JAVASCRIPT HALAMAN DAFTAR BERITA
-   ========================================================= */
-
+   MAB-NEWS — HALAMAN DAFTAR BERITA (fetch dari database)
+========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
+  const tabs = [...document.querySelectorAll(".category-tab")];
+  const categoryFilter = document.getElementById("filterCategory");
+  const timeFilter = document.getElementById("filterTime");
+  const sortFilter = document.getElementById("sortNews");
+  const filterForm = document.getElementById("newsFilterForm");
+  const resetFilter = document.getElementById("resetFilter");
+  const resultCount = document.getElementById("resultCount");
+  const resultsTitle = document.getElementById("resultsTitle");
+  const pageTitle = document.getElementById("pageTitle");
+  const resultsContainer = document.querySelector(".news-results");
 
-    /* =====================================================
-       ELEMENT
-    ====================================================== */
+  const params = new URLSearchParams(window.location.search);
+  let selectedCategory = (params.get("kategori") || "all").toLowerCase();
+  let currentPage = parseInt(params.get("page") || "1", 10) || 1;
 
-    const rows = [
-        ...document.querySelectorAll(".news-item")
-    ];
+  const categoryNames = {
+    all: "Semua", nasional: "Nasional", internasional: "Internasional",
+    ekonomi: "Ekonomi", metro: "Metro", dunia: "Dunia", olahraga: "Olahraga",
+    teknologi: "Teknologi", otomotif: "Otomotif", "gaya-hidup": "Gaya Hidup",
+    seni: "Seni", kolom: "Kolom"
+  };
 
-    const tabs = [
-        ...document.querySelectorAll(".category-tab")
-    ];
+  function renderCard(a) {
+    return `
+      <article class="news-item">
+        <a href="artikel.html?id=${a.slug}" class="news-image">
+          <img src="${a.image_url || ''}" alt="${a.title}">
+        </a>
+        <div class="news-content">
+          <span class="news-category">${a.category?.name || '-'}</span>
+          <h3><a href="artikel.html?id=${a.slug}">${a.title}</a></h3>
+          <p>${a.lead || ''}</p>
+          <div class="news-meta">
+            <span>${new Date(a.published_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</span>
+            <span>•</span>
+            <span>${a.author || 'MAB-News'}</span>
+          </div>
+        </div>
+      </article>`;
+  }
 
-    const categoryFilter =
-        document.getElementById("filterCategory");
+  function updateTabs() {
+    tabs.forEach(tab => tab.classList.toggle("active", (tab.dataset.category || "").toLowerCase() === selectedCategory));
+  }
 
-    const authorFilter =
-        document.getElementById("filterAuthor");
+  async function loadNews() {
+    resultsContainer.querySelectorAll('.news-item').forEach(el => el.remove());
+    try {
+      const query = new URLSearchParams({ page: currentPage, limit: 10 });
+      if (selectedCategory !== 'all') query.set('kategori', selectedCategory);
+      if (sortFilter.value === 'popular') query.set('popular', 'true');
 
-    const timeFilter =
-        document.getElementById("filterTime");
+      const res = await apiFetch(`/api/articles?${query.toString()}`);
+      const items = res.data || [];
+      const total = res.total || 0;
 
-    const sortFilter =
-        document.getElementById("sortNews");
+      const categoryName = categoryNames[selectedCategory] || "Semua";
+      resultsTitle.textContent = selectedCategory === 'all'
+        ? (sortFilter.value === 'popular' ? "Berita Terpopuler" : "Berita Terbaru")
+        : `Berita ${categoryName}`;
+      pageTitle.textContent = selectedCategory === 'all' ? "Berita" : categoryName;
+      resultCount.textContent = `Menampilkan ${items.length} dari ${total} berita`;
 
-    const filterForm =
-        document.getElementById("newsFilterForm");
+      const pagination = resultsContainer.querySelector('.pagination') || document.getElementById('pagination');
+      const html = items.map(renderCard).join('');
+      if (pagination) {
+        pagination.insertAdjacentHTML('beforebegin', html);
+      } else {
+        resultsContainer.insertAdjacentHTML('beforeend', html);
+      }
 
-    const resetFilter =
-        document.getElementById("resetFilter");
-
-    const resultCount =
-        document.getElementById("resultCount");
-
-    const resultsTitle =
-        document.getElementById("resultsTitle");
-
-    const pageTitle =
-        document.getElementById("pageTitle");
-
-    const newsletterForm =
-        document.getElementById("newsletterForm");
-
-
-    /* =====================================================
-       URL PARAMETER
-    ====================================================== */
-
-    const params =
-        new URLSearchParams(window.location.search);
-
-    const urlCategory =
-        (params.get("kategori") || "all").toLowerCase();
-
-    const urlSort =
-        (params.get("sort") || "latest").toLowerCase();
-
-    const urlPage =
-        parseInt(params.get("page") || "1", 10);
-
-
-    /* =====================================================
-       STATE
-    ====================================================== */
-
-    let selectedCategory = urlCategory;
-
-
-    /* =====================================================
-       HELPER
-    ====================================================== */
-
-    function normalize(value) {
-        return String(value || "")
-            .trim()
-            .toLowerCase();
+      updateTabs();
+    } catch (err) {
+      console.error('Gagal memuat berita:', err);
+      resultCount.textContent = 'Gagal memuat berita dari server.';
     }
-
-
-    function getCategoryName(category) {
-
-        const names = {
-            all: "Semua",
-            nasional: "Nasional",
-            internasional: "Internasional",
-            ekonomi: "Ekonomi",
-            metro: "Metro",
-            dunia: "Dunia",
-            olahraga: "Olahraga",
-            teknologi: "Teknologi",
-            otomotif: "Otomotif",
-            "gaya-hidup": "Gaya Hidup",
-            seni: "Seni",
-            kolom: "Kolom"
-        };
-
-        return names[category] || "Semua";
-    }
-
-
-    function updateURL() {
-
-        const url =
-            new URL(window.location.href);
-
-        url.searchParams.delete("page");
-
-        if (
-            selectedCategory &&
-            selectedCategory !== "all"
-        ) {
-            url.searchParams.set(
-                "kategori",
-                selectedCategory
-            );
-        } else {
-            url.searchParams.delete("kategori");
-        }
-
-        if (
-            sortFilter.value &&
-            sortFilter.value !== "latest"
-        ) {
-            url.searchParams.set(
-                "sort",
-                sortFilter.value
-            );
-        } else {
-            url.searchParams.delete("sort");
-        }
-
-        window.history.replaceState(
-            {},
-            "",
-            url
-        );
-    }
-
-
-    /* =====================================================
-       CATEGORY TABS
-    ====================================================== */
-
-    function updateTabs() {
-
-        tabs.forEach(tab => {
-
-            const category =
-                normalize(
-                    tab.dataset.category
-                );
-
-            tab.classList.toggle(
-                "active",
-                category === selectedCategory
-            );
-
-        });
-
-
-        /*
-         * Sinkronkan sorotan navigasi utama
-         * (header) agar selalu selaras dengan
-         * kategori yang sedang aktif di halaman
-         * berita ini.
-         */
-
-        window.syncMainNavActive?.();
-
-    }
-
-
-    /* =====================================================
-       APPLY FILTER
-    ====================================================== */
-
-    function applyFilters(options = {}) {
-
-        const {
-            updateUrl = true
-        } = options;
-
-
-        const category =
-            selectedCategory || "all";
-
-        const author =
-            normalize(
-                authorFilter?.value || "all"
-            );
-
-        const time =
-            normalize(
-                timeFilter?.value || "all"
-            );
-
-
-        const visibleRows = [];
-
-
-        rows.forEach(row => {
-
-            const rowCategory =
-                normalize(
-                    row.dataset.category
-                );
-
-            const rowAuthor =
-                normalize(
-                    row.dataset.author
-                );
-
-            const rowTime =
-                normalize(
-                    row.dataset.time
-                );
-
-
-            const categoryOK =
-                category === "all" ||
-                rowCategory === category;
-
-
-            const authorOK =
-                author === "all" ||
-                rowAuthor === author;
-
-
-            let timeOK = true;
-
-            if (time !== "all") {
-
-                /*
-                 * Data demo saat ini memakai
-                 * data-time="today".
-                 *
-                 * Struktur ini sengaja dibuat agar
-                 * nantinya mudah diganti dengan data
-                 * tanggal dari CMS/API.
-                 */
-
-                if (time === "today") {
-                    timeOK =
-                        rowTime === "today";
-                }
-
-                else if (time === "week") {
-                    timeOK =
-                        rowTime === "today" ||
-                        rowTime === "week";
-                }
-
-                else if (time === "month") {
-                    timeOK =
-                        rowTime === "today" ||
-                        rowTime === "week" ||
-                        rowTime === "month";
-                }
-
-            }
-
-
-            const visible =
-                categoryOK &&
-                authorOK &&
-                timeOK;
-
-
-            row.classList.toggle(
-                "is-hidden",
-                !visible
-            );
-
-
-            if (visible) {
-                visibleRows.push(row);
-            }
-
-        });
-
-
-        /* =================================================
-           SORT
-        ================================================== */
-
-        sortRows();
-
-
-        /* =================================================
-           TITLE
-        ================================================== */
-
-        const categoryName =
-            getCategoryName(category);
-
-
-        if (category === "all") {
-
-            resultsTitle.textContent =
-                sortFilter.value === "popular"
-                    ? "Berita Terpopuler"
-                    : "Berita Terbaru";
-
-            pageTitle.textContent =
-                "Berita";
-
-        } else {
-
-            resultsTitle.textContent =
-                `Berita ${categoryName}`;
-
-            pageTitle.textContent =
-                categoryName;
-
-        }
-
-
-        /* =================================================
-           RESULT COUNT
-        ================================================== */
-
-        resultCount.textContent =
-            `Menampilkan ${visibleRows.length} berita`;
-
-
-        /* =================================================
-           URL
-        ================================================== */
-
-        if (updateUrl) {
-            updateURL();
-        }
-
-
-        /* =================================================
-           TABS
-        ================================================== */
-
-        updateTabs();
-
-    }
-
-
-    /* =====================================================
-       SORT
-    ====================================================== */
-
-    function sortRows() {
-
-        const container =
-            document.querySelector(
-                ".news-results"
-            );
-
-        if (!container) {
-            return;
-        }
-
-
-        const orderedRows =
-            [...rows];
-
-
-        if (sortFilter.value === "latest") {
-
-            orderedRows.sort(
-                (a, b) =>
-                    new Date(b.dataset.date) -
-                    new Date(a.dataset.date)
-            );
-
-        }
-
-
-        else if (sortFilter.value === "oldest") {
-
-            orderedRows.sort(
-                (a, b) =>
-                    new Date(a.dataset.date) -
-                    new Date(b.dataset.date)
-            );
-
-        }
-
-
-        else if (sortFilter.value === "popular") {
-
-            orderedRows.sort(
-                (a, b) =>
-                    Number(b.dataset.popular || 0) -
-                    Number(a.dataset.popular || 0)
-            );
-
-        }
-
-
-        const pagination =
-            document.getElementById(
-                "pagination"
-            );
-
-
-        orderedRows.forEach(row => {
-
-            if (pagination) {
-                container.insertBefore(
-                    row,
-                    pagination
-                );
-            } else {
-                container.appendChild(row);
-            }
-
-        });
-
-    }
-
-
-    /* =====================================================
-       FILTER FORM
-    ====================================================== */
-
-    filterForm?.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-            selectedCategory =
-                normalize(
-                    categoryFilter.value
-                );
-
-            applyFilters();
-
-        }
-    );
-
-
-    /* =====================================================
-       RESET
-    ====================================================== */
-
-    resetFilter?.addEventListener(
-        "click",
-        () => {
-
-            setTimeout(() => {
-
-                selectedCategory = "all";
-
-                categoryFilter.value =
-                    "all";
-
-                authorFilter.value =
-                    "all";
-
-                timeFilter.value =
-                    "all";
-
-                sortFilter.value =
-                    "latest";
-
-
-                applyFilters();
-
-
-                /*
-                 * Reset URL sepenuhnya.
-                 */
-
-                window.history.replaceState(
-                    {},
-                    "",
-                    "berita.html"
-                );
-
-            }, 0);
-
-        }
-    );
-
-
-    /* =====================================================
-       SORT CHANGE
-    ====================================================== */
-
-    sortFilter?.addEventListener(
-        "change",
-        () => {
-
-            applyFilters();
-
-        }
-    );
-
-
-    /* =====================================================
-       NEWSLETTER
-    ====================================================== */
-
-    newsletterForm?.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-            const email =
-                document
-                    .getElementById(
-                        "newsletterEmail"
-                    )
-                    ?.value
-                    .trim();
-
-
-            if (!email) {
-                return;
-            }
-
-
-            alert(
-                "Terima kasih. Email Anda berhasil didaftarkan."
-            );
-
-
-            newsletterForm.reset();
-
-        }
-    );
-
-
-    /* =====================================================
-       INITIAL STATE
-    ====================================================== */
-
-    if (
-        [
-            "all",
-            "nasional",
-            "internasional",
-            "ekonomi",
-            "metro",
-            "dunia",
-            "olahraga",
-            "teknologi",
-            "otomotif",
-            "gaya-hidup",
-            "seni",
-            "kolom"
-        ].includes(urlCategory)
-    ) {
-
-        selectedCategory =
-            urlCategory;
-
-    } else {
-
-        selectedCategory =
-            "all";
-
-    }
-
-
-    if (
-        [
-            "latest",
-            "oldest",
-            "popular"
-        ].includes(urlSort)
-    ) {
-
-        sortFilter.value =
-            urlSort;
-
-    } else {
-
-        sortFilter.value =
-            "latest";
-
-    }
-
-
-    if (categoryFilter) {
-
-        categoryFilter.value =
-            selectedCategory;
-
-    }
-
-
-    /*
-     * Jika URL memiliki kategori,
-     * otomatis aktifkan kategori tersebut.
-     */
-
-    updateTabs();
-
-
-    /*
-     * Terapkan filter pertama kali.
-     */
-
-    applyFilters({
-        updateUrl: false
+  }
+
+  function updateURL() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("page");
+    selectedCategory !== "all" ? url.searchParams.set("kategori", selectedCategory) : url.searchParams.delete("kategori");
+    sortFilter.value !== "latest" ? url.searchParams.set("sort", sortFilter.value) : url.searchParams.delete("sort");
+    window.history.replaceState({}, "", url);
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      selectedCategory = (tab.dataset.category || 'all').toLowerCase();
+      currentPage = 1;
+      updateURL();
+      loadNews();
     });
+  });
 
+  filterForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    selectedCategory = (categoryFilter.value || 'all').toLowerCase();
+    currentPage = 1;
+    updateURL();
+    loadNews();
+  });
 
-    /* =====================================================
-       PAGE PARAMETER
-    ====================================================== */
+  resetFilter?.addEventListener("click", () => {
+    setTimeout(() => {
+      selectedCategory = "all";
+      categoryFilter.value = "all";
+      timeFilter.value = "all";
+      sortFilter.value = "latest";
+      currentPage = 1;
+      window.history.replaceState({}, "", "berita.html");
+      loadNews();
+    }, 0);
+  });
 
-    if (
-        Number.isInteger(urlPage) &&
-        urlPage > 1
-    ) {
+  sortFilter?.addEventListener("change", () => { currentPage = 1; updateURL(); loadNews(); });
 
-        document
-            .querySelectorAll(
-                ".page-number"
-            )
-            .forEach(link => {
+  if (categoryFilter) categoryFilter.value = selectedCategory;
+  const urlSort = (params.get("sort") || "latest").toLowerCase();
+  if (["latest", "oldest", "popular"].includes(urlSort)) sortFilter.value = urlSort;
 
-                link.classList.remove(
-                    "active"
-                );
-
-            });
-
-
-        const currentPage =
-            document.querySelector(
-                `.page-number[data-page="${urlPage}"]`
-            );
-
-
-        currentPage?.classList.add(
-            "active"
-        );
-
-    }
-
+  loadNews();
 });
