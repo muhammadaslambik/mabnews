@@ -1,855 +1,131 @@
-/* =========================================================
-   MAB-NEWS — JAVASCRIPT HALAMAN PENCARIAN
-   ========================================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
+  const tabs = [...document.querySelectorAll(".category-tab")];
+  const categoryFilter = document.getElementById("filterCategory");
+  const timeFilter = document.getElementById("filterTime");
+  const sortFilter = document.getElementById("sortNews");
+  const filterForm = document.getElementById("newsFilterForm");
+  const resetFilter = document.getElementById("resetFilter");
+  const resultCount = document.getElementById("resultCount");
+  const resultsTitle = document.getElementById("resultsTitle");
+  const pageTitle = document.getElementById("pageTitle");
+  const resultsContainer = document.querySelector(".news-results");
+  const emptyState = document.getElementById("searchEmptyState");
+  const headerSearchForm = document.getElementById("headerSearch");
+  const searchInput = document.getElementById("searchInput");
 
-    /* =====================================================
-       ELEMENT
-    ====================================================== */
+  const params = new URLSearchParams(window.location.search);
+  let query = params.get("q") || "";
+  let selectedCategory = (params.get("kategori") || "all").toLowerCase();
 
-    const rows = [
-        ...document.querySelectorAll(".news-item")
-    ];
+  if (searchInput) searchInput.value = query;
+  if (categoryFilter) categoryFilter.value = selectedCategory;
 
-    const tabs = [
-        ...document.querySelectorAll(".category-tab")
-    ];
+  function renderCard(a) {
+    return `
+      <article class="news-item">
+        <a href="artikel.html?id=${a.slug}" class="news-image">
+          <img src="${a.image_url || ''}" alt="${a.title}">
+        </a>
+        <div class="news-content">
+          <span class="news-category">${a.category?.name || '-'}</span>
+          <h3><a href="artikel.html?id=${a.slug}">${a.title}</a></h3>
+          <p>${a.lead || ''}</p>
+          <div class="news-meta">
+            <span>${new Date(a.published_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</span>
+            <span>•</span>
+            <span>${a.author || 'MAB-News'}</span>
+          </div>
+        </div>
+      </article>`;
+  }
 
-    const categoryFilter =
-        document.getElementById("filterCategory");
+  function updateTabs() {
+    tabs.forEach(tab => tab.classList.toggle("active", (tab.dataset.category || "all").toLowerCase() === selectedCategory));
+  }
 
-    const authorFilter =
-        document.getElementById("filterAuthor");
+  async function runSearch() {
+    resultsContainer.querySelectorAll(".news-item").forEach(el => el.remove());
 
-    const timeFilter =
-        document.getElementById("filterTime");
-
-    const sortFilter =
-        document.getElementById("sortNews");
-
-    const filterForm =
-        document.getElementById("newsFilterForm");
-
-    const resetFilter =
-        document.getElementById("resetFilter");
-
-    const resultCount =
-        document.getElementById("resultCount");
-
-    const resultsTitle =
-        document.getElementById("resultsTitle");
-
-    const pageTitle =
-        document.getElementById("pageTitle");
-
-    const newsletterForm =
-        document.getElementById("newsletterForm");
-
-    const headerSearchInput =
-        document.getElementById("searchInput");
-
-    const emptyState =
-        document.getElementById("searchEmptyState");
-
-    const pagination =
-        document.getElementById("pagination");
-
-
-    /* =====================================================
-       URL PARAMETER
-    ====================================================== */
-
-    const params =
-        new URLSearchParams(window.location.search);
-
-    const urlCategory =
-        (params.get("kategori") || "all").toLowerCase();
-
-    const urlSort =
-        (params.get("sort") || "latest").toLowerCase();
-
-    const urlPage =
-        parseInt(params.get("page") || "1", 10);
-
-    const urlQuery =
-        params.get("q") || "";
-
-
-    /* =====================================================
-       STATE
-    ====================================================== */
-
-    let selectedCategory = urlCategory;
-
-    let searchTerm =
-        urlQuery.trim().toLowerCase();
-
-
-    /* =====================================================
-       HELPER
-    ====================================================== */
-
-    function normalize(value) {
-        return String(value || "")
-            .trim()
-            .toLowerCase();
+    if (!query) {
+      emptyState.style.display = "";
+      emptyState.textContent = "Ketik kata kunci lalu tekan Enter atau klik ikon pencarian di atas untuk menampilkan berita.";
+      resultCount.textContent = "";
+      resultsTitle.textContent = "Halaman Pencarian";
+      pageTitle.textContent = "Pencarian";
+      updateTabs();
+      return;
     }
 
+    emptyState.style.display = "none";
+    try {
+      const q = new URLSearchParams({ page: 1, limit: 10, q: query });
+      if (selectedCategory !== "all") q.set("kategori", selectedCategory);
+      if (sortFilter && sortFilter.value === "popular") q.set("popular", "true");
 
-    /*
-     * Pencocokan kata kunci yang lebih pintar.
-     *
-     * Kata kunci dipecah per kata, lalu dicari satu per
-     * satu di dalam teks — TIDAK harus berurutan persis
-     * (boleh ada kata lain di antaranya), tapi urutannya
-     * harus tetap dari kiri ke kanan.
-     *
-     * Contoh:
-     *   Teks : "Pemerintah menyiapkan sejumlah strategi
-     *           baru untuk menjaga daya beli masyarakat
-     *           di tengah dinamika perekonomian nasional."
-     *   Cari : "Pemerintah menjaga daya beli masyarakat"
-     *   Hasil: cocok, karena semua kata ditemukan berurutan
-     *          dari kiri ke kanan (meski melompati kata lain).
-     */
+      const res = await apiFetch(`/api/articles?${q.toString()}`);
+      const items = res.data || [];
+      const total = res.total || 0;
 
-    function smartMatch(query, text) {
+      resultsTitle.textContent = `Hasil untuk "${query}"`;
+      pageTitle.textContent = `Pencarian: ${query}`;
+      resultCount.textContent = `Menampilkan ${items.length} dari ${total} berita`;
 
-        const queryWords =
-            normalize(query)
-                .split(/\s+/)
-                .filter(Boolean);
-
-        if (queryWords.length === 0) {
-            return true;
-        }
-
-
-        const textWords =
-            normalize(text)
-                .split(/\s+/)
-                .filter(Boolean);
-
-        let cursor = 0;
-
-        for (const word of queryWords) {
-
-            let found = false;
-
-            while (cursor < textWords.length) {
-
-                const current =
-                    textWords[cursor];
-
-                cursor++;
-
-                if (current.includes(word)) {
-                    found = true;
-                    break;
-                }
-
-            }
-
-            if (!found) {
-                return false;
-            }
-
-        }
-
-        return true;
-
+      if (!items.length) {
+        emptyState.style.display = "";
+        emptyState.textContent = `Tidak ditemukan berita untuk "${query}".`;
+      } else {
+        resultsContainer.insertAdjacentHTML("beforeend", items.map(renderCard).join(""));
+      }
+      updateTabs();
+    } catch (err) {
+      console.error("Gagal mencari berita:", err);
+      resultCount.textContent = "Gagal memuat hasil pencarian dari server.";
     }
-
-
-    function getCategoryName(category) {
-
-        const names = {
-            all: "Semua",
-            nasional: "Nasional",
-            internasional: "Internasional",
-            ekonomi: "Ekonomi",
-            metro: "Metro",
-            dunia: "Dunia",
-            olahraga: "Olahraga",
-            teknologi: "Teknologi",
-            otomotif: "Otomotif",
-            "gaya-hidup": "Gaya Hidup",
-            seni: "Seni",
-            kolom: "Kolom"
-        };
-
-        return names[category] || "Semua";
-    }
-
-
-    function updateURL() {
-
-        const url =
-            new URL(window.location.href);
-
-        url.searchParams.delete("page");
-
-        if (
-            selectedCategory &&
-            selectedCategory !== "all"
-        ) {
-            url.searchParams.set(
-                "kategori",
-                selectedCategory
-            );
-        } else {
-            url.searchParams.delete("kategori");
-        }
-
-        if (
-            sortFilter.value &&
-            sortFilter.value !== "latest"
-        ) {
-            url.searchParams.set(
-                "sort",
-                sortFilter.value
-            );
-        } else {
-            url.searchParams.delete("sort");
-        }
-
-        if (searchTerm) {
-            url.searchParams.set(
-                "q",
-                searchTerm
-            );
-        } else {
-            url.searchParams.delete("q");
-        }
-
-        window.history.replaceState(
-            {},
-            "",
-            url
-        );
-    }
-
-
-    /* =====================================================
-       CATEGORY TABS
-    ====================================================== */
-
-    function updateTabs() {
-
-        tabs.forEach(tab => {
-
-            const category =
-                normalize(
-                    tab.dataset.category
-                );
-
-            tab.classList.toggle(
-                "active",
-                category === selectedCategory
-            );
-
-        });
-
-
-        /*
-         * Sinkronkan sorotan navigasi utama
-         * (header) agar selalu selaras dengan
-         * kategori yang sedang aktif di halaman
-         * berita ini.
-         */
-
-        window.syncMainNavActive?.();
-
-    }
-
-
-    /* =====================================================
-       APPLY FILTER
-    ====================================================== */
-
-    function applyFilters(options = {}) {
-
-        const {
-            updateUrl = true
-        } = options;
-
-
-        const category =
-            selectedCategory || "all";
-
-        const author =
-            normalize(
-                authorFilter?.value || "all"
-            );
-
-        const time =
-            normalize(
-                timeFilter?.value || "all"
-            );
-
-
-        const visibleRows = [];
-
-
-        rows.forEach(row => {
-
-            const rowCategory =
-                normalize(
-                    row.dataset.category
-                );
-
-            const rowAuthor =
-                normalize(
-                    row.dataset.author
-                );
-
-            const rowTime =
-                normalize(
-                    row.dataset.time
-                );
-
-            const titleText =
-                row.querySelector("h3")
-                    ?.textContent || "";
-
-            const excerptText =
-                row.querySelector(
-                    ".news-content p"
-                )?.textContent || "";
-
-            const searchableText =
-                `${titleText} ${excerptText}`;
-
-
-            const categoryOK =
-                category === "all" ||
-                rowCategory === category;
-
-
-            const authorOK =
-                author === "all" ||
-                rowAuthor === author;
-
-
-            const searchOK =
-                Boolean(searchTerm) &&
-                smartMatch(
-                    searchTerm,
-                    searchableText
-                );
-
-
-            let timeOK = true;
-
-            if (time !== "all") {
-
-                /*
-                 * Data demo saat ini memakai
-                 * data-time="today".
-                 *
-                 * Struktur ini sengaja dibuat agar
-                 * nantinya mudah diganti dengan data
-                 * tanggal dari CMS/API.
-                 */
-
-                if (time === "today") {
-                    timeOK =
-                        rowTime === "today";
-                }
-
-                else if (time === "week") {
-                    timeOK =
-                        rowTime === "today" ||
-                        rowTime === "week";
-                }
-
-                else if (time === "month") {
-                    timeOK =
-                        rowTime === "today" ||
-                        rowTime === "week" ||
-                        rowTime === "month";
-                }
-
-            }
-
-
-            const visible =
-                categoryOK &&
-                authorOK &&
-                timeOK &&
-                searchOK;
-
-
-            row.classList.toggle(
-                "is-hidden",
-                !visible
-            );
-
-
-            if (visible) {
-                visibleRows.push(row);
-            }
-
-        });
-
-
-        /* =================================================
-           SORT
-        ================================================== */
-
-        sortRows();
-
-
-        /* =================================================
-           TITLE
-        ================================================== */
-
-        resultsTitle.textContent =
-            "Halaman Pencarian";
-
-        pageTitle.textContent =
-            "Pencarian";
-
-
-        /* =================================================
-           RESULT COUNT & PESAN KOSONG
-        ================================================== */
-
-        if (!searchTerm) {
-
-            resultCount.textContent =
-                "Belum ada kata kunci pencarian";
-
-            if (emptyState) {
-
-                emptyState.textContent =
-                    "Ketik kata kunci lalu tekan Enter atau klik ikon pencarian di atas untuk menampilkan berita.";
-
-                emptyState.classList.add(
-                    "is-visible"
-                );
-
-            }
-
-        } else if (visibleRows.length === 0) {
-
-            resultCount.textContent =
-                `Tidak ada berita ditemukan untuk pencarian "${searchTerm}"`;
-
-            if (emptyState) {
-
-                emptyState.textContent =
-                    `Tidak ada berita yang cocok dengan kata kunci "${searchTerm}". Coba kata kunci lain.`;
-
-                emptyState.classList.add(
-                    "is-visible"
-                );
-
-            }
-
-        } else {
-
-            resultCount.textContent =
-                `Menampilkan ${visibleRows.length} berita untuk pencarian "${searchTerm}"`;
-
-            if (emptyState) {
-
-                emptyState.classList.remove(
-                    "is-visible"
-                );
-
-            }
-
-        }
-
-
-        if (pagination) {
-
-            pagination.style.display =
-                (searchTerm && visibleRows.length > 0)
-                    ? ""
-                    : "none";
-
-        }
-
-
-        /* =================================================
-           URL
-        ================================================== */
-
-        if (updateUrl) {
-            updateURL();
-        }
-
-
-        /* =================================================
-           TABS
-        ================================================== */
-
-        updateTabs();
-
-    }
-
-
-    /* =====================================================
-       SORT
-    ====================================================== */
-
-    function sortRows() {
-
-        const container =
-            document.querySelector(
-                ".news-results"
-            );
-
-        if (!container) {
-            return;
-        }
-
-
-        const orderedRows =
-            [...rows];
-
-
-        if (sortFilter.value === "latest") {
-
-            orderedRows.sort(
-                (a, b) =>
-                    new Date(b.dataset.date) -
-                    new Date(a.dataset.date)
-            );
-
-        }
-
-
-        else if (sortFilter.value === "oldest") {
-
-            orderedRows.sort(
-                (a, b) =>
-                    new Date(a.dataset.date) -
-                    new Date(b.dataset.date)
-            );
-
-        }
-
-
-        else if (sortFilter.value === "popular") {
-
-            orderedRows.sort(
-                (a, b) =>
-                    Number(b.dataset.popular || 0) -
-                    Number(a.dataset.popular || 0)
-            );
-
-        }
-
-
-        orderedRows.forEach(row => {
-
-            if (pagination) {
-                container.insertBefore(
-                    row,
-                    pagination
-                );
-            } else {
-                container.appendChild(row);
-            }
-
-        });
-
-    }
-
-
-    /* =====================================================
-       FILTER FORM
-    ====================================================== */
-
-    filterForm?.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-            selectedCategory =
-                normalize(
-                    categoryFilter.value
-                );
-
-            applyFilters();
-
-        }
-    );
-
-
-    /* =====================================================
-       RESET
-    ====================================================== */
-
-    resetFilter?.addEventListener(
-        "click",
-        () => {
-
-            setTimeout(() => {
-
-                selectedCategory = "all";
-
-                searchTerm = "";
-
-                if (headerSearchInput) {
-                    headerSearchInput.value = "";
-                }
-
-                categoryFilter.value =
-                    "all";
-
-                authorFilter.value =
-                    "all";
-
-                timeFilter.value =
-                    "all";
-
-                sortFilter.value =
-                    "latest";
-
-
-                applyFilters();
-
-
-                /*
-                 * Reset URL sepenuhnya.
-                 */
-
-                window.history.replaceState(
-                    {},
-                    "",
-                    "search.html"
-                );
-
-            }, 0);
-
-        }
-    );
-
-
-    /* =====================================================
-       PENCARIAN LIVE (mengetik langsung)
-    ====================================================== */
-
-    headerSearchInput?.addEventListener(
-        "input",
-        () => {
-
-            searchTerm =
-                normalize(
-                    headerSearchInput.value
-                );
-
-            applyFilters();
-
-        }
-    );
-
-
-    /* =====================================================
-       KLIK TAB KATEGORI
-       (tetap di halaman ini, mempertahankan kata kunci
-       pencarian yang sedang diketik)
-    ====================================================== */
-
-    tabs.forEach(tab => {
-
-        tab.addEventListener(
-            "click",
-            event => {
-
-                event.preventDefault();
-
-                selectedCategory =
-                    normalize(
-                        tab.dataset.category
-                    );
-
-                if (categoryFilter) {
-
-                    categoryFilter.value =
-                        selectedCategory;
-
-                }
-
-                applyFilters();
-
-            }
-        );
-
+  }
+
+  function updateURL() {
+    const url = new URL(window.location.href);
+    query ? url.searchParams.set("q", query) : url.searchParams.delete("q");
+    selectedCategory !== "all" ? url.searchParams.set("kategori", selectedCategory) : url.searchParams.delete("kategori");
+    window.history.replaceState({}, "", url);
+  }
+
+  headerSearchForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    query = searchInput.value.trim();
+    updateURL();
+    runSearch();
+  });
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", (e) => {
+      e.preventDefault();
+      selectedCategory = (tab.dataset.category || "all").toLowerCase();
+      updateURL();
+      runSearch();
     });
+  });
 
+  filterForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    selectedCategory = (categoryFilter.value || "all").toLowerCase();
+    updateURL();
+    runSearch();
+  });
 
-    /* =====================================================
-       SORT CHANGE
-    ====================================================== */
+  resetFilter?.addEventListener("click", () => {
+    setTimeout(() => {
+      selectedCategory = "all";
+      categoryFilter.value = "all";
+      timeFilter.value = "all";
+      sortFilter.value = "latest";
+      updateURL();
+      runSearch();
+    }, 0);
+  });
 
-    sortFilter?.addEventListener(
-        "change",
-        () => {
+  sortFilter?.addEventListener("change", runSearch);
 
-            applyFilters();
-
-        }
-    );
-
-
-    /* =====================================================
-       NEWSLETTER
-    ====================================================== */
-
-    newsletterForm?.addEventListener(
-        "submit",
-        event => {
-
-            event.preventDefault();
-
-            const email =
-                document
-                    .getElementById(
-                        "newsletterEmail"
-                    )
-                    ?.value
-                    .trim();
-
-
-            if (!email) {
-                return;
-            }
-
-
-            alert(
-                "Terima kasih. Email Anda berhasil didaftarkan."
-            );
-
-
-            newsletterForm.reset();
-
-        }
-    );
-
-
-    /* =====================================================
-       INITIAL STATE
-    ====================================================== */
-
-    if (
-        [
-            "all",
-            "nasional",
-            "internasional",
-            "ekonomi",
-            "metro",
-            "dunia",
-            "olahraga",
-            "teknologi",
-            "otomotif",
-            "gaya-hidup",
-            "seni",
-            "kolom"
-        ].includes(urlCategory)
-    ) {
-
-        selectedCategory =
-            urlCategory;
-
-    } else {
-
-        selectedCategory =
-            "all";
-
-    }
-
-
-    if (
-        [
-            "latest",
-            "oldest",
-            "popular"
-        ].includes(urlSort)
-    ) {
-
-        sortFilter.value =
-            urlSort;
-
-    } else {
-
-        sortFilter.value =
-            "latest";
-
-    }
-
-
-    if (categoryFilter) {
-
-        categoryFilter.value =
-            selectedCategory;
-
-    }
-
-
-    if (headerSearchInput && urlQuery) {
-
-        headerSearchInput.value =
-            urlQuery;
-
-    }
-
-
-    /*
-     * Jika URL memiliki kategori,
-     * otomatis aktifkan kategori tersebut.
-     */
-
-    updateTabs();
-
-
-    /*
-     * Terapkan filter pertama kali.
-     */
-
-    applyFilters({
-        updateUrl: false
-    });
-
-
-    /* =====================================================
-       PAGE PARAMETER
-    ====================================================== */
-
-    if (
-        Number.isInteger(urlPage) &&
-        urlPage > 1
-    ) {
-
-        document
-            .querySelectorAll(
-                ".page-number"
-            )
-            .forEach(link => {
-
-                link.classList.remove(
-                    "active"
-                );
-
-            });
-
-
-        const currentPage =
-            document.querySelector(
-                `.page-number[data-page="${urlPage}"]`
-            );
-
-
-        currentPage?.classList.add(
-            "active"
-        );
-
-    }
-
+  updateTabs();
+  runSearch();
 });

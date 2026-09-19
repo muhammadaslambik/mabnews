@@ -1,6 +1,3 @@
-/* =========================================================
-   MAB-NEWS — HALAMAN DAFTAR BERITA (fetch dari database)
-========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
   const tabs = [...document.querySelectorAll(".category-tab")];
   const categoryFilter = document.getElementById("filterCategory");
@@ -65,13 +62,22 @@ document.addEventListener("DOMContentLoaded", () => {
       pageTitle.textContent = selectedCategory === 'all' ? "Berita" : categoryName;
       resultCount.textContent = `Menampilkan ${items.length} dari ${total} berita`;
 
-      const pagination = resultsContainer.querySelector('.pagination') || document.getElementById('pagination');
+      const pagination = document.getElementById('pagination');
       const html = items.map(renderCard).join('');
-      if (pagination) {
-        pagination.insertAdjacentHTML('beforebegin', html);
-      } else {
-        resultsContainer.insertAdjacentHTML('beforeend', html);
-      }
+      pagination.insertAdjacentHTML('beforebegin', html);
+
+      const pages = Math.max(1, Math.ceil(total / 10));
+      pagination.innerHTML = Array.from({ length: pages }, (_, i) =>
+        `<a href="#" class="${i + 1 === currentPage ? 'active' : ''}" data-page="${i + 1}">${i + 1}</a>`).join('');
+      pagination.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentPage = parseInt(a.dataset.page, 10);
+          updateURL();
+          loadNews();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
 
       updateTabs();
     } catch (err) {
@@ -82,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateURL() {
     const url = new URL(window.location.href);
-    url.searchParams.delete("page");
+    currentPage > 1 ? url.searchParams.set("page", currentPage) : url.searchParams.delete("page");
     selectedCategory !== "all" ? url.searchParams.set("kategori", selectedCategory) : url.searchParams.delete("kategori");
     sortFilter.value !== "latest" ? url.searchParams.set("sort", sortFilter.value) : url.searchParams.delete("sort");
     window.history.replaceState({}, "", url);
