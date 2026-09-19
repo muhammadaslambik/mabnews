@@ -106,4 +106,110 @@
 <option value="dunia">Dunia</option>
 <option value="olahraga">Olahraga</option>
 <option value="teknologi">Teknologi</option>
-<option
+<option value="otomotif">Otomotif</option>
+<option value="gaya-hidup">Gaya Hidup</option>
+<option value="seni">Seni</option>
+<option value="kolom">Kolom</option>
+</select>
+</div>
+<div class="filter-group">
+<label for="filterAuthor">Penulis</label>
+<select id="filterAuthor">
+<option value="all">Semua Penulis</option>
+<option value="redaksi">Redaksi MAB-News</option>
+<option value="mabnews">MAB-News</option>
+</select>
+</div>
+<div class="filter-group">
+<label for="filterTime">Waktu</label>
+<select id="filterTime">
+<option value="all">Semua Waktu</option>
+<option value="today">Hari Ini</option>
+<option value="week">Minggu Ini</option>
+<option value="month">Bulan Ini</option>
+</select>
+</div>
+<div class="filter-actions">
+<button type="submit" class="btn-filter">Terapkan Filter</button>
+<button type="reset" class="btn-reset" id="resetFilter">Reset</button>
+</div>
+</form>
+</div>
+</aside>
+
+<section class="news-results">
+<div class="results-header">
+<div>
+<h2 id="resultsTitle">Berita Terbaru</h2>
+<p id="resultCount"></p>
+</div>
+<select id="sortNews" class="sort-select">
+<option value="latest">Terbaru</option>
+<option value="oldest">Terlama</option>
+<option value="popular">Terpopuler</option>
+</select>
+</div>
+<div id="pagination" class="pagination"></div>
+</section>
+</div>
+</div>
+</main>
+
+<footer class="site-footer">
+<div class="footer-main">
+<div class="footer-brand">
+<h2>MAB-NEWS</h2>
+<p class="footer-tagline">Fakta. Data. Perspektif.</p>
+<p class="footer-description">MAB-News menyajikan berita terkini dan terpercaya dari Indonesia dan dunia. Kami berkomitmen untuk menjadi sumber informasi yang akurat dan berimbang bagi masyarakat.</p>
+<div class="footer-social">
+<a href="#" aria-label="Facebook">f</a>
+<a href="#" aria-label="X">𝕏</a>
+<a href="#" aria-label="Instagram">◎</a>
+<a href="#" aria-label="YouTube">▶</a>
+</div>
+</div>
+<div class="footer-column">
+<h3>MENU</h3>
+<a href="index.html">Beranda</a>
+<a href="berita.html?sort=terbaru">Terbaru</a>
+<a href="berita.html?sort=popular">Terpopuler</a>
+<a href="kategori.html">Indeks</a>
+<a href="kategori.html">Foto</a>
+<a href="kategori.html">Video</a>
+<a href="kategori.html">Kolom</a>
+<a href="#">Kontak Kami</a>
+</div>
+<div class="footer-column">
+<h3>LAYANAN</h3>
+<a href="#">Pedoman Media Siber</a>
+<a href="#">Kode Etik Jurnalistik</a>
+<a href="#">Kebijakan Privasi</a>
+<a href="#">Redaksi</a>
+<a href="#">Kontak Kami</a>
+</div>
+<div class="footer-column">
+<h3>NETWORK</h3>
+<a href="https://muhammadaslambik.github.io/mabstore/" target="_blank" rel="noopener noreferrer">MAB-Store</a>
+<a href="https://muhammadaslambik.github.io/mabvideo/" target="_blank" rel="noopener noreferrer">MAB-Video</a>
+<a href="https://memorisejarah.wordpress.com/" target="_blank" rel="noopener noreferrer">Memori Sejarah</a>
+</div>
+<div class="footer-newsletter">
+<h3>NEWSLETTER</h3>
+<p>Dapatkan berita terbaru dan terpilih langsung di email Anda setiap hari.</p>
+<div class="newsletter-form">
+<input type="email" placeholder="Masukkan email Anda" aria-label="Email">
+<button type="button">Berlangganan</button>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="copyright">© 2025 MAB-News. All rights reserved.</div>
+<div class="footer-links"><a href="#">Tentang Kami</a><span>|</span><a href="#">Redaksi</a><span>|</span><a href="#">Kontak</a></div>
+</div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script src="js/berita.js"></script>
+</body>
+</html>

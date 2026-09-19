@@ -1,757 +1,255 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Pemerintah Dorong Transformasi Digital untuk Tingkatkan Layanan Publik — MAB-News</title>
-
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/article.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/responsive.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAB-News</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/artikel.css">
+<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
-
 <body class="article-page">
-
-<!-- =========================================================
-     HEADER
-========================================================= -->
 <header class="site-header">
-
-  <div class="container topbar">
-
-    <!-- BRAND -->
-    <a class="brand" href="index.html">
-      <span class="brand-mark">MAB-</span>
-      <span class="brand-name">NEWS</span>
-      <small>Fakta. Data. Perspektif.</small>
-    </a>
-
-
-    <!-- WAKTU DESKTOP -->
-    <div class="header-datetime desktop-datetime" aria-label="Waktu saat ini">
-      <div class="date-line" id="desktopDate">
-        Minggu, 13 September 2026
-      </div>
-
-      <div class="time-line">
-        Pukul:
-        <span id="desktopTime">01:24</span>
-        WIB
-        <span class="time-separator">|</span>
-        <span id="desktopSeconds">00</span>
-        <span class="time-separator">|</span>
-      </div>
-    </div>
-
-
-    <!-- SEARCH -->
-    <form class="search-box" id="headerSearch">
-
-      <input
-        id="searchInput"
-        type="search"
-        name="q"
-        placeholder="Cari berita, topik, atau kata kunci..."
-        aria-label="Cari berita"
-      >
-
-      <button
-        type="submit"
-        aria-label="Cari"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"></circle>
-          <path d="m20 20-4-4"></path>
-        </svg>
-      </button>
-
-    </form>
-
-
-    <!-- HEADER ACTIONS -->
-    <div class="header-actions">
-
-      <!-- LANGGANAN -->
-      <a
-        class="support-btn"
-        href="index.html#dukung"
-      >
-        Langganan
-      </a>
-      
-<button
-  type="button"
-  class="icon-btn mobile-search-toggle"
-  id="mobileSearchToggle"
-  aria-label="Buka pencarian"
-  title="Cari"
->
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="11" cy="11" r="7"></circle>
-    <path d="m20 20-4-4"></path>
-  </svg>
-</button>
-
-
-      <!-- MODE -->
-      <button
-        class="icon-btn"
-        id="themeToggle"
-        aria-label="Mode tampilan"
-      >
-        <svg viewBox="0 0 24 24">
-          <path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-          <circle cx="12" cy="12" r="4"></circle>
-        </svg>
-      </button>
-
-
-      <!-- AKUN -->
-      <button
-        class="icon-btn"
-        aria-label="Akun"
-      >
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="8" r="4"></circle>
-          <path d="M4 21c.9-4 3.5-6 8-6s7.1 2 8 6"></path>
-        </svg>
-      </button>
-
-    </div>
-
-
-    <!-- WAKTU MOBILE -->
-    <div
-      class="header-datetime mobile-datetime"
-      aria-label="Waktu saat ini"
-    >
-
-      <div class="mobile-time-line">
-        Pukul:
-        <span id="mobileTime">01:24</span>
-        WIB
-        <span class="time-separator">|</span>
-        <span id="mobileSeconds">00</span>
-        <span class="time-separator">|</span>
-        <span id="mobileDate">
-          Minggu, 13 September 2026
-        </span>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- NAVIGATION -->
-  <nav class="main-nav">
-
-    <div class="container nav-inner">
-
-      <div class="mobile-nav">
-
-        <a
-          href="index.html"
-          class="mobile-home"
-        >
-          Beranda
-        </a>
-
-        <div
-          class="nav-links"
-          id="navLinks"
-        >
-
-          <a href="berita.html">Terbaru</a>
-          <a href="berita.html?sort=popular">Terpopuler</a>
-          <a href="kategori.html?kategori=nasional" class="active">Nasional</a>
-          <a href="kategori.html?kategori=internasional">Internasional</a>
-          <a href="kategori.html?kategori=ekonomi">Ekonomi</a>
-          <a href="kategori.html?kategori=metro">Metro</a>
-          <a href="kategori.html?kategori=dunia">Dunia</a>
-          <a href="kategori.html?kategori=olahraga">Olahraga</a>
-          <a href="kategori.html?kategori=teknologi">Teknologi</a>
-          <a href="kategori.html?kategori=otomotif">Otomotif</a>
-          <a href="kategori.html?kategori=gaya-hidup">Gaya Hidup</a>
-          <a href="kategori.html?kategori=seni">Seni</a>
-          <a href="kategori.html?kategori=kolom">Kolom</a>
-          <a href="kategori.html?kategori=indeks">Indeks</a>
-          <a href="kategori.html?kategori=foto">Foto</a>
-          <a href="kategori.html?kategori=video">Video</a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </nav>
-
+<div class="container topbar">
+<a class="brand" href="index.html">
+<span class="brand-mark">MAB-</span>
+<span class="brand-name">NEWS</span>
+<small>Fakta. Data. Perspektif.</small>
+</a>
+<div class="header-datetime desktop-datetime" aria-label="Waktu saat ini">
+<div class="date-line" id="desktopDate">Minggu, 13 September 2026</div>
+<div class="time-line">Pukul: <span id="desktopTime">01:24</span> WIB <span class="time-separator">|</span> <span id="desktopSeconds">00</span> <span class="time-separator">|</span></div>
+</div>
+<form class="search-box" id="headerSearch">
+<input id="searchInput" type="search" name="q" placeholder="Cari berita, topik, atau kata kunci..." aria-label="Cari berita">
+<button type="submit" aria-label="Cari"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></button>
+</form>
+<div class="header-actions">
+<a class="support-btn" href="index.html#dukung">Langganan</a>
+<button type="button" class="icon-btn mobile-search-toggle" id="mobileSearchToggle" aria-label="Buka pencarian" title="Cari"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></button>
+<button class="icon-btn" id="themeToggle" aria-label="Mode tampilan"><svg viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path><circle cx="12" cy="12" r="4"></circle></svg></button>
+<button class="icon-btn" aria-label="Akun"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c.9-4 3.5-6 8-6s7.1 2 8 6"></path></svg></button>
+</div>
+<div class="header-datetime mobile-datetime" aria-label="Waktu saat ini">
+<div class="mobile-time-line">Pukul: <span id="mobileTime">01:24</span> WIB <span class="time-separator">|</span> <span id="mobileSeconds">00</span> <span class="time-separator">|</span> <span id="mobileDate">Minggu, 13 September 2026</span></div>
+</div>
+</div>
+<nav class="main-nav">
+<div class="container nav-inner">
+<div class="mobile-nav">
+<a href="index.html" class="mobile-home">Beranda</a>
+<div class="nav-links" id="navLinks">
+<a href="berita.html">Terbaru</a>
+<a href="berita.html?sort=popular">Terpopuler</a>
+<a href="kategori.html?kategori=nasional">Nasional</a>
+<a href="kategori.html?kategori=internasional">Internasional</a>
+<a href="kategori.html?kategori=ekonomi">Ekonomi</a>
+<a href="kategori.html?kategori=metro">Metro</a>
+<a href="kategori.html?kategori=dunia">Dunia</a>
+<a href="kategori.html?kategori=olahraga">Olahraga</a>
+<a href="kategori.html?kategori=teknologi">Teknologi</a>
+<a href="kategori.html?kategori=otomotif">Otomotif</a>
+<a href="kategori.html?kategori=gaya-hidup">Gaya Hidup</a>
+<a href="kategori.html?kategori=seni">Seni</a>
+<a href="kategori.html?kategori=kolom">Kolom</a>
+<a href="kategori.html?kategori=indeks">Indeks</a>
+<a href="kategori.html?kategori=foto">Foto</a>
+<a href="kategori.html?kategori=video">Video</a>
+</div>
+</div>
+</div>
+</nav>
 </header>
 
-
-<!-- =========================================================
-     BREADCRUMB
-========================================================= -->
 <div class="article-breadcrumb">
-    <div class="container">
-
-        <a href="index.html">Beranda</a>
-        <span>›</span>
-        <a href="kategori.html">Nasional</a>
-        <span>›</span>
-        <span>Detail</span>
-
-    </div>
+<div class="container">
+<a href="index.html">Beranda</a>
+<span>›</span>
+<a href="kategori.html">Nasional</a>
+<span>›</span>
+<span>Detail</span>
+</div>
 </div>
 
-
-<!-- =========================================================
-     CONTENT
-========================================================= -->
 <main class="article-content">
-
-    <div class="container article-layout">
-
-        <!-- =================================================
-             ARTIKEL UTAMA
-        ================================================== -->
-        <article class="article-main">
-
-            <div class="article-category">
-                NASIONAL
-            </div>
-
-
-            <h1 class="article-title">
-                Pemerintah Dorong Transformasi Digital untuk Tingkatkan Layanan Publik
-            </h1>
-
-
-            <p class="article-lead">
-                Pemerintah menegaskan komitmennya untuk mempercepat transformasi digital di berbagai sektor pelayanan publik guna meningkatkan efisiensi, transparansi, dan kepuasan masyarakat.
-            </p>
-
-
-            <!-- AUTHOR -->
-            <div class="article-meta-row">
-
-                <div class="article-author">
-
-                    <div class="author-avatar">
-                        M
-                    </div>
-
-                    <div class="author-info">
-                        <div class="author-name">
-                            MAB-News
-                            <span class="verified">✓</span>
-                        </div>
-
-                        <div class="article-date">
-                            27 Mei 2025 &nbsp; • &nbsp; 10:30 WIB &nbsp; • &nbsp; 5 menit baca
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <!-- SHARE -->
-                <div class="article-share">
-
-                    <a href="#" title="Facebook">f</a>
-                    <a href="#" title="X">𝕏</a>
-                    <a href="#" title="WhatsApp">◉</a>
-                    <button type="button" title="Salin Link" onclick="copyArticleLink()">🔗</button>
-                    <button type="button" title="Simpan">🔖</button>
-
-                </div>
-
-            </div>
-
-
-            <!-- HERO IMAGE -->
-            <figure class="article-hero">
-
-                <img
-                    src="assets/images/pemerintah-dorong-transformasi-digital-untuk-tingkatkan-layanan-publik.jpg"
-                    alt="Transformasi digital layanan publik"
-                >
-
-                <figcaption>
-                    Menteri Komunikasi dan Informatika saat memberikan paparan dalam forum Transformasi Digital Nasional 2025 di Jakarta. Dok. Kominfo
-                </figcaption>
-
-            </figure>
-
-
-            <!-- ARTICLE BODY -->
-            <div class="article-body">
-
-                <p>
-                    <strong>MAB-News, Jakarta</strong> – Pemerintah terus mendorong percepatan transformasi digital sebagai upaya meningkatkan kualitas layanan publik di Indonesia. Langkah ini diyakini dapat memangkas birokrasi, mempercepat proses pelayanan, serta meningkatkan transparansi dan akuntabilitas.
-                </p>
-
-
-                <p>
-                    Menteri Komunikasi dan Informatika menegaskan bahwa transformasi digital bukan hanya soal teknologi, tetapi juga perubahan mindset dan budaya kerja di seluruh instansi pemerintah.
-                </p>
-
-
-                <!-- QUOTE -->
-                <blockquote>
-
-                    <p>
-                        “Transformasi digital adalah kunci untuk menghadirkan layanan publik yang lebih cepat, mudah, dan efisien bagi masyarakat. Ini adalah bagian dari visi Indonesia Emas 2045.”
-                    </p>
-
-                    <footer>
-                        <strong>Johnny G. Plate</strong>
-                        <span>Menteri Komunikasi dan Informatika</span>
-                    </footer>
-
-                </blockquote>
-
-
-                <p>
-                    Pemerintah telah meluncurkan berbagai platform digital, seperti Sistem Pemerintahan Berbasis Elektronik (SPBE), guna mengintegrasikan layanan dari pusat hingga daerah. Hingga awal 2025, lebih dari 217 ribu layanan publik telah tersedia secara digital.
-                </p>
-
-
-                <p>
-                    Namun, pemerintah juga mengakui masih terdapat tantangan, seperti kesenjangan literasi digital dan infrastruktur di daerah terpencil.
-                </p>
-
-
-                <p>
-                    Ke depan, kolaborasi antara pemerintah, swasta, dan masyarakat diharapkan dapat mempercepat terwujudnya layanan publik yang inklusif dan berkelanjutan.
-                </p>
-
-
-                <!-- TAGS -->
-                <div class="article-tags">
-
-                    <span class="tags-label">TAGS:</span>
-
-                    <a href="#">Transformasi Digital</a>
-                    <a href="#">Layanan Publik</a>
-                    <a href="#">SPBE</a>
-                    <a href="#">Pemerintah</a>
-
-                </div>
-
-
-                <!-- PREV NEXT -->
-                <div class="article-navigation">
-
-                    <a href="#" class="article-nav-card previous">
-
-                        <span>BERITA SEBELUMNYA</span>
-
-                        <strong>
-                            Inflasi Mei 2025 Terkendali di Level 2,1 Persen
-                        </strong>
-
-                    </a>
-
-
-                    <a href="#" class="article-nav-card next">
-
-                        <span>BERITA SELANJUTNYA</span>
-
-                        <strong>
-                            Ekspor Indonesia Tumbuh 8,6 Persen pada April 2025
-                        </strong>
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </article>
-
-
-        <!-- =================================================
-             SIDEBAR
-        ================================================== -->
-        <aside class="article-sidebar">
-
-
-            <!-- TERPOPULER -->
-            <section class="sidebar-section">
-
-                <div class="sidebar-heading">
-
-                    <h2>Terpopuler</h2>
-
-                    <a href="berita.html">
-                        Lihat Semua →
-                    </a>
-
-                </div>
-
-
-                <div class="popular-list">
-
-                    <a href="artikel.html?id=prabowo-resmikan-proyek-strategis-nasional-di-jawa-tengah" class="popular-item">
-
-                        <div class="popular-number">1</div>
-
-                        <div class="popular-content">
-                            <h3>
-                                Prabowo Resmikan Proyek Strategis Nasional di Jawa Tengah
-                            </h3>
-                            <time>27 Mei 2025</time>
-                        </div>
-
-                        <img src="assets/images/prabowo-resmikan-proyek-strategis-nasional-di-jawa-tengah.jpg" alt="">
-
-                    </a>
-
-
-                    <a href="artikel.html?id=harga-bbm-terbaru-per-27-mei-2025-di-seluruh-indonesia" class="popular-item">
-
-                        <div class="popular-number">2</div>
-
-                        <div class="popular-content">
-                            <h3>
-                                Harga BBM Terbaru per 27 Mei 2025 di Seluruh Indonesia
-                            </h3>
-                            <time>27 Mei 2025</time>
-                        </div>
-
-                        <img src="assets/images/harga-bbm-terbaru-per-27-mei-2025-di-seluruh-indonesia.jpg" alt="">
-
-                    </a>
-
-
-                    <a href="artikel.html?id=timnas-indonesia-siap-hadapi-jepang-di-laga-kualifikasi-piala-dunia" class="popular-item">
-
-                        <div class="popular-number">3</div>
-
-                        <div class="popular-content">
-                            <h3>
-                                Timnas Indonesia Siap Hadapi Jepang di Laga Kualifikasi Piala Dunia
-                            </h3>
-                            <time>27 Mei 2025</time>
-                        </div>
-
-                        <img src="assets/images/timnas-indonesia-siap-hadapi-jepang-di-laga-kualifikasi-piala-dunia.jpg" alt="">
-
-                    </a>
-
-
-                    <a href="artikel.html?id=bank-indonesia-pertahankan-suku-bunga-acuan-di-level-6-25-persen" class="popular-item">
-
-                        <div class="popular-number">4</div>
-
-                        <div class="popular-content">
-                            <h3>
-                                Bank Indonesia Pertahankan Suku Bunga Acuan di Level 6,25 Persen
-                            </h3>
-                            <time>27 Mei 2025</time>
-                        </div>
-
-                        <img src="assets/images/bank-indonesia-pertahankan-suku-bunga-acuan-di-level-6-25-persen.jpg" alt="">
-
-                    </a>
-
-
-                    <a href="artikel.html?id=gunung-lewotobi-laki-laki-erupsi-status-dinaikkan-jadi-awas" class="popular-item">
-
-                        <div class="popular-number">5</div>
-
-                        <div class="popular-content">
-                            <h3>
-                                Gunung Lewotobi Laki-laki Erupsi, Status Dinaikkan Jadi Awas
-                            </h3>
-                            <time>27 Mei 2025</time>
-                        </div>
-
-                        <img src="assets/images/gunung-lewotobi-laki-laki-erupsi-status-dinaikkan-jadi-awas.jpg" alt="">
-
-                    </a>
-
-                </div>
-
-            </section>
-
-
-            <!-- TERKAIT -->
-            <section class="sidebar-section">
-
-                <div class="sidebar-heading">
-                    <h2>Terkait</h2>
-                </div>
-
-
-                <div class="related-list">
-
-                    <a href="artikel.html?id=spbe-5-manfaat-transformasi-digital-bagi-masyarakat" class="related-item">
-
-                        <img src="assets/images/spbe-5-manfaat-transformasi-digital-bagi-masyarakat.jpg" alt="">
-
-                        <div>
-                            <h3>
-                                SPBE: 5 Manfaat Transformasi Digital bagi Masyarakat
-                            </h3>
-                            <time>26 Mei 2025</time>
-                        </div>
-
-                    </a>
-
-
-                    <a href="artikel.html?id=pemerintah-targetkan-100-layanan-publik-digital-pada-2026" class="related-item">
-
-                        <img src="assets/images/pemerintah-targetkan-100-layanan-publik-digital-pada-2026.jpg" alt="">
-
-                        <div>
-                            <h3>
-                                Pemerintah Targetkan 100% Layanan Publik Digital pada 2026
-                            </h3>
-                            <time>25 Mei 2025</time>
-                        </div>
-
-                    </a>
-
-
-                    <a href="artikel.html?id=literasi-digital-di-indonesia-masih-jadi-pr-besar" class="related-item">
-
-                        <img src="assets/images/literasi-digital-di-indonesia-masih-jadi-pr-besar.jpg" alt="">
-
-                        <div>
-                            <h3>
-                                Literasi Digital di Indonesia Masih Jadi PR Besar
-                            </h3>
-                            <time>24 Mei 2025</time>
-                        </div>
-
-                    </a>
-
-
-                    <a href="artikel.html?id=kolaborasi-pemerintah-dan-swasta-percepat-digitalisasi-daerah" class="related-item">
-
-                        <img src="assets/images/kolaborasi-pemerintah-dan-swasta-percepat-digitalisasi-daerah.jpg" alt="">
-
-                        <div>
-                            <h3>
-                                Kolaborasi Pemerintah dan Swasta Percepat Digitalisasi Daerah
-                            </h3>
-                            <time>24 Mei 2025</time>
-                        </div>
-
-                    </a>
-
-                </div>
-
-            </section>
-
-
-            <!-- IKUTI KAMI -->
-            <section class="sidebar-section social-section">
-
-                <div class="sidebar-heading">
-                    <h2>Ikuti Kami</h2>
-                </div>
-
-
-                <div class="social-follow">
-
-                    <a href="#" class="social-card">
-                        <span class="social-icon">f</span>
-                        <span>
-                            <small>Facebook</small>
-                            <strong>@mabnews.official</strong>
-                        </span>
-                    </a>
-
-
-                    <a href="#" class="social-card">
-                        <span class="social-icon">𝕏</span>
-                        <span>
-                            <small>X / Twitter</small>
-                            <strong>@mabnews_id</strong>
-                        </span>
-                    </a>
-
-
-                    <a href="#" class="social-card">
-                        <span class="social-icon">◎</span>
-                        <span>
-                            <small>Instagram</small>
-                            <strong>@mabnews.id</strong>
-                        </span>
-                    </a>
-
-
-                    <a href="#" class="social-card">
-                        <span class="social-icon">▶</span>
-                        <span>
-                            <small>YouTube</small>
-                            <strong>MAB-News</strong>
-                        </span>
-                    </a>
-
-                </div>
-
-            </section>
-
-        </aside>
-
-    </div>
-
+<div class="container article-layout">
+<article class="article-main">
+<div class="article-category">NASIONAL</div>
+<h1 class="article-title">Memuat artikel...</h1>
+<p class="article-lead"></p>
+
+<div class="article-meta-row">
+<div class="article-author">
+<div class="author-avatar">M</div>
+<div class="author-info">
+<div class="author-name">MAB-News <span class="verified">✓</span></div>
+<div class="article-date"></div>
+</div>
+</div>
+<div class="article-share">
+<a href="#" title="Facebook">f</a>
+<a href="#" title="X">𝕏</a>
+<a href="#" title="WhatsApp">◉</a>
+<button type="button" title="Salin Link" onclick="copyArticleLink()">🔗</button>
+<button type="button" title="Simpan">🔖</button>
+</div>
+</div>
+
+<figure class="article-hero">
+<img src="" alt="">
+<figcaption></figcaption>
+</figure>
+
+<div class="article-body">
+<div class="article-tags">
+<span class="tags-label">TAGS:</span>
+</div>
+<div class="article-navigation">
+<a href="#" class="article-nav-card previous">
+<span>BERITA SEBELUMNYA</span>
+<strong>—</strong>
+</a>
+<a href="#" class="article-nav-card next">
+<span>BERITA SELANJUTNYA</span>
+<strong>—</strong>
+</a>
+</div>
+</div>
+</article>
+
+<aside class="article-sidebar">
+<section class="sidebar-section">
+<div class="sidebar-heading">
+<h2>Terpopuler</h2>
+<a href="berita.html">Lihat Semua →</a>
+</div>
+<div class="popular-list">
+<a href="artikel.html?id=prabowo-resmikan-proyek-strategis-nasional-di-jawa-tengah" class="popular-item">
+<div class="popular-number">1</div>
+<div class="popular-content"><h3>Prabowo Resmikan Proyek Strategis Nasional di Jawa Tengah</h3><time>27 Mei 2025</time></div>
+<img src="assets/images/prabowo-resmikan-proyek-strategis-nasional-di-jawa-tengah.jpg" alt="">
+</a>
+<a href="artikel.html?id=harga-bbm-terbaru-per-27-mei-2025-di-seluruh-indonesia" class="popular-item">
+<div class="popular-number">2</div>
+<div class="popular-content"><h3>Harga BBM Terbaru per 27 Mei 2025 di Seluruh Indonesia</h3><time>27 Mei 2025</time></div>
+<img src="assets/images/harga-bbm-terbaru-per-27-mei-2025-di-seluruh-indonesia.jpg" alt="">
+</a>
+<a href="artikel.html?id=timnas-indonesia-siap-hadapi-jepang-di-laga-kualifikasi-piala-dunia" class="popular-item">
+<div class="popular-number">3</div>
+<div class="popular-content"><h3>Timnas Indonesia Siap Hadapi Jepang di Laga Kualifikasi Piala Dunia</h3><time>27 Mei 2025</time></div>
+<img src="assets/images/timnas-indonesia-siap-hadapi-jepang-di-laga-kualifikasi-piala-dunia.jpg" alt="">
+</a>
+<a href="artikel.html?id=bank-indonesia-pertahankan-suku-bunga-acuan-di-level-6-25-persen" class="popular-item">
+<div class="popular-number">4</div>
+<div class="popular-content"><h3>Bank Indonesia Pertahankan Suku Bunga Acuan di Level 6,25 Persen</h3><time>27 Mei 2025</time></div>
+<img src="assets/images/bank-indonesia-pertahankan-suku-bunga-acuan-di-level-6-25-persen.jpg" alt="">
+</a>
+<a href="artikel.html?id=gunung-lewotobi-laki-laki-erupsi-status-dinaikkan-jadi-awas" class="popular-item">
+<div class="popular-number">5</div>
+<div class="popular-content"><h3>Gunung Lewotobi Laki-laki Erupsi, Status Dinaikkan Jadi Awas</h3><time>27 Mei 2025</time></div>
+<img src="assets/images/gunung-lewotobi-laki-laki-erupsi-status-dinaikkan-jadi-awas.jpg" alt="">
+</a>
+</div>
+</section>
+
+<section class="sidebar-section">
+<div class="sidebar-heading"><h2>Terkait</h2></div>
+<div class="related-list">
+<a href="artikel.html?id=spbe-5-manfaat-transformasi-digital-bagi-masyarakat" class="related-item">
+<img src="assets/images/spbe-5-manfaat-transformasi-digital-bagi-masyarakat.jpg" alt="">
+<div><h3>SPBE: 5 Manfaat Transformasi Digital bagi Masyarakat</h3><time>26 Mei 2025</time></div>
+</a>
+<a href="artikel.html?id=pemerintah-targetkan-100-layanan-publik-digital-pada-2026" class="related-item">
+<img src="assets/images/pemerintah-targetkan-100-layanan-publik-digital-pada-2026.jpg" alt="">
+<div><h3>Pemerintah Targetkan 100% Layanan Publik Digital pada 2026</h3><time>25 Mei 2025</time></div>
+</a>
+<a href="artikel.html?id=literasi-digital-di-indonesia-masih-jadi-pr-besar" class="related-item">
+<img src="assets/images/literasi-digital-di-indonesia-masih-jadi-pr-besar.jpg" alt="">
+<div><h3>Literasi Digital di Indonesia Masih Jadi PR Besar</h3><time>24 Mei 2025</time></div>
+</a>
+<a href="artikel.html?id=kolaborasi-pemerintah-dan-swasta-percepat-digitalisasi-daerah" class="related-item">
+<img src="assets/images/kolaborasi-pemerintah-dan-swasta-percepat-digitalisasi-daerah.jpg" alt="">
+<div><h3>Kolaborasi Pemerintah dan Swasta Percepat Digitalisasi Daerah</h3><time>24 Mei 2025</time></div>
+</a>
+</div>
+</section>
+
+<section class="sidebar-section social-section">
+<div class="sidebar-heading"><h2>Ikuti Kami</h2></div>
+<div class="social-follow">
+<a href="#" class="social-card"><span class="social-icon">f</span><span><small>Facebook</small><strong>@mabnews.official</strong></span></a>
+<a href="#" class="social-card"><span class="social-icon">𝕏</span><span><small>X / Twitter</small><strong>@mabnews_id</strong></span></a>
+<a href="#" class="social-card"><span class="social-icon">◎</span><span><small>Instagram</small><strong>@mabnews.id</strong></span></a>
+<a href="#" class="social-card"><span class="social-icon">▶</span><span><small>YouTube</small><strong>MAB-News</strong></span></a>
+</div>
+</section>
+</aside>
+</div>
 </main>
 
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-<!-- =========================================================
-     FOOTER MAB-NEWS
-     ========================================================= -->
 <footer class="site-footer">
-
-  <div class="footer-main">
-
-    <!-- BRAND -->
-    <div class="footer-brand">
-      <h2>MAB-NEWS</h2>
-
-      <p class="footer-tagline">
-        Fakta. Data. Perspektif.
-      </p>
-
-      <p class="footer-description">
-        MAB-News menyajikan berita terkini dan terpercaya dari Indonesia dan
-        dunia. Kami berkomitmen untuk menjadi sumber informasi yang akurat dan
-        berimbang bagi masyarakat.
-      </p>
-
-      <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="X">𝕏</a>
-        <a href="#" aria-label="Instagram">◎</a>
-        <a href="#" aria-label="YouTube">▶</a>
-      </div>
-    </div>
-
-
-    <!-- MENU -->
-    <div class="footer-column">
-      <h3>MENU</h3>
-
-      <a href="index.html">Beranda</a>
-      <a href="berita.html?sort=terbaru">Terbaru</a>
-      <a href="berita.html?sort=popular">Terpopuler</a>
-      <a href="kategori.html">Indeks</a>
-      <a href="kategori.html">Foto</a>
-      <a href="kategori.html">Video</a>
-      <a href="kategori.html">Kolom</a>
-      <a href="#">Kontak Kami</a>
-    </div>
-
-
-    <!-- LAYANAN -->
-    <div class="footer-column">
-      <h3>LAYANAN</h3>
-
-      <a href="#">Pedoman Media Siber</a>
-      <a href="#">Kode Etik Jurnalistik</a>
-      <a href="#">Kebijakan Privasi</a>
-      <a href="#">Redaksi</a>
-      <a href="#">Kontak Kami</a>
-    </div>
-
-
-<!-- NETWORK -->
-<div class="footer-column">
-  <h3>NETWORK</h3>
-
-  <a
-    href="https://muhammadaslambik.github.io/mabstore/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    MAB-Store
-  </a>
-
-  <a
-    href="https://muhammadaslambik.github.io/mabvideo/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    MAB-Video
-  </a>
-
-  <a
-    href="https://memorisejarah.wordpress.com/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Memori Sejarah
-  </a>
+<div class="footer-main">
+<div class="footer-brand">
+<h2>MAB-NEWS</h2>
+<p class="footer-tagline">Fakta. Data. Perspektif.</p>
+<p class="footer-description">MAB-News menyajikan berita terkini dan terpercaya dari Indonesia dan dunia. Kami berkomitmen untuk menjadi sumber informasi yang akurat dan berimbang bagi masyarakat.</p>
+<div class="footer-social">
+<a href="#" aria-label="Facebook">f</a>
+<a href="#" aria-label="X">𝕏</a>
+<a href="#" aria-label="Instagram">◎</a>
+<a href="#" aria-label="YouTube">▶</a>
 </div>
-
-
-
-    <!-- NEWSLETTER -->
-    <div class="footer-newsletter">
-      <h3>NEWSLETTER</h3>
-
-      <p>
-        Dapatkan berita terbaru dan terpilih langsung di email Anda
-        setiap hari.
-      </p>
-
-      <div class="newsletter-form">
-        <input
-          type="email"
-          placeholder="Masukkan email Anda"
-          aria-label="Email"
-        >
-
-        <button type="button">
-          Berlangganan
-        </button>
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- FOOTER BOTTOM -->
-  <div class="footer-bottom">
-
-    <div class="copyright">
-      © 2025 MAB-News. All rights reserved.
-    </div>
-
-    <div class="footer-links">
-      <a href="#">Tentang Kami</a>
-      <span>|</span>
-      <a href="#">Redaksi</a>
-      <span>|</span>
-      <a href="#">Kontak</a>
-    </div>
-
-  </div>
-
+</div>
+<div class="footer-column">
+<h3>MENU</h3>
+<a href="index.html">Beranda</a>
+<a href="berita.html?sort=terbaru">Terbaru</a>
+<a href="berita.html?sort=popular">Terpopuler</a>
+<a href="kategori.html">Indeks</a>
+<a href="kategori.html">Foto</a>
+<a href="kategori.html">Video</a>
+<a href="kategori.html">Kolom</a>
+<a href="#">Kontak Kami</a>
+</div>
+<div class="footer-column">
+<h3>LAYANAN</h3>
+<a href="#">Pedoman Media Siber</a>
+<a href="#">Kode Etik Jurnalistik</a>
+<a href="#">Kebijakan Privasi</a>
+<a href="#">Redaksi</a>
+<a href="#">Kontak Kami</a>
+</div>
+<div class="footer-column">
+<h3>NETWORK</h3>
+<a href="https://muhammadaslambik.github.io/mabstore/" target="_blank" rel="noopener noreferrer">MAB-Store</a>
+<a href="https://muhammadaslambik.github.io/mabvideo/" target="_blank" rel="noopener noreferrer">MAB-Video</a>
+<a href="https://memorisejarah.wordpress.com/" target="_blank" rel="noopener noreferrer">Memori Sejarah</a>
+</div>
+<div class="footer-newsletter">
+<h3>NEWSLETTER</h3>
+<p>Dapatkan berita terbaru dan terpilih langsung di email Anda setiap hari.</p>
+<div class="newsletter-form">
+<input type="email" placeholder="Masukkan email Anda" aria-label="Email">
+<button type="button">Berlangganan</button>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="copyright">© 2025 MAB-News. All rights reserved.</div>
+<div class="footer-links"><a href="#">Tentang Kami</a><span>|</span><a href="#">Redaksi</a><span>|</span><a href="#">Kontak</a></div>
+</div>
 </footer>
 
+<script src="js/api.js"></script>
 <script src="js/main.js"></script>
-<script src="js/article.js"></script>
-
+<script src="js/artikel.js"></script>
 <script>
 function copyArticleLink() {
-    navigator.clipboard.writeText(window.location.href);
-
-    alert("Link artikel berhasil disalin.");
+  navigator.clipboard.writeText(window.location.href);
+  alert("Link artikel berhasil disalin.");
 }
 </script>
-
 </body>
 </html>

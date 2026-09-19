@@ -36,8 +36,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (tagsEl) tagsEl.insertAdjacentHTML('beforebegin', paragraphsHtml);
     else bodyEl.insertAdjacentHTML('afterbegin', paragraphsHtml);
 
-    if (tagsEl) tagsEl.style.display = 'none';   // tag belum didukung backend
-    if (navEl) navEl.style.display = 'none';     // prev/next belum didukung backend
+    if (tagsEl) tagsEl.style.display = 'none';
+    if (navEl) navEl.style.display = 'none';
 
     const breadcrumbCat = document.querySelector(".article-breadcrumb a[href='kategori.html']");
     if (breadcrumbCat && a.category?.name) breadcrumbCat.textContent = a.category.name;
