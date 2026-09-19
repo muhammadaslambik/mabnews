@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Migrasi Artikel Dummy ke Database</title>
+<style>
+  body { font-family: sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; background:#f5f5f5; }
+  h1 { font-size: 22px; }
+  #log { white-space: pre-wrap; background: #111; color: #0f0; padding: 16px; border-radius: 8px; font-size: 13px; max-height: 500px; overflow: auto; margin-top: 16px; }
+  button { padding: 10px 20px; font-size: 15px; cursor: pointer; border: none; border-radius: 6px; background: #1d5cff; color: #fff; }
+  button:disabled { background: #999; cursor: not-allowed; }
+  .warning { background: #fff3cd; border: 1px solid #ffe69c; padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<h1>Migrasi Artikel Dummy &rarr; Database</h1>
+<div class="warning">
+  Halaman ini membaca data artikel contoh dari <code>js/artikel.js</code> dan mengirimnya satu per satu ke backend.
+  <strong>Hapus halaman ini setelah selesai digunakan</strong> — jangan biarkan tetap online.
+</div>
+<button id="startBtn">Mulai Migrasi</button>
+<div id="log"></div>
+
+<script src="js/api.js"></script>
+<script src="js/artikel.js"></script>
+<script>
+  const logEl = document.getElementById('log');
+  function log(msg) {
+    logEl.textContent += msg + '\n';
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  // Ganti kalau alamat GitHub Pages Anda berbeda
+  const SITE_BASE = 'https://muhammadaslambik.github.io/mabnews/';
+
+  document.getElementById('startBtn').addEventListener('click', async () => {
+    document.getElementById('startBtn').disabled = true;
+
+    if (!window.MABNEWS_ARTICLES) {
+      log('❌ window.MABNEWS_ARTICLES tidak ditemukan.');
+      log('Pastikan sudah menambahkan baris berikut di js/artikel.js, tepat setelah objek "articles" ditutup:');
+      log('    window.MABNEWS_ARTICLES = articles;');
+      return;
+    }
+
+    log('Mengambil daftar kategori dari server...');
+    let categoryMap = {};
+    try {
+      const catRes = await fetch(`${API_BASE_URL}/api/categories`);
+      const catJson = await catRes.json();
+      const categories = catJson.data || [];
+      categories.forEach(c => { categoryMap[c.name.toUpperCase()] = c.key; });
+      log(`Ditemukan ${categories.length} kategori di server.`);
+    } catch (e) {
+      log('❌ Gagal mengambil kategori: ' + e.message);
+      log('Cek apakah backend aktif di: ' + API_BASE_URL);
+      return;
+    }
+
+    const entries = Object.entries(window.MABNEWS_ARTICLES);
+    log(`Total ${entries.length} artikel dummy ditemukan. Memulai pengiriman...\n`);
+
+    let success = 0, skipped = 0, failed = 0;
+
+    for (const [slug, a] of entries) {
+      const category_key = categoryMap[(a.category || '').toUpperCase()] || null;
+      const payload = {
+        title: a.title,
+        lead: a.lead,
+        content: a.content || [],
+        image_url: a.image ? SITE_BASE + a.image : '',
+        caption: a.caption || '',
+        author: a.author || 'MAB-News',
+        category_key,
+        is_popular: false,
+      };
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/articles`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (res.status === 201) {
+          success++;
+          log(`✅ ${a.title}`);
+        } else if (res.status === 409) {
+          skipped++;
+          log(`⏭️  ${a.title} (sudah ada, dilewati)`);
+        } else {
+          const err = await res.json().catch(() => ({}));
+          failed++;
+          log(`❌ ${a.title} — ${err.error || res.status}`);
+        }
+      } catch (e) {
+        failed++;
+        log(`❌ ${a.title} — ${e.message}`);
+      }
+
+      await new Promise(r => setTimeout(r, 150));
+    }
+
+    log(`\nSelesai. Berhasil: ${success}, Dilewati (sudah ada): ${skipped}, Gagal: ${failed}.`);
+  });
+</script>
+</body>
+</html>
