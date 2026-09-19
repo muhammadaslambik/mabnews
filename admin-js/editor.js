@@ -1,1 +1,0 @@
-// Editor artikel — tahap berikutnya.
