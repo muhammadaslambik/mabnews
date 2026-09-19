@@ -7,6 +7,60 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  function renderPopularItem(a, i) {
+    return `
+      <a href="artikel.html?id=${a.slug}" class="popular-item">
+        <span class="popular-number">${i + 1}</span>
+        <div class="popular-content">
+          <h3>${a.title}</h3>
+          <time>${new Date(a.published_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</time>
+        </div>
+        <img src="${a.image_url || ''}" alt="">
+      </a>`;
+  }
+
+  function renderRelatedItem(a) {
+    return `
+      <a href="artikel.html?id=${a.slug}" class="related-item">
+        <img src="${a.image_url || ''}" alt="">
+        <div>
+          <h3>${a.title}</h3>
+          <time>${new Date(a.published_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</time>
+        </div>
+      </a>`;
+  }
+
+  async function loadSidebar(currentSlug, categoryKey) {
+    const popularList = document.getElementById("sidebarPopularList");
+    const relatedList = document.getElementById("sidebarRelatedList");
+
+    try {
+      const popRes = await fetch(`${API_BASE_URL}/api/articles?popular=true&limit=6`);
+      const popData = (await popRes.json()).data || [];
+      const popular = popData.filter(a => a.slug !== currentSlug).slice(0, 5);
+      if (popularList) {
+        popularList.innerHTML = popular.length
+          ? popular.map(renderPopularItem).join('')
+          : `<p style="font-size:12px;color:#8992a2;">Belum ada artikel populer lain.</p>`;
+      }
+    } catch (err) {
+      console.error("Gagal memuat sidebar populer:", err);
+    }
+
+    try {
+      const relRes = await fetch(`${API_BASE_URL}/api/articles?kategori=${categoryKey || ''}&limit=5`);
+      const relData = (await relRes.json()).data || [];
+      const related = relData.filter(a => a.slug !== currentSlug).slice(0, 4);
+      if (relatedList) {
+        relatedList.innerHTML = related.length
+          ? related.map(renderRelatedItem).join('')
+          : `<p style="font-size:12px;color:#8992a2;">Belum ada artikel terkait.</p>`;
+      }
+    } catch (err) {
+      console.error("Gagal memuat sidebar terkait:", err);
+    }
+  }
+
   try {
     const res = await fetch(`${API_BASE_URL}/api/articles/${slug}`);
     if (!res.ok) throw new Error("Artikel tidak ditemukan.");
@@ -41,6 +95,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const breadcrumbCat = document.querySelector(".article-breadcrumb a[href='kategori.html']");
     if (breadcrumbCat && a.category?.name) breadcrumbCat.textContent = a.category.name;
+
+    loadSidebar(a.slug, a.category?.key);
 
   } catch (error) {
     console.error("Gagal memuat artikel:", error);

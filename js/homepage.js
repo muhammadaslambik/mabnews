@@ -182,6 +182,21 @@ function renderPopularSidebar(items) {
 }
 
 /* =========================================================
+   FOKUS (sidebar)
+========================================================= */
+function renderFocus(a) {
+  const section = document.getElementById('focusSection');
+  if (!a || !section) return;
+  document.getElementById('focusCard').href = `artikel.html?id=${a.slug}`;
+  document.getElementById('focusMoreLink').href = `artikel.html?id=${a.slug}`;
+  section.querySelector('img').src = a.image_url || '';
+  document.getElementById('focusTitle').textContent = a.title;
+  document.getElementById('focusLead').textContent = a.lead || '';
+  document.getElementById('focusDate').textContent = new Date(a.published_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+  section.style.display = '';
+}
+
+/* =========================================================
    INIT — ambil semua data dari backend
 ========================================================= */
 async function initHomepage() {
@@ -202,6 +217,7 @@ async function initHomepage() {
 
     renderLatestList(latest.slice(4, 6));
     renderPopularSidebar(popular.slice(0, 5));
+    renderFocus(latest[6] || latest[latest.length - 1]);
   } catch (err) {
     console.error('Gagal memuat data beranda:', err);
   }

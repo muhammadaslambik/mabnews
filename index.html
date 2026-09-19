@@ -1,658 +1,169 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAB-News — Fakta. Data. Perspektif.</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/homepage.css">
-  <link rel="stylesheet" href="css/responsive.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAB-News — Fakta. Data. Perspektif.</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/homepage.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 <header class="site-header">
-
-  <div class="container topbar">
-
-    <!-- BRAND -->
-    <a class="brand" href="index.html">
-      <span class="brand-mark">MAB-</span>
-      <span class="brand-name">NEWS</span>
-      <small>Fakta. Data. Perspektif.</small>
-    </a>
-
-
-    <!-- WAKTU DESKTOP -->
-    <div class="header-datetime desktop-datetime" aria-label="Waktu saat ini">
-      <div class="date-line" id="desktopDate">
-        Minggu, 13 September 2026
-      </div>
-
-      <div class="time-line">
-        Pukul:
-        <span id="desktopTime">01:24</span>
-        WIB
-        <span class="time-separator">|</span>
-        <span id="desktopSeconds">00</span>
-        <span class="time-separator">|</span>
-      </div>
-    </div>
-
-
-    <!-- SEARCH -->
-    <form class="search-box" id="headerSearch">
-
-      <input
-        id="searchInput"
-        type="search"
-        name="q"
-        placeholder="Cari berita, topik, atau kata kunci..."
-        aria-label="Cari berita"
-      >
-
-      <button
-        type="submit"
-        aria-label="Cari"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"></circle>
-          <path d="m20 20-4-4"></path>
-        </svg>
-      </button>
-
-    </form>
-
-
-    <!-- HEADER ACTIONS -->
-    <div class="header-actions">
-
-      <!-- LANGGANAN -->
-      <a
-        class="support-btn"
-        href="#dukung"
-      >
-        Langganan
-      </a>
-      
-<button
-  type="button"
-  class="icon-btn mobile-search-toggle"
-  id="mobileSearchToggle"
-  aria-label="Buka pencarian"
-  title="Cari"
->
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="11" cy="11" r="7"></circle>
-    <path d="m20 20-4-4"></path>
-  </svg>
-</button>
-
-
-      <!-- MODE -->
-      <button
-        class="icon-btn"
-        id="themeToggle"
-        aria-label="Mode tampilan"
-      >
-        <svg viewBox="0 0 24 24">
-          <path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-          <circle cx="12" cy="12" r="4"></circle>
-        </svg>
-      </button>
-
-
-      <!-- AKUN -->
-      <button
-        class="icon-btn"
-        aria-label="Akun"
-      >
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="8" r="4"></circle>
-          <path d="M4 21c.9-4 3.5-6 8-6s7.1 2 8 6"></path>
-        </svg>
-      </button>
-
-    </div>
-
-
-    <!-- WAKTU MOBILE -->
-    <div
-      class="header-datetime mobile-datetime"
-      aria-label="Waktu saat ini"
-    >
-
-      <div class="mobile-time-line">
-        Pukul:
-        <span id="mobileTime">01:24</span>
-        WIB
-        <span class="time-separator">|</span>
-        <span id="mobileSeconds">00</span>
-        <span class="time-separator">|</span>
-        <span id="mobileDate">
-          Minggu, 13 September 2026
-        </span>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- NAVIGATION -->
-  <nav class="main-nav">
-
-    <div class="container nav-inner">
-
-      <div class="mobile-nav">
-
-        <a
-          href="index.html"
-          class="mobile-home active"
-        >
-          Beranda
-        </a>
-
-        <div
-          class="nav-links"
-          id="navLinks"
-        >
-
-          <a href="berita.html">Terbaru</a>
-          <a href="berita.html?sort=popular">Terpopuler</a>
-          <a href="kategori.html?kategori=nasional">Nasional</a>
-          <a href="kategori.html?kategori=internasional">Internasional</a>
-          <a href="kategori.html?kategori=ekonomi">Ekonomi</a>
-          <a href="kategori.html?kategori=metro">Metro</a>
-          <a href="kategori.html?kategori=dunia">Dunia</a>
-          <a href="kategori.html?kategori=olahraga">Olahraga</a>
-          <a href="kategori.html?kategori=teknologi">Teknologi</a>
-          <a href="kategori.html?kategori=otomotif">Otomotif</a>
-          <a href="kategori.html?kategori=gaya-hidup">Gaya Hidup</a>
-          <a href="kategori.html?kategori=seni">Seni</a>
-          <a href="kategori.html?kategori=kolom">Kolom</a>
-          <a href="kategori.html?kategori=indeks">Indeks</a>
-          <a href="kategori.html?kategori=foto">Foto</a>
-          <a href="kategori.html?kategori=video">Video</a>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </nav>
-
+<div class="container topbar">
+<a class="brand" href="index.html">
+<span class="brand-mark">MAB-</span>
+<span class="brand-name">NEWS</span>
+<small>Fakta. Data. Perspektif.</small>
+</a>
+<div class="header-datetime desktop-datetime" aria-label="Waktu saat ini">
+<div class="date-line" id="desktopDate">Minggu, 13 September 2026</div>
+<div class="time-line">Pukul: <span id="desktopTime">01:24</span> WIB <span class="time-separator">|</span> <span id="desktopSeconds">00</span> <span class="time-separator">|</span></div>
+</div>
+<form class="search-box" id="headerSearch">
+<input id="searchInput" type="search" name="q" placeholder="Cari berita, topik, atau kata kunci..." aria-label="Cari berita">
+<button type="submit" aria-label="Cari"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></button>
+</form>
+<div class="header-actions">
+<a class="support-btn" href="#dukung">Langganan</a>
+<button type="button" class="icon-btn mobile-search-toggle" id="mobileSearchToggle" aria-label="Buka pencarian" title="Cari"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></button>
+<button class="icon-btn" id="themeToggle" aria-label="Mode tampilan"><svg viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path><circle cx="12" cy="12" r="4"></circle></svg></button>
+<button class="icon-btn" aria-label="Akun"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c.9-4 3.5-6 8-6s7.1 2 8 6"></path></svg></button>
+</div>
+<div class="header-datetime mobile-datetime" aria-label="Waktu saat ini">
+<div class="mobile-time-line">Pukul: <span id="mobileTime">01:24</span> WIB <span class="time-separator">|</span> <span id="mobileSeconds">00</span> <span class="time-separator">|</span> <span id="mobileDate">Minggu, 13 September 2026</span></div>
+</div>
+</div>
+<nav class="main-nav">
+<div class="container nav-inner">
+<div class="mobile-nav">
+<a href="index.html" class="mobile-home active">Beranda</a>
+<div class="nav-links" id="navLinks">
+<a href="berita.html">Terbaru</a>
+<a href="berita.html?sort=popular">Terpopuler</a>
+<a href="kategori.html?kategori=nasional">Nasional</a>
+<a href="kategori.html?kategori=internasional">Internasional</a>
+<a href="kategori.html?kategori=ekonomi">Ekonomi</a>
+<a href="kategori.html?kategori=metro">Metro</a>
+<a href="kategori.html?kategori=dunia">Dunia</a>
+<a href="kategori.html?kategori=olahraga">Olahraga</a>
+<a href="kategori.html?kategori=teknologi">Teknologi</a>
+<a href="kategori.html?kategori=otomotif">Otomotif</a>
+<a href="kategori.html?kategori=gaya-hidup">Gaya Hidup</a>
+<a href="kategori.html?kategori=seni">Seni</a>
+<a href="kategori.html?kategori=kolom">Kolom</a>
+<a href="kategori.html?kategori=indeks">Indeks</a>
+<a href="kategori.html?kategori=foto">Foto</a>
+<a href="kategori.html?kategori=video">Video</a>
+</div>
+</div>
+</div>
+</nav>
 </header>
+
 <main class="container homepage">
-  <div class="content-grid">
-    <section class="main-column">
-      
+<div class="content-grid">
+<section class="main-column">
 <article class="hero" id="mainHero">
-
-    <div
-        class="hero-track"
-        id="heroTrack"
-    ></div>
-
-    <button
-        type="button"
-        class="hero-arrow hero-prev"
-        id="heroPrev"
-        aria-label="Berita sebelumnya"
-    >
-        ‹
-    </button>
-
-    <button
-        type="button"
-        class="hero-arrow hero-next"
-        id="heroNext"
-        aria-label="Berita berikutnya"
-    >
-        ›
-    </button>
-
-    <div
-        class="dots"
-        id="heroDots"
-    ></div>
-
+<div class="hero-track" id="heroTrack"></div>
+<button type="button" class="hero-arrow hero-prev" id="heroPrev" aria-label="Berita sebelumnya">‹</button>
+<button type="button" class="hero-arrow hero-next" id="heroNext" aria-label="Berita berikutnya">›</button>
+<div class="dots" id="heroDots"></div>
 </article>
 
 <section class="news-section">
 <div class="section-heading">
-    <h2>Berita Utama</h2>
-
-    <button
-        type="button"
-        class="change-news-btn"
-        id="changeMainNews"
-    >
-        Ganti Berita Lainnya
-        <b>↻</b>
-    </button>
+<h2>Berita Utama</h2>
+<button type="button" class="change-news-btn" id="changeMainNews">Ganti Berita Lainnya <b>↻</b></button>
 </div>
-        <div class="top-cards">
-      
-<article class="news-card">
-    <a href="artikel.html?id=pasar-dan-konsumen-menghadapi-perubahan-baru">
-        <img src="assets/images/pasar-dan-konsumen-menghadapi-perubahan-baru.jpg" alt="Pasar">
-    </a>
+<div class="top-cards"></div>
+</section>
 
-    <div class="card-body">
-        <span class="category">EKONOMI</span>
+<section class="news-section">
+<div class="section-heading"><h2>Berita Terbaru</h2><a href="berita.html">Lihat semua <b>›</b></a></div>
+<div class="latest-list"></div>
+</section>
+</section>
 
-        <h3>
-            <a href="artikel.html?id=pasar-dan-konsumen-menghadapi-perubahan-baru">
-                Pasar dan Konsumen Menghadapi Perubahan Baru
-            </a>
-        </h3>
+<aside class="sidebar">
+<section class="sidebar-section">
+<div class="section-heading"><h2>Terpopuler</h2><a href="berita.html?sort=popular">Lihat semua <b>›</b></a></div>
+<ol class="popular-list"></ol>
+</section>
 
-        <time>6 Sep 2026 · 10:45</time>
-    </div>
-</article>
-          
-<article class="news-card">
-    <a href="artikel.html?id=aparat-perkuat-pengamanan-dan-pelayanan-publik">
-        <img src="assets/images/aparat-perkuat-pengamanan-dan-pelayanan-publik.jpg" alt="Polisi">
-    </a>
-
-    <div class="card-body">
-        <span class="category">NASIONAL</span>
-
-        <h3>
-            <a href="artikel.html?id=aparat-perkuat-pengamanan-dan-pelayanan-publik">
-                Aparat Perkuat Pengamanan dan Pelayanan Publik
-            </a>
-        </h3>
-
-        <time>6 Sep 2026 · 10:18</time>
-    </div>
-</article>
-          
-          <article class="news-card">
-    <a href="artikel.html?id=perkembangan-ai-mendorong-perubahan-cara-kerja">
-        <img src="assets/images/perkembangan-ai-mendorong-perubahan-cara-kerja.jpg" alt="Teknologi AI">
-    </a>
-
-    <div class="card-body">
-        <span class="category">TEKNOLOGI</span>
-
-        <h3>
-            <a href="artikel.html?id=perkembangan-ai-mendorong-perubahan-cara-kerja">
-                Perkembangan AI Mendorong Perubahan Cara Kerja
-            </a>
-        </h3>
-
-        <time>6 Sep 2026 · 09:50</time>
-    </div>
-</article>
-          
-          <article class="news-card">
-    <a href="artikel.html?id=industri-otomotif-mulai-beradaptasi-dengan-tren-baru">
-        <img src="assets/images/industri-otomotif-mulai-beradaptasi-dengan-tren-baru.jpg" alt="Otomotif">
-    </a>
-
-    <div class="card-body">
-        <span class="category">OTOMOTIF</span>
-
-        <h3>
-            <a href="artikel.html?id=industri-otomotif-mulai-beradaptasi-dengan-tren-baru">
-                Industri Otomotif Mulai Beradaptasi dengan Tren Baru
-            </a>
-        </h3>
-
-        <time>6 Sep 2026 · 09:24</time>
-    </div>
-</article>
-        </div>
-      </section>
-
-      <section class="news-section">
-        <div class="section-heading"><h2>Berita Terbaru</h2><a href="berita.html">Lihat semua <b>›</b></a></div>
-        <div class="latest-list">
-          <article class="latest-item">
-
-    <a href="artikel.html?id=aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada">
-        <img
-            src="assets/images/aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada.jpg"
-            alt="Gunung berapi"
-        >
-    </a>
-
-    <div>
-        <span class="category">NASIONAL</span>
-
-        <h3>
-            <a href="artikel.html?id=aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada">
-                Aktivitas Gunung Api Kembali Dipantau,
-                Warga Diminta Tetap Waspada
-            </a>
-        </h3>
-
-        <p>
-            Petugas terus memantau perkembangan aktivitas
-            dan mengimbau masyarakat mengikuti informasi resmi.
-        </p>
-
-        <time>6 September 2026 · 08:55</time>
-    </div>
-
-</article>
-          <article class="latest-item">
-
-    <a href="artikel.html?id=arus-logistik-nasional-terus-diperkuat-untuk-menekan-biaya-distribusi">
-        <img
-            src="assets/images/arus-logistik-nasional-terus-diperkuat-untuk-menekan-biaya-distribusi.jpg"
-            alt="Pelabuhan"
-        >
-    </a>
-
-    <div>
-        <span class="category">EKONOMI</span>
-
-        <h3>
-            <a href="artikel.html?id=arus-logistik-nasional-terus-diperkuat-untuk-menekan-biaya-distribusi">
-                Arus Logistik Nasional Terus Diperkuat
-                untuk Menekan Biaya Distribusi
-            </a>
-        </h3>
-
-        <p>
-            Pemerintah dan pelaku usaha menyiapkan sejumlah
-            langkah untuk meningkatkan efisiensi.
-        </p>
-
-        <time>6 September 2026 · 08:20</time>
-    </div>
-
-</article>
-        </div>
-      </section>
-    </section>
-
-    <aside class="sidebar">
-      <section class="sidebar-section">
-        <div class="section-heading"><h2>Terpopuler</h2><a href="berita.html?sort=popular">Lihat semua <b>›</b></a></div>
-
-        <ol class="popular-list">
-
-  <li>
-    <span class="rank">1</span>
-
-    <a
-      class="popular-copy"
-      href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat"
-    >
-      <h3>Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat</h3>
-      <time>12.4K dibaca</time>
-    </a>
-
-    <a href="artikel.html?id=pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat">
-      <img src="assets/images/pemerintah-siapkan-strategi-baru-jaga-daya-beli-masyarakat.jpg"
-           alt="Pemerintah Siapkan Strategi Baru Jaga Daya Beli Masyarakat">
-    </a>
-  </li>
-
-
-  <li>
-    <span class="rank">2</span>
-
-    <a
-      class="popular-copy"
-      href="artikel.html?id=perkembangan-ai-mendorong-perubahan-cara-kerja"
-    >
-      <h3>Perkembangan AI Mendorong Perubahan Cara Kerja</h3>
-      <time>9.8K dibaca</time>
-    </a>
-
-    <a href="artikel.html?id=perkembangan-ai-mendorong-perubahan-cara-kerja">
-      <img src="assets/images/perkembangan-ai-mendorong-perubahan-cara-kerja.jpg"
-           alt="Perkembangan AI Mendorong Perubahan Cara Kerja">
-    </a>
-  </li>
-
-
-  <li>
-    <span class="rank">3</span>
-
-    <a
-      class="popular-copy"
-      href="artikel.html?id=aparat-perkuat-pengamanan-dan-pelayanan-publik"
-    >
-      <h3>Aparat Perkuat Pengamanan dan Pelayanan Publik</h3>
-      <time>8.6K dibaca</time>
-    </a>
-
-    <a href="artikel.html?id=aparat-perkuat-pengamanan-dan-pelayanan-publik">
-      <img src="assets/images/aparat-perkuat-pengamanan-dan-pelayanan-publik.jpg"
-           alt="Aparat Perkuat Pengamanan dan Pelayanan Publik">
-    </a>
-  </li>
-
-
-  <li>
-    <span class="rank">4</span>
-
-    <a
-      class="popular-copy"
-      href="artikel.html?id=industri-otomotif-mulai-beradaptasi-dengan-tren-baru"
-    >
-      <h3>Industri Otomotif Mulai Beradaptasi dengan Tren Baru</h3>
-      <time>7.2K dibaca</time>
-    </a>
-
-    <a href="artikel.html?id=industri-otomotif-mulai-beradaptasi-dengan-tren-baru">
-      <img src="assets/images/industri-otomotif-mulai-beradaptasi-dengan-tren-baru.jpg"
-           alt="Industri Otomotif Mulai Beradaptasi dengan Tren Baru">
-    </a>
-  </li>
-
-
-  <li>
-    <span class="rank">5</span>
-
-    <a
-      class="popular-copy"
-      href="artikel.html?id=aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada"
-    >
-      <h3>Aktivitas Gunung Api Kembali Dipantau, Warga Diminta Tetap Waspada</h3>
-      <time>6.4K dibaca</time>
-    </a>
-
-    <a href="artikel.html?id=aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada">
-      <img src="assets/images/aktivitas-gunung-api-kembali-dipantau-warga-diminta-tetap-waspada.jpg"
-           alt="Aktivitas Gunung Api Kembali Dipantau">
-    </a>
-  </li>
-
-</ol>
-        
-      </section>
-      <section class="sidebar-section">
-        <div class="section-heading"><h2>Fokus</h2><a href="artikel.html?id=melihat-perubahan-besar-di-balik-berita-hari-ini">
-  Selengkapnya <b>›</b>
-</a></div>
-
-<a
-  href="artikel.html?id=melihat-perubahan-besar-di-balik-berita-hari-ini"
-  class="focus-card"
->
-
-  <img
-    src="assets/images/melihat-perubahan-besar-di-balik-berita-hari-ini.jpg"
-    alt="Melihat Perubahan Besar di Balik Berita Hari Ini"
-  >
-
-  <div class="focus-overlay"></div>
-
-  <div class="focus-content">
-
-    <span class="label">FOKUS</span>
-
-    <h3>
-      Melihat Perubahan Besar di Balik Berita Hari Ini
-    </h3>
-
-    <p>
-      Rangkuman konteks, data, dan perspektif yang membantu
-      pembaca memahami isu secara lebih utuh.
-    </p>
-
-    <time>
-      6 September 2026
-    </time>
-
-    <div class="dots">
-      <button class="selected"></button>
-      <button></button>
-      <button></button>
-    </div>
-
-  </div>
-
+<section class="sidebar-section" id="focusSection" style="display:none;">
+<div class="section-heading"><h2>Fokus</h2><a href="#" id="focusMoreLink">Selengkapnya <b>›</b></a></div>
+<a href="#" class="focus-card" id="focusCard">
+<img src="" alt="">
+<div class="focus-overlay"></div>
+<div class="focus-content">
+<span class="label">FOKUS</span>
+<h3 id="focusTitle"></h3>
+<p id="focusLead"></p>
+<time id="focusDate"></time>
+</div>
 </a>
-        
-      </section>
-    </aside>
-  </div>
+</section>
+</aside>
+</div>
 </main>
 
-
-<!-- =========================================================
-     FOOTER MAB-NEWS
-     ========================================================= -->
 <footer class="site-footer">
-
-  <div class="footer-main">
-
-    <!-- BRAND -->
-    <div class="footer-brand">
-      <h2>MAB-NEWS</h2>
-
-      <p class="footer-tagline">
-        Fakta. Data. Perspektif.
-      </p>
-
-      <p class="footer-description">
-        MAB-News menyajikan berita terkini dan terpercaya dari Indonesia dan
-        dunia. Kami berkomitmen untuk menjadi sumber informasi yang akurat dan
-        berimbang bagi masyarakat.
-      </p>
-
-      <div class="footer-social">
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="X">𝕏</a>
-        <a href="#" aria-label="Instagram">◎</a>
-        <a href="#" aria-label="YouTube">▶</a>
-      </div>
-    </div>
-
-
-    <!-- MENU -->
-    <div class="footer-column">
-      <h3>MENU</h3>
-
-      <a href="index.html">Beranda</a>
-      <a href="berita.html?sort=terbaru">Terbaru</a>
-      <a href="berita.html?sort=popular">Terpopuler</a>
-      <a href="kategori.html">Indeks</a>
-      <a href="kategori.html">Foto</a>
-      <a href="kategori.html">Video</a>
-      <a href="kategori.html">Kolom</a>
-      <a href="#">Kontak Kami</a>
-    </div>
-
-
-    <!-- LAYANAN -->
-    <div class="footer-column">
-      <h3>LAYANAN</h3>
-
-      <a href="#">Pedoman Media Siber</a>
-      <a href="#">Kode Etik Jurnalistik</a>
-      <a href="#">Kebijakan Privasi</a>
-      <a href="#">Redaksi</a>
-      <a href="#">Kontak Kami</a>
-    </div>
-
-
-<!-- NETWORK -->
-<div class="footer-column">
-  <h3>NETWORK</h3>
-
-  <a
-    href="https://muhammadaslambik.github.io/mabstore/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    MAB-Store
-  </a>
-
-  <a
-    href="https://muhammadaslambik.github.io/mabvideo/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    MAB-Video
-  </a>
-
-  <a
-    href="https://memorisejarah.wordpress.com/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Memori Sejarah
-  </a>
+<div class="footer-main">
+<div class="footer-brand">
+<h2>MAB-NEWS</h2>
+<p class="footer-tagline">Fakta. Data. Perspektif.</p>
+<p class="footer-description">MAB-News menyajikan berita terkini dan terpercaya dari Indonesia dan dunia. Kami berkomitmen untuk menjadi sumber informasi yang akurat dan berimbang bagi masyarakat.</p>
+<div class="footer-social">
+<a href="#" aria-label="Facebook">f</a>
+<a href="#" aria-label="X">𝕏</a>
+<a href="#" aria-label="Instagram">◎</a>
+<a href="#" aria-label="YouTube">▶</a>
 </div>
-
-
-
-    <!-- NEWSLETTER -->
-    <div class="footer-newsletter">
-      <h3>NEWSLETTER</h3>
-
-      <p>
-        Dapatkan berita terbaru dan terpilih langsung di email Anda
-        setiap hari.
-      </p>
-
-      <div class="newsletter-form">
-        <input
-          type="email"
-          placeholder="Masukkan email Anda"
-          aria-label="Email"
-        >
-
-        <button type="button">
-          Berlangganan
-        </button>
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- FOOTER BOTTOM -->
-  <div class="footer-bottom">
-
-    <div class="copyright">
-      © 2025 MAB-News. All rights reserved.
-    </div>
-
-    <div class="footer-links">
-      <a href="#">Tentang Kami</a>
-      <span>|</span>
-      <a href="#">Redaksi</a>
-      <span>|</span>
-      <a href="#">Kontak</a>
-    </div>
-
-  </div>
-
+</div>
+<div class="footer-column">
+<h3>MENU</h3>
+<a href="index.html">Beranda</a>
+<a href="berita.html?sort=terbaru">Terbaru</a>
+<a href="berita.html?sort=popular">Terpopuler</a>
+<a href="kategori.html">Indeks</a>
+<a href="kategori.html">Foto</a>
+<a href="kategori.html">Video</a>
+<a href="kategori.html">Kolom</a>
+<a href="#">Kontak Kami</a>
+</div>
+<div class="footer-column">
+<h3>LAYANAN</h3>
+<a href="#">Pedoman Media Siber</a>
+<a href="#">Kode Etik Jurnalistik</a>
+<a href="#">Kebijakan Privasi</a>
+<a href="#">Redaksi</a>
+<a href="#">Kontak Kami</a>
+</div>
+<div class="footer-column">
+<h3>NETWORK</h3>
+<a href="https://muhammadaslambik.github.io/mabstore/" target="_blank" rel="noopener noreferrer">MAB-Store</a>
+<a href="https://muhammadaslambik.github.io/mabvideo/" target="_blank" rel="noopener noreferrer">MAB-Video</a>
+<a href="https://memorisejarah.wordpress.com/" target="_blank" rel="noopener noreferrer">Memori Sejarah</a>
+</div>
+<div class="footer-newsletter">
+<h3>NEWSLETTER</h3>
+<p>Dapatkan berita terbaru dan terpilih langsung di email Anda setiap hari.</p>
+<div class="newsletter-form">
+<input type="email" placeholder="Masukkan email Anda" aria-label="Email">
+<button type="button">Berlangganan</button>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="copyright">© 2025 MAB-News. All rights reserved.</div>
+<div class="footer-links"><a href="#">Tentang Kami</a><span>|</span><a href="#">Redaksi</a><span>|</span><a href="#">Kontak</a></div>
+</div>
 </footer>
+
 <script src="js/api.js"></script>
 <script src="js/main.js"></script>
 <script src="js/homepage.js"></script>
-
 </body>
 </html>
