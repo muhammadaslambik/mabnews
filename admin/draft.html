@@ -1,205 +1,222 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="MAB-News CMS - Draft Artikel">
-  <title>Draft Artikel — MAB-News CMS</title>
-  <link rel="stylesheet" href="../admin-css/draft.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draft Artikel — MAB-News CMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="../admin-css/draft.css">
+<link rel="stylesheet" href="../admin-css/sidebar.css">
 </head>
 <body>
-  <div class="cms-shell">
-    <aside class="sidebar" id="sidebar">
-      <div class="brand">
-        <button class="icon-btn sidebar-close" id="sidebarClose" aria-label="Tutup menu">×</button>
-        <div class="brand-mark">MAB</div>
-        <span><b>MAB</b>-News <small>CMS</small></span>
-      </div>
-
-      <nav class="sidebar-nav" aria-label="Navigasi CMS">
-        <a href="index.html"><span class="nav-icon">⌂</span><span>Dashboard</span></a>
-
-        <button class="nav-parent open" type="button" data-submenu="artikel-submenu" aria-expanded="true">
-          <span class="nav-icon">▣</span><span>Artikel</span><span class="chevron">⌃</span>
-        </button>
-        <div class="submenu" id="artikel-submenu">
-          <a href="artikel.html">Semua Artikel</a>
-          <a href="tambah-artikel.html">Tambah Artikel</a>
-          <a class="active" href="draft.html" aria-current="page">Draft</a>
-        </div>
-
-        <a href="kategori.html"><span class="nav-icon">■</span><span>Kategori</span></a>
-        <a href="media.html"><span class="nav-icon">▧</span><span>Media</span></a>
-        <a href="pengguna.html"><span class="nav-icon">♟</span><span>Pengguna</span></a>
-
-        <button class="nav-parent open" type="button" data-submenu="settings-submenu" aria-expanded="true">
-          <span class="nav-icon">⚙</span><span>Pengaturan</span><span class="chevron">⌃</span>
-        </button>
-        <div class="submenu" id="settings-submenu">
-          <a href="pengaturan-umum.html">Umum</a>
-          <a href="website.html">Website</a>
-          <a href="tampilan.html">Tampilan</a>
-          <a href="seo.html">SEO</a>
-          <a href="email.html">Email</a>
-          <a href="backup.html">Backup</a>
-          <a href="keamanan.html">Keamanan</a>
-        </div>
-
-        <button class="nav-parent" type="button" data-submenu="more-submenu" aria-expanded="false">
-          <span class="nav-icon">•••</span><span>Lainnya</span><span class="chevron">⌄</span>
-        </button>
-        <div class="submenu collapsed" id="more-submenu">
-          <a href="#">Log Aktivitas</a>
-          <a href="#">Notifikasi</a>
-        </div>
-
-        <a href="#"><span class="nav-icon">◈</span><span>Atur Sidebar</span></a>
-        <a href="#"><span class="nav-icon">⇩</span><span>Export &amp; Impor</span></a>
-      </nav>
-
-      <div class="sidebar-user">
-        <div class="avatar">MA</div>
-        <div>
-          <strong>Muhammad Aslambik</strong>
-          <span>Administrator</span>
-        </div>
-        <button class="user-arrow" type="button" aria-label="Menu akun">›</button>
-      </div>
-    </aside>
-
-    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
-
-    <main class="main">
-      <header class="topbar">
-        <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-        <div class="mobile-brand"><b>MAB</b>-News <span>CMS</span></div>
-        <div class="top-actions">
-          <button class="top-icon" id="themeToggle" type="button" title="Mode gelap" aria-label="Mode gelap">☾</button>
-          <button class="top-icon notification" type="button" title="Notifikasi" aria-label="Notifikasi">♧<i>3</i></button>
-          <button class="profile-btn" type="button" id="profileBtn">
-            <span class="profile-avatar">MA</span><span class="profile-name">Admin</span><span>⌄</span>
-          </button>
-          <div class="profile-menu" id="profileMenu">
-            <button type="button">Profil</button>
-            <button type="button">Pengaturan Akun</button>
-            <button type="button">Keluar</button>
-          </div>
-        </div>
-      </header>
-
-      <section class="page">
-        <div class="breadcrumbs">
-          <a href="dashboard.html">Dashboard</a><span>›</span><a href="artikel.html">Artikel</a><span>›</span><strong>Draft</strong>
-        </div>
-
-        <div class="page-heading">
-          <div class="heading-left">
-            <div class="page-icon">▤</div>
-            <div>
-              <h1>Draft Artikel</h1>
-              <p>Daftar artikel yang masih dalam bentuk draft dan belum dipublikasikan.</p>
-            </div>
-          </div>
-          <a class="primary-btn" href="tambah-artikel.html">＋ <span>Tambah Artikel</span></a>
-        </div>
-
-        <section class="card">
-          <div class="toolbar">
-            <label class="search-box">
-              <input id="searchInput" type="search" placeholder="Cari judul artikel, kategori, atau penulis..." autocomplete="off">
-              <button type="button" id="searchBtn" aria-label="Cari">⌕</button>
-            </label>
-
-            <label class="select-box">
-              <span>▰</span>
-              <select id="categoryFilter" aria-label="Filter kategori">
-                <option value="">Semua Kategori</option>
-                <option>Teknologi</option>
-                <option>Bisnis</option>
-                <option>Tutorial</option>
-                <option>Website</option>
-                <option>Statistik</option>
-                <option>Iklan</option>
-                <option>Perangkat</option>
-              </select>
-            </label>
-
-            <label class="select-box">
-              <span>♟</span>
-              <select id="authorFilter" aria-label="Filter penulis">
-                <option value="">Semua Penulis</option>
-                <option>Muhammad Aslambik</option>
-              </select>
-            </label>
-
-            <label class="select-box">
-              <span>▣</span>
-              <select id="dateFilter" aria-label="Filter tanggal">
-                <option value="">Semua Tanggal</option>
-                <option value="7">7 hari terakhir</option>
-                <option value="30">30 hari terakhir</option>
-                <option value="90">90 hari terakhir</option>
-              </select>
-            </label>
-          </div>
-
-          <div class="bulkbar" id="bulkbar" hidden>
-            <span><b id="selectedCount">0</b> artikel dipilih</span>
-            <button class="bulk-delete" type="button" id="bulkDelete">Hapus yang dipilih</button>
-            <button class="clear-selection" type="button" id="clearSelection">Batal</button>
-          </div>
-
-          <div class="table-wrap">
-            <table class="draft-table">
-              <thead>
-                <tr>
-                  <th class="check-col"><input id="selectAll" type="checkbox" aria-label="Pilih semua"></th>
-                  <th>No</th>
-                  <th>Judul Artikel</th>
-                  <th>Kategori</th>
-                  <th>Penulis</th>
-                  <th>Tanggal Dibuat</th>
-                  <th>Terakhir Diubah</th>
-                  <th>Status</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="draftTableBody"></tbody>
-            </table>
-            <div class="empty-state" id="emptyState" hidden>
-              <div>⌕</div>
-              <strong>Artikel tidak ditemukan</strong>
-              <span>Coba ubah kata pencarian atau filter yang digunakan.</span>
-            </div>
-          </div>
-
-          <div class="table-footer">
-            <span id="resultInfo">Menampilkan 1–8 dari 8 artikel (draft)</span>
-            <div class="pagination" id="pagination"></div>
-          </div>
-        </section>
-
-        <footer>© 2025 MAB-News CMS. Semua hak dilindungi.</footer>
-      </section>
-    </main>
-  </div>
-
-  <div class="modal" id="confirmModal" aria-hidden="true">
-    <div class="modal-card">
-      <button class="modal-close" type="button" data-close-modal>×</button>
-      <div class="modal-icon danger">!</div>
-      <h2>Hapus artikel?</h2>
-      <p>Artikel yang dihapus dari daftar draft akan hilang dari tampilan ini.</p>
-      <div class="modal-actions">
-        <button class="secondary-btn" type="button" data-close-modal>Batal</button>
-        <button class="danger-btn" type="button" id="confirmDelete">Ya, Hapus</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="../admin-js/draft.js"></script>
+<header class="cms-header">
+<div class="header-left">
+<button type="button" class="menu-toggle" id="menuToggle" aria-label="Buka menu">
+<i class="fa-solid fa-bars"></i>
+</button>
+<a href="index.html" class="cms-logo">
+<span class="logo-blue">MAB-</span><span>News CMS</span>
+</a>
+</div>
+<div class="header-right">
+<button type="button" class="header-icon-btn theme-toggle" id="themeToggle" aria-label="Mode gelap">
+<i class="fa-regular fa-moon"></i>
+</button>
+<button type="button" class="header-icon-btn notification-btn" aria-label="Notifikasi">
+<i class="fa-regular fa-bell"></i>
+<span class="notification-count">3</span>
+</button>
+<button type="button" class="header-user" id="headerUser">
+<span class="header-avatar">
+<i class="fa-solid fa-user"></i>
+</span>
+<span class="header-user-name">Admin</span>
+<i class="fa-solid fa-chevron-down header-user-arrow"></i>
+</button>
+</div>
+</header>
+<div class="cms-layout">
+<aside class="sidebar" id="sidebar">
+<nav class="sidebar-nav">
+<a href="index.html" class="nav-item">
+<i class="fa-solid fa-house"></i>
+<span>Dashboard</span>
+</a>
+<div class="nav-group open">
+<button type="button" class="nav-item nav-dropdown-toggle">
+<span class="nav-item-main">
+<i class="fa-solid fa-file-lines"></i>
+<span>Artikel</span>
+</span>
+<i class="fa-solid fa-chevron-up nav-arrow"></i>
+</button>
+<div class="nav-submenu">
+<a href="artikel.html">Semua Artikel</a>
+<a href="tambah-artikel.html">Tambah Artikel</a>
+<a href="draft.html" class="active-sub-item"><i class="fa-solid fa-file-pen"></i>Draft</a>
+</div>
+</div>
+<a href="kategori.html" class="nav-item">
+<i class="fa-solid fa-folder"></i>
+<span>Kategori</span>
+</a>
+<a href="media.html" class="nav-item">
+<i class="fa-solid fa-image"></i>
+<span>Media</span>
+</a>
+<a href="users.html" class="nav-item">
+<i class="fa-solid fa-users"></i>
+<span>Pengguna</span>
+</a>
+<div class="nav-group">
+<button type="button" class="nav-item nav-dropdown-toggle">
+<span class="nav-item-main">
+<i class="fa-solid fa-gear"></i>
+<span>Pengaturan</span>
+</span>
+<i class="fa-solid fa-chevron-right nav-arrow"></i>
+</button>
+<div class="nav-submenu">
+<a href="umum.html"><span class="submenu-dot"></span>Umum</a>
+<a href="website.html"><span class="submenu-dot"></span>Website</a>
+<a href="tampilan.html"><span class="submenu-dot"></span>Tampilan</a>
+<a href="seo.html"><span class="submenu-dot"></span>SEO</a>
+<a href="email.html"><span class="submenu-dot"></span>Email</a>
+<a href="backup.html"><span class="submenu-dot"></span>Backup</a>
+<a href="keamanan.html"><span class="submenu-dot"></span>Keamanan</a>
+</div>
+</div>
+<div class="nav-group">
+<button type="button" class="nav-item nav-dropdown-toggle">
+<span class="nav-item-main">
+<i class="fa-solid fa-ellipsis"></i>
+<span>Lainnya</span>
+</span>
+<i class="fa-solid fa-chevron-right nav-arrow"></i>
+</button>
+<div class="nav-submenu">
+<a href="laman.html"><span class="submenu-dot"></span>Laman</a>
+<a href="statistik.html"><span class="submenu-dot"></span>Statistik</a>
+<a href="iklan.html"><span class="submenu-dot"></span>Iklan</a>
+<a href="perangkat.html"><span class="submenu-dot"></span>Perangkat</a>
+<a href="domain-hosting.html"><span class="submenu-dot"></span>Domain &amp; Hosting</a>
+<a href="backend-api.html"><span class="submenu-dot"></span>BackEnd &amp; API</a>
+<a href="atur-sidebar.html">Atur Sidebar</a>
+<a href="export-import.html">Export &amp; Impor</a>
+</div>
+</div>
+</nav>
+<div class="sidebar-profile">
+<div class="sidebar-avatar">
+<i class="fa-solid fa-user"></i>
+</div>
+<div class="sidebar-profile-info">
+<strong>Muhammad Aslambik</strong>
+<span>Administrator</span>
+</div>
+<i class="fa-solid fa-chevron-right sidebar-profile-arrow"></i>
+</div>
+</aside>
+<main class="main-content">
+<div class="breadcrumb">
+<a href="index.html">Dashboard</a><i class="fa-solid fa-chevron-right"></i><a href="artikel.html">Artikel</a><i class="fa-solid fa-chevron-right"></i><span>Draft</span>
+</div>
+<div class="page-heading">
+<div class="page-heading-icon">
+<i class="fa-solid fa-file-pen"></i>
+</div>
+<div><h1>Draft Artikel</h1><p>Daftar artikel yang masih dalam bentuk draft dan belum dipublikasikan.</p></div>
+<a class="primary-btn" href="tambah-artikel.html" style="margin-left:auto">＋ <span>Tambah Artikel</span></a>
+</div>
+<section class="card">
+<div class="toolbar">
+<label class="search-box">
+<input id="searchInput" type="search" placeholder="Cari judul artikel, kategori, atau penulis..." autocomplete="off">
+<button type="button" id="searchBtn" aria-label="Cari">⌕</button>
+</label>
+<label class="select-box">
+<span>▰</span>
+<select id="categoryFilter" aria-label="Filter kategori">
+<option value="">Semua Kategori</option>
+<option>Teknologi</option>
+<option>Bisnis</option>
+<option>Tutorial</option>
+<option>Website</option>
+<option>Statistik</option>
+<option>Iklan</option>
+<option>Perangkat</option>
+</select>
+</label>
+<label class="select-box">
+<span>♟</span>
+<select id="authorFilter" aria-label="Filter penulis">
+<option value="">Semua Penulis</option>
+<option>Muhammad Aslambik</option>
+</select>
+</label>
+<label class="select-box">
+<span>▣</span>
+<select id="dateFilter" aria-label="Filter tanggal">
+<option value="">Semua Tanggal</option>
+<option value="7">7 hari terakhir</option>
+<option value="30">30 hari terakhir</option>
+<option value="90">90 hari terakhir</option>
+</select>
+</label>
+</div>
+<div class="bulkbar" id="bulkbar" hidden>
+<span><b id="selectedCount">0</b> artikel dipilih</span>
+<button class="bulk-delete" type="button" id="bulkDelete">Hapus yang dipilih</button>
+<button class="clear-selection" type="button" id="clearSelection">Batal</button>
+</div>
+<div class="table-wrap">
+<table class="draft-table">
+<thead>
+<tr>
+<th class="check-col"><input id="selectAll" type="checkbox" aria-label="Pilih semua"></th>
+<th>No</th>
+<th>Judul Artikel</th>
+<th>Kategori</th>
+<th>Penulis</th>
+<th>Tanggal Dibuat</th>
+<th>Terakhir Diubah</th>
+<th>Status</th>
+<th>Aksi</th>
+</tr>
+</thead>
+<tbody id="draftTableBody"></tbody>
+</table>
+<div class="empty-state" id="emptyState" hidden>
+<div>⌕</div>
+<strong>Artikel tidak ditemukan</strong>
+<span>Coba ubah kata pencarian atau filter yang digunakan.</span>
+</div>
+</div>
+<div class="table-footer">
+<span id="resultInfo">Menampilkan 1–8 dari 8 artikel (draft)</span>
+<div class="pagination" id="pagination"></div>
+</div>
+</section>
+<footer class="cms-footer">© 2025 MAB-News CMS. Semua hak dilindungi.</footer>
+</main>
+</div>
+<div class="modal" id="confirmModal" aria-hidden="true">
+<div class="modal-card">
+<button class="modal-close" type="button" data-close-modal>×</button>
+<div class="modal-icon danger">!</div>
+<h2>Hapus artikel?</h2>
+<p>Artikel yang dihapus dari daftar draft akan hilang dari tampilan ini.</p>
+<div class="modal-actions">
+<button class="secondary-btn" type="button" data-close-modal>Batal</button>
+<button class="danger-btn" type="button" id="confirmDelete">Ya, Hapus</button>
+</div>
+</div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../admin-js/sidebar.js"></script>
+<script src="../admin-js/draft.js"></script>
 </body>
 </html>

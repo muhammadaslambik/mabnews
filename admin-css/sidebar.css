@@ -1,0 +1,576 @@
+/* =========================================================
+   MAB-News CMS — sidebar.css
+   Header + Sidebar + Layout dasar BERSAMA untuk SEMUA halaman
+   admin, diambil identik dari admin-css/export-import.css
+   (referensi resmi) supaya tampilan sidebar sama persis di
+   seluruh CMS.
+
+   Load file ini SETELAH CSS khusus halaman (mis. tambah-artikel.css,
+   draft.css, dsb) di <head>, supaya aturan sidebar/header di sini
+   selalu menang kalau ada nama class yang sama di file lama.
+
+   Catatan: bagian dark-mode & responsive mobile di export-import.css
+   asli ada di luar 1000 baris pertama yang bisa saya baca (file itu
+   2010 baris, GitHub membatasi pratinjau ke 1000 baris), jadi dua
+   bagian itu di file ini adalah pendekatan wajar buatan saya sendiri
+   yang konsisten dengan pola dark-mode (class body.dark-mode) yang
+   dipakai export-import.js — bukan hasil salin persis dari aslinya.
+   ========================================================= */
+
+:root {
+  --navy: #03132f;
+  --navy-2: #061b3d;
+  --sidebar: #03142f;
+  --sidebar-hover: #102952;
+  --blue: #1769ff;
+  --blue-dark: #0757e8;
+  --blue-light: #eaf2ff;
+  --green: #10b981;
+  --green-dark: #08a76f;
+  --green-light: #e9fbf3;
+  --page-bg: #f6f8fc;
+  --white: #ffffff;
+  --text: #0d1735;
+  --text-2: #28467c;
+  --muted: #6d7fa5;
+  --border: #e2e8f2;
+  --shadow: 0 4px 18px rgba(20, 44, 90, 0.055);
+  --radius: 8px;
+  --header-height: 60px;
+  --sidebar-width: 240px;
+}
+
+/* ---------------------------------------------------------
+   Reset
+   --------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  border: 0;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------------------------------------------------------
+   Header
+   --------------------------------------------------------- */
+.cms-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  background: linear-gradient(90deg, #020f28 0%, #03142e 55%, #071b3d 100%);
+  color: #fff;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.menu-toggle {
+  width: 30px;
+  height: 40px;
+  margin-right: 10px;
+  background: transparent;
+  color: #fff;
+  font-size: 23px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cms-logo {
+  text-decoration: none;
+  font-size: 23px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.7px;
+  white-space: nowrap;
+}
+
+.logo-blue {
+  color: #146cff;
+}
+
+.cms-logo span:last-child {
+  color: #f8fafc;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-icon-btn {
+  position: relative;
+  width: 30px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #fff;
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.header-icon-btn:hover {
+  opacity: 0.8;
+}
+
+.notification-count {
+  position: absolute;
+  top: 2px;
+  right: -3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1769ff;
+  color: #fff;
+  border: 1px solid #061a3b;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.header-avatar {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #f8fafc, #cbd5e1);
+  color: #6c7b91;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+}
+
+.header-user-arrow {
+  margin-left: 1px;
+  font-size: 10px;
+}
+
+/* ---------------------------------------------------------
+   Layout
+   --------------------------------------------------------- */
+.cms-layout {
+  display: flex;
+  min-height: 100vh;
+  padding-top: var(--header-height);
+}
+
+/* ---------------------------------------------------------
+   Sidebar
+   --------------------------------------------------------- */
+.sidebar {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #03142f 0%, #02122c 100%);
+  color: #fff;
+  overflow: hidden;
+  transition: transform 0.25s ease, width 0.25s ease;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 14px 10px 12px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+}
+
+.nav-item {
+  width: 100%;
+  min-height: 39px;
+  padding: 0 10px;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border-radius: 5px;
+  background: transparent;
+  color: #f4f7fc;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-item > i:first-child {
+  width: 19px;
+  flex: 0 0 19px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.nav-item.active {
+  background: var(--blue);
+  color: #fff;
+}
+
+.nav-item-main {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.nav-item-main > i {
+  width: 19px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.nav-arrow {
+  margin-left: auto;
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+.nav-group {
+  margin-bottom: 2px;
+}
+
+.nav-group:not(.open) .nav-submenu {
+  display: none;
+}
+
+.nav-submenu {
+  display: flex;
+  flex-direction: column;
+  padding: 1px 0 5px 0;
+}
+
+.nav-submenu a {
+  min-height: 31px;
+  padding: 0 8px 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f0f4fb;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.nav-submenu a:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.nav-submenu .submenu-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.95;
+}
+
+.nav-submenu .active-sub-item {
+  background: #1769ff;
+  color: #fff;
+  padding-left: 29px;
+  box-shadow: 0 2px 8px rgba(23, 105, 255, 0.18);
+}
+
+.nav-submenu .active-sub-item i {
+  width: 13px;
+  font-size: 12px;
+}
+
+.sidebar-profile {
+  min-height: 71px;
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.sidebar-avatar {
+  width: 35px;
+  height: 35px;
+  flex: 0 0 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #f8fafc, #cbd5e1);
+  color: #6c7b91;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+}
+
+.sidebar-profile-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sidebar-profile-info strong {
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-profile-info span {
+  color: #b7c2d5;
+  font-size: 10.5px;
+}
+
+.sidebar-profile-arrow {
+  margin-left: auto;
+  color: #fff;
+  font-size: 10px;
+}
+
+/* ---------------------------------------------------------
+   Main content
+   --------------------------------------------------------- */
+.main-content {
+  width: calc(100% - var(--sidebar-width));
+  min-height: calc(100vh - var(--header-height));
+  margin-left: var(--sidebar-width);
+  padding: 17px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #f8fafd 0%, #f4f7fb 100%);
+}
+
+/* ---------------------------------------------------------
+   Breadcrumb
+   --------------------------------------------------------- */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-bottom: 15px;
+  color: #123773;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.breadcrumb a {
+  color: #174ca4;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb i {
+  color: #1e4d9a;
+  font-size: 9px;
+}
+
+.breadcrumb span {
+  color: #123773;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------
+   Page heading
+   --------------------------------------------------------- */
+.page-heading {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 17px;
+}
+
+.page-heading-icon {
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8f1ff;
+  color: #1769ff;
+  font-size: 19px;
+}
+
+.page-heading h1 {
+  margin-bottom: 4px;
+  color: #0b1737;
+  font-size: 23px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.page-heading p {
+  color: #31528b;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------
+   Placeholder sederhana (untuk modul yang belum dikembangkan)
+   --------------------------------------------------------- */
+.admin-placeholder-body {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.admin-placeholder-body a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------
+   Dark mode
+   (pendekatan wajar buatan sendiri — lihat catatan di atas)
+   --------------------------------------------------------- */
+body.dark-mode {
+  --page-bg: #0b1220;
+  --text: #e6edf8;
+  --text-2: #a9bde0;
+  --muted: #7c8db3;
+  --border: #1c2a45;
+  --white: #101a30;
+}
+
+body.dark-mode .main-content {
+  background: linear-gradient(180deg, #0b1220 0%, #0a0f1c 100%);
+}
+
+body.dark-mode .page-heading h1 {
+  color: #eef3fb;
+}
+
+body.dark-mode .page-heading p,
+body.dark-mode .breadcrumb,
+body.dark-mode .breadcrumb span {
+  color: #9fb3d9;
+}
+
+body.dark-mode .breadcrumb a {
+  color: #6ea8ff;
+}
+
+body.dark-mode .admin-placeholder-body {
+  background: #101a30;
+  border-color: #1c2a45;
+}
+
+/* ---------------------------------------------------------
+   Responsive
+   (pendekatan wajar buatan sendiri — lihat catatan di atas)
+   --------------------------------------------------------- */
+@media (max-width: 980px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  body.sidebar-open .sidebar {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .header-user-name {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .cms-logo {
+    font-size: 19px;
+  }
+
+  .main-content {
+    padding: 14px 14px 18px;
+  }
+
+  .page-heading {
+    align-items: flex-start;
+  }
+}

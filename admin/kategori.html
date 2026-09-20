@@ -1,8 +1,145 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kategori — MAB-News CMS</title><link rel="stylesheet" href="../admin-css/kategori.css"></head><body>
-<div class="app"><aside class="sidebar" id="sidebar"><div class="brand"><button id="closeSide">×</button><b><span>MAB</span>-News CMS</b></div><nav><a href="dashboard.html">⌂ <span>Dashboard</span></a><button class="parent" data-menu="art">▣ <span>Artikel</span><i>›</i></button><div class="submenu" id="art"><a href="artikel.html">Semua Artikel</a><a href="tambah-artikel.html">Tambah Artikel</a><a href="draft.html">Draft</a></div><a class="active" href="kategori.html">▰ <span>Kategori</span></a><a href="media.html">▧ <span>Media</span></a><a href="pengguna.html">♟ <span>Pengguna</span></a><button class="parent" data-menu="set">⚙ <span>Pengaturan</span><i>›</i></button><div class="submenu" id="set"><a href="#">Umum</a><a href="#">Website</a><a href="#">Tampilan</a><a href="#">SEO</a><a href="#">Email</a><a href="#">Backup</a><a href="#">Keamanan</a></div></nav><div class="account"><div class="avatar">MA</div><div><b>Muhammad Aslambik</b><small>Administrator</small></div><span>›</span></div></aside><div id="backdrop"></div>
-<main><header><button id="hamb"><span></span><span></span><span></span></button><div class="mobile-brand"><b>MAB</b>-News CMS</div><div class="top"><button id="theme">☾</button><button>♧<em>3</em></button><button id="profile">◉ <span>Admin</span>⌄</button><div id="profileMenu"><button>Profil</button><button>Pengaturan Akun</button><button>Keluar</button></div></div></header>
-<section class="page"><div class="crumb"><a href="dashboard.html">Dashboard</a><span>›</span><b>Kategori</b></div><div class="heading"><div><strong>▰</strong><section><h1>Kategori</h1><p>Kelola semua kategori artikel yang digunakan di website.</p></section></div><button class="primary" id="add">＋ Tambah Kategori</button></div>
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kategori — MAB-News CMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="../admin-css/kategori.css">
+<link rel="stylesheet" href="../admin-css/sidebar.css">
+</head>
+<body>
+<header class="cms-header">
+<div class="header-left">
+<button type="button" class="menu-toggle" id="menuToggle" aria-label="Buka menu">
+<i class="fa-solid fa-bars"></i>
+</button>
+<a href="index.html" class="cms-logo">
+<span class="logo-blue">MAB-</span><span>News CMS</span>
+</a>
+</div>
+<div class="header-right">
+<button type="button" class="header-icon-btn theme-toggle" id="themeToggle" aria-label="Mode gelap">
+<i class="fa-regular fa-moon"></i>
+</button>
+<button type="button" class="header-icon-btn notification-btn" aria-label="Notifikasi">
+<i class="fa-regular fa-bell"></i>
+<span class="notification-count">3</span>
+</button>
+<button type="button" class="header-user" id="headerUser">
+<span class="header-avatar">
+<i class="fa-solid fa-user"></i>
+</span>
+<span class="header-user-name">Admin</span>
+<i class="fa-solid fa-chevron-down header-user-arrow"></i>
+</button>
+</div>
+</header>
+<div class="cms-layout">
+<aside class="sidebar" id="sidebar">
+<nav class="sidebar-nav">
+<a href="index.html" class="nav-item">
+<i class="fa-solid fa-house"></i>
+<span>Dashboard</span>
+</a>
+<div class="nav-group">
+<button type="button" class="nav-item nav-dropdown-toggle">
+<span class="nav-item-main">
+<i class="fa-solid fa-file-lines"></i>
+<span>Artikel</span>
+</span>
+<i class="fa-solid fa-chevron-right nav-arrow"></i>
+</button>
+<div class="nav-submenu">
+<a href="artikel.html">Semua Artikel</a>
+<a href="tambah-artikel.html">Tambah Artikel</a>
+<a href="draft.html">Draft</a>
+</div>
+</div>
+<a href="kategori.html" class="nav-item active">
+<i class="fa-solid fa-folder"></i>
+<span>Kategori</span>
+</a>
+<a href="media.html" class="nav-item">
+<i class="fa-solid fa-image"></i>
+<span>Media</span>
+</a>
+<a href="users.html" class="nav-item">
+<i class="fa-solid fa-users"></i>
+<span>Pengguna</span>
+</a>
+<div class="nav-group">
+<button type="button" class="nav-item nav-dropdown-toggle">
+<span class="nav-item-main">
+<i class="fa-solid fa-gear"></i>
+<span>Pengaturan</span>
+</span>
+<i class="fa-solid fa-chevron-right nav-arrow"></i>
+</button>
+<div class="nav-submenu">
+<a href="umum.html"><span class="submenu-dot"></span>Umum</a>
+<a href="website.html"><span class="submenu-dot"></span>Website</a>
+<a href="tampilan.html"><span class="submenu-dot"></span>Tampilan</a>
+<a href="seo.html"><span class="submenu-dot"></span>SEO</a>
+<a href="email.html"><span class="submenu-dot"></span>Email</a>
+<a href="backup.html"><span class="submenu-dot"></span>Backup</a>
+<a href="keamanan.html"><span class="submenu-dot"></span>Keamanan</a>
+</div>
+</div>
+<div class="nav-group">
+<button type="button" class="nav-item nav-dropdown-toggle">
+<span class="nav-item-main">
+<i class="fa-solid fa-ellipsis"></i>
+<span>Lainnya</span>
+</span>
+<i class="fa-solid fa-chevron-right nav-arrow"></i>
+</button>
+<div class="nav-submenu">
+<a href="laman.html"><span class="submenu-dot"></span>Laman</a>
+<a href="statistik.html"><span class="submenu-dot"></span>Statistik</a>
+<a href="iklan.html"><span class="submenu-dot"></span>Iklan</a>
+<a href="perangkat.html"><span class="submenu-dot"></span>Perangkat</a>
+<a href="domain-hosting.html"><span class="submenu-dot"></span>Domain &amp; Hosting</a>
+<a href="backend-api.html"><span class="submenu-dot"></span>BackEnd &amp; API</a>
+<a href="atur-sidebar.html">Atur Sidebar</a>
+<a href="export-import.html">Export &amp; Impor</a>
+</div>
+</div>
+</nav>
+<div class="sidebar-profile">
+<div class="sidebar-avatar">
+<i class="fa-solid fa-user"></i>
+</div>
+<div class="sidebar-profile-info">
+<strong>Muhammad Aslambik</strong>
+<span>Administrator</span>
+</div>
+<i class="fa-solid fa-chevron-right sidebar-profile-arrow"></i>
+</div>
+</aside>
+<main class="main-content">
+<div class="breadcrumb">
+<a href="index.html">Dashboard</a><i class="fa-solid fa-chevron-right"></i><span>Kategori</span>
+</div>
+<div class="page-heading">
+<div class="page-heading-icon">
+<i class="fa-solid fa-folder"></i>
+</div>
+<div><h1>Kategori</h1><p>Kelola semua kategori artikel yang digunakan di website.</p></div>
+<button class="primary-btn" id="add" style="margin-left:auto">＋ <span>Tambah Kategori</span></button>
+</div>
 <div class="stats"><article><i>▢</i><div><small>Total Kategori</small><b id="total">0</b><span>Semua kategori</span></div></article><article><i>♢</i><div><small>Kategori Aktif</small><b id="active">0</b><span>Kategori yang aktif</span></div></article><article><i>⌁</i><div><small>Kategori Nonaktif</small><b id="inactive">0</b><span>Kategori yang dinonaktifkan</span></div></article><article><i>▤</i><div><small>Total Artikel</small><b id="articles">0</b><span>Artikel di semua kategori</span></div></article></div>
-<div class="card"><div class="tools"><label class="search"><input id="search" placeholder="Cari kategori..."><button id="searchBtn">⌕</button></label><div class="filters"><span>Urutkan:</span><select id="status"><option value="">Semua Status</option><option>Aktif</option><option>Nonaktif</option></select><select id="sort"><option value="az">Nama (A-Z)</option><option value="za">Nama (Z-A)</option><option value="new">Terbaru</option><option value="count">Jumlah Artikel</option></select><button id="reset">⚱ Filter</button></div></div><div id="bulk" hidden><b id="sel">0</b> dipilih <button id="bulkToggle">Aktif/Nonaktif</button><button id="bulkDelete">Hapus</button><button id="clear">Batal</button></div>
-<div class="tablewrap"><table><thead><tr><th><input id="all" type="checkbox"></th><th>#</th><th>Nama Kategori</th><th>Slug</th><th>Deskripsi</th><th>Jumlah Artikel</th><th>Status</th><th>Dibuat</th><th>Aksi</th></tr></thead><tbody id="tbody"></tbody></table><div class="empty" id="empty" hidden><b>⌕</b><strong>Kategori tidak ditemukan</strong><span>Ubah kata pencarian atau filter.</span></div></div><div class="bottom"><span id="info"></span><div class="pager"><button id="prev">‹</button><div id="pages"></div><button id="next">›</button><select id="per"><option>8</option><option>10</option><option>20</option></select></div></div></div><footer>© 2025 MAB-News CMS. Semua hak dilindungi.</footer></section></main></div>
-<div class="modal" id="formModal"><div class="modalbox"><button class="x" data-close>×</button><h2 id="formTitle">Tambah Kategori</h2><p>Isi informasi kategori.</p><form id="form"><input id="id" type="hidden"><label>Nama Kategori<input id="name" required maxlength="60"></label><label>Slug<input id="slug" required maxlength="80"></label><label>Deskripsi<textarea id="desc" maxlength="180"></textarea></label><label>Jumlah Artikel<input id="num" type="number" min="0" value="0"></label><label>Status<select id="state"><option>Aktif</option><option>Nonaktif</option></select></label><div class="formactions"><button type="button" class="secondary" data-close>Batal</button><button class="primary">Simpan Kategori</button></div></form></div></div><div class="modal" id="deleteModal"><div class="modalbox confirm"><button class="x" data-close-delete>×</button><b class="warn">!</b><h2>Hapus kategori?</h2><p id="deleteText"></p><div class="formactions"><button class="secondary" data-close-delete>Batal</button><button class="danger" id="confirmDelete">Ya, Hapus</button></div></div></div><div class="toast" id="toast"></div><script src="../admin-js/kategori.js"></script></body></html>
+<div class="card"><div class="tools"><label class="search"><input id="search" placeholder="Cari kategori..."><button id="searchBtn">⌕</button></label><div class="filters"><span>Urutkan:</span><select id="status"><option value="">Semua Status</option><option>Aktif</option><option>Nonaktif</option></select><select id="sort"><option value="az">Nama (A-Z)</option><option value="za">Nama (Z-A)</option><option value="new">Terbaru</option><option value="count">Jumlah Artikel</option></select><button id="reset">⩱ Filter</button></div></div><div id="bulk" hidden><b id="sel">0</b> dipilih <button id="bulkToggle">Aktif/Nonaktif</button><button id="bulkDelete">Hapus</button><button id="clear">Batal</button></div>
+<div class="tablewrap"><table><thead><tr><th><input id="all" type="checkbox"></th><th>#</th><th>Nama Kategori</th><th>Slug</th><th>Deskripsi</th><th>Jumlah Artikel</th><th>Status</th><th>Dibuat</th><th>Aksi</th></tr></thead><tbody id="tbody"></tbody></table><div class="empty" id="empty" hidden><b>⌕</b><strong>Kategori tidak ditemukan</strong><span>Ubah kata pencarian atau filter.</span></div></div><div class="bottom"><span id="info"></span><div class="pager"><button id="prev">‹</button><div id="pages"></div><button id="next">›</button><select id="per"><option>8</option><option>10</option><option>20</option></select></div></div></div><footer class="cms-footer">© 2025 MAB-News CMS. Semua hak dilindungi.</footer>
+</main>
+</div>
+<div class="modal" id="formModal"><div class="modalbox"><button class="x" data-close>×</button><h2 id="formTitle">Tambah Kategori</h2><p>Isi informasi kategori.</p><form id="form"><input id="id" type="hidden"><label>Nama Kategori<input id="name" required maxlength="60"></label><label>Slug<input id="slug" required maxlength="80"></label><label>Deskripsi<textarea id="desc" maxlength="180"></textarea></label><label>Jumlah Artikel<input id="num" type="number" min="0" value="0"></label><label>Status<select id="state"><option>Aktif</option><option>Nonaktif</option></select></label><div class="formactions"><button type="button" class="secondary" data-close>Batal</button><button class="primary">Simpan Kategori</button></div></form></div></div>
+<div class="modal" id="deleteModal"><div class="modalbox confirm"><button class="x" data-close-delete>×</button><b class="warn">!</b><h2>Hapus kategori?</h2><p id="deleteText"></p><div class="formactions"><button class="secondary" data-close-delete>Batal</button><button class="danger" id="confirmDelete">Ya, Hapus</button></div></div></div>
+<div class="toast" id="toast"></div>
+<script src="../admin-js/sidebar.js"></script>
+<script src="../admin-js/kategori.js"></script>
+</body>
+</html>
