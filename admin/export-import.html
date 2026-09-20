@@ -53,39 +53,67 @@
 
         <div class="header-right">
 
-            <button
-                type="button"
-                class="header-icon-btn theme-toggle"
-                id="themeToggle"
-                aria-label="Mode gelap"
-            >
-                <i class="fa-regular fa-moon"></i>
-            </button>
+    <button
+        type="button"
+        class="header-icon-btn theme-toggle"
+        id="themeToggle"
+        aria-label="Mode gelap"
+    >
+        <i class="fa-regular fa-moon"></i>
+    </button>
 
-            <button
-                type="button"
-                class="header-icon-btn notification-btn"
-                aria-label="Notifikasi"
-            >
-                <i class="fa-regular fa-bell"></i>
-                <span class="notification-count">3</span>
-            </button>
+    <div class="header-dropdown-wrap">
 
-            <button
-                type="button"
-                class="header-user"
-                id="headerUser"
-            >
-                <span class="header-avatar">
-                    <i class="fa-solid fa-user"></i>
-                </span>
+        <button
+            type="button"
+            class="header-icon-btn notification-btn"
+            id="notificationBtn"
+            aria-label="Notifikasi"
+            aria-expanded="false"
+        >
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-count" id="notificationCount">3</span>
+        </button>
 
-                <span class="header-user-name">Admin</span>
-
-                <i class="fa-solid fa-chevron-down header-user-arrow"></i>
-            </button>
-
+        <div class="dropdown-panel notification-panel" id="notificationPanel">
+            <div class="dropdown-panel-header">Notifikasi</div>
+            <div class="dropdown-panel-empty">Belum ada notifikasi baru.</div>
         </div>
+
+    </div>
+
+    <div class="header-dropdown-wrap">
+
+        <button
+            type="button"
+            class="header-user"
+            id="headerUser"
+            aria-expanded="false"
+        >
+            <span class="header-avatar">
+                <i class="fa-solid fa-user"></i>
+            </span>
+
+            <span class="header-user-name">Admin</span>
+
+            <i class="fa-solid fa-chevron-down header-user-arrow"></i>
+        </button>
+
+        <div class="dropdown-panel user-panel" id="userPanel">
+            <a href="#" class="dropdown-panel-item">
+                <i class="fa-regular fa-user"></i> Profil Saya
+            </a>
+            <a href="#" class="dropdown-panel-item">
+                <i class="fa-solid fa-gear"></i> Pengaturan Akun
+            </a>
+            <button type="button" class="dropdown-panel-item danger" id="logoutButton">
+                <i class="fa-solid fa-right-from-bracket"></i> Keluar
+            </button>
+        </div>
+
+    </div>
+
+</div>
 
     </header>
 
@@ -1066,7 +1094,9 @@
     </div>
 
 
+
     <!-- JavaScript -->
+    <script src="../admin-js/cms-shell.js"></script>
     <script src="../admin-js/export-import.js"></script>
 
 </body>

@@ -2008,3 +2008,205 @@ body.dark-mode .history-table th {
     }
 
 }
+
+/* =========================================================
+   PERBAIKAN: ITEM AKTIF TIDAK BOLEH TENGGELAM/BERGESER
+   ========================================================= */
+
+.nav-item.active,
+.nav-item.active:hover {
+    background: #1769ff;
+
+    color: #fff;
+}
+
+.nav-submenu .active-sub-item,
+.nav-submenu .active-sub-item:hover {
+    background: #1769ff;
+
+    color: #fff;
+
+    padding-left: 32px;
+}
+
+/* =========================================================
+   SIDEBAR OVERLAY (MOBILE)
+   ========================================================= */
+
+.sidebar-overlay {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    top: var(--header-height);
+
+    z-index: 850;
+
+    background: rgba(3, 10, 25, .5);
+
+    opacity: 0;
+
+    transition: opacity .2s ease;
+}
+
+body.sidebar-open .sidebar-overlay {
+    display: block;
+
+    opacity: 1;
+}
+
+@media (min-width: 761px) {
+    .sidebar-overlay {
+        display: none !important;
+    }
+}
+
+
+/* =========================================================
+   ACTIVE NAV ITEM (TOP LEVEL)
+   ========================================================= */
+
+.nav-item.active,
+.nav-item.active:hover {
+    background: #1769ff;
+
+    color: #fff;
+}
+
+.nav-submenu .active-sub-item,
+.nav-submenu .active-sub-item:hover {
+    background: #1769ff;
+
+    color: #fff;
+
+    padding-left: 32px;
+}
+
+
+/* =========================================================
+   HEADER DROPDOWN
+   ========================================================= */
+
+.header-dropdown-wrap {
+    position: relative;
+}
+
+.dropdown-panel {
+    display: none;
+
+    position: absolute;
+
+    top: calc(100% + 14px);
+    right: -8px;
+
+    min-width: 220px;
+
+    background: #fff;
+
+    color: #0d1735;
+
+    border-radius: 8px;
+
+    box-shadow: 0 12px 30px rgba(10, 25, 60, .18);
+
+    overflow: hidden;
+
+    z-index: 1100;
+}
+
+.dropdown-panel.show {
+    display: block;
+}
+
+.dropdown-panel-header {
+    padding: 11px 14px;
+
+    border-bottom: 1px solid #eef2f7;
+
+    font-size: 12.5px;
+    font-weight: 700;
+
+    color: #10204a;
+}
+
+.dropdown-panel-empty {
+    padding: 18px 14px;
+
+    color: #7d8ba8;
+
+    font-size: 11.5px;
+
+    text-align: center;
+}
+
+.dropdown-panel-item {
+    width: 100%;
+
+    padding: 10px 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    background: transparent;
+
+    border: 0;
+
+    border-bottom: 1px solid #f1f4f9;
+
+    color: #17335f;
+
+    text-decoration: none;
+
+    font-size: 12.5px;
+
+    font-weight: 500;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.dropdown-panel-item:last-child {
+    border-bottom: 0;
+}
+
+.dropdown-panel-item:hover {
+    background: #f6f9ff;
+}
+
+.dropdown-panel-item.danger {
+    color: #e0384a;
+}
+
+.dropdown-panel-item.danger:hover {
+    background: #fff2f3;
+}
+
+body.dark-mode .dropdown-panel {
+    background: #111b2e;
+
+    color: #e7edf8;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .4);
+}
+
+body.dark-mode .dropdown-panel-header {
+    border-color: #26344c;
+
+    color: #e7edf8;
+}
+
+body.dark-mode .dropdown-panel-item {
+    color: #d7e1f2;
+
+    border-color: #1d2940;
+}
+
+body.dark-mode .dropdown-panel-item:hover {
+    background: #17233a;
+}
