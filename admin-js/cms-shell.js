@@ -82,11 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
       }
-
-      // Otomatis scroll sidebar supaya menu aktif langsung terlihat
-      requestAnimationFrame(() => {
-        link.scrollIntoView({ block: "nearest", behavior: "auto" });
-      });
     }
   });
 

@@ -2210,3 +2210,14 @@ body.dark-mode .dropdown-panel-item {
 body.dark-mode .dropdown-panel-item:hover {
     background: #17233a;
 }
+
+/* =========================================================
+   MATIKAN SCROLL ANCHORING DI SIDEBAR
+   (mencegah sidebar ikut bergeser sendiri saat submenu
+   dibuka/ditutup)
+   ========================================================= */
+
+.sidebar-nav,
+.sidebar-nav * {
+    overflow-anchor: none;
+}
