@@ -39,6 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
      SUBMENU DROPDOWN
   ========================================================= */
   document.querySelectorAll(".nav-dropdown-toggle").forEach((button) => {
+
+    // Cegah browser auto-scroll ke tombol saat di-klik (karena fokus)
+    button.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+    });
+
     button.addEventListener("click", () => {
       const group = button.closest(".nav-group");
       if (!group) return;
@@ -79,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Otomatis scroll sidebar supaya menu aktif langsung terlihat
       requestAnimationFrame(() => {
-        link.scrollIntoView({ block: "center", behavior: "auto" });
+        link.scrollIntoView({ block: "nearest", behavior: "auto" });
       });
     }
   });
