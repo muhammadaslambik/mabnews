@@ -82,9 +82,30 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
       }
+
+      // Geser HANYA scroll internal sidebar (bukan scroll halaman)
+      // supaya menu aktif langsung terlihat tanpa menggeser konten utama.
+      const sidebarNav = document.querySelector(".sidebar-nav");
+      if (sidebarNav) {
+        requestAnimationFrame(() => {
+          const linkRect = link.getBoundingClientRect();
+          const navRect = sidebarNav.getBoundingClientRect();
+
+          const isAbove = linkRect.top < navRect.top;
+          const isBelow = linkRect.bottom > navRect.bottom;
+
+          if (isAbove || isBelow) {
+            const linkOffsetInNav =
+              (linkRect.top - navRect.top) + sidebarNav.scrollTop;
+
+            sidebarNav.scrollTop =
+              linkOffsetInNav - (navRect.height / 2) + (linkRect.height / 2);
+          }
+        });
+      }
     }
   });
-
+  
   /* =========================================================
      DARK MODE
   ========================================================= */
