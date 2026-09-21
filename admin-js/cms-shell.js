@@ -1,7 +1,5 @@
 /* =========================================================
    MAB-NEWS CMS — SHELL (SIDEBAR + HEADER)
-   Dipakai di semua halaman admin. Cukup include file ini
-   sekali di setiap halaman, sebelum script khusus halaman.
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,9 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const body = document.body;
   const menuToggle = document.getElementById("menuToggle");
-  const sidebar = document.getElementById("sidebar");
   const sidebarOverlay = document.getElementById("sidebarOverlay");
   const themeToggle = document.getElementById("themeToggle");
+  const sidebarNav = document.querySelector(".sidebar-nav");
 
   /* =========================================================
      BUKA / TUTUP SIDEBAR (MOBILE)
@@ -36,15 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================================
-     SUBMENU DROPDOWN
+     SUBMENU DROPDOWN (klik manual oleh user)
   ========================================================= */
   document.querySelectorAll(".nav-dropdown-toggle").forEach((button) => {
-
-    // Cegah browser auto-scroll ke tombol saat di-klik (karena fokus)
-    button.addEventListener("mousedown", (e) => {
-      e.preventDefault();
-    });
-
+    button.addEventListener("mousedown", (e) => e.preventDefault());
     button.addEventListener("click", () => {
       const group = button.closest(".nav-group");
       if (!group) return;
@@ -58,16 +51,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================================
-     TANDAI HALAMAN AKTIF SECARA OTOMATIS
-     (tidak perlu edit manual per halaman)
+     TANDAI HALAMAN AKTIF + BUKA SUBMENU-NYA
   ========================================================= */
   const currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  let activeLink = null;
 
   document.querySelectorAll("[data-nav-link]").forEach((link) => {
     const href = (link.getAttribute("href") || "").toLowerCase();
     if (!href || href === "#") return;
 
     if (href === currentPage) {
+      activeLink = link;
+
       if (link.classList.contains("nav-item")) {
         link.classList.add("active");
       } else {
@@ -82,29 +77,22 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
       }
-
-      // Geser HANYA scroll internal sidebar (bukan scroll halaman)
-      // supaya menu aktif langsung terlihat tanpa menggeser konten utama.
-      const sidebarNav = document.querySelector(".sidebar-nav");
-      if (sidebarNav) {
-        requestAnimationFrame(() => {
-          const linkRect = link.getBoundingClientRect();
-          const navRect = sidebarNav.getBoundingClientRect();
-
-          const isAbove = linkRect.top < navRect.top;
-          const isBelow = linkRect.bottom > navRect.bottom;
-
-          if (isAbove || isBelow) {
-            const linkOffsetInNav =
-              (linkRect.top - navRect.top) + sidebarNav.scrollTop;
-
-            sidebarNav.scrollTop =
-              linkOffsetInNav - (navRect.height / 2) + (linkRect.height / 2);
-          }
-        });
-      }
     }
   });
+
+  /* =========================================================
+     SCROLL SIDEBAR (BUKAN HALAMAN) KE MENU AKTIF
+  ========================================================= */
+  if (activeLink && sidebarNav) {
+    // Tunggu 1 frame supaya submenu yang baru dibuka sudah
+    // benar-benar punya tinggi/posisi final sebelum dihitung.
+    requestAnimationFrame(() => {
+      const targetTop =
+        activeLink.offsetTop - (sidebarNav.clientHeight / 2) + (activeLink.offsetHeight / 2);
+
+      sidebarNav.scrollTop = Math.max(0, targetTop);
+    });
+  }
 
   /* =========================================================
      DARK MODE

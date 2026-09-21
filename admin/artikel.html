@@ -1,134 +1,53 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Semua Artikel — MAB-News CMS</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MAB-News CMS Articles">
+<title>Articles — MAB-News CMS</title>
+<link rel="stylesheet" href="../admin-css/dashboard.css">
 <link rel="stylesheet" href="../admin-css/artikel.css">
-<link rel="stylesheet" href="../admin-css/sidebar.css">
 </head>
 <body>
-<header class="cms-header">
-<div class="header-left">
-<button type="button" class="menu-toggle" id="menuToggle" aria-label="Buka menu">
-<i class="fa-solid fa-bars"></i>
-</button>
-<a href="index.html" class="cms-logo">
-<span class="logo-blue">MAB-</span><span>News CMS</span>
-</a>
-</div>
-<div class="header-right">
-<button type="button" class="header-icon-btn theme-toggle" id="themeToggle" aria-label="Mode gelap">
-<i class="fa-regular fa-moon"></i>
-</button>
-<button type="button" class="header-icon-btn notification-btn" aria-label="Notifikasi">
-<i class="fa-regular fa-bell"></i>
-<span class="notification-count">3</span>
-</button>
-<button type="button" class="header-user" id="headerUser">
-<span class="header-avatar">
-<i class="fa-solid fa-user"></i>
-</span>
-<span class="header-user-name">Admin</span>
-<i class="fa-solid fa-chevron-down header-user-arrow"></i>
-</button>
+<div class="cms-shell">
+<header class="topbar">
+<button class="icon-btn mobile-menu" id="mobileMenu" aria-label="Buka menu"><span></span><span></span><span></span></button>
+<a class="brand" href="./index.html" aria-label="MAB-News CMS"><span class="brand-blue">MAB-</span>News <span class="brand-cms">CMS</span></a>
+<div class="top-actions">
+<button class="icon-btn" id="themeToggle" title="Mode gelap/terang" aria-label="Mode gelap/terang"><svg class="icon" viewBox="0 0 24 24"><path d="M20.9 15.4A8.5 8.5 0 0 1 8.6 3.1 8.5 8.5 0 1 0 20.9 15.4Z"></path></svg></button>
+<button class="icon-btn notification-btn" title="Notifikasi" aria-label="Notifikasi"><svg class="icon" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"></path></svg><span class="notification-count">3</span></button>
+<button class="account-btn" id="accountButton" aria-expanded="false"><span class="avatar">MA</span><span class="account-name">Admin</span><svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></button>
 </div>
 </header>
-<div class="cms-layout">
 <aside class="sidebar" id="sidebar">
 <nav class="sidebar-nav">
-<a href="index.html" class="nav-item">
-<i class="fa-solid fa-house"></i>
-<span>Dashboard</span>
-</a>
-<div class="nav-group open">
-<button type="button" class="nav-item nav-dropdown-toggle">
-<span class="nav-item-main">
-<i class="fa-solid fa-file-lines"></i>
+<a class="nav-item" href="./index.html"><svg class="nav-icon" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"></path></svg><span>Dashboard</span></a>
+<a class="nav-item active" href="./artikel.html">
+<svg class="nav-icon" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM15 3v5h5M9 13h6M9 17h6"></path></svg>
 <span>Artikel</span>
-</span>
-<i class="fa-solid fa-chevron-up nav-arrow"></i>
-</button>
-<div class="nav-submenu">
-<a href="artikel.html" class="active-sub-item"><i class="fa-solid fa-list"></i>Semua Artikel</a>
-<a href="tambah-artikel.html">Tambah Artikel</a>
-<a href="draft.html">Draft</a>
-</div>
-</div>
-<a href="kategori.html" class="nav-item">
-<i class="fa-solid fa-folder"></i>
-<span>Kategori</span>
+<span class="nav-arrow">›</span>
 </a>
-<a href="media.html" class="nav-item">
-<i class="fa-solid fa-image"></i>
-<span>Media</span>
-</a>
-<a href="users.html" class="nav-item">
-<i class="fa-solid fa-users"></i>
-<span>Pengguna</span>
-</a>
-<div class="nav-group">
-<button type="button" class="nav-item nav-dropdown-toggle">
-<span class="nav-item-main">
-<i class="fa-solid fa-gear"></i>
+<a class="nav-item" href="#"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 8h16M8 6v12"></path></svg><span>Kategori</span></a>
+<a class="nav-item" href="#"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM7 15l3-3 2 2 3-4 3 5M8 9h.01"></path></svg><span>Media</span></a>
+<a class="nav-item" href="#"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M16 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9.5 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM17 11a3 3 0 1 0 0-6M17 14h1a3 3 0 0 1 3 3v3"></path></svg><span>Pengguna</span></a>
+<a class="nav-item" href="#">
+<svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4M15.5 8.5a5 5 0 1 0 0 7 5 5 0 0 0 0-7Z"></path></svg>
 <span>Pengaturan</span>
-</span>
-<i class="fa-solid fa-chevron-right nav-arrow"></i>
-</button>
-<div class="nav-submenu">
-<a href="umum.html"><span class="submenu-dot"></span>Umum</a>
-<a href="website.html"><span class="submenu-dot"></span>Website</a>
-<a href="tampilan.html"><span class="submenu-dot"></span>Tampilan</a>
-<a href="seo.html"><span class="submenu-dot"></span>SEO</a>
-<a href="email.html"><span class="submenu-dot"></span>Email</a>
-<a href="backup.html"><span class="submenu-dot"></span>Backup</a>
-<a href="keamanan.html"><span class="submenu-dot"></span>Keamanan</a>
-</div>
-</div>
-<div class="nav-group">
-<button type="button" class="nav-item nav-dropdown-toggle">
-<span class="nav-item-main">
-<i class="fa-solid fa-ellipsis"></i>
-<span>Lainnya</span>
-</span>
-<i class="fa-solid fa-chevron-right nav-arrow"></i>
-</button>
-<div class="nav-submenu">
-<a href="laman.html"><span class="submenu-dot"></span>Laman</a>
-<a href="statistik.html"><span class="submenu-dot"></span>Statistik</a>
-<a href="iklan.html"><span class="submenu-dot"></span>Iklan</a>
-<a href="perangkat.html"><span class="submenu-dot"></span>Perangkat</a>
-<a href="domain-hosting.html"><span class="submenu-dot"></span>Domain &amp; Hosting</a>
-<a href="backend-api.html"><span class="submenu-dot"></span>BackEnd &amp; API</a>
-<a href="atur-sidebar.html">Atur Sidebar</a>
-<a href="export-import.html">Export &amp; Impor</a>
-</div>
-</div>
+<span class="nav-arrow">›</span>
+</a>
 </nav>
 <div class="sidebar-profile">
-<div class="sidebar-avatar">
-<i class="fa-solid fa-user"></i>
-</div>
-<div class="sidebar-profile-info">
-<strong>Muhammad Aslambik</strong>
-<span>Administrator</span>
-</div>
-<i class="fa-solid fa-chevron-right sidebar-profile-arrow"></i>
+<span class="avatar avatar-large">MA</span>
+<div><strong>Muhammad Aslambik</strong><small>Administrator</small></div>
+<button class="profile-more" aria-label="Profil">›</button>
 </div>
 </aside>
+<div class="mobile-overlay" id="mobileOverlay"></div>
 <main class="main-content">
-<div class="breadcrumb">
-<a href="index.html">Dashboard</a><i class="fa-solid fa-chevron-right"></i><span>Semua Artikel</span>
-</div>
+<div class="content-inner">
+<div class="article-breadcrumb">Dashboard <span>›</span> Articles <span>›</span> All Articles</div>
 <div class="page-heading article-heading">
-<div class="page-heading-icon">
-<i class="fa-solid fa-file-lines"></i>
-</div>
-<div><h1>Semua Artikel</h1><p>Kelola semua artikel berita yang ada di website.</p></div>
+<div><h1>All Articles</h1><p>Kelola semua artikel berita yang ada di website.</p></div>
 <div class="article-head-actions">
 <label class="article-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="searchInput" type="search" placeholder="Cari articles..."></label>
 <button class="article-filter" id="filterToggle">Filter</button>
@@ -136,30 +55,29 @@
 </div>
 </div>
 <section class="article-stats">
-<div><span>Total Articles</span><strong id="totalCount">24</strong><small>Semua articles</small></div>
-<div><span>Published</span><strong id="publishedCount">18</strong><small>Articles aktif</small></div>
-<div><span>Draft</span><strong id="draftCount">4</strong><small>Belum diterbitkan</small></div>
-<div><span>Archived</span><strong id="archivedCount">2</strong><small>Diarsipkan</small></div>
+<div><span>Total Articles</span><strong id="totalCount">0</strong><small>Semua articles</small></div>
+<div><span>Populer</span><strong id="publishedCount">0</strong><small>Ditandai populer</small></div>
+<div><span>Kategori</span><strong id="draftCount">0</strong><small>Jumlah kategori aktif</small></div>
+<div><span>Ditampilkan</span><strong id="archivedCount">0</strong><small>Di halaman ini</small></div>
 </section>
 <section class="panel articles-panel">
 <div class="panel-header article-panel-header">
-<div><h2>Articles</h2><span class="article-result" id="resultCount">24 articles</span></div>
+<div><h2>Articles</h2><span class="article-result" id="resultCount">0 articles</span></div>
 <div class="article-tools"><input id="tableSearch" type="search" placeholder="Search articles..."><select id="pageSize"><option value="10">10</option><option value="15">15</option><option value="24">24</option></select></div>
 </div>
 <div class="article-filter-panel" id="filterPanel">
-<select id="statusFilter"><option value="all">Semua Status</option><option>Published</option><option>Draft</option><option>Archived</option></select>
-<select id="categoryFilter"><option value="all">Semua Kategori</option><option>Ekonomi</option><option>Teknologi</option><option>Nasional</option><option>Internasional</option><option>Olahraga</option></select>
+<select id="categoryFilter"><option value="all">Semua Kategori</option></select>
 </div>
-<div class="table-scroll"><table><thead><tr><th><input id="selectAll" type="checkbox"></th><th>No</th><th>Judul Article</th><th>Kategori</th><th>Penulis</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="articleBody"></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th><input id="selectAll" type="checkbox"></th><th>No</th><th>Judul Article</th><th>Kategori</th><th>Penulis</th><th>Tanggal</th><th>Populer</th><th>Aksi</th></tr></thead><tbody id="articleBody"></tbody></table></div>
 <div class="article-pagination"><span id="pageInfo"></span><div id="pagination"></div></div>
 </section>
+</div>
 <footer class="cms-footer">©2025 MAB-News CMS. Semua hak dilindungi.</footer>
 </main>
-</div>
 <div class="toast" id="toast"></div>
-<script src="../admin-js/sidebar.js"></script>
 <script src="../js/api.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/imagekit-javascript@latest/dist/imagekit.min.js"></script>
-<script src="../admin-js/tambah-artikel.js"></script>
+<script src="../admin-js/dashboard.js"></script>
+<script src="../admin-js/artikel.js"></script>
+</div>
 </body>
 </html>
