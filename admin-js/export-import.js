@@ -15,17 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
        ELEMENT
        ========================================================= */
 
-    const body = document.body;
-
-    const menuToggle =
-        document.getElementById("menuToggle");
-
-    const sidebar =
-        document.getElementById("sidebar");
-
-    const themeToggle =
-        document.getElementById("themeToggle");
-
     const exportForm =
         document.getElementById("exportForm");
 
@@ -58,60 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const safeMode =
         document.getElementById("safeMode");
-
-
-    /* =========================================================
-       SIDEBAR
-       ========================================================= */
-
-    if (menuToggle) {
-
-        menuToggle.addEventListener("click", () => {
-
-            body.classList.toggle("sidebar-open");
-
-        });
-
-    }
-
-
-    const dropdownButtons =
-        document.querySelectorAll(
-            ".nav-dropdown-toggle"
-        );
-
-
-    dropdownButtons.forEach((button) => {
-
-        button.addEventListener("click", () => {
-
-            const group =
-                button.closest(".nav-group");
-
-            if (!group) {
-                return;
-            }
-
-            group.classList.toggle("open");
-
-            const arrow =
-                button.querySelector(".nav-arrow");
-
-            if (arrow) {
-
-                arrow.classList.toggle(
-                    "fa-chevron-right"
-                );
-
-                arrow.classList.toggle(
-                    "fa-chevron-up"
-                );
-
-            }
-
-        });
-
-    });
 
 
     /* =========================================================
@@ -903,12 +838,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * Jika belum ada localStorage khusus
-         * untuk kategori tersebut, tetap buat
-         * struktur kosong.
-         */
-
         return result;
 
     }
@@ -1369,12 +1298,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     }
 
-
-                    /*
-                     * JSON backup MAB-News.
-                     * Data localStorage dikembalikan
-                     * hanya jika terdapat di backup.
-                     */
 
                     if (
                         extension === "json" &&
@@ -2166,8 +2089,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "history-actions";
 
 
-        /* Download */
-
         const downloadButton =
             document.createElement(
                 "button"
@@ -2197,8 +2118,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         );
 
-
-        /* Delete */
 
         const deleteButton =
             document.createElement(
@@ -2324,11 +2243,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-
-        /*
-         * Jika riwayat lama tidak memiliki blob,
-         * buat ulang backup JSON dari data lokal.
-         */
 
         const selected =
             parseHistoryData(
