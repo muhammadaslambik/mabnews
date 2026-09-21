@@ -471,12 +471,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     currentSlug = null;
   }
 
-  // status: 'published' | 'draft' | 'scheduled'
+    // status: 'published' | 'draft' | 'scheduled'
   async function submitArticle(data, button, status, successMessage, idleLabel) {
     button.disabled = true;
     const originalLabel = button.textContent;
     button.textContent = "Memproses...";
     try {
+      // PERBAIKAN: Tangkap sisa teks di kolom tag input jika user lupa menekan Enter
+      let finalTags = Array.isArray(data.tags) ? data.tags.slice() : [];
+      const leftoverTagText = tagInput.value.trim();
+      if (leftoverTagText) {
+        const rawTags = leftoverTagText.split(",").map(t => t.trim()).filter(Boolean);
+        rawTags.forEach(t => {
+          if (!finalTags.includes(t)) finalTags.push(t);
+        });
+      }
+
+      // PERBAIKAN: Kirim format string literal array '{}' jika array kosong agar tidak ditolak Neon
+      const tagsPayload = finalTags.length > 0 ? finalTags : '{}';
+
       const serverPayload = {
         title: data.title,
         lead: data.lead,
@@ -486,7 +499,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         author: data.author,
         category_key: data.category_key,
         is_popular: data.is_popular,
-        tags: data.tags,
+        tags: tagsPayload, // Menggunakan payload tag yang sudah diperbaiki
         keywords: data.keywords || null,
         seo_meta_description: data.seo_meta_description || null,
         status,
