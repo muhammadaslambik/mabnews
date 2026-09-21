@@ -41,18 +41,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   const previewModal = document.getElementById("previewModal");
   const previewBody = document.getElementById("previewBody");
   const closePreviewBtn = document.getElementById("closePreview");
+  const pageHeadingTitle = document.querySelector(".page-header h1");
 
   let tags = [];
   let uploadedImageUrl = "";
   let isUploadingImage = false;
-  const DRAFT_STORAGE_KEY = "mabnews_draft_tambah_artikel";
 
   // ---------------------------------------------------------
-  // Mode edit (dipanggil dari artikel.html lewat ?slug=...)
+  // Mode edit: ?slug=... di URL -> ini mengedit artikel yang
+  // sudah ada (dipanggil dari artikel.js / draft.js), bukan
+  // membuat artikel baru.
   // ---------------------------------------------------------
-  const params = new URLSearchParams(location.search);
-  const editSlug = params.get("slug");
-  let originalArticle = null;
+  const urlParams = new URLSearchParams(window.location.search);
+  const editSlug = urlParams.get("slug");
+  let currentSlug = null; // diisi setelah artikel dimuat / berhasil dibuat
 
   // ---------------------------------------------------------
   // Util
@@ -86,71 +88,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ---------------------------------------------------------
   // 1. Muat kategori otomatis dari database (online)
+  //    HARUS selesai duluan supaya, saat mode edit, dropdown
+  //    kategori sudah terisi sebelum kita men-set value-nya.
   // ---------------------------------------------------------
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/categories`);
-    if (!response.ok) throw new Error("Gagal mengambil data kategori.");
-    const raw = await response.json();
-    const categories = Array.isArray(raw) ? raw : (raw.data || raw.categories || []);
-    if (!categories.length) {
-      throw new Error("Daftar kategori kosong dari server.");
-    }
-    selectKategori.innerHTML = '<option value="">Pilih kategori</option>';
-    categories.forEach((kat) => {
-      const option = document.createElement("option");
-      option.value = kat.key;
-      option.textContent = kat.name;
-      selectKategori.appendChild(option);
-    });
-  } catch (error) {
-    console.error("Gagal memuat kategori:", error);
-    showToast("Gagal memuat daftar kategori dari database.", "error");
-  }
-
-  // ---------------------------------------------------------
-  // 1b. Kalau mode edit, muat data artikel yang sudah ada
-  // ---------------------------------------------------------
-  if (editSlug) {
+  async function loadCategories() {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/articles/${editSlug}`);
-      if (!res.ok) throw new Error("Artikel tidak ditemukan.");
-      const { data } = await res.json();
-      originalArticle = data;
-
-      titleInput.value = data.title;
-      titleCount.textContent = data.title.length;
-      slugInput.value = data.slug;
-      authorInput.value = data.author || "";
-      leadInput.value = data.lead || "";
-      leadCount.textContent = (data.lead || "").length;
-
-      (data.content || []).forEach((paragraph) => {
-        const p = document.createElement("p");
-        p.textContent = paragraph;
-        contentEl.appendChild(p);
-      });
-      updateWordCount();
-
-      captionInput.value = data.caption || "";
-      featuredCheck.checked = !!data.is_popular;
-      if (data.category?.key) selectKategori.value = data.category.key;
-
-      if (data.image_url) {
-        uploadedImageUrl = data.image_url;
-        imageUrlInput.value = data.image_url;
-        uploadPreviewImg.src = data.image_url;
-        uploadPlaceholder.hidden = true;
-        uploadPreview.hidden = false;
+      const response = await fetch(`${API_BASE_URL}/api/categories`);
+      if (!response.ok) throw new Error("Gagal mengambil data kategori.");
+      const raw = await response.json();
+      const categories = Array.isArray(raw) ? raw : (raw.data || raw.categories || []);
+      if (!categories.length) {
+        throw new Error("Daftar kategori kosong dari server.");
       }
-
-      btnPublish.textContent = "💾 Simpan Perubahan";
-      const heading = document.querySelector(".heading h1");
-      if (heading) heading.textContent = "Edit Artikel";
-      const subHeading = document.querySelector(".heading p");
-      if (subHeading) subHeading.textContent = "Perbarui artikel yang sudah dipublikasikan.";
+      selectKategori.innerHTML = '<option value="">Pilih kategori</option>';
+      categories.forEach((kat) => {
+        const option = document.createElement("option");
+        option.value = kat.key;
+        option.textContent = kat.name;
+        selectKategori.appendChild(option);
+      });
     } catch (error) {
-      console.error("Gagal memuat artikel untuk diedit:", error);
-      showToast(`Gagal memuat artikel untuk diedit: ${error.message}`, "error");
+      console.error("Gagal memuat kategori:", error);
+      showToast("Gagal memuat daftar kategori dari database.", "error");
     }
   }
 
@@ -336,7 +295,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       isUploadingImage = false;
       return;
     }
-
     if (IMAGEKIT_PUBLIC_KEY.startsWith("GANTI_DENGAN")) {
       uploadStatus.textContent = "Gagal: Public Key ImageKit belum diisi.";
       showToast("Isi dulu IMAGEKIT_PUBLIC_KEY & IMAGEKIT_URL_ENDPOINT di js/api.js.", "error");
@@ -359,6 +317,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       uploadedImageUrl = result.url || "";
       if (!uploadedImageUrl) throw new Error("ImageKit tidak mengembalikan URL gambar.");
+
       imageUrlInput.value = uploadedImageUrl;
       uploadStatus.textContent = "";
       showToast("Gambar berhasil diunggah.", "success");
@@ -402,14 +361,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       uploadBox.classList.add("drag-over");
     });
   });
-
   ["dragleave", "drop"].forEach((evt) => {
     uploadBox.addEventListener(evt, (e) => {
       e.preventDefault();
       uploadBox.classList.remove("drag-over");
     });
   });
-
   uploadBox.addEventListener("drop", (e) => {
     const file = e.dataTransfer.files && e.dataTransfer.files[0];
     if (file) setImageFile(file);
@@ -424,6 +381,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ---------------------------------------------------------
   // 7. Kumpulkan & validasi data form
   // ---------------------------------------------------------
+  // Kolom `content` di database adalah jsonb array paragraf teks polos.
   function buildContentArray() {
     const blocks = [];
     const pushText = (raw) => {
@@ -431,10 +389,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (text) blocks.push(text);
     };
     Array.from(contentEl.childNodes).forEach((node) => {
-      if (node.nodeType === 3) {
-        pushText(node.textContent);
-        return;
-      }
+      if (node.nodeType === 3) { pushText(node.textContent); return; }
       if (node.nodeType !== 1) return;
       const tag = node.tagName;
       if (tag === "UL" || tag === "OL") {
@@ -444,6 +399,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
     return blocks;
+  }
+
+  // Kebalikan dari buildContentArray — dipakai saat memuat artikel
+  // untuk diedit: array paragraf -> elemen <p> di editor.
+  function fillContentArray(paragraphs) {
+    contentEl.innerHTML = "";
+    (paragraphs || []).forEach((paragraph) => {
+      const p = document.createElement("p");
+      p.textContent = paragraph;
+      contentEl.appendChild(p);
+    });
+    updateWordCount();
   }
 
   function gatherFormData() {
@@ -457,9 +424,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       author: authorInput.value.trim() || "MAB-News",
       category_key: selectKategori.value || null,
       is_popular: featuredCheck.checked,
+      tags: tags.slice(),
+      keywords: keywordsInput.value.trim(),
+      seo_meta_description: metaInput.value.trim(),
+
+      // ---- info tambahan untuk pratinjau saja ----
       slugPreview: slugInput.value.trim() || slugify(titleInput.value),
       categoryName: categoryOption && selectKategori.value ? categoryOption.textContent : "",
-      tags: tags.slice(),
     };
   }
 
@@ -497,9 +468,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     publishDateInput.disabled = true;
     featuredCheck.checked = false;
     document.querySelector('input[name="status"][value="publish"]').checked = true;
+    currentSlug = null;
   }
 
-  async function submitArticle(data, button, successMessage, idleLabel) {
+  // status: 'published' | 'draft' | 'scheduled'
+  async function submitArticle(data, button, status, successMessage, idleLabel) {
     button.disabled = true;
     const originalLabel = button.textContent;
     button.textContent = "Memproses...";
@@ -513,16 +486,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         author: data.author,
         category_key: data.category_key,
         is_popular: data.is_popular,
+        tags: data.tags,
+        keywords: data.keywords || null,
+        seo_meta_description: data.seo_meta_description || null,
+        status,
       };
 
-      const res = await fetch(
-        editSlug ? `${API_BASE_URL}/api/articles/${editSlug}` : `${API_BASE_URL}/api/articles`,
-        {
-          method: editSlug ? "PUT" : "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(serverPayload),
-        }
-      );
+      if (status === "scheduled" && publishDateInput.value) {
+        serverPayload.scheduled_at = new Date(publishDateInput.value).toISOString();
+      }
+
+      const isEditing = !!currentSlug;
+      const url = isEditing
+        ? `${API_BASE_URL}/api/articles/${encodeURIComponent(currentSlug)}`
+        : `${API_BASE_URL}/api/articles`;
+
+      const res = await fetch(url, {
+        method: isEditing ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(serverPayload),
+      });
 
       if (!res.ok) {
         let detail = "";
@@ -530,18 +513,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         throw new Error(detail || `Gagal menyimpan artikel (status ${res.status}).`);
       }
 
-      showToast(successMessage, "success");
-      clearLocalDraft();
+      const resJson = await res.json();
+      const savedSlug = resJson?.data?.slug || data.slugPreview;
 
-      if (editSlug) {
-        setTimeout(() => { window.location.href = "artikel.html"; }, 800);
-      } else {
-        if (data.slugPreview) {
-          publishedLinkAnchor.href = `${PUBLIC_ARTICLE_URL_BASE}${data.slugPreview}`;
-          publishedLink.hidden = false;
-        }
-        resetForm();
+      showToast(successMessage, "success");
+
+      if (status === "published" && savedSlug) {
+        publishedLinkAnchor.href = `${PUBLIC_ARTICLE_URL_BASE}${savedSlug}`;
+        publishedLink.hidden = false;
       }
+
+      resetForm();
     } catch (error) {
       console.error("Proses gagal:", error);
       showToast(`Terjadi kesalahan: ${error.message}`, "error");
@@ -552,7 +534,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // ---------------------------------------------------------
-  // 8. Tombol Publikasikan / Simpan Perubahan
+  // 8. Tombol Publikasikan — publish langsung, atau simpan
+  //    sebagai "scheduled" kalau radio "Jadwalkan publikasi"
+  //    dipilih dan tanggalnya diisi.
   // ---------------------------------------------------------
   btnPublish.addEventListener("click", async () => {
     if (isUploadingImage) {
@@ -565,78 +549,33 @@ document.addEventListener("DOMContentLoaded", async () => {
       showToast(`Harap lengkapi: ${errors.join(", ")}.`, "error");
       return;
     }
-    const idleLabel = editSlug ? "💾 Simpan Perubahan" : "➤ Publikasikan Artikel";
-    const successMessage = editSlug ? "Perubahan berhasil disimpan!" : "Artikel berhasil dipublikasikan!";
-    await submitArticle(data, btnPublish, successMessage, idleLabel);
+
+    const selectedStatus = document.querySelector('input[name="status"]:checked').value;
+    if (selectedStatus === "schedule" && !publishDateInput.value) {
+      showToast("Pilih tanggal & waktu untuk menjadwalkan artikel.", "error");
+      return;
+    }
+
+    const status = selectedStatus === "schedule" ? "scheduled" : "published";
+    const message = status === "scheduled"
+      ? "Artikel berhasil dijadwalkan!"
+      : "Artikel berhasil dipublikasikan!";
+
+    await submitArticle(data, btnPublish, status, message, "➤ Publikasikan Artikel");
   });
 
   // ---------------------------------------------------------
-  // 9. Tombol Simpan Draft (lokal saja, backend belum dukung draft)
+  // 9. Tombol Simpan Draft — sekarang benar-benar tersimpan
+  //    ke server (status = 'draft'), bukan cuma localStorage.
   // ---------------------------------------------------------
-  function clearLocalDraft() {
-    try { localStorage.removeItem(DRAFT_STORAGE_KEY); } catch (_) { /* ignore */ }
-  }
-
-  btnDraft.addEventListener("click", () => {
+  btnDraft.addEventListener("click", async () => {
     const data = gatherFormData();
     if (!data.title) {
       showToast("Isi judul artikel dulu untuk menyimpan draft.", "error");
       return;
     }
-    try {
-      localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify({ ...data, savedAt: Date.now() }));
-      showToast("Draft disimpan di perangkat ini (backend belum mendukung draft di server).", "success");
-    } catch (error) {
-      console.error("Gagal menyimpan draft lokal:", error);
-      showToast(`Gagal menyimpan draft: ${error.message}`, "error");
-    }
+    await submitArticle(data, btnDraft, "draft", "Draft berhasil disimpan.", "▣ Simpan Draft");
   });
-
-  function restoreLocalDraftIfAny() {
-    let saved;
-    try {
-      const raw = localStorage.getItem(DRAFT_STORAGE_KEY);
-      if (!raw) return;
-      saved = JSON.parse(raw);
-    } catch (_) {
-      return;
-    }
-    if (!saved || !saved.title) return;
-    const savedDate = saved.savedAt ? new Date(saved.savedAt).toLocaleString("id-ID") : "";
-    const wantsRestore = confirm(
-      `Ditemukan draft tersimpan di perangkat ini: "${saved.title}"${savedDate ? ` (disimpan ${savedDate})` : ""}.\n\nMuat draft ini?`
-    );
-    if (!wantsRestore) return;
-
-    titleInput.value = saved.title || "";
-    titleCount.textContent = titleInput.value.length;
-    slugInput.value = saved.slugPreview || slugify(titleInput.value);
-    authorInput.value = saved.author || "";
-    leadInput.value = saved.lead || "";
-    leadCount.textContent = leadInput.value.length;
-    contentEl.innerHTML = "";
-    (saved.content || []).forEach((paragraph) => {
-      const p = document.createElement("p");
-      p.textContent = paragraph;
-      contentEl.appendChild(p);
-    });
-    updateWordCount();
-    captionInput.value = saved.caption || "";
-    featuredCheck.checked = !!saved.is_popular;
-    tags = Array.isArray(saved.tags) ? saved.tags.slice() : [];
-    renderTags();
-    if (saved.image_url) {
-      uploadedImageUrl = saved.image_url;
-      imageUrlInput.value = saved.image_url;
-      uploadPreviewImg.src = saved.image_url;
-      uploadPlaceholder.hidden = true;
-      uploadPreview.hidden = false;
-    }
-    if (saved.category_key) {
-      selectKategori.value = saved.category_key;
-    }
-    showToast("Draft berhasil dipulihkan.", "success");
-  }
 
   // ---------------------------------------------------------
   // 10. Tombol Preview
@@ -694,9 +633,80 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // ---------------------------------------------------------
+  // 11. Mode edit — muat artikel dari server berdasarkan ?slug=
+  // ---------------------------------------------------------
+  async function loadArticleForEdit(slug) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/articles/${encodeURIComponent(slug)}`);
+      if (!res.ok) throw new Error("Artikel tidak ditemukan di server.");
+      const { data } = await res.json();
+
+      currentSlug = data.slug;
+      if (pageHeadingTitle) pageHeadingTitle.textContent = "Edit Artikel";
+
+      titleInput.value = data.title || "";
+      titleCount.textContent = titleInput.value.length;
+      slugInput.value = data.slug || "";
+      authorInput.value = data.author || "";
+      leadInput.value = data.lead || "";
+      leadCount.textContent = leadInput.value.length;
+
+      const contentArray = Array.isArray(data.content) ? data.content : [];
+      fillContentArray(contentArray);
+
+      captionInput.value = data.caption || "";
+      featuredCheck.checked = !!data.is_popular;
+
+      tags = Array.isArray(data.tags) ? data.tags.slice() : [];
+      renderTags();
+
+      metaInput.value = data.seo_meta_description || "";
+      metaCount.textContent = metaInput.value.length;
+      keywordsInput.value = data.keywords || "";
+
+      if (data.image_url) {
+        uploadedImageUrl = data.image_url;
+        imageUrlInput.value = data.image_url;
+        uploadPreviewImg.src = data.image_url;
+        uploadPlaceholder.hidden = true;
+        uploadPreview.hidden = false;
+      }
+
+      if (data.category && data.category.key) {
+        selectKategori.value = data.category.key;
+      }
+
+      const status = data.status || "published";
+      if (status === "draft") {
+        document.querySelector('input[name="status"][value="draft"]').checked = true;
+      } else if (status === "scheduled") {
+        document.querySelector('input[name="status"][value="schedule"]').checked = true;
+        publishDateInput.disabled = false;
+        if (data.scheduled_at) {
+          const d = new Date(data.scheduled_at);
+          const pad = (n) => String(n).padStart(2, "0");
+          publishDateInput.value = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+        }
+      } else {
+        document.querySelector('input[name="status"][value="publish"]').checked = true;
+      }
+
+      btnPublish.textContent = "➤ Simpan Perubahan";
+      showToast("Artikel dimuat untuk diedit.", "success");
+    } catch (error) {
+      console.error("Gagal memuat artikel untuk diedit:", error);
+      showToast(`Gagal memuat artikel: ${error.message}`, "error");
+    }
+  }
+
+  // ---------------------------------------------------------
   // Inisialisasi awal
   // ---------------------------------------------------------
   renderTags();
   publishDateInput.disabled = true;
-  if (!editSlug) restoreLocalDraftIfAny();
+
+  await loadCategories();
+  if (editSlug) {
+    await loadArticleForEdit(editSlug);
+  }
 });
