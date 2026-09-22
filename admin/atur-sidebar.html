@@ -9,134 +9,219 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="stylesheet" href="../admin-css/sidebar.css">
+<link rel="stylesheet" href="../admin-css/atur-sidebar.css">
 </head>
 <body>
 <header class="cms-header">
-<div class="header-left">
-<button type="button" class="menu-toggle" id="menuToggle" aria-label="Buka menu">
-<i class="fa-solid fa-bars"></i>
-</button>
-<a href="index.html" class="cms-logo">
-<span class="logo-blue">MAB-</span><span>News CMS</span>
-</a>
-</div>
-<div class="header-right">
-<button type="button" class="header-icon-btn theme-toggle" id="themeToggle" aria-label="Mode gelap">
-<i class="fa-regular fa-moon"></i>
-</button>
-<button type="button" class="header-icon-btn notification-btn" aria-label="Notifikasi">
-<i class="fa-regular fa-bell"></i>
-<span class="notification-count">3</span>
-</button>
-<button type="button" class="header-user" id="headerUser">
-<span class="header-avatar">
-<i class="fa-solid fa-user"></i>
-</span>
-<span class="header-user-name">Admin</span>
-<i class="fa-solid fa-chevron-down header-user-arrow"></i>
-</button>
-</div>
+    <div class="header-left">
+        <button type="button" class="menu-toggle" id="menuToggle" aria-label="Buka menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <a href="index.html" class="cms-logo">
+            <span class="logo-blue">MAB-</span><span>News CMS</span>
+        </a>
+    </div>
+    <div class="header-right">
+        <button type="button" class="header-icon-btn theme-toggle" id="themeToggle" aria-label="Mode gelap">
+            <i class="fa-regular fa-moon"></i>
+        </button>
+        <button type="button" class="header-icon-btn notification-btn" aria-label="Notifikasi">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-count">3</span>
+        </button>
+        <button type="button" class="header-user" id="headerUser">
+            <span class="header-avatar">
+                <i class="fa-solid fa-user"></i>
+            </span>
+            <span class="header-user-name">Admin</span>
+            <i class="fa-solid fa-chevron-down header-user-arrow"></i>
+        </button>
+    </div>
 </header>
+
 <div class="cms-layout">
-<aside class="sidebar" id="sidebar">
-<nav class="sidebar-nav">
-<a href="index.html" class="nav-item">
-<i class="fa-solid fa-house"></i>
-<span>Dashboard</span>
-</a>
-<div class="nav-group">
-<button type="button" class="nav-item nav-dropdown-toggle">
-<span class="nav-item-main">
-<i class="fa-solid fa-file-lines"></i>
-<span>Artikel</span>
-</span>
-<i class="fa-solid fa-chevron-right nav-arrow"></i>
-</button>
-<div class="nav-submenu">
-<a href="artikel.html">Semua Artikel</a>
-<a href="tambah-artikel.html">Tambah Artikel</a>
-<a href="draft.html">Draft</a>
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <div class="nav-group">
+                <button type="button" class="nav-item nav-dropdown-toggle">
+                    <span class="nav-item-main">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <span>Artikel</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-right nav-arrow"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="artikel.html">Semua Artikel</a>
+                    <a href="tambah-artikel.html">Tambah Artikel</a>
+                    <a href="draft.html">Draft</a>
+                </div>
+            </div>
+
+            <a href="kategori.html" class="nav-item">
+                <i class="fa-solid fa-folder"></i>
+                <span>Kategori</span>
+            </a>
+            <a href="media.html" class="nav-item">
+                <i class="fa-solid fa-image"></i>
+                <span>Media</span>
+            </a>
+            <a href="users.html" class="nav-item">
+                <i class="fa-solid fa-users"></i>
+                <span>Pengguna</span>
+            </a>
+
+            <div class="nav-group">
+                <button type="button" class="nav-item nav-dropdown-toggle">
+                    <span class="nav-item-main">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Pengaturan</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-right nav-arrow"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="umum.html"><span class="submenu-dot"></span>Umum</a>
+                    <a href="website.html"><span class="submenu-dot"></span>Website</a>
+                    <a href="tampilan.html"><span class="submenu-dot"></span>Tampilan</a>
+                    <a href="seo.html"><span class="submenu-dot"></span>SEO</a>
+                    <a href="email.html"><span class="submenu-dot"></span>Email</a>
+                    <a href="backup.html"><span class="submenu-dot"></span>Backup</a>
+                    <a href="keamanan.html"><span class="submenu-dot"></span>Keamanan</a>
+                </div>
+            </div>
+
+            <div class="nav-group open">
+                <button type="button" class="nav-item nav-dropdown-toggle">
+                    <span class="nav-item-main">
+                        <i class="fa-solid fa-ellipsis"></i>
+                        <span>Lainnya</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-up nav-arrow"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="laman.html"><span class="submenu-dot"></span>Laman</a>
+                    <a href="statistik.html"><span class="submenu-dot"></span>Statistik</a>
+                    <a href="iklan.html"><span class="submenu-dot"></span>Iklan</a>
+                    <a href="perangkat.html"><span class="submenu-dot"></span>Perangkat</a>
+                    <a href="domain-hosting.html"><span class="submenu-dot"></span>Domain &amp; Hosting</a>
+                    <a href="backend-api.html"><span class="submenu-dot"></span>BackEnd &amp; API</a>
+                    <a href="atur-sidebar.html" class="active-sub-item"><i class="fa-solid fa-table-cells"></i>Atur Sidebar</a>
+                    <a href="export-import.html"><span class="submenu-dot"></span>Export &amp; Impor</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-profile">
+            <div class="sidebar-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="sidebar-profile-info">
+                <strong>Muhammad Aslambik</strong>
+                <span>Administrator</span>
+            </div>
+            <i class="fa-solid fa-chevron-right sidebar-profile-arrow"></i>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="pengaturan.html">Pengaturan</a><i class="fa-solid fa-chevron-right"></i>
+            <a href="#">Lainnya</a><i class="fa-solid fa-chevron-right"></i>
+            <span>Atur Sidebar</span>
+        </div>
+
+        <section class="page-heading">
+            <div class="page-heading-icon">
+                <i class="fa-solid fa-sliders"></i>
+            </div>
+            <div>
+                <h1>Atur Sidebar</h1>
+                <p>Kelola menu dan urutan item yang ditampilkan di sidebar.</p>
+            </div>
+        </section>
+
+        <div class="sidebar-settings-grid">
+            <section class="settings-card">
+                <div class="card-header">
+                    <h3>Menu Sidebar</h3>
+                </div>
+
+                <div class="info-banner">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <p>Pilih menu yang ingin ditampilkan di sidebar dan atur urutannya sesuai kebutuhan Anda. Menu yang tidak dicentang tidak akan muncul di sidebar.</p>
+                </div>
+
+                <div class="menu-table-wrapper">
+                    <table class="menu-table">
+                        <thead>
+                            <tr>
+                                <th class="col-aktif">Aktif</th>
+                                <th class="col-menu">Menu</th>
+                                <th class="col-ikon">Ikon</th>
+                                <th class="col-urutan">Urutan</th>
+                                <th class="col-aksi">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="menuTableBody">
+                            <!-- Baris menu dirender oleh atur-sidebar.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer">
+                    <span class="total-menu">Total Menu: <strong id="totalMenuCount">0</strong></span>
+                    <div class="footer-actions">
+                        <button type="button" class="btn btn-secondary" id="resetButton">
+                            <i class="fa-solid fa-rotate-left"></i> Reset
+                        </button>
+                        <button type="button" class="btn btn-primary" id="saveButton">
+                            <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="preview-card">
+                <div class="card-header">
+                    <h3>Preview Sidebar</h3>
+                    <p>Berikut adalah tampilan sidebar dengan pengaturan saat ini.</p>
+                </div>
+
+                <div class="preview-wrapper">
+                    <div class="preview-sidebar">
+                        <div class="preview-title">
+                            <i class="fa-solid fa-bars"></i>
+                            <strong><span>MAB-</span>News CMS</strong>
+                        </div>
+
+                        <div class="preview-menu" id="previewMenu">
+                            <!-- Preview menu dirender oleh atur-sidebar.js -->
+                        </div>
+
+                        <div class="preview-profile">
+                            <div class="preview-avatar"><i class="fa-solid fa-user"></i></div>
+                            <div class="preview-profile-info">
+                                <strong>Muhammad Aslambik</strong>
+                                <span>Administrator</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <footer class="page-footer">
+            &copy; 2025 MAB-News CMS. Semua hak dilindungi.
+        </footer>
+    </main>
 </div>
-</div>
-<a href="kategori.html" class="nav-item">
-<i class="fa-solid fa-folder"></i>
-<span>Kategori</span>
-</a>
-<a href="media.html" class="nav-item">
-<i class="fa-solid fa-image"></i>
-<span>Media</span>
-</a>
-<a href="users.html" class="nav-item">
-<i class="fa-solid fa-users"></i>
-<span>Pengguna</span>
-</a>
-<div class="nav-group">
-<button type="button" class="nav-item nav-dropdown-toggle">
-<span class="nav-item-main">
-<i class="fa-solid fa-gear"></i>
-<span>Pengaturan</span>
-</span>
-<i class="fa-solid fa-chevron-right nav-arrow"></i>
-</button>
-<div class="nav-submenu">
-<a href="umum.html"><span class="submenu-dot"></span>Umum</a>
-<a href="website.html"><span class="submenu-dot"></span>Website</a>
-<a href="tampilan.html"><span class="submenu-dot"></span>Tampilan</a>
-<a href="seo.html"><span class="submenu-dot"></span>SEO</a>
-<a href="email.html"><span class="submenu-dot"></span>Email</a>
-<a href="backup.html"><span class="submenu-dot"></span>Backup</a>
-<a href="keamanan.html"><span class="submenu-dot"></span>Keamanan</a>
-</div>
-</div>
-<div class="nav-group open">
-<button type="button" class="nav-item nav-dropdown-toggle">
-<span class="nav-item-main">
-<i class="fa-solid fa-ellipsis"></i>
-<span>Lainnya</span>
-</span>
-<i class="fa-solid fa-chevron-up nav-arrow"></i>
-</button>
-<div class="nav-submenu">
-<a href="laman.html"><span class="submenu-dot"></span>Laman</a>
-<a href="statistik.html"><span class="submenu-dot"></span>Statistik</a>
-<a href="iklan.html"><span class="submenu-dot"></span>Iklan</a>
-<a href="perangkat.html"><span class="submenu-dot"></span>Perangkat</a>
-<a href="domain-hosting.html"><span class="submenu-dot"></span>Domain &amp; Hosting</a>
-<a href="backend-api.html"><span class="submenu-dot"></span>BackEnd &amp; API</a>
-<a href="atur-sidebar.html" class="active-sub-item"><i class="fa-solid fa-bars"></i>Atur Sidebar</a>
-<a href="export-import.html">Export &amp; Impor</a>
-</div>
-</div>
-</nav>
-<div class="sidebar-profile">
-<div class="sidebar-avatar">
-<i class="fa-solid fa-user"></i>
-</div>
-<div class="sidebar-profile-info">
-<strong>Muhammad Aslambik</strong>
-<span>Administrator</span>
-</div>
-<i class="fa-solid fa-chevron-right sidebar-profile-arrow"></i>
-</div>
-</aside>
-<main class="main-content">
-<div class="breadcrumb">
-<a href="index.html">Dashboard</a><i class="fa-solid fa-chevron-right"></i><a href="#">Lainnya</a><i class="fa-solid fa-chevron-right"></i><span>Atur Sidebar</span>
-</div>
-<section class="page-heading">
-<div class="page-heading-icon">
-<i class="fa-solid fa-bars"></i>
-</div>
-<div>
-<h1>Atur Sidebar</h1>
-<p>Sesuaikan urutan dan tampilan menu sidebar CMS.</p>
-</div>
-</section>
-<div class="admin-placeholder-body">
-<p>Modul CMS ini akan dikembangkan pada tahap berikutnya.</p>
-</div>
-</main>
-</div>
+
 <script src="../admin-js/sidebar.js"></script>
+<script src="../admin-js/atur-sidebar.js"></script>
 </body>
 </html>
