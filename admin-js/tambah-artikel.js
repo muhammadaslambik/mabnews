@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const statusRadios = document.querySelectorAll('input[name="status"]');
   const publishDateInput = document.getElementById("publishDate");
   const homepageToggle = document.getElementById("homepageToggle");
+  const homepageToggle2 = document.getElementById("showHomepage2");
   const allowCommentsCheck = document.getElementById("allowComments");
   const featuredCheck = document.getElementById("featured");
   const btnDraft = document.getElementById("saveDraft");
@@ -254,6 +255,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // ---------------------------------------------------------
+  // 5b. Form ini punya 2 checkbox "tampilkan di halaman utama"
+  //     (di kartu "Tampilan di Halaman Utama" & kartu "Opsi
+  //     Lainnya") — disinkronkan supaya keduanya selalu sama,
+  //     lalu dikirim sebagai satu field show_on_homepage.
+  // ---------------------------------------------------------
+  if (homepageToggle && homepageToggle2) {
+    homepageToggle.addEventListener("change", () => {
+      homepageToggle2.checked = homepageToggle.checked;
+    });
+    homepageToggle2.addEventListener("change", () => {
+      homepageToggle.checked = homepageToggle2.checked;
+    });
+  }
+
+  // ---------------------------------------------------------
   // 6. Upload gambar utama (langsung diunggah saat dipilih)
   // ---------------------------------------------------------
   function resetImage() {
@@ -427,6 +443,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       tags: tags.slice(),
       keywords: keywordsInput.value.trim(),
       seo_meta_description: metaInput.value.trim(),
+      allow_comments: allowCommentsCheck.checked,
+      show_on_homepage: homepageToggle.checked,
 
       // ---- info tambahan untuk pratinjau saja ----
       slugPreview: slugInput.value.trim() || slugify(titleInput.value),
@@ -467,29 +485,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     publishDateInput.value = "";
     publishDateInput.disabled = true;
     featuredCheck.checked = false;
+    allowCommentsCheck.checked = true;
+    homepageToggle.checked = true;
+    if (homepageToggle2) homepageToggle2.checked = true;
     document.querySelector('input[name="status"][value="publish"]').checked = true;
     currentSlug = null;
   }
 
-    // status: 'published' | 'draft' | 'scheduled'
+  // status: 'published' | 'draft' | 'scheduled'
   async function submitArticle(data, button, status, successMessage, idleLabel) {
     button.disabled = true;
     const originalLabel = button.textContent;
     button.textContent = "Memproses...";
     try {
-      // PERBAIKAN: Tangkap sisa teks di kolom tag input jika user lupa menekan Enter
-      let finalTags = Array.isArray(data.tags) ? data.tags.slice() : [];
-      const leftoverTagText = tagInput.value.trim();
-      if (leftoverTagText) {
-        const rawTags = leftoverTagText.split(",").map(t => t.trim()).filter(Boolean);
-        rawTags.forEach(t => {
-          if (!finalTags.includes(t)) finalTags.push(t);
-        });
-      }
-
-      // PERBAIKAN: Kirim format string literal array '{}' jika array kosong agar tidak ditolak Neon
-      const tagsPayload = finalTags.length > 0 ? finalTags : '{}';
-
       const serverPayload = {
         title: data.title,
         lead: data.lead,
@@ -499,10 +507,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         author: data.author,
         category_key: data.category_key,
         is_popular: data.is_popular,
-        tags: tagsPayload, // Menggunakan payload tag yang sudah diperbaiki
+        tags: data.tags,
         keywords: data.keywords || null,
         seo_meta_description: data.seo_meta_description || null,
         status,
+        allow_comments: data.allow_comments,
+        show_on_homepage: data.show_on_homepage,
       };
 
       if (status === "scheduled" && publishDateInput.value) {
@@ -676,6 +686,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       metaInput.value = data.seo_meta_description || "";
       metaCount.textContent = metaInput.value.length;
       keywordsInput.value = data.keywords || "";
+
+      allowCommentsCheck.checked = data.allow_comments !== false;
+      const showOnHomepage = data.show_on_homepage !== false;
+      homepageToggle.checked = showOnHomepage;
+      if (homepageToggle2) homepageToggle2.checked = showOnHomepage;
 
       if (data.image_url) {
         uploadedImageUrl = data.image_url;
