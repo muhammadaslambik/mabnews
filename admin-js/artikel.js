@@ -9,21 +9,28 @@
       categories = res.data || [];
       $('categoryFilter').innerHTML = '<option value="all">Semua Kategori</option>' +
         categories.map(c => `<option value="${c.key}">${c.name}</option>`).join('');
-      $('draftCount').textContent = categories.length;
+      // Kartu "Kategori" (id draftCount dipertahankan agar tidak perlu ubah HTML lama)
+      if ($('draftCount')) $('draftCount').textContent = categories.length;
     } catch (e) {
       console.error('Gagal memuat kategori:', e);
     }
   }
 
   async function loadArticles() {
-    body.innerHTML = `<tr><td colspan="7">Memuat...</td></tr>`;
+    body.innerHTML = `<tr><td colspan="8">Memuat...</td></tr>`;
     try {
       const params = new URLSearchParams({ page, limit: size });
       if (q) params.set('q', q);
       if (kategori !== 'all') params.set('kategori', kategori);
+
       const res = await apiFetch(`/api/articles?${params.toString()}`);
       const articles = res.data || [];
       total = res.total || 0;
+
+      // ---- Kartu ringkasan: Populer & Ditampilkan (dari statistik server) ----
+      const stats = res.stats || {};
+      if ($('popularCount')) $('popularCount').textContent = stats.popular_count ?? 0;
+      if ($('displayedCount')) $('displayedCount').textContent = stats.homepage_count ?? 0;
 
       body.innerHTML = articles.length ? articles.map((a, i) => `
         <tr>
@@ -39,10 +46,11 @@
             <button class="edit" title="Edit" onclick="editArticle('${a.slug}')">Edit</button>
             <button class="delete" title="Hapus" onclick="deleteArticle('${a.slug}')">Hapus</button>
           </div></td>
-        </tr>`).join('') : `<tr><td colspan="7">Tidak ada artikel.</td></tr>`;
+        </tr>`).join('') : `<tr><td colspan="8">Tidak ada artikel.</td></tr>`;
 
       $('resultCount').textContent = `${total} articles`;
-      $('totalCount').textContent = total;
+      if ($('totalCount')) $('totalCount').textContent = total;
+
       const start = (page - 1) * size;
       $('pageInfo').textContent = `Menampilkan ${total ? start + 1 : 0}–${Math.min(start + articles.length, total)} dari ${total}`;
       const pages = Math.max(1, Math.ceil(total / size));
@@ -50,7 +58,7 @@
         `<button class="${i + 1 === page ? 'active' : ''}" onclick="goPage(${i + 1})">${i + 1}</button>`).join('');
     } catch (e) {
       console.error('Gagal memuat artikel:', e);
-      body.innerHTML = `<tr><td colspan="7">Gagal memuat data dari server.</td></tr>`;
+      body.innerHTML = `<tr><td colspan="8">Gagal memuat data dari server.</td></tr>`;
       toast('Gagal memuat artikel dari server.');
     }
   }
