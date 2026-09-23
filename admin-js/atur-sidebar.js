@@ -2,7 +2,18 @@ document.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
     /* =========================================================
-       DATA DEFAULT MENU SIDEBAR
+       KONFIGURASI API
+       Ganti URL di bawah ini dengan alamat backend mabnews-backend
+       kamu yang sudah di-deploy (contoh: Vercel). Selama development
+       lokal bisa diarahkan ke http://localhost:3000/api.
+    ========================================================= */
+    const API_BASE_URL = "https://mabnews-backend.vercel.app/api";
+    const SIDEBAR_MENU_ENDPOINT = `${API_BASE_URL}/sidebar-menu`;
+
+    /* =========================================================
+       DATA DEFAULT (fallback) — dipakai kalau API belum bisa
+       diakses (server tidur/cold start, offline, dsb), supaya
+       halaman tetap bisa dipakai dan tidak kosong.
        type: "main"  -> tampil langsung di level utama sidebar
        type: "child" -> tampil di dalam grup "Lainnya"
     ========================================================= */
@@ -23,58 +34,85 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "export-impor", label: "Export & Impor", icon: "fa-file-export", type: "child", order: 14, active: true }
     ];
 
-    const STORAGE_KEY = "mabnews_sidebar_config_v2";
-
     const tableBody = document.getElementById("menuTableBody");
     const previewMenu = document.getElementById("previewMenu");
     const totalMenuCount = document.getElementById("totalMenuCount");
     const resetButton = document.getElementById("resetButton");
     const saveButton = document.getElementById("saveButton");
 
-    let menus = loadMenus();
+    let menus = DEFAULT_MENUS.map((menu) => ({ ...menu }));
+    let isLoading = true;
+    let isSaving = false;
 
-    render();
+    init();
 
-    /* =========================================================
-       LOAD / SAVE
-    ========================================================= */
-    function loadMenus() {
-        let saved = null;
-
+    async function init() {
+        setTableLoading(true);
         try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            if (raw) {
-                saved = JSON.parse(raw);
+            const data = await fetchSidebarMenu();
+            if (Array.isArray(data) && data.length > 0) {
+                menus = normalizeMenus(data);
             }
         } catch (error) {
-            console.warn("Pengaturan sidebar tidak dapat dibaca.", error);
+            console.warn("Gagal memuat pengaturan sidebar dari server, memakai data default.", error);
+            showToast("Tidak bisa terhubung ke server, menampilkan data default.");
+        } finally {
+            isLoading = false;
+            setTableLoading(false);
+            render();
         }
-
-        if (!Array.isArray(saved) || saved.length === 0) {
-            return DEFAULT_MENUS.map((menu) => ({ ...menu }));
-        }
-
-        return DEFAULT_MENUS.map((defaultMenu) => {
-            const match = saved.find((item) => item.id === defaultMenu.id);
-            if (!match) {
-                return { ...defaultMenu };
-            }
-            return {
-                ...defaultMenu,
-                order: Number.isFinite(match.order) ? match.order : defaultMenu.order,
-                active: typeof match.active === "boolean" ? match.active : defaultMenu.active
-            };
-        });
     }
 
-    function saveMenus() {
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(menus));
-            return true;
-        } catch (error) {
-            console.warn("Pengaturan sidebar tidak dapat disimpan.", error);
-            return false;
+    /* =========================================================
+       NORMALISASI DATA DARI API
+       Kolom "order" & "active" dari Postgres bisa berupa string/
+       angka/boolean tergantung driver, jadi dirapikan dulu di sini.
+    ========================================================= */
+    function normalizeMenus(rows) {
+        return rows.map((row) => ({
+            id: row.id,
+            label: row.label,
+            icon: row.icon,
+            type: row.type === "child" ? "child" : "main",
+            order: Number(row.order),
+            active: row.active === true || row.active === "true" || row.active === 1
+        }));
+    }
+
+    /* =========================================================
+       PANGGILAN API
+    ========================================================= */
+    async function fetchSidebarMenu() {
+        const response = await fetch(SIDEBAR_MENU_ENDPOINT, { method: "GET" });
+        if (!response.ok) {
+            throw new Error(`GET sidebar-menu gagal (status ${response.status})`);
         }
+        const json = await response.json();
+        return json.data;
+    }
+
+    async function persistSidebarMenu() {
+        const response = await fetch(SIDEBAR_MENU_ENDPOINT, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ menus })
+        });
+        if (!response.ok) {
+            const json = await response.json().catch(() => ({}));
+            throw new Error(json.error || `PUT sidebar-menu gagal (status ${response.status})`);
+        }
+        const json = await response.json();
+        return json.data;
+    }
+
+    async function resetSidebarMenuOnServer() {
+        const response = await fetch(`${SIDEBAR_MENU_ENDPOINT}/reset`, { method: "POST" });
+        if (!response.ok) {
+            const json = await response.json().catch(() => ({}));
+            throw new Error(json.error || `POST sidebar-menu/reset gagal (status ${response.status})`);
+        }
+        const json = await response.json();
+        return json.data;
     }
 
     /* =========================================================
@@ -88,6 +126,18 @@ document.addEventListener("DOMContentLoaded", () => {
         renderTable();
         renderPreview();
         totalMenuCount.textContent = menus.length;
+    }
+
+    function setTableLoading(loading) {
+        if (loading) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align:center; padding:24px; color:#64748b;">
+                        Memuat pengaturan sidebar...
+                    </td>
+                </tr>
+            `;
+        }
     }
 
     function renderTable() {
@@ -152,9 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const sorted = sortedMenus();
         sorted.forEach((menu, index) => {
             const row = tableBody.querySelector(`tr[data-id="${menu.id}"]`);
-            if (!row) {
-                return;
-            }
+            if (!row) return;
             const upBtn = row.querySelector('[data-move="up"]');
             const downBtn = row.querySelector('[data-move="down"]');
             if (upBtn) upBtn.disabled = index === 0;
@@ -171,9 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const activeChildren = children.filter((menu) => menu.active);
 
         mains.forEach((menu) => {
-            if (!menu.active) {
-                return;
-            }
+            if (!menu.active) return;
             const item = document.createElement("div");
             item.className = "preview-item" + (menu.id === "dashboard" ? " is-active" : "");
             item.innerHTML = `<i class="fa-solid ${menu.icon}"></i><span>${menu.label}</span>`;
@@ -225,9 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
             input.addEventListener("change", () => {
                 const id = input.dataset.order;
                 let value = parseInt(input.value, 10);
-                if (!Number.isFinite(value)) {
-                    value = 1;
-                }
+                if (!Number.isFinite(value)) value = 1;
                 value = Math.min(Math.max(value, 1), menus.length);
                 moveMenuToOrder(id, value);
             });
@@ -236,9 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tableBody.querySelectorAll("[data-move]").forEach((button) => {
             button.addEventListener("click", () => {
                 if (button.disabled) return;
-                const id = button.dataset.id;
-                const direction = button.dataset.move;
-                swapMenu(id, direction);
+                swapMenu(button.dataset.id, button.dataset.move);
             });
         });
 
@@ -248,9 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const id = button.dataset.aksiToggle;
                 const menuDropdown = tableBody.querySelector(`[data-aksi-menu="${id}"]`);
                 closeAllAksiMenus(menuDropdown);
-                if (menuDropdown) {
-                    menuDropdown.classList.toggle("open");
-                }
+                if (menuDropdown) menuDropdown.classList.toggle("open");
             });
         });
 
@@ -274,16 +314,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function closeAllAksiMenus(except) {
         document.querySelectorAll(".aksi-menu.open").forEach((menu) => {
-            if (menu !== except) {
-                menu.classList.remove("open");
-            }
+            if (menu !== except) menu.classList.remove("open");
         });
     }
 
     document.addEventListener("click", () => closeAllAksiMenus());
 
     /* =========================================================
-       LOGIKA URUTAN
+       LOGIKA URUTAN (lokal, sebelum disimpan)
     ========================================================= */
     function swapMenu(id, direction) {
         const sorted = sortedMenus();
@@ -323,13 +361,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const menu = menus.find((item) => item.id === id);
         if (!defaultMenu || !menu) return;
 
-        menus.forEach((item) => {
-            if (item.id === id) return;
-            if (item.order >= defaultMenu.order && item.order > menu.order) {
-                item.order += 0;
-            }
-        });
-
         menu.order = defaultMenu.order;
         menu.active = defaultMenu.active;
 
@@ -339,31 +370,61 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         render();
-        showToast(`Item "${defaultMenu.label}" dikembalikan ke pengaturan awal.`);
+        showToast(`Item "${defaultMenu.label}" dikembalikan ke pengaturan awal. Klik "Simpan Perubahan" untuk menyimpan.`);
     }
 
     /* =========================================================
-       RESET SEMUA
+       RESET SEMUA (ke server)
     ========================================================= */
     if (resetButton) {
-        resetButton.addEventListener("click", () => {
-            menus = DEFAULT_MENUS.map((menu) => ({ ...menu }));
-            render();
-            showToast("Pengaturan sidebar berhasil direset.");
+        resetButton.addEventListener("click", async () => {
+            if (isLoading || isSaving) return;
+
+            const confirmed = window.confirm("Reset seluruh pengaturan sidebar ke default?");
+            if (!confirmed) return;
+
+            resetButton.disabled = true;
+            try {
+                const data = await resetSidebarMenuOnServer();
+                menus = normalizeMenus(data);
+                render();
+                showToast("Pengaturan sidebar berhasil direset.");
+            } catch (error) {
+                console.error(error);
+                menus = DEFAULT_MENUS.map((menu) => ({ ...menu }));
+                render();
+                showToast("Gagal reset ke server, tampilan dikembalikan ke default (belum tersimpan).");
+            } finally {
+                resetButton.disabled = false;
+            }
         });
     }
 
     /* =========================================================
-       SIMPAN
+       SIMPAN (ke server)
     ========================================================= */
     if (saveButton) {
-        saveButton.addEventListener("click", () => {
-            const success = saveMenus();
-            showToast(
-                success
-                    ? "Perubahan sidebar berhasil disimpan."
-                    : "Gagal menyimpan perubahan sidebar."
-            );
+        saveButton.addEventListener("click", async () => {
+            if (isLoading || isSaving) return;
+
+            isSaving = true;
+            saveButton.disabled = true;
+            const originalLabel = saveButton.innerHTML;
+            saveButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...`;
+
+            try {
+                const data = await persistSidebarMenu();
+                menus = normalizeMenus(data);
+                render();
+                showToast("Perubahan sidebar berhasil disimpan.");
+            } catch (error) {
+                console.error(error);
+                showToast(error.message || "Gagal menyimpan perubahan sidebar.");
+            } finally {
+                isSaving = false;
+                saveButton.disabled = false;
+                saveButton.innerHTML = originalLabel;
+            }
         });
     }
 
@@ -382,6 +443,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.clearTimeout(toast.hideTimer);
         toast.hideTimer = window.setTimeout(() => {
             toast.classList.remove("show");
-        }, 2500);
+        }, 3000);
     }
 });
