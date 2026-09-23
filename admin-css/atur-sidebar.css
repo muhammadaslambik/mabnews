@@ -588,3 +588,25 @@
         justify-content: flex-end;
     }
 }
+
+/* =========================================================
+   DRAG & DROP DI PREVIEW SIDEBAR
+========================================================= */
+.preview-item[draggable="true"],
+.preview-submenu-item[draggable="true"] {
+    cursor: grab;
+    user-select: none;
+}
+
+.preview-item.dragging,
+.preview-submenu-item.dragging {
+    opacity: 0.4;
+    cursor: grabbing;
+}
+
+.preview-item.drag-over,
+.preview-submenu-item.drag-over {
+    outline: 2px dashed var(--as-accent, #2563eb);
+    outline-offset: -2px;
+    background: rgba(37, 99, 235, 0.12);
+}

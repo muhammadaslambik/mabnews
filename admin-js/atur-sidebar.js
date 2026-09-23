@@ -4,22 +4,16 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================================================
        KONFIGURASI API
        Ganti URL di bawah ini dengan alamat backend mabnews-backend
-       kamu yang sudah di-deploy (contoh: Vercel). Selama development
-       lokal bisa diarahkan ke http://localhost:3000/api.
+       kamu yang sudah di-deploy (contoh: Vercel).
     ========================================================= */
     const API_BASE_URL = "https://mabnews-backend.vercel.app/api";
     const SIDEBAR_MENU_ENDPOINT = `${API_BASE_URL}/sidebar-menu`;
 
     /* =========================================================
-       DATA DEFAULT (fallback) — dipakai kalau API belum bisa
-       diakses (server tidur/cold start, offline, dsb).
-
+       DATA DEFAULT (fallback)
        type: "main" -> tampil langsung di level utama sidebar
              "child" -> anak dari salah satu grup (lihat parentGroup)
        parentGroup: null | "artikel" | "pengaturan" | "lainnya"
-
-       order dibuat berurutan 1..24 mengikuti posisi tampil
-       sungguhan di sidebar dari atas ke bawah.
     ========================================================= */
     const DEFAULT_MENUS = [
         { id: "dashboard", label: "Dashboard", icon: "fa-house", type: "main", parentGroup: null, order: 1, active: true },
@@ -51,6 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "export-impor", label: "Export & Impor", icon: "fa-file-export", type: "child", parentGroup: "lainnya", order: 24, active: true }
     ];
 
+    const NESTED_MAIN_GROUPS = ["artikel", "pengaturan"];
+
     const tableBody = document.getElementById("menuTableBody");
     const previewMenu = document.getElementById("previewMenu");
     const totalMenuCount = document.getElementById("totalMenuCount");
@@ -60,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let menus = DEFAULT_MENUS.map((menu) => ({ ...menu }));
     let isLoading = true;
     let isSaving = false;
+    let draggedId = null;
 
     init();
 
@@ -100,9 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================================= */
     async function fetchSidebarMenu() {
         const response = await fetch(SIDEBAR_MENU_ENDPOINT, { method: "GET" });
-        if (!response.ok) {
-            throw new Error(`GET sidebar-menu gagal (status ${response.status})`);
-        }
+        if (!response.ok) throw new Error(`GET sidebar-menu gagal (status ${response.status})`);
         const json = await response.json();
         return json.data;
     }
@@ -136,6 +131,10 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================================= */
     function sortedMenus() {
         return [...menus].sort((a, b) => a.order - b.order);
+    }
+
+    function getLevelKey(menu) {
+        return menu.type === "main" ? "main" : `child:${menu.parentGroup}`;
     }
 
     function render() {
@@ -228,8 +227,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================================================
        PREVIEW SIDEBAR
-       Grup anak (Artikel, Pengaturan, Lainnya) dirender bersarang
-       tepat di bawah menu utama induknya.
+       - Grup anak (Artikel, Pengaturan, Lainnya) dirender bersarang
+         tepat di bawah menu utama induknya.
+       - Setiap item bisa di-drag untuk mengubah urutan. Drag hanya
+         berlaku SESAMA level yang sama (sesama menu utama, atau
+         sesama anak dalam grup yang sama) supaya strukturnya tetap
+         masuk akal.
     ========================================================= */
     function renderPreview() {
         previewMenu.innerHTML = "";
@@ -239,36 +242,37 @@ document.addEventListener("DOMContentLoaded", () => {
         const childrenByGroup = (groupKey) =>
             sorted.filter((menu) => menu.type === "child" && menu.parentGroup === groupKey);
 
-        const NESTED_MAIN_GROUPS = ["artikel", "pengaturan"];
-
         mains.forEach((menu) => {
             if (!menu.active) return;
 
             if (NESTED_MAIN_GROUPS.includes(menu.id)) {
-                appendGroupToggle(menu, menu.id, menu.id === "dashboard");
+                appendPreviewItem(menu, { hasArrow: true });
                 appendChildGroup(childrenByGroup(menu.id));
                 return;
             }
 
-            const item = document.createElement("div");
-            item.className = "preview-item" + (menu.id === "dashboard" ? " is-active" : "");
-            item.innerHTML = `<i class="fa-solid ${menu.icon}"></i><span>${menu.label}</span>`;
-            previewMenu.appendChild(item);
+            appendPreviewItem(menu, { isActive: menu.id === "dashboard" });
         });
 
-        appendGroupToggle({ label: "Lainnya", icon: "fa-ellipsis" }, "lainnya");
+        appendPreviewItem({ id: null, label: "Lainnya", icon: "fa-ellipsis" }, { hasArrow: true, draggable: false });
         appendChildGroup(childrenByGroup("lainnya"));
     }
 
-    function appendGroupToggle(menu, groupKey) {
+    function appendPreviewItem(menu, options) {
+        const opts = options || {};
         const item = document.createElement("div");
-        item.className = "preview-item has-arrow";
-        item.dataset.group = groupKey;
+        item.className = "preview-item" + (opts.isActive ? " is-active" : "") + (opts.hasArrow ? " has-arrow" : "");
+
         item.innerHTML = `
             <i class="fa-solid ${menu.icon}"></i>
             <span>${menu.label}</span>
-            <i class="fa-solid fa-chevron-up arrow"></i>
+            ${opts.hasArrow ? '<i class="fa-solid fa-chevron-up arrow"></i>' : ""}
         `;
+
+        if (menu.id && opts.draggable !== false) {
+            makeDraggable(item, menu.id);
+        }
+
         previewMenu.appendChild(item);
     }
 
@@ -284,11 +288,83 @@ document.addEventListener("DOMContentLoaded", () => {
                 const sub = document.createElement("div");
                 sub.className = "preview-submenu-item" + (menu.id === "atur-sidebar" ? " is-active" : "");
                 sub.innerHTML = `<span class="dot"></span><span>${menu.label}</span>`;
+                makeDraggable(sub, menu.id);
                 group.appendChild(sub);
             });
         }
 
         previewMenu.appendChild(group);
+    }
+
+    /* =========================================================
+       DRAG & DROP DI PREVIEW SIDEBAR
+    ========================================================= */
+    function makeDraggable(element, menuId) {
+        element.draggable = true;
+        element.dataset.id = menuId;
+
+        element.addEventListener("dragstart", (event) => {
+            draggedId = menuId;
+            element.classList.add("dragging");
+            event.dataTransfer.effectAllowed = "move";
+            event.dataTransfer.setData("text/plain", menuId);
+        });
+
+        element.addEventListener("dragend", () => {
+            draggedId = null;
+            element.classList.remove("dragging");
+            previewMenu.querySelectorAll(".drag-over").forEach((el) => el.classList.remove("drag-over"));
+        });
+
+        element.addEventListener("dragover", (event) => {
+            if (!draggedId || draggedId === menuId) return;
+            event.preventDefault();
+            event.dataTransfer.dropEffect = "move";
+            element.classList.add("drag-over");
+        });
+
+        element.addEventListener("dragleave", () => {
+            element.classList.remove("drag-over");
+        });
+
+        element.addEventListener("drop", (event) => {
+            event.preventDefault();
+            element.classList.remove("drag-over");
+
+            const sourceId = event.dataTransfer.getData("text/plain") || draggedId;
+            if (!sourceId || sourceId === menuId) return;
+
+            const rect = element.getBoundingClientRect();
+            const dropAfter = event.clientY - rect.top > rect.height / 2;
+
+            reorderByDrag(sourceId, menuId, dropAfter);
+        });
+    }
+
+    function reorderByDrag(sourceId, targetId, insertAfter) {
+        const draggedMenu = menus.find((item) => item.id === sourceId);
+        const targetMenu = menus.find((item) => item.id === targetId);
+        if (!draggedMenu || !targetMenu) return;
+
+        if (getLevelKey(draggedMenu) !== getLevelKey(targetMenu)) {
+            showToast("Menu cuma bisa dipindah di dalam grup yang sama.");
+            return;
+        }
+
+        const sorted = sortedMenus();
+        const withoutDragged = sorted.filter((item) => item.id !== sourceId);
+        const targetIndex = withoutDragged.findIndex((item) => item.id === targetId);
+        if (targetIndex === -1) return;
+
+        const insertIndex = insertAfter ? targetIndex + 1 : targetIndex;
+        withoutDragged.splice(insertIndex, 0, draggedMenu);
+
+        withoutDragged.forEach((item, index) => {
+            item.order = index + 1;
+        });
+
+        render();
+        showToast(`Urutan "${draggedMenu.label}" diperbarui. Jangan lupa klik "Simpan Perubahan".`);
     }
 
     /* =========================================================
@@ -361,8 +437,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================================================
        LOGIKA URUTAN (lokal, sebelum disimpan)
-       Urutan dibuat global (1..N) lintas semua grup, supaya
-       kolom Urutan di tabel tetap satu deret angka sederhana.
     ========================================================= */
     function swapMenu(id, direction) {
         const sorted = sortedMenus();
