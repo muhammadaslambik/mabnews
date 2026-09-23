@@ -1062,3 +1062,33 @@ footer {
     border-radius: 0;
   }
 }
+/* =========================================================
+   Tambahan: dropdown Kategori sekarang multi-select
+   (1 artikel bisa punya beberapa kategori).
+   ========================================================= */
+.multi-select-wrap {
+  height: auto;
+  align-items: flex-start;
+  padding: 8px 10px;
+}
+
+.multi-select-wrap select[multiple] {
+  min-height: 132px;
+  padding: 2px 0;
+}
+
+.multi-select-wrap select[multiple] option {
+  padding: 5px 6px;
+  border-radius: 3px;
+}
+
+.multi-select-wrap select[multiple] option:checked {
+  background: #e7f1ff;
+  color: #076dff;
+}
+
+label .hint {
+  font-weight: 400;
+  color: #6684ac;
+  font-size: 10px;
+}

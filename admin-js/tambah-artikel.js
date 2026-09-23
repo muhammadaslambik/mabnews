@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!categories.length) {
         throw new Error("Daftar kategori kosong dari server.");
       }
-      selectKategori.innerHTML = '<option value="">Pilih kategori</option>';
+      selectKategori.innerHTML = "";
       categories.forEach((kat) => {
         const option = document.createElement("option");
         option.value = kat.key;
@@ -430,7 +430,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function gatherFormData() {
-    const categoryOption = selectKategori.options[selectKategori.selectedIndex];
+    const selectedOptions = Array.from(selectKategori.selectedOptions).filter(o => o.value);
     return {
       title: titleInput.value.trim(),
       lead: leadInput.value.trim(),
@@ -438,7 +438,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       image_url: uploadedImageUrl,
       caption: captionInput.value.trim(),
       author: authorInput.value.trim() || "MAB-News",
-      category_key: selectKategori.value || null,
+      category_keys: selectedOptions.map(o => o.value),
       is_popular: featuredCheck.checked,
       tags: tags.slice(),
       keywords: keywordsInput.value.trim(),
@@ -448,7 +448,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // ---- info tambahan untuk pratinjau saja ----
       slugPreview: slugInput.value.trim() || slugify(titleInput.value),
-      categoryName: categoryOption && selectKategori.value ? categoryOption.textContent : "",
+      categoryNames: selectedOptions.map(o => o.textContent),
     };
   }
 
@@ -457,7 +457,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!data.title) errors.push("Judul Artikel");
     if (requireFull) {
       if (!data.author) errors.push("Penulis");
-      if (!data.category_key) errors.push("Kategori");
+      if (!data.category_keys.length) errors.push("Kategori");
       if (!data.lead) errors.push("Ringkasan (Lead)");
       if (!data.content.length) errors.push("Konten Artikel");
       if (!data.image_url) errors.push("Gambar Utama");
@@ -470,7 +470,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     titleCount.textContent = "0";
     slugInput.value = "";
     authorInput.value = "";
-    selectKategori.value = "";
     leadInput.value = "";
     leadCount.textContent = "0";
     contentEl.innerHTML = "";
@@ -479,6 +478,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     captionInput.value = "";
     tags = [];
     renderTags();
+    Array.from(selectKategori.options).forEach(o => { o.selected = false; });
     metaInput.value = "";
     metaCount.textContent = "0";
     keywordsInput.value = "";
@@ -505,7 +505,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         image_url: data.image_url,
         caption: data.caption,
         author: data.author,
-        category_key: data.category_key,
+        category_keys: data.category_keys,
         is_popular: data.is_popular,
         tags: data.tags,
         keywords: data.keywords || null,
@@ -607,8 +607,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const imageHtml = data.image_url
       ? `<img class="pv-image" src="${data.image_url}" alt="">`
       : "";
-    const categoryHtml = data.categoryName
-      ? `<span class="pv-category">${escapeHtml(data.categoryName)}</span>`
+    const categoryHtml = data.categoryNames && data.categoryNames.length
+      ? data.categoryNames.map(n => `<span class="pv-category">${escapeHtml(n)}</span>`).join(" ")
       : "";
     const titleHtml = data.title
       ? escapeHtml(data.title)
@@ -700,9 +700,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         uploadPreview.hidden = false;
       }
 
-      if (data.category && data.category.key) {
-        selectKategori.value = data.category.key;
-      }
+      const selectedKeys = Array.isArray(data.categories)
+        ? data.categories.map(c => c.key)
+        : (data.category && data.category.key ? [data.category.key] : []);
+      Array.from(selectKategori.options).forEach((o) => {
+        o.selected = selectedKeys.includes(o.value);
+      });
 
       const status = data.status || "published";
       if (status === "draft") {

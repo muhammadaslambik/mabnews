@@ -66,7 +66,7 @@
         title: a.title,
         excerpt: a.lead || "",
         image_url: a.image_url || "",
-        category: a.category?.name || "-",
+        categories: (a.categories && a.categories.length ? a.categories.map(c => c.name) : [a.category?.name].filter(Boolean)),
         author: a.author || "-",
         created: fmtDate(a.created_at),
         updated: fmtDate(a.updated_at),
@@ -100,7 +100,7 @@
             </div>
           </div>
         </td>
-        <td data-label="Kategori"><span class="badge ${catClass(item.category)}">${item.category}</span></td>
+        <td data-label="Kategori">${(item.categories.length ? item.categories : ['-']).map(c => `<span class="badge ${catClass(c)}">${c}</span>`).join(' ')}</td>
         <td data-label="Penulis"><span class="meta">♟ &nbsp;${item.author}</span></td>
         <td data-label="Tanggal Dibuat"><span class="meta">◷ &nbsp;${item.created.date}<small>${item.created.time}</small></span></td>
         <td data-label="Terakhir Diubah"><span class="meta">◷ &nbsp;${item.updated.date}<small>${item.updated.time}</small></span></td>
@@ -149,8 +149,8 @@
     const cat = $("#categoryFilter").value; // berisi "key" kategori
     const catName = cat ? (categories.find(c => c.key === cat)?.name || "") : "";
     filtered = rows.filter(item => {
-      const hay = `${item.title} ${item.category} ${item.author}`.toLowerCase();
-      return (!q || hay.includes(q)) && (!catName || item.category === catName);
+      const hay = `${item.title} ${item.categories.join(' ')} ${item.author}`.toLowerCase();
+      return (!q || hay.includes(q)) && (!catName || item.categories.includes(catName));
     });
     currentPage = 1;
     render();

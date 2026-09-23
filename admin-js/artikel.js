@@ -37,7 +37,7 @@
           <td><input class="row-check" type="checkbox"></td>
           <td>${(page - 1) * size + i + 1}</td>
           <td class="title-cell"><strong>${a.title}</strong><small>${a.lead || ''}</small></td>
-          <td>${a.category?.name || '-'}</td>
+          <td>${(a.categories && a.categories.length ? a.categories.map(c => c.name) : [a.category?.name].filter(Boolean)).join(', ') || '-'}</td>
           <td>${a.author || '-'}</td>
           <td>${new Date(a.published_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</td>
           <td>${a.is_popular ? '<span class="article-status published">Populer</span>' : '-'}</td>
