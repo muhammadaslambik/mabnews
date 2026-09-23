@@ -20,14 +20,17 @@ document.addEventListener("DOMContentLoaded", () => {
   if (searchInput) searchInput.value = query;
   if (categoryFilter) categoryFilter.value = selectedCategory;
 
+  // ---- Kategori: bisa lebih dari satu ----
   function renderCard(a) {
+    const categories = (a.categories && a.categories.length) ? a.categories : (a.category ? [a.category] : []);
+    const categoryText = categories.length ? categories.map(c => c.name).join(', ') : '-';
     return `
       <article class="news-item">
         <a href="artikel.html?id=${a.slug}" class="news-image">
           <img src="${a.image_url || ''}" alt="${a.title}">
         </a>
         <div class="news-content">
-          <span class="news-category">${a.category?.name || '-'}</span>
+          <span class="news-category">${categoryText}</span>
           <h3><a href="artikel.html?id=${a.slug}">${a.title}</a></h3>
           <p>${a.lead || ''}</p>
           <div class="news-meta">
@@ -57,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     emptyState.style.display = "none";
+
     try {
       const q = new URLSearchParams({ page: 1, limit: 10, q: query });
       if (selectedCategory !== "all") q.set("kategori", selectedCategory);

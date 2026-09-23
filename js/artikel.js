@@ -7,67 +7,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  function renderPopularItem(a, i) {
-    return `
-      <a href="artikel.html?id=${a.slug}" class="popular-item">
-        <span class="popular-number">${i + 1}</span>
-        <div class="popular-content">
-          <h3>${a.title}</h3>
-          <time>${new Date(a.published_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</time>
-        </div>
-        <img src="${a.image_url || ''}" alt="">
-      </a>`;
-  }
-
-  function renderRelatedItem(a) {
-    return `
-      <a href="artikel.html?id=${a.slug}" class="related-item">
-        <img src="${a.image_url || ''}" alt="">
-        <div>
-          <h3>${a.title}</h3>
-          <time>${new Date(a.published_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</time>
-        </div>
-      </a>`;
-  }
-
-  async function loadSidebar(currentSlug, categoryKey) {
-    const popularList = document.getElementById("sidebarPopularList");
-    const relatedList = document.getElementById("sidebarRelatedList");
-
-    try {
-      const popRes = await fetch(`${API_BASE_URL}/api/articles?popular=true&limit=6`);
-      const popData = (await popRes.json()).data || [];
-      const popular = popData.filter(a => a.slug !== currentSlug).slice(0, 5);
-      if (popularList) {
-        popularList.innerHTML = popular.length
-          ? popular.map(renderPopularItem).join('')
-          : `<p style="font-size:12px;color:#8992a2;">Belum ada artikel populer lain.</p>`;
-      }
-    } catch (err) {
-      console.error("Gagal memuat sidebar populer:", err);
-    }
-
-    try {
-      const relRes = await fetch(`${API_BASE_URL}/api/articles?kategori=${categoryKey || ''}&limit=5`);
-      const relData = (await relRes.json()).data || [];
-      const related = relData.filter(a => a.slug !== currentSlug).slice(0, 4);
-      if (relatedList) {
-        relatedList.innerHTML = related.length
-          ? related.map(renderRelatedItem).join('')
-          : `<p style="font-size:12px;color:#8992a2;">Belum ada artikel terkait.</p>`;
-      }
-    } catch (err) {
-      console.error("Gagal memuat sidebar terkait:", err);
-    }
-  }
-
   try {
     const res = await fetch(`${API_BASE_URL}/api/articles/${slug}`);
     if (!res.ok) throw new Error("Artikel tidak ditemukan.");
     const { data: a } = await res.json();
 
     document.title = `${a.title} — MAB-News`;
-    document.querySelector(".article-category").textContent = (a.category?.name || '').toUpperCase();
+
+    // ---- Kategori: bisa lebih dari satu ----
+    const categories = (a.categories && a.categories.length)
+      ? a.categories
+      : (a.category ? [a.category] : []);
+
+    const categoryEl = document.querySelector(".article-category");
+    if (categoryEl) {
+      categoryEl.innerHTML = categories.length
+        ? categories.map(c => `<a href="kategori.html?kategori=${c.key}">${(c.name || '').toUpperCase()}</a>`).join(' <span class="category-sep">•</span> ')
+        : '';
+    }
+
     document.querySelector(".article-title").textContent = a.title;
     document.querySelector(".article-lead").textContent = a.lead || '';
     document.querySelector(".author-name").childNodes[0].textContent = (a.author || 'MAB-News') + ' ';
@@ -84,20 +42,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     const bodyEl = document.querySelector(".article-body");
     const tagsEl = bodyEl.querySelector(".article-tags");
     const navEl = bodyEl.querySelector(".article-navigation");
-    bodyEl.querySelectorAll("p, blockquote").forEach(el => el.remove());
 
+    bodyEl.querySelectorAll("p, blockquote").forEach(el => el.remove());
     const paragraphsHtml = (a.content || []).map(p => `<p>${p}</p>`).join('');
     if (tagsEl) tagsEl.insertAdjacentHTML('beforebegin', paragraphsHtml);
     else bodyEl.insertAdjacentHTML('afterbegin', paragraphsHtml);
 
-    if (tagsEl) tagsEl.style.display = 'none';
-    if (navEl) navEl.style.display = 'none';
+    // ---- Tags: sudah didukung backend, tampilkan kalau ada ----
+    if (tagsEl) {
+      if (Array.isArray(a.tags) && a.tags.length) {
+        const tagsLabel = tagsEl.querySelector(".tags-label");
+        tagsEl.querySelectorAll("a").forEach(el => el.remove());
+        tagsEl.insertAdjacentHTML(
+          'beforeend',
+          a.tags.map(t => `<a href="search.html?q=${encodeURIComponent(t)}">${t}</a>`).join('')
+        );
+        tagsEl.style.display = '';
+      } else {
+        tagsEl.style.display = 'none';
+      }
+    }
+    if (navEl) navEl.style.display = 'none'; // prev/next belum didukung backend
 
+    // ---- Breadcrumb: pakai kategori utama (pertama) ----
     const breadcrumbCat = document.querySelector(".article-breadcrumb a[href='kategori.html']");
-    if (breadcrumbCat && a.category?.name) breadcrumbCat.textContent = a.category.name;
-
-    loadSidebar(a.slug, a.category?.key);
-
+    if (breadcrumbCat && categories.length) {
+      breadcrumbCat.textContent = categories[0].name;
+      breadcrumbCat.href = `kategori.html?kategori=${categories[0].key}`;
+    }
   } catch (error) {
     console.error("Gagal memuat artikel:", error);
     document.querySelector(".article-title").textContent = "Artikel tidak ditemukan.";

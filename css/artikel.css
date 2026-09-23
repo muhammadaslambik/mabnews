@@ -679,3 +679,21 @@
 @media (max-width: 800px) {
   .article-page.dark-preview .article-sidebar { border-top-color: #23262e; }
 }
+/* =========================================================
+   Tambahan: artikel bisa tampil dengan lebih dari 1 kategori
+   di halaman detail.
+   ========================================================= */
+.article-category a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.article-category a:hover {
+  text-decoration: underline;
+}
+
+.article-category .category-sep {
+  opacity: .5;
+  margin: 0 2px;
+  font-size: 0.85em;
+}

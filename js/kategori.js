@@ -26,14 +26,19 @@ document.addEventListener("DOMContentLoaded", () => {
     a.classList.toggle("active", a.getAttribute("href") === `kategori.html?kategori=${kategori}`);
   });
 
+  // ---- Kategori: bisa lebih dari satu ----
   function renderArticleCard(a) {
+    const categories = (a.categories && a.categories.length) ? a.categories : (a.category ? [a.category] : []);
+    const categoryLinksHtml = categories.length
+      ? categories.map(c => `<a href="kategori.html?kategori=${c.key}" class="news-category">${(c.name || '').toUpperCase()}</a>`).join(' ')
+      : '';
     return `
       <article class="category-news-item">
         <a href="artikel.html?id=${a.slug}" class="category-news-image">
           <img src="${a.image_url || ''}" alt="${a.title}">
         </a>
         <div class="category-news-content">
-          <a href="kategori.html?kategori=${kategori}" class="news-category">${(a.category?.name || '').toUpperCase()}</a>
+          ${categoryLinksHtml}
           <h2><a href="artikel.html?id=${a.slug}">${a.title}</a></h2>
           <p>${a.lead || ''}</p>
           <div class="news-meta">
@@ -64,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const query = new URLSearchParams({ page: currentPage, limit: 5, kategori });
       if (sortSelect && sortSelect.value === "popular") query.set("popular", "true");
+
       const res = await apiFetch(`/api/articles?${query.toString()}`);
       const items = res.data || [];
       const total = res.total || 0;
