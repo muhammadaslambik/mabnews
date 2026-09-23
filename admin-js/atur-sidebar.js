@@ -12,26 +12,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================================================
        DATA DEFAULT (fallback) — dipakai kalau API belum bisa
-       diakses (server tidur/cold start, offline, dsb), supaya
-       halaman tetap bisa dipakai dan tidak kosong.
-       type: "main"  -> tampil langsung di level utama sidebar
-       type: "child" -> tampil di dalam grup "Lainnya"
+       diakses (server tidur/cold start, offline, dsb).
+
+       type: "main" -> tampil langsung di level utama sidebar
+             "child" -> anak dari salah satu grup (lihat parentGroup)
+       parentGroup: null | "lainnya" | "pengaturan"
     ========================================================= */
     const DEFAULT_MENUS = [
-        { id: "dashboard", label: "Dashboard", icon: "fa-house", type: "main", order: 1, active: true },
-        { id: "artikel", label: "Artikel", icon: "fa-file-lines", type: "main", order: 2, active: true },
-        { id: "kategori", label: "Kategori", icon: "fa-folder", type: "main", order: 3, active: true },
-        { id: "media", label: "Media", icon: "fa-image", type: "main", order: 4, active: true },
-        { id: "pengguna", label: "Pengguna", icon: "fa-users", type: "main", order: 5, active: true },
-        { id: "pengaturan", label: "Pengaturan", icon: "fa-gear", type: "main", order: 6, active: true },
-        { id: "laman", label: "Laman", icon: "fa-file-lines", type: "child", order: 7, active: true },
-        { id: "statistik", label: "Statistik", icon: "fa-chart-column", type: "child", order: 8, active: true },
-        { id: "iklan", label: "Iklan", icon: "fa-bullhorn", type: "child", order: 9, active: true },
-        { id: "perangkat", label: "Perangkat", icon: "fa-display", type: "child", order: 10, active: true },
-        { id: "domain-hosting", label: "Domain & Hosting", icon: "fa-globe", type: "child", order: 11, active: true },
-        { id: "backend-api", label: "BackEnd & API", icon: "fa-code", type: "child", order: 12, active: true },
-        { id: "atur-sidebar", label: "Atur Sidebar", icon: "fa-table-cells", type: "child", order: 13, active: true },
-        { id: "export-impor", label: "Export & Impor", icon: "fa-file-export", type: "child", order: 14, active: true }
+        { id: "dashboard", label: "Dashboard", icon: "fa-house", type: "main", parentGroup: null, order: 1, active: true },
+        { id: "artikel", label: "Artikel", icon: "fa-file-lines", type: "main", parentGroup: null, order: 2, active: true },
+        { id: "kategori", label: "Kategori", icon: "fa-folder", type: "main", parentGroup: null, order: 3, active: true },
+        { id: "media", label: "Media", icon: "fa-image", type: "main", parentGroup: null, order: 4, active: true },
+        { id: "pengguna", label: "Pengguna", icon: "fa-users", type: "main", parentGroup: null, order: 5, active: true },
+        { id: "pengaturan", label: "Pengaturan", icon: "fa-gear", type: "main", parentGroup: null, order: 6, active: true },
+
+        { id: "laman", label: "Laman", icon: "fa-file-lines", type: "child", parentGroup: "lainnya", order: 7, active: true },
+        { id: "statistik", label: "Statistik", icon: "fa-chart-column", type: "child", parentGroup: "lainnya", order: 8, active: true },
+        { id: "iklan", label: "Iklan", icon: "fa-bullhorn", type: "child", parentGroup: "lainnya", order: 9, active: true },
+        { id: "perangkat", label: "Perangkat", icon: "fa-display", type: "child", parentGroup: "lainnya", order: 10, active: true },
+        { id: "domain-hosting", label: "Domain & Hosting", icon: "fa-globe", type: "child", parentGroup: "lainnya", order: 11, active: true },
+        { id: "backend-api", label: "BackEnd & API", icon: "fa-code", type: "child", parentGroup: "lainnya", order: 12, active: true },
+        { id: "atur-sidebar", label: "Atur Sidebar", icon: "fa-table-cells", type: "child", parentGroup: "lainnya", order: 13, active: true },
+        { id: "export-impor", label: "Export & Impor", icon: "fa-file-export", type: "child", parentGroup: "lainnya", order: 14, active: true },
+
+        { id: "umum", label: "Umum", icon: "fa-sliders", type: "child", parentGroup: "pengaturan", order: 15, active: true },
+        { id: "website", label: "Website", icon: "fa-globe", type: "child", parentGroup: "pengaturan", order: 16, active: true },
+        { id: "tampilan", label: "Tampilan", icon: "fa-palette", type: "child", parentGroup: "pengaturan", order: 17, active: true },
+        { id: "seo", label: "SEO", icon: "fa-magnifying-glass", type: "child", parentGroup: "pengaturan", order: 18, active: true },
+        { id: "email", label: "Email", icon: "fa-envelope", type: "child", parentGroup: "pengaturan", order: 19, active: true },
+        { id: "backup", label: "Backup", icon: "fa-database", type: "child", parentGroup: "pengaturan", order: 20, active: true },
+        { id: "keamanan", label: "Keamanan", icon: "fa-shield-halved", type: "child", parentGroup: "pengaturan", order: 21, active: true }
     ];
 
     const tableBody = document.getElementById("menuTableBody");
@@ -65,8 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================================================
        NORMALISASI DATA DARI API
-       Kolom "order" & "active" dari Postgres bisa berupa string/
-       angka/boolean tergantung driver, jadi dirapikan dulu di sini.
     ========================================================= */
     function normalizeMenus(rows) {
         return rows.map((row) => ({
@@ -74,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
             label: row.label,
             icon: row.icon,
             type: row.type === "child" ? "child" : "main",
+            parentGroup: row.parentGroup || null,
             order: Number(row.order),
             active: row.active === true || row.active === "true" || row.active === 1
         }));
@@ -210,31 +219,52 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    /* =========================================================
+       PREVIEW SIDEBAR
+       Grup anak (Lainnya & Pengaturan) dirender bersarang tepat
+       di bawah menu utama induknya.
+    ========================================================= */
     function renderPreview() {
         previewMenu.innerHTML = "";
 
         const sorted = sortedMenus();
         const mains = sorted.filter((menu) => menu.type === "main");
-        const children = sorted.filter((menu) => menu.type === "child");
-        const activeChildren = children.filter((menu) => menu.active);
+        const childrenByGroup = (groupKey) =>
+            sorted.filter((menu) => menu.type === "child" && menu.parentGroup === groupKey);
 
         mains.forEach((menu) => {
             if (!menu.active) return;
+
+            if (menu.id === "pengaturan") {
+                appendGroupToggle(menu, "pengaturan");
+                appendChildGroup(childrenByGroup("pengaturan"));
+                return;
+            }
+
             const item = document.createElement("div");
             item.className = "preview-item" + (menu.id === "dashboard" ? " is-active" : "");
             item.innerHTML = `<i class="fa-solid ${menu.icon}"></i><span>${menu.label}</span>`;
             previewMenu.appendChild(item);
         });
 
-        const lainnyaItem = document.createElement("div");
-        lainnyaItem.className = "preview-item has-arrow";
-        lainnyaItem.innerHTML = `
-            <i class="fa-solid fa-ellipsis"></i>
-            <span>Lainnya</span>
+        appendGroupToggle({ label: "Lainnya", icon: "fa-ellipsis" }, "lainnya");
+        appendChildGroup(childrenByGroup("lainnya"));
+    }
+
+    function appendGroupToggle(menu, groupKey) {
+        const item = document.createElement("div");
+        item.className = "preview-item has-arrow";
+        item.dataset.group = groupKey;
+        item.innerHTML = `
+            <i class="fa-solid ${menu.icon}"></i>
+            <span>${menu.label}</span>
             <i class="fa-solid fa-chevron-up arrow"></i>
         `;
-        previewMenu.appendChild(lainnyaItem);
+        previewMenu.appendChild(item);
+    }
 
+    function appendChildGroup(children) {
+        const activeChildren = children.filter((menu) => menu.active);
         const group = document.createElement("div");
         group.className = "preview-submenu-group";
 
@@ -322,6 +352,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================================================
        LOGIKA URUTAN (lokal, sebelum disimpan)
+       Urutan dibuat global (1..N) lintas semua grup, supaya
+       kolom Urutan di tabel tetap satu deret angka sederhana.
     ========================================================= */
     function swapMenu(id, direction) {
         const sorted = sortedMenus();
