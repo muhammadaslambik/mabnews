@@ -16,32 +16,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
        type: "main" -> tampil langsung di level utama sidebar
              "child" -> anak dari salah satu grup (lihat parentGroup)
-       parentGroup: null | "lainnya" | "pengaturan"
+       parentGroup: null | "artikel" | "pengaturan" | "lainnya"
+
+       order dibuat berurutan 1..24 mengikuti posisi tampil
+       sungguhan di sidebar dari atas ke bawah.
     ========================================================= */
     const DEFAULT_MENUS = [
         { id: "dashboard", label: "Dashboard", icon: "fa-house", type: "main", parentGroup: null, order: 1, active: true },
         { id: "artikel", label: "Artikel", icon: "fa-file-lines", type: "main", parentGroup: null, order: 2, active: true },
-        { id: "kategori", label: "Kategori", icon: "fa-folder", type: "main", parentGroup: null, order: 3, active: true },
-        { id: "media", label: "Media", icon: "fa-image", type: "main", parentGroup: null, order: 4, active: true },
-        { id: "pengguna", label: "Pengguna", icon: "fa-users", type: "main", parentGroup: null, order: 5, active: true },
-        { id: "pengaturan", label: "Pengaturan", icon: "fa-gear", type: "main", parentGroup: null, order: 6, active: true },
+        { id: "semua-artikel", label: "Semua Artikel", icon: "fa-list", type: "child", parentGroup: "artikel", order: 3, active: true },
+        { id: "tambah-artikel", label: "Tambah Artikel", icon: "fa-plus", type: "child", parentGroup: "artikel", order: 4, active: true },
+        { id: "draft", label: "Draft", icon: "fa-file-pen", type: "child", parentGroup: "artikel", order: 5, active: true },
 
-        { id: "laman", label: "Laman", icon: "fa-file-lines", type: "child", parentGroup: "lainnya", order: 7, active: true },
-        { id: "statistik", label: "Statistik", icon: "fa-chart-column", type: "child", parentGroup: "lainnya", order: 8, active: true },
-        { id: "iklan", label: "Iklan", icon: "fa-bullhorn", type: "child", parentGroup: "lainnya", order: 9, active: true },
-        { id: "perangkat", label: "Perangkat", icon: "fa-display", type: "child", parentGroup: "lainnya", order: 10, active: true },
-        { id: "domain-hosting", label: "Domain & Hosting", icon: "fa-globe", type: "child", parentGroup: "lainnya", order: 11, active: true },
-        { id: "backend-api", label: "BackEnd & API", icon: "fa-code", type: "child", parentGroup: "lainnya", order: 12, active: true },
-        { id: "atur-sidebar", label: "Atur Sidebar", icon: "fa-table-cells", type: "child", parentGroup: "lainnya", order: 13, active: true },
-        { id: "export-impor", label: "Export & Impor", icon: "fa-file-export", type: "child", parentGroup: "lainnya", order: 14, active: true },
+        { id: "kategori", label: "Kategori", icon: "fa-folder", type: "main", parentGroup: null, order: 6, active: true },
+        { id: "media", label: "Media", icon: "fa-image", type: "main", parentGroup: null, order: 7, active: true },
+        { id: "pengguna", label: "Pengguna", icon: "fa-users", type: "main", parentGroup: null, order: 8, active: true },
+        { id: "pengaturan", label: "Pengaturan", icon: "fa-gear", type: "main", parentGroup: null, order: 9, active: true },
 
-        { id: "umum", label: "Umum", icon: "fa-sliders", type: "child", parentGroup: "pengaturan", order: 15, active: true },
-        { id: "website", label: "Website", icon: "fa-globe", type: "child", parentGroup: "pengaturan", order: 16, active: true },
-        { id: "tampilan", label: "Tampilan", icon: "fa-palette", type: "child", parentGroup: "pengaturan", order: 17, active: true },
-        { id: "seo", label: "SEO", icon: "fa-magnifying-glass", type: "child", parentGroup: "pengaturan", order: 18, active: true },
-        { id: "email", label: "Email", icon: "fa-envelope", type: "child", parentGroup: "pengaturan", order: 19, active: true },
-        { id: "backup", label: "Backup", icon: "fa-database", type: "child", parentGroup: "pengaturan", order: 20, active: true },
-        { id: "keamanan", label: "Keamanan", icon: "fa-shield-halved", type: "child", parentGroup: "pengaturan", order: 21, active: true }
+        { id: "umum", label: "Umum", icon: "fa-sliders", type: "child", parentGroup: "pengaturan", order: 10, active: true },
+        { id: "website", label: "Website", icon: "fa-globe", type: "child", parentGroup: "pengaturan", order: 11, active: true },
+        { id: "tampilan", label: "Tampilan", icon: "fa-palette", type: "child", parentGroup: "pengaturan", order: 12, active: true },
+        { id: "seo", label: "SEO", icon: "fa-magnifying-glass", type: "child", parentGroup: "pengaturan", order: 13, active: true },
+        { id: "email", label: "Email", icon: "fa-envelope", type: "child", parentGroup: "pengaturan", order: 14, active: true },
+        { id: "backup", label: "Backup", icon: "fa-database", type: "child", parentGroup: "pengaturan", order: 15, active: true },
+        { id: "keamanan", label: "Keamanan", icon: "fa-shield-halved", type: "child", parentGroup: "pengaturan", order: 16, active: true },
+
+        { id: "laman", label: "Laman", icon: "fa-file-lines", type: "child", parentGroup: "lainnya", order: 17, active: true },
+        { id: "statistik", label: "Statistik", icon: "fa-chart-column", type: "child", parentGroup: "lainnya", order: 18, active: true },
+        { id: "iklan", label: "Iklan", icon: "fa-bullhorn", type: "child", parentGroup: "lainnya", order: 19, active: true },
+        { id: "perangkat", label: "Perangkat", icon: "fa-display", type: "child", parentGroup: "lainnya", order: 20, active: true },
+        { id: "domain-hosting", label: "Domain & Hosting", icon: "fa-globe", type: "child", parentGroup: "lainnya", order: 21, active: true },
+        { id: "backend-api", label: "BackEnd & API", icon: "fa-code", type: "child", parentGroup: "lainnya", order: 22, active: true },
+        { id: "atur-sidebar", label: "Atur Sidebar", icon: "fa-table-cells", type: "child", parentGroup: "lainnya", order: 23, active: true },
+        { id: "export-impor", label: "Export & Impor", icon: "fa-file-export", type: "child", parentGroup: "lainnya", order: 24, active: true }
     ];
 
     const tableBody = document.getElementById("menuTableBody");
@@ -221,8 +228,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================================================
        PREVIEW SIDEBAR
-       Grup anak (Lainnya & Pengaturan) dirender bersarang tepat
-       di bawah menu utama induknya.
+       Grup anak (Artikel, Pengaturan, Lainnya) dirender bersarang
+       tepat di bawah menu utama induknya.
     ========================================================= */
     function renderPreview() {
         previewMenu.innerHTML = "";
@@ -232,12 +239,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const childrenByGroup = (groupKey) =>
             sorted.filter((menu) => menu.type === "child" && menu.parentGroup === groupKey);
 
+        const NESTED_MAIN_GROUPS = ["artikel", "pengaturan"];
+
         mains.forEach((menu) => {
             if (!menu.active) return;
 
-            if (menu.id === "pengaturan") {
-                appendGroupToggle(menu, "pengaturan");
-                appendChildGroup(childrenByGroup("pengaturan"));
+            if (NESTED_MAIN_GROUPS.includes(menu.id)) {
+                appendGroupToggle(menu, menu.id, menu.id === "dashboard");
+                appendChildGroup(childrenByGroup(menu.id));
                 return;
             }
 
