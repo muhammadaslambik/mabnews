@@ -74,6 +74,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ---- Sidebar: Terpopuler & Terkait (dari database, bukan lagi contoh statis) ----
     loadPopularSidebar(a.slug);
     loadRelatedSidebar(a.slug, categories);
+
+    // ---- Kolom Komentar ----
+    initComments(a.slug);
   } catch (error) {
     console.error("Gagal memuat artikel:", error);
     document.querySelector(".article-title").textContent = "Artikel tidak ditemukan.";
@@ -149,5 +152,95 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (err) {
       console.error("Gagal memuat sidebar Terkait:", err);
     }
+  }
+
+  function escapeHtml(str) {
+    return (str || "").replace(/[&<>"']/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
+  function formatDateTime(iso) {
+    const d = new Date(iso);
+    return `${formatDate(iso)} \u00a0•\u00a0 ${d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB`;
+  }
+
+  async function renderComments(slug) {
+    const listEl = document.getElementById("commentList");
+    const countEl = document.getElementById("commentCount");
+    if (!listEl) return;
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/articles/${slug}/comments`);
+      if (!res.ok) throw new Error("Gagal memuat komentar.");
+      const { data, total, allow_comments } = await res.json();
+
+      if (countEl) countEl.textContent = total || 0;
+      listEl.innerHTML = (data && data.length)
+        ? data.map(c => `
+          <div class="comment-item">
+            <div class="comment-avatar">${escapeHtml((c.name || '?').charAt(0).toUpperCase())}</div>
+            <div class="comment-body">
+              <div class="comment-head">
+                <strong>${escapeHtml(c.name)}</strong>
+                <time>${formatDateTime(c.created_at)}</time>
+              </div>
+              <p>${escapeHtml(c.content)}</p>
+            </div>
+          </div>`).join('')
+        : '<p class="comment-empty">Belum ada komentar. Jadilah yang pertama berkomentar.</p>';
+
+      return allow_comments !== false;
+    } catch (err) {
+      console.error("Gagal memuat komentar:", err);
+      listEl.innerHTML = '<p class="comment-empty">Gagal memuat komentar.</p>';
+      return true;
+    }
+  }
+
+  async function initComments(slug) {
+    const form = document.getElementById("commentForm");
+    const disabledNote = document.getElementById("commentsDisabledNote");
+    const allowComments = await renderComments(slug);
+
+    if (!form) return;
+
+    if (!allowComments) {
+      form.hidden = true;
+      if (disabledNote) disabledNote.hidden = false;
+      return;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById("commentName");
+      const contentInput = document.getElementById("commentContent");
+      const name = nameInput.value.trim();
+      const content = contentInput.value.trim();
+      if (!name || !content) return;
+
+      const submitBtn = form.querySelector("button[type=submit]");
+      submitBtn.disabled = true;
+      const originalLabel = submitBtn.textContent;
+      submitBtn.textContent = "Mengirim...";
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/articles/${slug}/comments`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, content })
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.error || "Gagal mengirim komentar.");
+        }
+        form.reset();
+        await renderComments(slug);
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
+    });
   }
 });

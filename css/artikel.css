@@ -697,3 +697,142 @@
   margin: 0 2px;
   font-size: 0.85em;
 }
+/* =========================================================
+   Kolom Komentar
+   ========================================================= */
+.article-comments {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e9ef;
+}
+
+.comments-title {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  border: 1px solid #d7dde5;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.comment-form textarea {
+  min-height: 90px;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+  outline: none;
+  border-color: #076dff;
+}
+
+.comment-form button {
+  align-self: flex-start;
+  background: #076dff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.comment-form button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.comments-disabled-note {
+  color: #8a94a3;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 12px;
+}
+
+.comment-avatar {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #076dff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.comment-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.comment-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.comment-head strong {
+  font-size: 14px;
+}
+
+.comment-head time {
+  color: #8a94a3;
+  font-size: 12px;
+}
+
+.comment-body p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.comment-empty {
+  color: #8a94a3;
+  font-size: 14px;
+}
+
+/* Dark mode (kalau situs Anda punya toggle mode gelap) */
+:root.dark .article-comments {
+  border-top-color: #2a2f3a;
+}
+:root.dark .comment-form input,
+:root.dark .comment-form textarea {
+  background: #1b1f27;
+  border-color: #2a2f3a;
+  color: #fff;
+}
+:root.dark .comment-body p {
+  color: #d7dde5;
+}
