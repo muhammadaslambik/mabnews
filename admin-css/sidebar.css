@@ -308,6 +308,12 @@ a {
     padding: 14px 10px 12px;
     overflow-y: auto;
     scrollbar-width: thin;
+    /* Cegah browser ikut "membetulkan" posisi scroll sendiri
+       (scroll anchoring) saat tinggi submenu berubah — ini yang
+       bikin sidebar terasa "lompat" saat sebuah grup dibuka/tutup
+       atau saat kontennya diganti. */
+    overflow-anchor: none;
+    scroll-behavior: auto;
 }
 
 .sidebar-nav::-webkit-scrollbar {
@@ -335,6 +341,7 @@ a {
     font-weight: 500;
     cursor: pointer;
     transition: background 0.2s ease, color 0.2s ease;
+    overflow-anchor: none;
 }
 
 .nav-item > i:first-child {
@@ -373,6 +380,7 @@ a {
 
 .nav-group {
     margin-bottom: 2px;
+    overflow-anchor: none;
 }
 
 .nav-group:not(.open) .nav-submenu {
@@ -385,7 +393,7 @@ a {
     padding: 1px 0 5px 0;
 }
 
-/* Setiap item anak sekarang punya ikon sendiri (bukan titik) */
+/* Setiap item anak punya ikon sendiri (bukan titik) */
 .nav-submenu a {
     min-height: 33px;
     padding: 0 8px 0 18px;

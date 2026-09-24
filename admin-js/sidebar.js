@@ -4,14 +4,13 @@
 
    Yang ditangani di sini:
    1. Buka/tutup sidebar (mobile)
-   2. Dropdown submenu (Artikel, Pengaturan, Lainnya, dst)
+   2. Dropdown submenu (Artikel, Pengaturan, Lainnya, dst) —
+      status buka/tutup & posisi scroll dipertahankan supaya
+      tidak "lompat" saat data dari server datang.
    3. Dark mode
    4. Dropdown notifikasi & akun
    5. Sidebar kiri dibangun otomatis dari data sidebar_menu di
-      backend — supaya pengaturan yang disimpan lewat halaman
-      Atur Sidebar benar-benar mengubah sidebar asli di SEMUA
-      halaman CMS, bukan cuma preview. Semua item (termasuk anak
-      menu di dalam grup) ditampilkan dengan ikonnya sendiri.
+      backend, berlaku di SEMUA halaman CMS.
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
     "use strict";
@@ -92,6 +91,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
     if (currentPage === "") currentPage = "index.html";
 
+    /* Menyimpan grup mana saja yang sudah dibuka manual oleh
+       pengguna, supaya tidak ke-reset saat sidebar dibangun ulang
+       (misalnya sesudah data dari server datang). */
+    const manualOpenGroups = new Set();
+
     /* ---------------------------------------------------------
        SIDEBAR DINAMIS — dibangun dari data sidebar_menu
     --------------------------------------------------------- */
@@ -148,7 +152,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         html += renderGroup("lainnya", "Lainnya", "fa-ellipsis", childrenOf("lainnya"));
 
+        /* Simpan & kembalikan posisi scroll supaya tidak lompat
+           ke atas saat konten diganti. */
+        const previousScrollTop = sidebarNav.scrollTop;
         sidebarNav.innerHTML = html;
+        sidebarNav.scrollTop = previousScrollTop;
+
         bindNavInteractivity();
     }
 
@@ -163,9 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 
-    /* Setiap anak menu SELALU dirender dengan ikonnya sendiri
-       (bukan titik kecil) — baik sedang aktif/sedang dibuka
-       maupun tidak. */
     function renderGroup(groupKey, label, icon, children) {
         const childrenHtml = children
             .map((child) => {
@@ -181,11 +187,12 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("");
 
         const hasActiveChild = children.some((child) => (HREF_MAP[child.id] || "").toLowerCase() === currentPage);
-        const openClass = hasActiveChild ? " open" : "";
-        const arrowIcon = hasActiveChild ? "fa-chevron-up" : "fa-chevron-right";
+        const isOpen = hasActiveChild || manualOpenGroups.has(groupKey);
+        const openClass = isOpen ? " open" : "";
+        const arrowIcon = isOpen ? "fa-chevron-up" : "fa-chevron-right";
 
         return `
-            <div class="nav-group${openClass}">
+            <div class="nav-group${openClass}" data-group="${groupKey}">
                 <button type="button" class="nav-item nav-dropdown-toggle">
                     <span class="nav-item-main">
                         <i class="fa-solid ${icon}"></i>
@@ -210,15 +217,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         sidebarNav.querySelectorAll(".nav-dropdown-toggle").forEach((button) => {
-            button.addEventListener("click", () => {
+            button.addEventListener("click", (event) => {
+                /* Klik grup dropdown TIDAK boleh memicu browser
+                   menggeser/scroll ke mana pun. */
+                event.preventDefault();
+
                 const group = button.closest(".nav-group");
                 if (!group) return;
+
                 group.classList.toggle("open");
+                const isOpen = group.classList.contains("open");
+                const key = group.dataset.group;
+                if (key) {
+                    if (isOpen) {
+                        manualOpenGroups.add(key);
+                    } else {
+                        manualOpenGroups.delete(key);
+                    }
+                }
+
                 const arrow = button.querySelector(".nav-arrow");
                 if (arrow) {
                     arrow.classList.toggle("fa-chevron-right");
                     arrow.classList.toggle("fa-chevron-up");
                 }
+
+                /* Hilangkan fokus supaya browser tidak berusaha
+                   men-scroll tombol ini ke posisi tertentu. */
+                button.blur();
             });
         });
     }
