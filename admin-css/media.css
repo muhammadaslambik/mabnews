@@ -655,23 +655,24 @@
 /* ---------------------------------------------------------
    Kursor: semua tombol & elemen yang bisa diklik pakai
    kursor tangan (jari telunjuk), bukan panah biasa.
+   Ditulis lebar (mencakup seluruh tombol/select/checkbox/label
+   di dalam panel & modal Media) supaya tidak ada yang terlewat.
    --------------------------------------------------------- */
-.media-btn-outline,
-.media-btn-primary,
-.media-select,
-.media-select-all,
-.media-select-all input,
-.media-sort-label select,
-.media-bulkbar button,
-.media-view-toggle button,
-.media-check,
-.media-name,
-.media-more-btn,
-.media-menu button:not(:disabled),
-.media-pager button:not(:disabled),
-.media-dropzone,
-.media-modal-actions button {
+.media-card-panel button,
+.media-card-panel select,
+.media-card-panel label,
+.media-card-panel input[type="checkbox"],
+.media-heading-actions button,
+.media-modal button,
+.media-modal input[type="checkbox"],
+.media-modal label,
+.media-play-btn,
+.media-dropzone {
   cursor: pointer;
+}
+
+.media-card-panel input[type="search"] {
+  cursor: text;
 }
 
 .media-menu button:disabled,
