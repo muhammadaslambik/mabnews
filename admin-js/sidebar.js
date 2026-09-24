@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         draft: "draft.html",
         kategori: "kategori.html",
         media: "media.html",
-        pengguna: "users.html",
+        pengguna: "pengguna.html",
         umum: "umum.html",
         website: "website.html",
         tampilan: "tampilan.html",
