@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         draft: "draft.html",
         kategori: "kategori.html",
         media: "media.html",
-        pengguna: "pengguna.html",
+        pengguna: "users.html",
         umum: "umum.html",
         website: "website.html",
         tampilan: "tampilan.html",
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "domain-hosting": "domain-hosting.html",
         "backend-api": "backend-api.html",
         "atur-sidebar": "atur-sidebar.html",
-        "export-import": "export-import.html"
+        "export-impor": "export-import.html"
     };
 
     /* Menu utama yang punya anak (dirender sebagai grup dropdown) */
@@ -95,6 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
        pengguna, supaya tidak ke-reset saat sidebar dibangun ulang
        (misalnya sesudah data dari server datang). */
     const manualOpenGroups = new Set();
+
+    /* Supaya menu yang sedang aktif tidak ketutup/di luar layar
+       saat halaman pertama kali dibuka, sidebar akan discroll
+       otomatis ke posisi menu itu SEKALI SAJA di render pertama.
+       Setelah itu, render berikutnya tidak akan menggeser scroll
+       lagi (supaya tidak terasa "lompat" saat berinteraksi). */
+    let hasScrolledToActive = false;
 
     /* ---------------------------------------------------------
        SIDEBAR DINAMIS — dibangun dari data sidebar_menu
@@ -157,6 +164,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const previousScrollTop = sidebarNav.scrollTop;
         sidebarNav.innerHTML = html;
         sidebarNav.scrollTop = previousScrollTop;
+
+        if (!hasScrolledToActive) {
+            const activeEl = sidebarNav.querySelector(".nav-item.active, .active-sub-item");
+            if (activeEl) {
+                activeEl.scrollIntoView({ block: "nearest" });
+            }
+            hasScrolledToActive = true;
+        }
 
         bindNavInteractivity();
     }
