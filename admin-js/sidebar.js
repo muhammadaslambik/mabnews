@@ -6,11 +6,12 @@
    1. Buka/tutup sidebar (mobile)
    2. Dropdown submenu (Artikel, Pengaturan, Lainnya, dst)
    3. Dark mode
-   4. Dropdown notifikasi & akun (baru)
+   4. Dropdown notifikasi & akun
    5. Sidebar kiri dibangun otomatis dari data sidebar_menu di
-      backend (baru) — supaya pengaturan yang disimpan lewat
-      halaman Atur Sidebar benar-benar mengubah sidebar asli di
-      SEMUA halaman CMS, bukan cuma preview.
+      backend — supaya pengaturan yang disimpan lewat halaman
+      Atur Sidebar benar-benar mengubah sidebar asli di SEMUA
+      halaman CMS, bukan cuma preview. Semua item (termasuk anak
+      menu di dalam grup) ditampilkan dengan ikonnya sendiri.
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
     "use strict";
@@ -93,8 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ---------------------------------------------------------
        SIDEBAR DINAMIS — dibangun dari data sidebar_menu
-       Render default dulu (supaya tidak kosong sesaat), lalu
-       timpa dengan data asli dari server begitu selesai diambil.
     --------------------------------------------------------- */
     if (sidebarNav) {
         buildSidebarNav(DEFAULT_MENUS);
@@ -164,15 +163,20 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 
+    /* Setiap anak menu SELALU dirender dengan ikonnya sendiri
+       (bukan titik kecil) — baik sedang aktif/sedang dibuka
+       maupun tidak. */
     function renderGroup(groupKey, label, icon, children) {
         const childrenHtml = children
             .map((child) => {
                 const href = HREF_MAP[child.id] || "#";
                 const isActive = href.toLowerCase() === currentPage;
-                if (isActive) {
-                    return `<a href="${href}" class="active-sub-item"><i class="fa-solid ${child.icon}"></i>${child.label}</a>`;
-                }
-                return `<a href="${href}"><span class="submenu-dot"></span>${child.label}</a>`;
+                return `
+                    <a href="${href}"${isActive ? ' class="active-sub-item"' : ""}>
+                        <i class="fa-solid ${child.icon}"></i>
+                        <span>${child.label}</span>
+                    </a>
+                `;
             })
             .join("");
 
@@ -256,9 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ---------------------------------------------------------
-       Dropdown notifikasi (baru)
-       Isinya masih statis/contoh — nanti bisa disambungkan ke
-       endpoint notifikasi sungguhan kalau backend-nya sudah ada.
+       Dropdown notifikasi
     --------------------------------------------------------- */
     if (notificationBtn) {
         const panel = document.createElement("div");
@@ -288,10 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ---------------------------------------------------------
-       Dropdown akun (baru)
-       Link "Profil Saya" / "Pengaturan Akun" / "Keluar" masih
-       placeholder (href="#") — sambungkan ke halaman sungguhan
-       begitu modul login/profil dibuat.
+       Dropdown akun
     --------------------------------------------------------- */
     if (headerUser) {
         const panel = document.createElement("div");
