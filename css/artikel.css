@@ -697,8 +697,9 @@
   margin: 0 2px;
   font-size: 0.85em;
 }
+
 /* =========================================================
-   Kolom Komentar
+   Kolom Komentar.
    ========================================================= */
 .article-comments {
   margin-top: 32px;
@@ -823,16 +824,50 @@
   font-size: 14px;
 }
 
-/* Dark mode (kalau situs Anda punya toggle mode gelap) */
-:root.dark .article-comments {
+/* Dark mode — portal ini pakai body.dark-preview (toggle matahari/bulan
+   di header, lihat js/main.js), bukan atribut/kelas lain. */
+body.dark-preview .article-comments {
   border-top-color: #2a2f3a;
 }
-:root.dark .comment-form input,
-:root.dark .comment-form textarea {
+
+body.dark-preview .comments-title {
+  color: #f5f6f8;
+}
+
+body.dark-preview .comment-form input,
+body.dark-preview .comment-form textarea {
   background: #1b1f27;
   border-color: #2a2f3a;
-  color: #fff;
+  color: #f5f6f8;
 }
-:root.dark .comment-body p {
+
+body.dark-preview .comment-form input::placeholder,
+body.dark-preview .comment-form textarea::placeholder {
+  color: #6b7280;
+}
+
+body.dark-preview .comment-form input:focus,
+body.dark-preview .comment-form textarea:focus {
+  border-color: #3b8bff;
+}
+
+body.dark-preview .comments-disabled-note,
+body.dark-preview .comment-empty {
+  color: #9aa4b2;
+}
+
+body.dark-preview .comment-head strong {
+  color: #f5f6f8;
+}
+
+body.dark-preview .comment-head time {
+  color: #8a94a3;
+}
+
+body.dark-preview .comment-body p {
   color: #d7dde5;
+}
+
+body.dark-preview .comment-avatar {
+  background: #3b8bff;
 }
