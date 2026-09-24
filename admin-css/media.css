@@ -652,6 +652,33 @@
   transform: none;
 }
 
+/* ---------------------------------------------------------
+   Kursor: semua tombol & elemen yang bisa diklik pakai
+   kursor tangan (jari telunjuk), bukan panah biasa.
+   --------------------------------------------------------- */
+.media-btn-outline,
+.media-btn-primary,
+.media-select,
+.media-select-all,
+.media-select-all input,
+.media-sort-label select,
+.media-bulkbar button,
+.media-view-toggle button,
+.media-check,
+.media-name,
+.media-more-btn,
+.media-menu button:not(:disabled),
+.media-pager button:not(:disabled),
+.media-dropzone,
+.media-modal-actions button {
+  cursor: pointer;
+}
+
+.media-menu button:disabled,
+.media-pager button:disabled {
+  cursor: not-allowed;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 760px) {
   .media-filter-row { flex-direction: column; align-items: stretch; }
