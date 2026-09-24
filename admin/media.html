@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="stylesheet" href="../admin-css/sidebar.css">
+<link rel="stylesheet" href="../admin-css/media.css">
 </head>
 <body>
 <header class="cms-header">
@@ -129,14 +130,84 @@
 </div>
 <div>
 <h1>Media</h1>
-<p>Kelola pustaka media (gambar, video) website.</p>
+<p>Kelola semua file media (gambar, video, dokumen).</p>
+</div>
+<div class="media-heading-actions">
+<button type="button" class="media-btn-outline" id="btnCreateFolder"><i class="fa-regular fa-folder"></i><span>Buat Folder</span></button>
+<button type="button" class="media-btn-primary" id="btnUploadMedia"><i class="fa-solid fa-cloud-arrow-up"></i><span>Upload Media</span></button>
 </div>
 </section>
-<div class="admin-placeholder-body">
-<p>Modul CMS ini akan dikembangkan pada tahap berikutnya.</p>
+
+<div class="media-card-panel">
+<div class="media-filter-row">
+<select class="media-select" id="mediaSourceFilter">
+<option value="all">Semua Media</option>
+<option value="artikel">Dari Artikel</option>
+<option value="upload">Upload Saya</option>
+</select>
+<select class="media-select" id="mediaTypeFilter">
+<option value="all">Semua Tipe</option>
+<option value="image">Gambar</option>
+<option value="video">Video</option>
+<option value="document">Dokumen</option>
+</select>
+<label class="media-search-wrap">
+<input type="search" id="mediaSearch" placeholder="Cari media...">
+<i class="fa-solid fa-magnifying-glass"></i>
+</label>
+</div>
+
+<div class="media-toolbar-row">
+<label class="media-select-all">
+<input type="checkbox" id="mediaSelectAll">
+<span>Pilih semua</span>
+</label>
+<label class="media-sort-label">
+<span>Urutkan:</span>
+<select id="mediaSort">
+<option value="new">Terbaru</option>
+<option value="old">Terlama</option>
+<option value="name">Nama (A-Z)</option>
+</select>
+</label>
+<div class="media-bulkbar" id="mediaBulkbar" hidden>
+<span><b id="mediaSelCount">0</b> dipilih</span>
+<button type="button" class="media-bulk-delete" id="mediaBulkDelete">Hapus</button>
+<button type="button" id="mediaClearSelection">Batal</button>
+</div>
+<div class="media-view-toggle">
+<button type="button" id="mediaViewGrid" class="active" aria-label="Tampilan grid"><i class="fa-solid fa-table-cells-large"></i></button>
+<button type="button" id="mediaViewList" aria-label="Tampilan list"><i class="fa-solid fa-list"></i></button>
+</div>
+</div>
+
+<div class="media-grid" id="mediaGrid"></div>
+
+<div class="media-bottom">
+<span id="mediaInfo">Menampilkan 0 - 0 dari 0 media</span>
+<div class="media-pager" id="mediaPager"></div>
+</div>
 </div>
 </main>
 </div>
+<div class="media-modal-overlay" id="mediaModalOverlay">
+<div class="media-modal">
+<h2>Upload Media</h2>
+<p>File akan diupload langsung ke ImageKit (folder <code>/mabnews/media</code>) memakai akun ImageKit yang sama dengan artikel.</p>
+<div class="media-dropzone" id="mediaDropzone">
+<i class="fa-solid fa-cloud-arrow-up"></i>
+<div>Klik atau seret file ke sini</div>
+</div>
+<input type="file" id="mediaFileInput" multiple hidden>
+<div class="media-upload-list" id="mediaUploadList"></div>
+<div class="media-modal-actions">
+<button type="button" class="media-modal-close" id="mediaModalClose">Tutup</button>
+</div>
+</div>
+</div>
+<div class="media-toast" id="mediaToast"></div>
 <script src="../admin-js/sidebar.js"></script>
+<script src="../js/api.js"></script>
+<script src="../admin-js/media.js"></script>
 </body>
 </html>
