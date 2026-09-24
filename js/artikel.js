@@ -70,11 +70,84 @@ document.addEventListener("DOMContentLoaded", async () => {
       breadcrumbCat.textContent = categories[0].name;
       breadcrumbCat.href = `kategori.html?kategori=${categories[0].key}`;
     }
+
+    // ---- Sidebar: Terpopuler & Terkait (dari database, bukan lagi contoh statis) ----
+    loadPopularSidebar(a.slug);
+    loadRelatedSidebar(a.slug, categories);
   } catch (error) {
     console.error("Gagal memuat artikel:", error);
     document.querySelector(".article-title").textContent = "Artikel tidak ditemukan.";
     document.querySelector(".article-lead").textContent = "Artikel yang Anda cari mungkin sudah dihapus atau tautannya salah.";
     document.querySelector(".article-hero")?.remove();
     document.querySelector(".article-body")?.remove();
+  }
+
+  function formatDate(iso) {
+    return new Date(iso).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  async function loadPopularSidebar(currentSlug) {
+    const list = document.querySelector(".popular-list");
+    if (!list) return;
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/articles?popular=true&limit=6`);
+      if (!res.ok) throw new Error("Gagal memuat artikel populer.");
+      const { data } = await res.json();
+      const items = (data || []).filter(x => x.slug !== currentSlug).slice(0, 5);
+
+      list.innerHTML = items.length ? items.map((item, i) => `
+        <a href="artikel.html?id=${item.slug}" class="popular-item">
+          <div class="popular-number">${i + 1}</div>
+          <div class="popular-content">
+            <h3>${item.title}</h3>
+            <time>${formatDate(item.published_at)}</time>
+          </div>
+          <img src="${item.image_url || ''}" alt="">
+        </a>`).join('') : '';
+
+      if (!items.length) {
+        list.closest(".sidebar-section")?.remove();
+      }
+    } catch (err) {
+      console.error("Gagal memuat sidebar Terpopuler:", err);
+    }
+  }
+
+  async function loadRelatedSidebar(currentSlug, categories) {
+    const list = document.querySelector(".related-list");
+    if (!list) return;
+    try {
+      let items = [];
+      if (categories.length) {
+        const res = await fetch(`${API_BASE_URL}/api/articles?kategori=${categories[0].key}&limit=6`);
+        if (!res.ok) throw new Error("Gagal memuat artikel terkait.");
+        const { data } = await res.json();
+        items = (data || []).filter(x => x.slug !== currentSlug).slice(0, 4);
+      }
+      // Kalau kategori itu tidak punya artikel lain, tampilkan artikel terbaru sebagai cadangan
+      if (!items.length) {
+        const res = await fetch(`${API_BASE_URL}/api/articles?limit=6`);
+        if (res.ok) {
+          const { data } = await res.json();
+          items = (data || []).filter(x => x.slug !== currentSlug).slice(0, 4);
+        }
+      }
+
+      if (!items.length) {
+        list.closest(".sidebar-section")?.remove();
+        return;
+      }
+
+      list.innerHTML = items.map(item => `
+        <a href="artikel.html?id=${item.slug}" class="related-item">
+          <img src="${item.image_url || ''}" alt="">
+          <div>
+            <h3>${item.title}</h3>
+            <time>${formatDate(item.published_at)}</time>
+          </div>
+        </a>`).join('');
+    } catch (err) {
+      console.error("Gagal memuat sidebar Terkait:", err);
+    }
   }
 });
