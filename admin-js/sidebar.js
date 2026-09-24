@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "domain-hosting": "domain-hosting.html",
         "backend-api": "backend-api.html",
         "atur-sidebar": "atur-sidebar.html",
-        "export-impor": "export-import.html"
+        "export-import": "export-import.html"
     };
 
     /* Menu utama yang punya anak (dirender sebagai grup dropdown) */
