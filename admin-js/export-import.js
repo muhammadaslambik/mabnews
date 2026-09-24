@@ -1930,7 +1930,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             cell.textContent =
-                "Belum ada riwayat Export & Impor.";
+                "Belum ada riwayat Export & Import.";
 
 
             row.appendChild(
