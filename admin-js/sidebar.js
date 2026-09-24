@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "domain-hosting": "domain-hosting.html",
         "backend-api": "backend-api.html",
         "atur-sidebar": "atur-sidebar.html",
-        "export-impor": "export-import.html"
+        "export-import": "export-import.html"
     };
 
     /* Menu utama yang punya anak (dirender sebagai grup dropdown) */
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "domain-hosting", label: "Domain & Hosting", icon: "fa-globe", type: "child", parentGroup: "lainnya", order: 21, active: true },
         { id: "backend-api", label: "BackEnd & API", icon: "fa-code", type: "child", parentGroup: "lainnya", order: 22, active: true },
         { id: "atur-sidebar", label: "Atur Sidebar", icon: "fa-table-cells", type: "child", parentGroup: "lainnya", order: 23, active: true },
-        { id: "export-impor", label: "Export & Impor", icon: "fa-file-export", type: "child", parentGroup: "lainnya", order: 24, active: true }
+        { id: "export-impor", label: "Export & Import", icon: "fa-file-export", type: "child", parentGroup: "lainnya", order: 24, active: true }
     ];
 
     let currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
