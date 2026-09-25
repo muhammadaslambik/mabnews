@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Umum - MAB-News CMS</title>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- CSS bersama CMS -->
+    <link rel="stylesheet" href="../admin-css/sidebar.css">
+
+    <!-- CSS khusus halaman Umum -->
+    <link rel="stylesheet" href="../admin-css/umum.css">
+</head>
+
+<body>
+    <!-- =========================================================
+         HEADER CMS
+         Dikelola oleh sidebar.css + sidebar.js
+         ========================================================= -->
+    <header class="cms-header">
+        <div class="header-left">
+            <button
+                type="button"
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Buka menu"
+                title="Menu"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <a href="index.html" class="cms-logo" aria-label="MAB-News CMS">
+                <span class="logo-blue">MAB-</span><span>News CMS</span>
+            </a>
+        </div>
+
+        <div class="header-right">
+            <button
+                type="button"
+                class="header-icon-btn"
+                id="themeToggle"
+                aria-label="Ubah tema"
+                title="Mode gelap/terang"
+            >
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <button
+                type="button"
+                class="header-icon-btn notification-btn"
+                aria-label="Notifikasi"
+                title="Notifikasi"
+            >
+                <i class="fa-regular fa-bell"></i>
+                <span class="notification-count">1</span>
+            </button>
+
+            <button
+                type="button"
+                class="header-user"
+                id="headerUser"
+                aria-label="Menu akun"
+                title="Akun"
+            >
+                <span class="header-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </span>
+                <span class="header-user-name">Admin</span>
+                <i class="fa-solid fa-chevron-down header-user-arrow"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         LAYOUT CMS
+         ========================================================= -->
+    <div class="cms-layout">
+
+        <!-- Sidebar dibangun otomatis oleh sidebar.js -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav"></nav>
+
+            <div class="sidebar-profile">
+                <div class="sidebar-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div class="sidebar-profile-info">
+                    <strong>Muhammad Aslambik</strong>
+                    <span>Administrator</span>
+                </div>
+
+                <i class="fa-solid fa-chevron-right sidebar-profile-arrow"></i>
+            </div>
+        </aside>
+
+        <!-- =====================================================
+             KONTEN HALAMAN UMUM
+             ===================================================== -->
+        <main class="main-content">
+            <form id="generalSettingsForm" autocomplete="off">
+
+                <!-- =================================================
+                     INFORMASI SITUS
+                     ================================================= -->
+                <section class="settings-card">
+                    <div class="settings-card-intro">
+                        <h2>Informasi Situs</h2>
+                        <p>Atur informasi dasar website MAB-News.</p>
+                    </div>
+
+                    <div class="settings-fields">
+                        <div class="field-row">
+                            <label for="siteName">Nama Situs</label>
+                            <input
+                                type="text"
+                                id="siteName"
+                                name="siteName"
+                                value="MAB-News"
+                            >
+                        </div>
+
+                        <div class="field-row">
+                            <label for="siteDescription">Deskripsi Situs</label>
+                            <textarea
+                                id="siteDescription"
+                                name="siteDescription"
+                                rows="2"
+                            >Portal berita terkini dan terpercaya dari berbagai sumber.</textarea>
+                        </div>
+
+                        <div class="field-row">
+                            <label for="siteUrl">URL Situs</label>
+                            <input
+                                type="url"
+                                id="siteUrl"
+                                name="siteUrl"
+                                value="https://mab-news.id"
+                            >
+                        </div>
+
+                        <div class="field-row">
+                            <label for="defaultLanguage">Bahasa Default</label>
+                            <select id="defaultLanguage" name="defaultLanguage">
+                                <option value="id" selected>Bahasa Indonesia</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =================================================
+                     PENGATURAN ADMINISTRATOR
+                     ================================================= -->
+                <section class="settings-card">
+                    <div class="settings-card-intro">
+                        <h2>Pengaturan Administrator</h2>
+                        <p>Atur informasi akun administrator utama.</p>
+                    </div>
+
+                    <div class="settings-fields">
+                        <div class="field-row">
+                            <label for="adminName">Nama Administrator</label>
+                            <input
+                                type="text"
+                                id="adminName"
+                                name="adminName"
+                                value="Muhammad Aslambik"
+                            >
+                        </div>
+
+                        <div class="field-row">
+                            <label for="adminEmail">Email Administrator</label>
+                            <input
+                                type="email"
+                                id="adminEmail"
+                                name="adminEmail"
+                                value="aslambik@gmail.com"
+                            >
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =================================================
+                     ZONA WAKTU
+                     ================================================= -->
+                <section class="settings-card settings-card-compact">
+                    <div class="settings-card-intro">
+                        <h2>Zona Waktu</h2>
+                        <p>Atur zona waktu yang digunakan sistem.</p>
+                    </div>
+
+                    <div class="settings-fields">
+                        <div class="field-row">
+                            <label for="timezone">Zona Waktu</label>
+                            <select id="timezone" name="timezone">
+                                <option value="Asia/Jakarta" selected>Asia/Jakarta (GMT+07:00)</option>
+                                <option value="Asia/Makassar">Asia/Makassar (GMT+08:00)</option>
+                                <option value="Asia/Jayapura">Asia/Jayapura (GMT+09:00)</option>
+                                <option value="UTC">UTC (GMT+00:00)</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =================================================
+                     PENGATURAN TANGGAL & WAKTU
+                     ================================================= -->
+                <section class="settings-card settings-card-date">
+                    <div class="settings-card-intro">
+                        <h2>Pengaturan Tanggal &amp; Waktu</h2>
+                        <p>Atur format tanggal dan waktu pada sistem.</p>
+                    </div>
+
+                    <div class="settings-fields date-time-fields">
+                        <div class="field-row">
+                            <label for="dateFormat">Format Tanggal</label>
+                            <select id="dateFormat" name="dateFormat">
+                                <option value="dd-mmmm-yyyy" selected>DD MMMM YYYY (27 Mei 2025)</option>
+                                <option value="dd-mm-yyyy">DD-MM-YYYY (27-05-2025)</option>
+                                <option value="yyyy-mm-dd">YYYY-MM-DD (2025-05-27)</option>
+                            </select>
+                        </div>
+
+                        <div class="field-row">
+                            <label for="timeFormat">Format Waktu</label>
+                            <select id="timeFormat" name="timeFormat">
+                                <option value="24h" selected>24 Jam (14:30)</option>
+                                <option value="12h">12 Jam (02:30 PM)</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =================================================
+                     PENGATURAN LAINNYA
+                     ================================================= -->
+                <section class="settings-card settings-card-other">
+                    <div class="settings-card-intro">
+                        <h2>Pengaturan Lainnya</h2>
+                        <p>Beberapa pengaturan tambahan sistem.</p>
+                    </div>
+
+                    <div class="settings-fields">
+                        <div class="toggle-row">
+                            <div class="toggle-copy">
+                                <strong>Aktifkan Mode Pemeliharaan</strong>
+                                <span>Website akan menampilkan halaman pemeliharaan.</span>
+                            </div>
+
+                            <label class="switch" aria-label="Aktifkan Mode Pemeliharaan">
+                                <input
+                                    type="checkbox"
+                                    id="maintenanceMode"
+                                    name="maintenanceMode"
+                                >
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-row">
+                            <div class="toggle-copy">
+                                <strong>Aktifkan Komentar</strong>
+                                <span>Izinkan pengguna untuk berkomentar pada artikel.</span>
+                            </div>
+
+                            <label class="switch" aria-label="Aktifkan Komentar">
+                                <input
+                                    type="checkbox"
+                                    id="commentsEnabled"
+                                    name="commentsEnabled"
+                                    checked
+                                >
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-row">
+                            <div class="toggle-copy">
+                                <strong>Aktifkan Log Aktivitas</strong>
+                                <span>Simpan log aktivitas admin di sistem.</span>
+                            </div>
+
+                            <label class="switch" aria-label="Aktifkan Log Aktivitas">
+                                <input
+                                    type="checkbox"
+                                    id="activityLog"
+                                    name="activityLog"
+                                    checked
+                                >
+                                <span class="switch-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+            </form>
+
+            <footer class="page-footer">
+                © 2025 MAB-News CMS. Semua hak dilindungi.
+            </footer>
+        </main>
+    </div>
+
+    <!-- Toast disiapkan oleh umum.js -->
+    <div class="settings-toast" id="settingsToast" role="status" aria-live="polite"></div>
+
+    <!-- JS bersama CMS -->
+    <script src="../admin-js/sidebar.js"></script>
+
+    <!-- JS khusus halaman Umum -->
+    <script src="../admin-js/umum.js"></script>
+</body>
+</html>
