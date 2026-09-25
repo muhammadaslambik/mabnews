@@ -96,6 +96,19 @@
     $("profilStatus").textContent = user.status || "-";
     $("profilJoined").textContent = formatDateTime(user.created_at);
     $("profilLastActive").textContent = formatDateTime(user.last_active_at);
+
+    // Header (kanan atas) & sidebar-profile (kiri bawah) di halaman ini
+    // sebelumnya teks statis ("Admin" / "Muhammad Aslambik") — disinkronkan
+    // ke data akun yang sama supaya semua tampilan profil di halaman ini
+    // benar-benar mengikuti database, bukan placeholder.
+    const headerName = document.querySelector(".header-user-name");
+    if (headerName) headerName.textContent = user.name || user.username;
+
+    const sidebarName = document.querySelector(".sidebar-profile-info strong");
+    if (sidebarName) sidebarName.textContent = user.name || user.username;
+
+    const sidebarRole = document.querySelector(".sidebar-profile-info span");
+    if (sidebarRole) sidebarRole.textContent = user.role || "-";
   }
 
   function fillForm(user) {
@@ -196,6 +209,7 @@
     try {
       const res = await apiSend(`/api/users/${currentUser.id}`, "PUT", { password: p1 });
       currentUser = res.data;
+      renderSummary(currentUser);
       $("profilPassword1").value = "";
       $("profilPassword2").value = "";
       toast("Password berhasil diubah");
