@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "domain-hosting", label: "Domain & Hosting", icon: "fa-globe", type: "child", parentGroup: "lainnya", order: 21, active: true },
         { id: "backend-api", label: "BackEnd & API", icon: "fa-code", type: "child", parentGroup: "lainnya", order: 22, active: true },
         { id: "atur-sidebar", label: "Atur Sidebar", icon: "fa-table-cells", type: "child", parentGroup: "lainnya", order: 23, active: true },
-        { id: "export-import", label: "Export & Import", icon: "fa-file-export", type: "child", parentGroup: "lainnya", order: 24, active: true }
+        { id: "export-impor", label: "Export & Import", icon: "fa-file-export", type: "child", parentGroup: "lainnya", order: 24, active: true }
     ];
 
     const NESTED_MAIN_GROUPS = ["artikel", "pengaturan"];
