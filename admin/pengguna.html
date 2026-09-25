@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <link rel="stylesheet" href="../admin-css/sidebar.css">
+<link rel="stylesheet" href="../admin-css/pengguna.css">
 </head>
 <body>
 <header class="cms-header">
@@ -104,7 +105,7 @@
 <a href="domain-hosting.html"><span class="submenu-dot"></span>Domain &amp; Hosting</a>
 <a href="backend-api.html"><span class="submenu-dot"></span>BackEnd &amp; API</a>
 <a href="atur-sidebar.html">Atur Sidebar</a>
-<a href="export-import.html">Export &amp; Import</a>
+<a href="export-import.html">Export &amp; Impor</a>
 </div>
 </div>
 </nav>
@@ -129,14 +130,121 @@
 </div>
 <div>
 <h1>Pengguna</h1>
-<p>Kelola akun dan hak akses pengguna CMS.</p>
+<p>Kelola semua akun pengguna yang dapat mengakses CMS.</p>
+</div>
+<div class="pengguna-heading-actions">
+<button type="button" class="pengguna-btn-primary" id="btnAddUser"><i class="fa-solid fa-user-plus"></i><span>Tambah Pengguna</span></button>
 </div>
 </section>
-<div class="admin-placeholder-body">
-<p>Modul CMS ini akan dikembangkan pada tahap berikutnya.</p>
+
+<div class="pengguna-card-panel">
+<div class="pengguna-filter-row">
+<select class="pengguna-select" id="userRoleFilter">
+<option value="all">Semua Peran</option>
+<option value="Administrator">Administrator</option>
+<option value="Editor">Editor</option>
+<option value="Penulis">Penulis</option>
+<option value="Kontributor">Kontributor</option>
+</select>
+<select class="pengguna-select" id="userStatusFilter">
+<option value="all">Status: Semua</option>
+<option value="Aktif">Status: Aktif</option>
+<option value="Tidak Aktif">Status: Tidak Aktif</option>
+</select>
+<label class="pengguna-search-wrap">
+<input type="search" id="userSearch" placeholder="Cari pengguna...">
+<i class="fa-solid fa-magnifying-glass"></i>
+</label>
 </div>
+
+<div class="pengguna-toolbar-row">
+<span id="userInfo">Memuat data pengguna...</span>
+<div class="pengguna-pager" id="userPager"></div>
+</div>
+
+<div class="pengguna-table-wrap">
+<table class="pengguna-table">
+<thead>
+<tr>
+<th class="pengguna-col-num">#</th>
+<th>Pengguna</th>
+<th>Email</th>
+<th>Peran</th>
+<th>Status</th>
+<th>Terakhir Aktif <i class="fa-solid fa-arrow-down-short-wide"></i></th>
+<th>Aksi</th>
+</tr>
+</thead>
+<tbody id="userTbody">
+<tr class="pengguna-loading-row"><td colspan="7">Memuat data pengguna dari server...</td></tr>
+</tbody>
+</table>
+<div class="pengguna-empty" id="userEmpty" hidden>
+<i class="fa-regular fa-user"></i>
+<strong>Tidak ada pengguna ditemukan</strong>
+<div>Ubah kata pencarian atau filter, atau tambah pengguna baru.</div>
+</div>
+</div>
+</div>
+
+<footer class="cms-footer">© 2025 MAB-News CMS. Semua hak dilindungi.</footer>
+
+<div class="pengguna-modal-overlay" id="userModalOverlay">
+<div class="pengguna-modal">
+<h2 id="userModalTitle">Tambah Pengguna</h2>
+<p>Data disimpan langsung ke database MAB-News (Neon) lewat backend.</p>
+<p class="pengguna-form-error" id="userFormError" hidden></p>
+<form id="userForm">
+<input type="hidden" id="userId">
+<div class="pengguna-form-row">
+<label for="userName">Nama Lengkap</label>
+<input type="text" id="userName" required>
+</div>
+<div class="pengguna-form-row two-col">
+<div>
+<label for="userUsername">Username</label>
+<input type="text" id="userUsername" required>
+</div>
+<div>
+<label for="userEmail">Email</label>
+<input type="email" id="userEmail" required>
+</div>
+</div>
+<div class="pengguna-form-row two-col">
+<div>
+<label for="userRole">Peran</label>
+<select id="userRole">
+<option>Administrator</option>
+<option>Editor</option>
+<option selected>Penulis</option>
+<option>Kontributor</option>
+</select>
+</div>
+<div>
+<label for="userStatus">Status</label>
+<select id="userStatus">
+<option selected>Aktif</option>
+<option>Tidak Aktif</option>
+</select>
+</div>
+</div>
+<div class="pengguna-form-row">
+<label for="userPassword" id="userPasswordLabel">Password</label>
+<input type="password" id="userPassword" placeholder="Minimal 6 karakter">
+<span class="pengguna-form-hint" id="userPasswordHint" hidden>Kosongkan jika tidak ingin mengubah password.</span>
+</div>
+<div class="pengguna-modal-actions">
+<button type="button" class="pengguna-modal-close" id="userModalClose">Batal</button>
+<button type="submit" class="pengguna-btn-primary" id="userModalSubmit">Simpan</button>
+</div>
+</form>
+</div>
+</div>
+<div class="pengguna-toast" id="userToast"></div>
 </main>
 </div>
 <script src="../admin-js/sidebar.js"></script>
+<script src="../js/api.js"></script>
+<script src="../admin-js/pengguna.js"></script>
 </body>
 </html>

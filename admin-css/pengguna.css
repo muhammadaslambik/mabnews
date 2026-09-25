@@ -1,0 +1,500 @@
+/* =========================================================
+   MAB-News CMS — admin-css/pengguna.css
+   Khusus konten halaman Pengguna (tabel akun & hak akses).
+   Header & sidebar TIDAK diatur di sini — itu tetap dari
+   admin-css/sidebar.css (dipakai bersama semua halaman admin).
+   Semua class di sini diberi prefix "pengguna-" supaya tidak
+   bentrok dengan halaman admin lain.
+   ========================================================= */
+
+.page-heading {
+  flex-wrap: wrap;
+}
+
+.pengguna-heading-actions {
+  margin-left: auto;
+}
+
+.pengguna-btn-primary {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  border: 1px solid var(--blue-dark);
+  color: #fff;
+  box-shadow: 0 5px 14px rgba(23, 105, 255, 0.25);
+}
+
+.pengguna-btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+/* ---- Panel utama ---- */
+.pengguna-card-panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+/* ---- Baris filter: dropdown + pencarian ---- */
+.pengguna-filter-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.pengguna-select {
+  height: 40px;
+  padding: 0 34px 0 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--white) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236d7fa5' stroke-width='2'><path d='m6 9 6 6 6-6'/></svg>") no-repeat right 10px center;
+  background-size: 15px;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.pengguna-search-wrap {
+  margin-left: auto;
+  position: relative;
+  width: min(280px, 100%);
+}
+
+.pengguna-search-wrap i {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.pengguna-search-wrap input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0 34px 0 14px;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--white);
+  cursor: text;
+}
+
+.pengguna-search-wrap input:focus,
+.pengguna-select:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+
+/* ---- Baris info + pagination (di atas tabel) ---- */
+.pengguna-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pengguna-toolbar-row > span {
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+
+.pengguna-pager {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pengguna-pager button {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--white);
+  color: var(--text-2);
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.pengguna-pager button.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  font-weight: 700;
+}
+
+.pengguna-pager button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* ---- Tabel ---- */
+.pengguna-table-wrap {
+  overflow-x: auto;
+}
+
+.pengguna-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.pengguna-table thead th {
+  text-align: left;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  color: var(--muted);
+  font-weight: 700;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.pengguna-table thead th i {
+  margin-left: 4px;
+  font-size: 10px;
+}
+
+.pengguna-table tbody td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text);
+  vertical-align: middle;
+}
+
+.pengguna-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.pengguna-table tbody tr:hover {
+  background: var(--page-bg);
+}
+
+.pengguna-col-num {
+  width: 34px;
+  color: var(--muted);
+}
+
+/* ---- Kolom Pengguna: avatar + nama + peran kecil ---- */
+.pengguna-user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pengguna-avatar {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.pengguna-user-text strong {
+  display: block;
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.pengguna-user-text span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+/* ---- Badge peran ---- */
+.pengguna-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pengguna-badge-administrator { background: var(--blue-light); color: var(--blue-dark); }
+.pengguna-badge-editor { background: #f1ebff; color: #6a3fe0; }
+.pengguna-badge-penulis { background: var(--green-light); color: var(--green-dark); }
+.pengguna-badge-kontributor { background: #fff3df; color: #b9760a; }
+
+/* ---- Status ---- */
+.pengguna-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pengguna-status::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.pengguna-status-aktif { color: var(--green-dark); }
+.pengguna-status-tidak-aktif { color: #e0364b; }
+
+.pengguna-meta-time {
+  font-size: 12.5px;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+/* ---- Aksi ---- */
+.pengguna-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pengguna-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  font-size: 12.5px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  cursor: pointer;
+}
+
+.pengguna-action-edit {
+  color: var(--blue);
+  border-color: #c9dcff;
+}
+
+.pengguna-action-edit:hover {
+  background: var(--blue-light);
+}
+
+.pengguna-action-delete {
+  color: #e0364b;
+  border-color: #ffd3d9;
+}
+
+.pengguna-action-delete:hover {
+  background: #fff1f2;
+}
+
+/* ---- Empty state ---- */
+.pengguna-empty {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--muted);
+}
+
+.pengguna-empty i {
+  font-size: 28px;
+  margin-bottom: 10px;
+  display: block;
+  color: var(--border);
+}
+
+/* ---- Loading state (baris skeleton sederhana) ---- */
+.pengguna-loading-row td {
+  color: var(--muted);
+  text-align: center;
+  padding: 30px 10px;
+}
+
+/* ---- Modal tambah/edit pengguna ---- */
+.pengguna-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 15, 33, 0.55);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.pengguna-modal-overlay.show {
+  display: flex;
+}
+
+.pengguna-modal {
+  width: min(460px, 100%);
+  max-height: 92vh;
+  overflow: auto;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 24px 60px rgba(6, 15, 33, 0.3);
+}
+
+.pengguna-modal h2 {
+  font-size: 17px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.pengguna-modal > p {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.pengguna-form-row {
+  margin-bottom: 14px;
+}
+
+.pengguna-form-row.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pengguna-form-row label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-bottom: 6px;
+}
+
+.pengguna-form-row input,
+.pengguna-form-row select {
+  width: 100%;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 0 12px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: inherit;
+  cursor: text;
+}
+
+.pengguna-form-row select {
+  cursor: pointer;
+  background: var(--white) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236d7fa5' stroke-width='2'><path d='m6 9 6 6 6-6'/></svg>") no-repeat right 10px center;
+  background-size: 15px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.pengguna-form-row input:focus,
+.pengguna-form-row select:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+
+.pengguna-form-hint {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.pengguna-form-error {
+  background: #fff1f2;
+  color: #e0364b;
+  border: 1px solid #ffd3d9;
+  border-radius: 7px;
+  padding: 9px 11px;
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+
+.pengguna-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.pengguna-modal-actions button {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pengguna-modal-close {
+  background: var(--page-bg);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+}
+
+.pengguna-modal-close:hover {
+  background: var(--border);
+}
+
+/* ---- Toast ---- */
+.pengguna-toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  background: #101a30;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  z-index: 3000;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: .2s ease;
+  pointer-events: none;
+}
+
+.pengguna-toast.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Footer (dipakai di semua halaman admin, distyle di sini
+   karena halaman ini hanya memuat sidebar.css + pengguna.css) ---- */
+.cms-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 22px 0 3px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 760px) {
+  .pengguna-filter-row { flex-direction: column; align-items: stretch; }
+  .pengguna-search-wrap { margin-left: 0; width: 100%; }
+  .pengguna-toolbar-row { flex-direction: column; align-items: flex-start; }
+  .pengguna-heading-actions { width: 100%; }
+  .pengguna-btn-primary { width: 100%; justify-content: center; }
+  .pengguna-form-row.two-col { grid-template-columns: 1fr; }
+}
