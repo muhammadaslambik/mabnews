@@ -450,6 +450,11 @@ a {
     gap: 10px;
     background: rgba(0, 0, 0, 0.12);
     cursor: pointer;
+    transition: background .15s ease;
+}
+
+.sidebar-profile:hover {
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .sidebar-avatar {

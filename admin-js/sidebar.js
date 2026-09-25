@@ -118,6 +118,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const CURRENT_USER_KEY = "mabnews_current_user_id";
     const USERS_ENDPOINT = `${API_BASE_URL}/users`;
 
+    // Blok "Muhammad Aslambik / Administrator" di pojok kiri bawah
+    // sidebar diklik untuk membuka Profil Saya — kecuali kalau
+    // memang sedang berada di halaman itu.
+    const sidebarProfileEl = document.querySelector(".sidebar-profile");
+    if (sidebarProfileEl && !location.pathname.endsWith("profil.html")) {
+        sidebarProfileEl.style.cursor = "pointer";
+        sidebarProfileEl.addEventListener("click", () => {
+            window.location.href = "profil.html";
+        });
+    }
+
     function applyCurrentUserToChrome(user) {
         if (!user) return;
 
