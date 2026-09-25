@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         draft: "draft.html",
         kategori: "kategori.html",
         media: "media.html",
-        pengguna: "pengguna.html",
+        pengguna: "users.html",
         umum: "umum.html",
         website: "website.html",
         tampilan: "tampilan.html",
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "domain-hosting": "domain-hosting.html",
         "backend-api": "backend-api.html",
         "atur-sidebar": "atur-sidebar.html",
-        "export-import": "export-import.html"
+        "export-impor": "export-import.html"
     };
 
     /* Menu utama yang punya anak (dirender sebagai grup dropdown) */
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "domain-hosting", label: "Domain & Hosting", icon: "fa-globe", type: "child", parentGroup: "lainnya", order: 21, active: true },
         { id: "backend-api", label: "BackEnd & API", icon: "fa-code", type: "child", parentGroup: "lainnya", order: 22, active: true },
         { id: "atur-sidebar", label: "Atur Sidebar", icon: "fa-table-cells", type: "child", parentGroup: "lainnya", order: 23, active: true },
-        { id: "export-import", label: "Export & Import", icon: "fa-file-export", type: "child", parentGroup: "lainnya", order: 24, active: true }
+        { id: "export-impor", label: "Export & Impor", icon: "fa-file-export", type: "child", parentGroup: "lainnya", order: 24, active: true }
     ];
 
     let currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
@@ -265,13 +265,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* ---------------------------------------------------------
-       Buka/tutup sidebar (mobile)
+       Buka/tutup sidebar (mobile) + overlay gelap + tombol Escape
+       Overlay dibuat otomatis lewat JS (atau dipakai ulang kalau
+       halamannya kebetulan sudah punya <div id="sidebarOverlay">
+       dari markup lama) — jadi tidak perlu ubah HTML per halaman.
     --------------------------------------------------------- */
+    let sidebarOverlay = document.getElementById("sidebarOverlay");
+    if (!sidebarOverlay && sidebarEl) {
+        sidebarOverlay = document.createElement("div");
+        sidebarOverlay.id = "sidebarOverlay";
+        document.body.appendChild(sidebarOverlay);
+    }
+    if (sidebarOverlay) {
+        sidebarOverlay.classList.add("sidebar-overlay");
+        sidebarOverlay.addEventListener("click", () => {
+            body.classList.remove("sidebar-open");
+        });
+    }
+
     if (menuToggle) {
         menuToggle.addEventListener("click", () => {
             body.classList.toggle("sidebar-open");
         });
     }
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            body.classList.remove("sidebar-open");
+        }
+    });
 
     /* ---------------------------------------------------------
        Dark mode

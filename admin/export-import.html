@@ -1,1104 +1,390 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Export & Impor - MAB-News CMS</title>
 
-    <title>Export & Import - MAB-News CMS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <!-- Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="../admin-css/export-import.css">
+<link rel="stylesheet" href="../admin-css/sidebar.css">
+<link rel="stylesheet" href="../admin-css/export-import.css">
 </head>
-
 <body>
 
-    <!-- =====================================================
-         TOP HEADER
-         ===================================================== -->
-
-    <header class="cms-header">
-
-        <div class="header-left">
-
-            <button
-                type="button"
-                class="menu-toggle"
-                id="menuToggle"
-                aria-label="Buka menu"
-            >
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <a href="index.html" class="cms-logo">
-                <span class="logo-blue">MAB-</span><span>News CMS</span>
-            </a>
-
-        </div>
-
-        <div class="header-right">
-
-    <button
-        type="button"
-        class="header-icon-btn theme-toggle"
-        id="themeToggle"
-        aria-label="Mode gelap"
-    >
-        <i class="fa-regular fa-moon"></i>
-    </button>
-
-    <div class="header-dropdown-wrap">
-
-        <button
-            type="button"
-            class="header-icon-btn notification-btn"
-            id="notificationBtn"
-            aria-label="Notifikasi"
-            aria-expanded="false"
-        >
-            <i class="fa-regular fa-bell"></i>
-            <span class="notification-count" id="notificationCount">3</span>
+<header class="cms-header">
+    <div class="header-left">
+        <button type="button" class="menu-toggle" id="menuToggle" aria-label="Buka menu">
+            <i class="fa-solid fa-bars"></i>
         </button>
-
-        <div class="dropdown-panel notification-panel" id="notificationPanel">
-            <div class="dropdown-panel-header">Notifikasi</div>
-            <div class="dropdown-panel-empty">Belum ada notifikasi baru.</div>
-        </div>
-
+        <a href="index.html" class="cms-logo">
+            <span class="logo-blue">MAB-</span><span>News CMS</span>
+        </a>
     </div>
-
-    <div class="header-dropdown-wrap">
-
-        <button
-            type="button"
-            class="header-user"
-            id="headerUser"
-            aria-expanded="false"
-        >
+    <div class="header-right">
+        <button type="button" class="header-icon-btn theme-toggle" id="themeToggle" aria-label="Mode gelap">
+            <i class="fa-regular fa-moon"></i>
+        </button>
+        <button type="button" class="header-icon-btn notification-btn" aria-label="Notifikasi">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-count">3</span>
+        </button>
+        <button type="button" class="header-user" id="headerUser">
             <span class="header-avatar">
                 <i class="fa-solid fa-user"></i>
             </span>
-
             <span class="header-user-name">Admin</span>
-
             <i class="fa-solid fa-chevron-down header-user-arrow"></i>
         </button>
+    </div>
+</header>
 
-        <div class="dropdown-panel user-panel" id="userPanel">
-            <a href="#" class="dropdown-panel-item">
-                <i class="fa-regular fa-user"></i> Profil Saya
+<div class="cms-layout">
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
             </a>
-            <a href="#" class="dropdown-panel-item">
-                <i class="fa-solid fa-gear"></i> Pengaturan Akun
+
+            <div class="nav-group">
+                <button type="button" class="nav-item nav-dropdown-toggle">
+                    <span class="nav-item-main">
+                        <i class="fa-solid fa-file-lines"></i>
+                        <span>Artikel</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-right nav-arrow"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="artikel.html"><i class="fa-solid fa-list"></i><span>Semua Artikel</span></a>
+                    <a href="tambah-artikel.html"><i class="fa-solid fa-plus"></i><span>Tambah Artikel</span></a>
+                    <a href="draft.html"><i class="fa-solid fa-file-pen"></i><span>Draft</span></a>
+                </div>
+            </div>
+
+            <a href="kategori.html" class="nav-item">
+                <i class="fa-solid fa-folder"></i>
+                <span>Kategori</span>
             </a>
-            <button type="button" class="dropdown-panel-item danger" id="logoutButton">
-                <i class="fa-solid fa-right-from-bracket"></i> Keluar
-            </button>
+            <a href="media.html" class="nav-item">
+                <i class="fa-solid fa-image"></i>
+                <span>Media</span>
+            </a>
+            <a href="users.html" class="nav-item">
+                <i class="fa-solid fa-users"></i>
+                <span>Pengguna</span>
+            </a>
+
+            <div class="nav-group">
+                <button type="button" class="nav-item nav-dropdown-toggle">
+                    <span class="nav-item-main">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Pengaturan</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-right nav-arrow"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="umum.html"><i class="fa-solid fa-sliders"></i><span>Umum</span></a>
+                    <a href="website.html"><i class="fa-solid fa-globe"></i><span>Website</span></a>
+                    <a href="tampilan.html"><i class="fa-solid fa-palette"></i><span>Tampilan</span></a>
+                    <a href="seo.html"><i class="fa-solid fa-magnifying-glass"></i><span>SEO</span></a>
+                    <a href="email.html"><i class="fa-solid fa-envelope"></i><span>Email</span></a>
+                    <a href="backup.html"><i class="fa-solid fa-database"></i><span>Backup</span></a>
+                    <a href="keamanan.html"><i class="fa-solid fa-shield-halved"></i><span>Keamanan</span></a>
+                </div>
+            </div>
+
+            <div class="nav-group open">
+                <button type="button" class="nav-item nav-dropdown-toggle">
+                    <span class="nav-item-main">
+                        <i class="fa-solid fa-ellipsis"></i>
+                        <span>Lainnya</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-up nav-arrow"></i>
+                </button>
+                <div class="nav-submenu">
+                    <a href="laman.html"><i class="fa-solid fa-file-lines"></i><span>Laman</span></a>
+                    <a href="statistik.html"><i class="fa-solid fa-chart-column"></i><span>Statistik</span></a>
+                    <a href="iklan.html"><i class="fa-solid fa-bullhorn"></i><span>Iklan</span></a>
+                    <a href="perangkat.html"><i class="fa-solid fa-display"></i><span>Perangkat</span></a>
+                    <a href="domain-hosting.html"><i class="fa-solid fa-globe"></i><span>Domain &amp; Hosting</span></a>
+                    <a href="backend-api.html"><i class="fa-solid fa-code"></i><span>BackEnd &amp; API</span></a>
+                    <a href="atur-sidebar.html"><i class="fa-solid fa-table-cells"></i><span>Atur Sidebar</span></a>
+                    <a href="export-import.html" class="active-sub-item"><i class="fa-solid fa-file-export"></i><span>Export &amp; Impor</span></a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-profile">
+            <div class="sidebar-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="sidebar-profile-info">
+                <strong>Muhammad Aslambik</strong>
+                <span>Administrator</span>
+            </div>
+            <i class="fa-solid fa-chevron-right sidebar-profile-arrow"></i>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="umum.html">Pengaturan</a><i class="fa-solid fa-chevron-right"></i>
+            <a href="#">Lainnya</a><i class="fa-solid fa-chevron-right"></i>
+            <span>Export &amp; Impor</span>
         </div>
 
-    </div>
+        <section class="page-heading">
+            <div class="page-heading-icon">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            </div>
+            <div>
+                <h1>Export &amp; Impor</h1>
+                <p>Kelola data website Anda dengan mudah. Ekspor untuk menyimpan data, impor untuk memulihkan atau memindahkan data.</p>
+            </div>
+        </section>
 
+        <section class="workspace-grid">
+
+            <!-- EXPORT -->
+            <section class="workspace-card">
+                <div class="workspace-card-header export-header">
+                    <div class="card-header-icon blue">
+                        <i class="fa-solid fa-download"></i>
+                    </div>
+                    <div>
+                        <h2>Ekspor Data</h2>
+                        <p>Unduh data website Anda dalam format file yang dapat digunakan untuk backup atau migrasi.</p>
+                    </div>
+                </div>
+
+                <div class="workspace-card-body">
+                    <form id="exportForm">
+                        <h3>Pilih Data yang Akan Diekspor</h3>
+
+                        <div class="export-list">
+                            <label class="export-row">
+                                <span class="export-row-left">
+                                    <input type="checkbox" name="export_item" value="semua" id="checkAll" checked>
+                                    <span class="custom-check"><i class="fa-solid fa-check"></i></span>
+                                    <span class="export-icon"><i class="fa-solid fa-database"></i></span>
+                                    <span class="export-text">
+                                        <strong>Semua Data</strong>
+                                        <small>Ekspor semua data (artikel, kategori, media, pengguna, pengaturan, dll).</small>
+                                    </span>
+                                </span>
+                                <span class="count-badge blue-badge">320 item</span>
+                            </label>
+
+                            <label class="export-row">
+                                <span class="export-row-left">
+                                    <input type="checkbox" name="export_item" value="artikel" checked>
+                                    <span class="custom-check"><i class="fa-solid fa-check"></i></span>
+                                    <span class="export-icon"><i class="fa-solid fa-file-lines"></i></span>
+                                    <span class="export-text">
+                                        <strong>Artikel</strong>
+                                        <small>Data artikel dan konten berita.</small>
+                                    </span>
+                                </span>
+                                <span class="count-badge">125 item</span>
+                            </label>
+
+                            <label class="export-row">
+                                <span class="export-row-left">
+                                    <input type="checkbox" name="export_item" value="kategori" checked>
+                                    <span class="custom-check"><i class="fa-solid fa-check"></i></span>
+                                    <span class="export-icon"><i class="fa-solid fa-folder"></i></span>
+                                    <span class="export-text">
+                                        <strong>Kategori</strong>
+                                        <small>Data kategori artikel.</small>
+                                    </span>
+                                </span>
+                                <span class="count-badge">24 item</span>
+                            </label>
+
+                            <label class="export-row">
+                                <span class="export-row-left">
+                                    <input type="checkbox" name="export_item" value="media" checked>
+                                    <span class="custom-check"><i class="fa-solid fa-check"></i></span>
+                                    <span class="export-icon"><i class="fa-solid fa-image"></i></span>
+                                    <span class="export-text">
+                                        <strong>Media</strong>
+                                        <small>File media (gambar, video, dll).</small>
+                                    </span>
+                                </span>
+                                <span class="count-badge">48 file</span>
+                            </label>
+
+                            <label class="export-row">
+                                <span class="export-row-left">
+                                    <input type="checkbox" name="export_item" value="pengguna" checked>
+                                    <span class="custom-check"><i class="fa-solid fa-check"></i></span>
+                                    <span class="export-icon"><i class="fa-solid fa-users"></i></span>
+                                    <span class="export-text">
+                                        <strong>Pengguna</strong>
+                                        <small>Data pengguna dan peran.</small>
+                                    </span>
+                                </span>
+                                <span class="count-badge">8 item</span>
+                            </label>
+
+                            <label class="export-row">
+                                <span class="export-row-left">
+                                    <input type="checkbox" name="export_item" value="pengaturan" checked>
+                                    <span class="custom-check"><i class="fa-solid fa-check"></i></span>
+                                    <span class="export-icon"><i class="fa-solid fa-gear"></i></span>
+                                    <span class="export-text">
+                                        <strong>Pengaturan</strong>
+                                        <small>Konfigurasi website dan sistem.</small>
+                                    </span>
+                                </span>
+                                <span class="count-badge">1 item</span>
+                            </label>
+                        </div>
+
+                        <h3 class="format-title">Format File</h3>
+
+                        <div class="format-grid">
+                            <label class="format-option selected">
+                                <input type="radio" name="file_format" value="json" checked>
+                                <span class="radio-circle"></span>
+                                <span>
+                                    <strong>JSON</strong>
+                                    <small>Direkomendasikan (ukuran lebih kecil)</small>
+                                </span>
+                            </label>
+
+                            <label class="format-option">
+                                <input type="radio" name="file_format" value="xml">
+                                <span class="radio-circle"></span>
+                                <span>
+                                    <strong>XML</strong>
+                                    <small>Kompatibel dengan banyak sistem</small>
+                                </span>
+                            </label>
+
+                            <label class="format-option">
+                                <input type="radio" name="file_format" value="csv">
+                                <span class="radio-circle"></span>
+                                <span>
+                                    <strong>CSV</strong>
+                                    <small>Hanya untuk data artikel &amp; kategori</small>
+                                </span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="primary-action">
+                            <i class="fa-solid fa-download"></i>
+                            Ekspor Data Sekarang
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- IMPORT -->
+            <section class="workspace-card">
+                <div class="workspace-card-header import-header">
+                    <div class="card-header-icon green">
+                        <i class="fa-solid fa-upload"></i>
+                    </div>
+                    <div>
+                        <h2>Impor Data</h2>
+                        <p>Unggah file backup untuk memulihkan atau memindahkan data ke website ini.</p>
+                    </div>
+                </div>
+
+                <div class="workspace-card-body">
+                    <div class="upload-dropzone" id="dropzoneContainer">
+                        <div class="cloud-icon">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <h3>Pilih File untuk Diimpor</h3>
+                        <p id="dropzoneText">Seret dan lepas file di sini atau klik untuk memilih file.</p>
+                        <span class="upload-format">
+                            Format yang didukung: JSON, XML, CSV &nbsp;|&nbsp; Ukuran maksimum: 50 MB
+                        </span>
+                        <button type="button" class="choose-file-btn" id="triggerFileSelect">
+                            <i class="fa-regular fa-folder-open"></i>
+                            Pilih File
+                        </button>
+                        <input type="file" id="hiddenFileInput" accept=".json,.xml,.csv,application/json,text/xml,text/csv" hidden>
+                    </div>
+
+                    <div class="import-options">
+                        <h3>Opsi Impor</h3>
+
+                        <div class="import-option">
+                            <div class="option-text">
+                                <strong>Timpa data yang sudah ada</strong>
+                                <small>Data yang sama akan diganti dengan data dari file.</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="overwriteExisting" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="import-option">
+                            <div class="option-text">
+                                <strong>Impor media file</strong>
+                                <small>File media akan diunggah ke server.</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="importMedia" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="import-option">
+                            <div class="option-text">
+                                <strong>Aktifkan mode aman</strong>
+                                <small>Cek struktur data sebelum diimpor.</small>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="safeMode">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="button" class="import-action" id="btnExecuteImport">
+                        <i class="fa-solid fa-upload"></i>
+                        Impor Data
+                    </button>
+                </div>
+            </section>
+        </section>
+
+        <section class="history-card">
+            <h2>Riwayat Export &amp; Impor</h2>
+            <div class="history-table-wrapper">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Tanggal &amp; Waktu</th>
+                            <th>Jenis</th>
+                            <th>Data</th>
+                            <th>Format</th>
+                            <th>Ukuran</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableRows"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="cms-footer">
+            &copy; 2025 MAB-News CMS. Semua hak dilindungi.
+        </footer>
+    </main>
 </div>
 
-    </header>
-
-
-    <!-- =====================================================
-         CMS LAYOUT
-         ===================================================== -->
-
-    <div class="cms-layout">
-
-        <!-- =================================================
-             SIDEBAR
-             ================================================= -->
-
-        <aside class="sidebar" id="sidebar">
-
-            <nav class="sidebar-nav">
-
-                <!-- Dashboard -->
-                <a href="index.html" class="nav-item">
-                    <i class="fa-solid fa-house"></i>
-                    <span>Dashboard</span>
-                </a>
-
-
-                <!-- Artikel -->
-                <div class="nav-group">
-
-                    <button
-                        type="button"
-                        class="nav-item nav-dropdown-toggle"
-                    >
-                        <span class="nav-item-main">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <span>Artikel</span>
-                        </span>
-
-                        <i class="fa-solid fa-chevron-right nav-arrow"></i>
-                    </button>
-
-                    <div class="nav-submenu">
-
-                        <a href="artikel.html">
-                            Semua Artikel
-                        </a>
-
-                        <a href="tambah-artikel.html">
-                            Tambah Artikel
-                        </a>
-
-                        <a href="draft.html">
-                            Draft
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Kategori -->
-                <a href="kategori.html" class="nav-item">
-                    <i class="fa-solid fa-folder"></i>
-                    <span>Kategori</span>
-                </a>
-
-
-                <!-- Media -->
-                <a href="media.html" class="nav-item">
-                    <i class="fa-solid fa-image"></i>
-                    <span>Media</span>
-                </a>
-
-
-                <!-- Pengguna -->
-                <a href="pengguna.html" class="nav-item">
-                    <i class="fa-solid fa-users"></i>
-                    <span>Pengguna</span>
-                </a>
-
-
-                <!-- =============================
-                     PENGATURAN
-                     ============================= -->
-
-                <div class="nav-group open">
-
-                    <button
-                        type="button"
-                        class="nav-item nav-dropdown-toggle"
-                    >
-                        <span class="nav-item-main">
-                            <i class="fa-solid fa-gear"></i>
-                            <span>Pengaturan</span>
-                        </span>
-
-                        <i class="fa-solid fa-chevron-up nav-arrow"></i>
-                    </button>
-
-
-                    <div class="nav-submenu">
-
-                        <a href="umum.html">
-                            <span class="submenu-dot"></span>
-                            Umum
-                        </a>
-
-                        <a href="website.html">
-                            <span class="submenu-dot"></span>
-                            Website
-                        </a>
-
-                        <a href="tampilan.html">
-                            <span class="submenu-dot"></span>
-                            Tampilan
-                        </a>
-
-                        <a href="seo.html">
-                            <span class="submenu-dot"></span>
-                            SEO
-                        </a>
-
-                        <a href="email.html">
-                            <span class="submenu-dot"></span>
-                            Email
-                        </a>
-
-                        <a href="backup.html">
-                            <span class="submenu-dot"></span>
-                            Backup
-                        </a>
-
-                        <a href="keamanan.html">
-                            <span class="submenu-dot"></span>
-                            Keamanan
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- =============================
-                     LAINNYA
-                     ============================= -->
-
-                <div class="nav-group open">
-
-                    <button
-                        type="button"
-                        class="nav-item nav-dropdown-toggle"
-                    >
-
-                        <span class="nav-item-main">
-                            <i class="fa-solid fa-ellipsis"></i>
-                            <span>Lainnya</span>
-                        </span>
-
-                        <i class="fa-solid fa-chevron-up nav-arrow"></i>
-
-                    </button>
-
-
-                    <div class="nav-submenu">
-
-                        <a href="laman.html">
-                            <span class="submenu-dot"></span>
-                            Laman
-                        </a>
-
-                        <a href="statistik.html">
-                            <span class="submenu-dot"></span>
-                            Statistik
-                        </a>
-
-                        <a href="iklan.html">
-                            <span class="submenu-dot"></span>
-                            Iklan
-                        </a>
-
-                        <a href="perangkat.html">
-                            <span class="submenu-dot"></span>
-                            Perangkat
-                        </a>
-
-                        <a href="domain-hosting.html">
-                            <span class="submenu-dot"></span>
-                            Domain & Hosting
-                        </a>
-
-                        <a href="backend-api.html">
-                            <span class="submenu-dot"></span>
-                            BackEnd & API
-                        </a>
-
-                        <a href="atur-sidebar.html">
-                            <span class="submenu-dot"></span>
-                            Atur Sidebar
-                        </a>
-
-                        <a
-                            href="export-import.html"
-                            class="active-sub-item"
-                        >
-                            <i class="fa-solid fa-file-export"></i>
-                            Export & Import
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </nav>
-
-
-            <!-- Sidebar Profile -->
-
-            <div class="sidebar-profile">
-
-                <div class="sidebar-avatar">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-
-                <div class="sidebar-profile-info">
-                    <strong>Muhammad Aslambik</strong>
-                    <span>Administrator</span>
-                </div>
-
-                <i class="fa-solid fa-chevron-right sidebar-profile-arrow"></i>
-
-            </div>
-
-        </aside>
-
-
-        <!-- =================================================
-             MAIN CONTENT
-             ================================================= -->
-
-        <main class="main-content">
-
-            <!-- Breadcrumb -->
-
-            <div class="breadcrumb">
-
-                <a href="umum.html">
-                    Pengaturan
-                </a>
-
-                <i class="fa-solid fa-chevron-right"></i>
-
-                <a href="#">
-                    Lainnya
-                </a>
-
-                <i class="fa-solid fa-chevron-right"></i>
-
-                <span>
-                    Export & Import
-                </span>
-
-            </div>
-
-
-            <!-- Page Header -->
-
-            <section class="page-heading">
-
-                <div class="page-heading-icon">
-                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                </div>
-
-                <div>
-
-                    <h1>
-                        Export & Import
-                    </h1>
-
-                    <p>
-                        Kelola data website Anda dengan mudah.
-                        Ekspor untuk menyimpan data, impor untuk
-                        memulihkan atau memindahkan data.
-                    </p>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                 WORKSPACE
-                 ================================================= -->
-
-            <section class="workspace-grid">
-
-
-                <!-- =================================================
-                     EXPORT
-                     ================================================= -->
-
-                <section class="workspace-card">
-
-                    <div class="workspace-card-header export-header">
-
-                        <div class="card-header-icon blue">
-                            <i class="fa-solid fa-download"></i>
-                        </div>
-
-                        <div>
-
-                            <h2>
-                                Ekspor Data
-                            </h2>
-
-                            <p>
-                                Unduh data website Anda dalam format
-                                file yang dapat digunakan untuk backup
-                                atau migrasi.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="workspace-card-body">
-
-                        <form id="exportForm">
-
-                            <h3>
-                                Pilih Data yang Akan Diekspor
-                            </h3>
-
-
-                            <div class="export-list">
-
-                                <!-- Semua -->
-
-                                <label class="export-row">
-
-                                    <span class="export-row-left">
-
-                                        <input
-                                            type="checkbox"
-                                            name="export_item"
-                                            value="semua"
-                                            id="checkAll"
-                                            checked
-                                        >
-
-                                        <span class="custom-check">
-                                            <i class="fa-solid fa-check"></i>
-                                        </span>
-
-                                        <span class="export-icon">
-                                            <i class="fa-solid fa-database"></i>
-                                        </span>
-
-                                        <span class="export-text">
-
-                                            <strong>
-                                                Semua Data
-                                            </strong>
-
-                                            <small>
-                                                Ekspor semua data
-                                                (artikel, kategori,
-                                                media, pengguna,
-                                                pengaturan, dll).
-                                            </small>
-
-                                        </span>
-
-                                    </span>
-
-                                    <span class="count-badge blue-badge">
-                                        320 item
-                                    </span>
-
-                                </label>
-
-
-                                <!-- Artikel -->
-
-                                <label class="export-row">
-
-                                    <span class="export-row-left">
-
-                                        <input
-                                            type="checkbox"
-                                            name="export_item"
-                                            value="artikel"
-                                            checked
-                                        >
-
-                                        <span class="custom-check">
-                                            <i class="fa-solid fa-check"></i>
-                                        </span>
-
-                                        <span class="export-icon">
-                                            <i class="fa-solid fa-file-lines"></i>
-                                        </span>
-
-                                        <span class="export-text">
-
-                                            <strong>
-                                                Artikel
-                                            </strong>
-
-                                            <small>
-                                                Data artikel dan
-                                                konten berita.
-                                            </small>
-
-                                        </span>
-
-                                    </span>
-
-                                    <span class="count-badge">
-                                        125 item
-                                    </span>
-
-                                </label>
-
-
-                                <!-- Kategori -->
-
-                                <label class="export-row">
-
-                                    <span class="export-row-left">
-
-                                        <input
-                                            type="checkbox"
-                                            name="export_item"
-                                            value="kategori"
-                                            checked
-                                        >
-
-                                        <span class="custom-check">
-                                            <i class="fa-solid fa-check"></i>
-                                        </span>
-
-                                        <span class="export-icon">
-                                            <i class="fa-solid fa-folder"></i>
-                                        </span>
-
-                                        <span class="export-text">
-
-                                            <strong>
-                                                Kategori
-                                            </strong>
-
-                                            <small>
-                                                Data kategori artikel.
-                                            </small>
-
-                                        </span>
-
-                                    </span>
-
-                                    <span class="count-badge">
-                                        24 item
-                                    </span>
-
-                                </label>
-
-
-                                <!-- Media -->
-
-                                <label class="export-row">
-
-                                    <span class="export-row-left">
-
-                                        <input
-                                            type="checkbox"
-                                            name="export_item"
-                                            value="media"
-                                            checked
-                                        >
-
-                                        <span class="custom-check">
-                                            <i class="fa-solid fa-check"></i>
-                                        </span>
-
-                                        <span class="export-icon">
-                                            <i class="fa-solid fa-image"></i>
-                                        </span>
-
-                                        <span class="export-text">
-
-                                            <strong>
-                                                Media
-                                            </strong>
-
-                                            <small>
-                                                File media
-                                                (gambar, video, dll).
-                                            </small>
-
-                                        </span>
-
-                                    </span>
-
-                                    <span class="count-badge">
-                                        48 file
-                                    </span>
-
-                                </label>
-
-
-                                <!-- Pengguna -->
-
-                                <label class="export-row">
-
-                                    <span class="export-row-left">
-
-                                        <input
-                                            type="checkbox"
-                                            name="export_item"
-                                            value="pengguna"
-                                            checked
-                                        >
-
-                                        <span class="custom-check">
-                                            <i class="fa-solid fa-check"></i>
-                                        </span>
-
-                                        <span class="export-icon">
-                                            <i class="fa-solid fa-users"></i>
-                                        </span>
-
-                                        <span class="export-text">
-
-                                            <strong>
-                                                Pengguna
-                                            </strong>
-
-                                            <small>
-                                                Data pengguna dan peran.
-                                            </small>
-
-                                        </span>
-
-                                    </span>
-
-                                    <span class="count-badge">
-                                        8 item
-                                    </span>
-
-                                </label>
-
-
-                                <!-- Pengaturan -->
-
-                                <label class="export-row">
-
-                                    <span class="export-row-left">
-
-                                        <input
-                                            type="checkbox"
-                                            name="export_item"
-                                            value="pengaturan"
-                                            checked
-                                        >
-
-                                        <span class="custom-check">
-                                            <i class="fa-solid fa-check"></i>
-                                        </span>
-
-                                        <span class="export-icon">
-                                            <i class="fa-solid fa-gear"></i>
-                                        </span>
-
-                                        <span class="export-text">
-
-                                            <strong>
-                                                Pengaturan
-                                            </strong>
-
-                                            <small>
-                                                Konfigurasi website
-                                                dan sistem.
-                                            </small>
-
-                                        </span>
-
-                                    </span>
-
-                                    <span class="count-badge">
-                                        1 item
-                                    </span>
-
-                                </label>
-
-                            </div>
-
-
-                            <!-- Format -->
-
-                            <h3 class="format-title">
-                                Format File
-                            </h3>
-
-
-                            <div class="format-grid">
-
-                                <label class="format-option selected">
-
-                                    <input
-                                        type="radio"
-                                        name="file_format"
-                                        value="json"
-                                        checked
-                                    >
-
-                                    <span class="radio-circle"></span>
-
-                                    <span>
-
-                                        <strong>
-                                            JSON
-                                        </strong>
-
-                                        <small>
-                                            Direkomendasikan
-                                            (ukuran lebih kecil)
-                                        </small>
-
-                                    </span>
-
-                                </label>
-
-
-                                <label class="format-option">
-
-                                    <input
-                                        type="radio"
-                                        name="file_format"
-                                        value="xml"
-                                    >
-
-                                    <span class="radio-circle"></span>
-
-                                    <span>
-
-                                        <strong>
-                                            XML
-                                        </strong>
-
-                                        <small>
-                                            Kompatibel dengan
-                                            banyak sistem
-                                        </small>
-
-                                    </span>
-
-                                </label>
-
-
-                                <label class="format-option">
-
-                                    <input
-                                        type="radio"
-                                        name="file_format"
-                                        value="csv"
-                                    >
-
-                                    <span class="radio-circle"></span>
-
-                                    <span>
-
-                                        <strong>
-                                            CSV
-                                        </strong>
-
-                                        <small>
-                                            Hanya untuk data
-                                            artikel & kategori
-                                        </small>
-
-                                    </span>
-
-                                </label>
-
-                            </div>
-
-
-                            <button
-                                type="submit"
-                                class="primary-action"
-                            >
-
-                                <i class="fa-solid fa-download"></i>
-
-                                Ekspor Data Sekarang
-
-                            </button>
-
-                        </form>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =================================================
-                     IMPORT
-                     ================================================= -->
-
-                <section class="workspace-card">
-
-                    <div class="workspace-card-header import-header">
-
-                        <div class="card-header-icon green">
-                            <i class="fa-solid fa-upload"></i>
-                        </div>
-
-                        <div>
-
-                            <h2>
-                                Impor Data
-                            </h2>
-
-                            <p>
-                                Unggah file backup untuk memulihkan
-                                atau memindahkan data ke website ini.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="workspace-card-body">
-
-                        <!-- Dropzone -->
-
-                        <div
-                            class="upload-dropzone"
-                            id="dropzoneContainer"
-                        >
-
-                            <div class="cloud-icon">
-                                <i class="fa-solid fa-cloud-arrow-up"></i>
-                            </div>
-
-                            <h3>
-                                Pilih File untuk Diimpor
-                            </h3>
-
-                            <p id="dropzoneText">
-                                Seret dan lepas file di sini
-                                atau klik untuk memilih file.
-                            </p>
-
-                            <span class="upload-format">
-                                Format yang didukung: JSON, XML, CSV
-                                &nbsp;|&nbsp;
-                                Ukuran maksimum: 50 MB
-                            </span>
-
-                            <button
-                                type="button"
-                                class="choose-file-btn"
-                                id="triggerFileSelect"
-                            >
-                                <i class="fa-regular fa-folder-open"></i>
-                                Pilih File
-                            </button>
-
-                            <input
-                                type="file"
-                                id="hiddenFileInput"
-                                accept=".json,.xml,.csv,application/json,text/xml,text/csv"
-                                hidden
-                            >
-
-                        </div>
-
-
-                        <!-- Import Options -->
-
-                        <div class="import-options">
-
-                            <h3>
-                                Opsi Impor
-                            </h3>
-
-
-                            <!-- Option 1 -->
-
-                            <div class="import-option">
-
-                                <div class="option-text">
-
-                                    <strong>
-                                        Timpa data yang sudah ada
-                                    </strong>
-
-                                    <small>
-                                        Data yang sama akan diganti
-                                        dengan data dari file.
-                                    </small>
-
-                                </div>
-
-                                <label class="switch">
-
-                                    <input
-                                        type="checkbox"
-                                        id="overwriteExisting"
-                                        checked
-                                    >
-
-                                    <span class="slider"></span>
-
-                                </label>
-
-                            </div>
-
-
-                            <!-- Option 2 -->
-
-                            <div class="import-option">
-
-                                <div class="option-text">
-
-                                    <strong>
-                                        Impor media file
-                                    </strong>
-
-                                    <small>
-                                        File media akan diunggah
-                                        ke server.
-                                    </small>
-
-                                </div>
-
-                                <label class="switch">
-
-                                    <input
-                                        type="checkbox"
-                                        id="importMedia"
-                                        checked
-                                    >
-
-                                    <span class="slider"></span>
-
-                                </label>
-
-                            </div>
-
-
-                            <!-- Option 3 -->
-
-                            <div class="import-option">
-
-                                <div class="option-text">
-
-                                    <strong>
-                                        Aktifkan mode aman
-                                    </strong>
-
-                                    <small>
-                                        Cek struktur data sebelum
-                                        diimpor.
-                                    </small>
-
-                                </div>
-
-                                <label class="switch">
-
-                                    <input
-                                        type="checkbox"
-                                        id="safeMode"
-                                    >
-
-                                    <span class="slider"></span>
-
-                                </label>
-
-                            </div>
-
-                        </div>
-
-
-                        <button
-                            type="button"
-                            class="import-action"
-                            id="btnExecuteImport"
-                        >
-
-                            <i class="fa-solid fa-upload"></i>
-
-                            Impor Data
-
-                        </button>
-
-                    </div>
-
-                </section>
-
-            </section>
-
-
-            <!-- =================================================
-                 HISTORY
-                 ================================================= -->
-
-            <section class="history-card">
-
-                <h2>
-                    Riwayat Export & Import
-                </h2>
-
-                <div class="history-table-wrapper">
-
-                    <table class="history-table">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>
-                                    Tanggal & Waktu
-                                </th>
-
-                                <th>
-                                    Jenis
-                                </th>
-
-                                <th>
-                                    Data
-                                </th>
-
-                                <th>
-                                    Format
-                                </th>
-
-                                <th>
-                                    Ukuran
-                                </th>
-
-                                <th>
-                                    Status
-                                </th>
-
-                                <th>
-                                    Aksi
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="historyTableRows">
-
-                            <!-- Data riwayat dimasukkan oleh JS -->
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            </section>
-
-
-            <!-- Footer -->
-
-            <footer class="cms-footer">
-
-                © 2025 MAB-News CMS. Semua hak dilindungi.
-
-            </footer>
-
-        </main>
-
-    </div>
-
-
-
-    <!-- JavaScript -->
-    <script src="../admin-js/cms-shell.js"></script>
-    <script src="../admin-js/export-import.js"></script>
-
+<script src="../admin-js/sidebar.js"></script>
+<script src="../admin-js/export-import.js"></script>
 </body>
-
 </html>

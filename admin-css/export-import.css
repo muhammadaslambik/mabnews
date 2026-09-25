@@ -1,1877 +1,682 @@
 /* =========================================================
-   MAB-NEWS CMS
-   EXPORT & IMPORT
-   ========================================================= */
-
-:root {
-    --navy: #03132f;
-    --navy-2: #061b3d;
-    --sidebar: #03142f;
-    --sidebar-hover: #102952;
-
-    --blue: #1769ff;
-    --blue-dark: #0757e8;
-    --blue-light: #eaf2ff;
-
-    --green: #10b981;
-    --green-dark: #08a76f;
-    --green-light: #e9fbf3;
-
-    --page-bg: #f6f8fc;
-    --white: #ffffff;
-
-    --text: #0d1735;
-    --text-2: #28467c;
-    --muted: #6d7fa5;
-
-    --border: #e2e8f2;
-
-    --shadow:
-        0 4px 18px rgba(20, 44, 90, 0.055);
-
-    --radius: 8px;
-
-    --header-height: 60px;
-    --sidebar-width: 240px;
-}
-
-
-/* =========================================================
-   RESET
-   ========================================================= */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-
-html {
-    min-height: 100%;
-}
-
-
-body {
-    min-height: 100vh;
-
-    background: var(--page-bg);
-
-    color: var(--text);
-
-    font-family:
-        "Inter",
-        Arial,
-        sans-serif;
-
-    font-size: 14px;
-
-    -webkit-font-smoothing: antialiased;
-}
-
-
-button,
-input {
-    font-family: inherit;
-}
-
-
-button {
-    border: 0;
-}
-
-
-a {
-    color: inherit;
-}
-
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.cms-header {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-    right: 0;
-
-    height: var(--header-height);
-
-    z-index: 1000;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding: 0 18px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #020f28 0%,
-            #03142e 55%,
-            #071b3d 100%
-        );
-
-    color: #fff;
-
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-
-.header-left {
-    display: flex;
-
-    align-items: center;
-
-    min-width: 0;
-}
-
-
-.menu-toggle {
-    width: 30px;
-    height: 40px;
-
-    margin-right: 10px;
-
-    background: transparent;
-
-    color: #fff;
-
-    font-size: 23px;
-
-    cursor: pointer;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-}
-
-
-.cms-logo {
-    text-decoration: none;
-
-    font-size: 23px;
-
-    line-height: 1;
-
-    font-weight: 700;
-
-    letter-spacing: -0.7px;
-
-    white-space: nowrap;
-}
-
-
-.logo-blue {
-    color: #146cff;
-}
-
-
-.cms-logo span:last-child {
-    color: #f8fafc;
-}
-
-
-.header-right {
-    display: flex;
-
-    align-items: center;
-
-    gap: 20px;
-}
-
-
-.header-icon-btn {
-    position: relative;
-
-    width: 30px;
-    height: 38px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: transparent;
-
-    color: #fff;
-
-    font-size: 21px;
-
-    cursor: pointer;
-}
-
-
-.header-icon-btn:hover {
-    opacity: 0.8;
-}
-
-
-.notification-count {
-    position: absolute;
-
-    top: 2px;
-    right: -3px;
-
-    width: 15px;
-    height: 15px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #1769ff;
-
-    color: #fff;
-
-    border: 1px solid #061a3b;
-
-    font-size: 9px;
-
-    font-weight: 700;
-}
-
-
-.header-user {
-    display: flex;
-
-    align-items: center;
-
-    gap: 9px;
-
-    padding: 0;
-
-    background: transparent;
-
-    color: #fff;
-
-    cursor: pointer;
-
-    font-size: 13px;
-
-    font-weight: 600;
-}
-
-
-.header-avatar {
-    width: 33px;
-    height: 33px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            #f8fafc,
-            #cbd5e1
-        );
-
-    color: #6c7b91;
-
-    border: 1px solid rgba(255, 255, 255, 0.7);
-
-    font-size: 15px;
-}
-
-
-.header-user-arrow {
-    margin-left: 1px;
-
-    font-size: 10px;
-}
-
-
-/* =========================================================
-   CMS LAYOUT
-   ========================================================= */
-
-.cms-layout {
-    display: flex;
-
-    min-height: 100vh;
-
-    padding-top: var(--header-height);
-}
-
-
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
-
-.sidebar {
-    position: fixed;
-
-    top: var(--header-height);
-    left: 0;
-    bottom: 0;
-
-    width: var(--sidebar-width);
-
-    z-index: 900;
-
-    display: flex;
-
-    flex-direction: column;
-
-    background:
-        linear-gradient(
-            180deg,
-            #03142f 0%,
-            #02122c 100%
-        );
-
-    color: #fff;
-
-    overflow: hidden;
-
-    transition:
-        transform 0.25s ease,
-        width 0.25s ease;
-}
-
-
-.sidebar-nav {
-    flex: 1;
-
-    padding: 14px 10px 12px;
-
-    overflow-y: auto;
-
-    scrollbar-width: thin;
-}
-
-
-.sidebar-nav::-webkit-scrollbar {
-    width: 4px;
-}
-
-
-.sidebar-nav::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.14);
-
-    border-radius: 20px;
-}
-
-
-.nav-item {
-    width: 100%;
-
-    min-height: 39px;
-
-    padding: 0 10px;
-
-    margin-bottom: 2px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    border-radius: 5px;
-
-    background: transparent;
-
-    color: #f4f7fc;
-
-    text-decoration: none;
-
-    font-size: 13.5px;
-
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease;
-}
-
-
-.nav-item > i:first-child {
-    width: 19px;
-
-    flex: 0 0 19px;
-
-    text-align: center;
-
-    font-size: 16px;
-}
-
-
-.nav-item:hover {
-    background: rgba(255, 255, 255, 0.07);
-}
-
-
-.nav-item-main {
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-}
-
-
-.nav-item-main > i {
-    width: 19px;
-
-    text-align: center;
-
-    font-size: 16px;
-}
-
-
-.nav-arrow {
-    margin-left: auto;
-
-    font-size: 10px;
-
-    opacity: 0.9;
-}
-
-
-/* =========================================================
-   SUBMENU
-   ========================================================= */
-
-.nav-group {
-    margin-bottom: 2px;
-}
-
-
-.nav-group:not(.open) .nav-submenu {
-    display: none;
-}
-
-
-.nav-submenu {
-    display: flex;
-
-    flex-direction: column;
-
-    padding: 1px 0 5px 0;
-}
-
-
-.nav-submenu a {
-    min-height: 31px;
-
-    padding: 0 8px 0 32px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    color: #f0f4fb;
-
-    text-decoration: none;
-
-    border-radius: 5px;
-
-    font-size: 12.5px;
-
-    font-weight: 500;
-
-    transition: background 0.2s ease;
-}
-
-
-.nav-submenu a:hover {
-    background: rgba(255, 255, 255, 0.07);
-}
-
-
-.nav-submenu .submenu-dot {
-    width: 4px;
-    height: 4px;
-
-    border-radius: 50%;
-
-    background: #fff;
-
-    opacity: 0.95;
-}
-
-
-.nav-submenu .active-sub-item {
-    background: #1769ff;
-
-    color: #fff;
-
-    padding-left: 29px;
-
-    box-shadow:
-        0 2px 8px rgba(23, 105, 255, 0.18);
-}
-
-
-.nav-submenu .active-sub-item i {
-    width: 13px;
-
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   SIDEBAR PROFILE
-   ========================================================= */
-
-.sidebar-profile {
-    min-height: 71px;
-
-    padding: 12px 16px;
-
-    border-top:
-        1px solid rgba(255, 255, 255, 0.08);
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    background:
-        rgba(0, 0, 0, 0.12);
-}
-
-
-.sidebar-avatar {
-    width: 35px;
-    height: 35px;
-
-    flex: 0 0 35px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            #f8fafc,
-            #cbd5e1
-        );
-
-    color: #6c7b91;
-
-    border: 1px solid rgba(255, 255, 255, 0.5);
-
-    font-size: 15px;
-}
-
-
-.sidebar-profile-info {
-    min-width: 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 3px;
-}
-
-
-.sidebar-profile-info strong {
-    color: #fff;
-
-    font-size: 11.5px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-}
-
-
-.sidebar-profile-info span {
-    color: #b7c2d5;
-
-    font-size: 10.5px;
-}
-
-
-.sidebar-profile-arrow {
-    margin-left: auto;
-
-    color: #fff;
-
-    font-size: 10px;
-}
-
-
-/* =========================================================
-   MAIN
-   ========================================================= */
-
-.main-content {
-    width: calc(100% - var(--sidebar-width));
-
-    min-height: calc(100vh - var(--header-height));
-
-    margin-left: var(--sidebar-width);
-
-    padding:
-        17px 22px 20px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    background:
-        linear-gradient(
-            180deg,
-            #f8fafd 0%,
-            #f4f7fb 100%
-        );
-}
-
-
-/* =========================================================
-   BREADCRUMB
-   ========================================================= */
-
-.breadcrumb {
-    display: flex;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 11px;
-
-    margin-bottom: 15px;
-
-    color: #123773;
-
-    font-size: 12px;
-
-    font-weight: 500;
-}
-
-
-.breadcrumb a {
-    color: #174ca4;
-
-    text-decoration: none;
-}
-
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-}
-
-
-.breadcrumb i {
-    color: #1e4d9a;
-
-    font-size: 9px;
-}
-
-
-.breadcrumb span {
-    color: #123773;
-
-    font-weight: 600;
-}
-
-
-/* =========================================================
-   PAGE HEADING
-   ========================================================= */
-
-.page-heading {
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    margin-bottom: 17px;
-}
-
-
-.page-heading-icon {
-    width: 43px;
-    height: 43px;
-
-    flex: 0 0 43px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #e8f1ff;
-
-    color: #1769ff;
-
-    font-size: 19px;
-}
-
-
-.page-heading h1 {
-    margin-bottom: 4px;
-
-    color: #0b1737;
-
-    font-size: 23px;
-
-    line-height: 1.1;
-
-    font-weight: 700;
-
-    letter-spacing: -0.4px;
-}
-
-
-.page-heading p {
-    color: #31528b;
-
-    font-size: 12px;
-
-    line-height: 1.5;
-}
-
+   MAB-NEWS CMS — EXPORT & IMPOR
+   Style khusus untuk konten halaman ini saja. Header, sidebar,
+   layout dasar, dropdown notifikasi/akun, dan dark mode untuk
+   itu semua sudah diambil dari admin-css/sidebar.css (dipakai
+   bersama di semua halaman CMS) — jangan didefinisikan ulang
+   di sini supaya tidak bentrok.
+========================================================= */
 
 /* =========================================================
    WORKSPACE
-   ========================================================= */
-
+========================================================= */
 .workspace-grid {
     display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
-
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 11px;
-
     align-items: stretch;
 }
 
-
 .workspace-card {
     min-width: 0;
-
-    background: #fff;
-
+    background: var(--white);
     border-radius: 8px;
-
     box-shadow: var(--shadow);
-
     overflow: hidden;
-
-    border: 1px solid #eef2f7;
+    border: 1px solid var(--border);
 }
-
 
 .workspace-card-header {
     min-height: 96px;
-
     padding: 12px 13px;
-
     display: flex;
-
     align-items: center;
-
     gap: 14px;
 }
 
-
 .export-header {
-    background:
-        linear-gradient(
-            105deg,
-            #eef5ff 0%,
-            #f7faff 100%
-        );
+    background: linear-gradient(105deg, #eef5ff 0%, #f7faff 100%);
 }
-
 
 .import-header {
-    background:
-        linear-gradient(
-            105deg,
-            #effcf6 0%,
-            #f8fdfb 100%
-        );
+    background: linear-gradient(105deg, #effcf6 0%, #f8fdfb 100%);
 }
-
 
 .card-header-icon {
     width: 47px;
     height: 47px;
-
     flex: 0 0 47px;
-
     border-radius: 50%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 20px;
 }
 
-
 .card-header-icon.blue {
-    background: #1769ff;
-
+    background: var(--blue);
     color: #fff;
-
-    box-shadow:
-        0 5px 12px rgba(23, 105, 255, 0.17);
+    box-shadow: 0 5px 12px rgba(23, 105, 255, 0.17);
 }
-
 
 .card-header-icon.green {
-    background: #10b981;
-
+    background: var(--green);
     color: #fff;
-
-    box-shadow:
-        0 5px 12px rgba(16, 185, 129, 0.15);
+    box-shadow: 0 5px 12px rgba(16, 185, 129, 0.15);
 }
-
 
 .workspace-card-header h2 {
     margin-bottom: 3px;
-
-    color: #0c1736;
-
+    color: var(--text);
     font-size: 16px;
-
     font-weight: 700;
 }
 
-
 .workspace-card-header p {
     max-width: 510px;
-
-    color: #294d85;
-
+    color: var(--text-2);
     font-size: 11.5px;
-
     line-height: 1.45;
 }
-
 
 .workspace-card-body {
     padding: 10px 12px 13px;
 }
 
-
 .workspace-card-body h3 {
     margin-bottom: 7px;
-
-    color: #10204a;
-
+    color: var(--text);
     font-size: 12px;
-
     font-weight: 700;
 }
 
-
 /* =========================================================
    EXPORT LIST
-   ========================================================= */
-
+========================================================= */
 .export-list {
-    border: 1px solid #e4eaf3;
-
+    border: 1px solid var(--border);
     border-radius: 7px;
-
     overflow: hidden;
-
     margin-bottom: 12px;
 }
 
-
 .export-row {
     min-height: 47px;
-
     padding: 5px 8px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 8px;
-
-    background: #fff;
-
-    border-bottom:
-        1px solid #e4eaf3;
-
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
     cursor: pointer;
 }
-
 
 .export-row:last-child {
     border-bottom: 0;
 }
 
-
 .export-row:hover {
-    background: #f9fbff;
+    background: rgba(23, 105, 255, 0.04);
 }
-
 
 .export-row-left {
     min-width: 0;
-
     display: flex;
-
     align-items: center;
-
     gap: 9px;
 }
 
-
 .export-row input {
     position: absolute;
-
     opacity: 0;
-
     pointer-events: none;
 }
-
 
 .custom-check {
     width: 16px;
     height: 16px;
-
     flex: 0 0 16px;
-
     border: 1.5px solid #9db0cd;
-
     border-radius: 4px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     color: #fff;
-
     font-size: 9px;
-
     transition: 0.15s ease;
 }
 
-
 .export-row input:checked + .custom-check {
-    background: #1769ff;
-
-    border-color: #1769ff;
+    background: var(--blue);
+    border-color: var(--blue);
 }
-
 
 .export-icon {
     width: 24px;
-
     flex: 0 0 24px;
-
-    color: #193c71;
-
+    color: var(--text-2);
     font-size: 15px;
-
     text-align: center;
 }
 
-
 .export-text {
     min-width: 0;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 2px;
 }
 
-
 .export-text strong {
-    color: #10204a;
-
+    color: var(--text);
     font-size: 11.5px;
-
     font-weight: 600;
 }
 
-
 .export-text small {
-    color: #58709b;
-
+    color: var(--muted);
     font-size: 9.5px;
-
     line-height: 1.25;
-
     white-space: nowrap;
-
     overflow: hidden;
-
     text-overflow: ellipsis;
 }
 
-
 .count-badge {
     flex: 0 0 auto;
-
     padding: 4px 7px;
-
     border-radius: 5px;
-
-    color: #4d668d;
-
-    background: #f2f5fa;
-
+    color: var(--text-2);
+    background: rgba(148, 163, 184, 0.15);
     font-size: 9.5px;
-
     font-weight: 600;
-
     white-space: nowrap;
 }
 
-
 .blue-badge {
-    color: #1261dd;
-
-    background: #e8f2ff;
+    color: var(--blue-dark);
+    background: var(--blue-light);
 }
-
 
 /* =========================================================
    FORMAT
-   ========================================================= */
-
+========================================================= */
 .format-title {
     margin-top: 0;
 }
 
-
 .format-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 7px;
-
     margin-bottom: 12px;
 }
 
-
 .format-option {
     min-height: 58px;
-
     padding: 8px;
-
     display: flex;
-
     align-items: flex-start;
-
     gap: 8px;
-
-    border:
-        1px solid #dce5f1;
-
+    border: 1px solid var(--border);
     border-radius: 6px;
-
-    background: #fff;
-
+    background: var(--white);
     cursor: pointer;
 }
-
 
 .format-option:hover {
     border-color: #9bbaf2;
 }
 
-
 .format-option input {
     position: absolute;
-
     opacity: 0;
-
     pointer-events: none;
 }
-
 
 .radio-circle {
     width: 15px;
     height: 15px;
-
     flex: 0 0 15px;
-
     margin-top: 1px;
-
-    border:
-        1.5px solid #a8b9d2;
-
+    border: 1.5px solid #a8b9d2;
     border-radius: 50%;
-
     position: relative;
 }
 
-
 .format-option input:checked + .radio-circle {
-    border-color: #1769ff;
+    border-color: var(--blue);
 }
-
 
 .format-option input:checked + .radio-circle::after {
     content: "";
-
     position: absolute;
-
     width: 7px;
     height: 7px;
-
     left: 2.5px;
     top: 2.5px;
-
     border-radius: 50%;
-
-    background: #1769ff;
+    background: var(--blue);
 }
-
 
 .format-option > span:last-child {
     display: flex;
-
     flex-direction: column;
-
     gap: 3px;
 }
 
-
 .format-option strong {
-    color: #173463;
-
+    color: var(--text);
     font-size: 11px;
-
     font-weight: 600;
 }
 
-
 .format-option small {
-    color: #647b9f;
-
+    color: var(--muted);
     font-size: 9px;
-
     line-height: 1.3;
 }
 
-
 /* =========================================================
    ACTION BUTTON
-   ========================================================= */
-
+========================================================= */
 .primary-action,
 .import-action {
     width: 100%;
-
     height: 35px;
-
     border-radius: 5px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 8px;
-
     color: #fff;
-
     font-size: 11.5px;
-
     font-weight: 600;
-
     cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        opacity 0.15s ease;
+    transition: transform 0.15s ease, opacity 0.15s ease;
 }
-
 
 .primary-action {
-    background: #1769ff;
-
-    box-shadow:
-        0 4px 10px rgba(23, 105, 255, 0.16);
+    background: var(--blue);
+    box-shadow: 0 4px 10px rgba(23, 105, 255, 0.16);
 }
-
 
 .import-action {
-    background: #10b981;
-
-    box-shadow:
-        0 4px 10px rgba(16, 185, 129, 0.12);
+    background: var(--green);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.12);
 }
-
 
 .primary-action:hover,
 .import-action:hover {
     opacity: 0.92;
 }
 
-
 .primary-action:active,
 .import-action:active {
     transform: translateY(1px);
 }
 
-
 .primary-action:disabled,
 .import-action:disabled {
     opacity: 0.6;
-
     cursor: wait;
 }
 
-
 /* =========================================================
    DROPZONE
-   ========================================================= */
-
+========================================================= */
 .upload-dropzone {
     min-height: 207px;
-
     padding: 18px 15px;
-
-    border:
-        1.5px dashed #cbd9ee;
-
+    border: 1.5px dashed #cbd9ee;
     border-radius: 7px;
-
-    background: #fff;
-
+    background: var(--white);
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     text-align: center;
-
     cursor: pointer;
-
-    transition:
-        border-color 0.2s ease,
-        background 0.2s ease;
+    transition: border-color 0.2s ease, background 0.2s ease;
 }
-
 
 .upload-dropzone:hover,
 .upload-dropzone.dragging {
-    border-color: #1769ff;
-
-    background: #f7faff;
+    border-color: var(--blue);
+    background: rgba(23, 105, 255, 0.04);
 }
-
 
 .cloud-icon {
     width: 48px;
     height: 48px;
-
     margin-bottom: 8px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     color: #5893ff;
-
     font-size: 37px;
 }
 
-
 .upload-dropzone h3 {
     margin-bottom: 5px;
-
-    color: #14234a;
-
+    color: var(--text);
     font-size: 12px;
-
     font-weight: 700;
 }
 
-
 .upload-dropzone p {
     margin-bottom: 8px;
-
-    color: #5c7196;
-
+    color: var(--muted);
     font-size: 9.5px;
 }
 
-
 .upload-format {
     display: block;
-
     margin-bottom: 11px;
-
-    color: #7185a6;
-
+    color: var(--muted);
     font-size: 9px;
 }
 
-
 .choose-file-btn {
     height: 33px;
-
     min-width: 136px;
-
     padding: 0 18px;
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 8px;
-
     border-radius: 5px;
-
-    background: #1769ff;
-
+    background: var(--blue);
     color: #fff;
-
     font-size: 10.5px;
-
     font-weight: 600;
-
     cursor: pointer;
 }
 
-
 .choose-file-btn:hover {
-    background: #0757e8;
+    background: var(--blue-dark);
 }
-
 
 /* =========================================================
    IMPORT OPTIONS
-   ========================================================= */
-
+========================================================= */
 .import-options {
     margin-top: 13px;
 }
-
 
 .import-options h3 {
     margin-bottom: 8px;
 }
 
-
 .import-option {
     min-height: 42px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 15px;
 }
 
-
 .option-text {
     min-width: 0;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 2px;
 }
 
-
 .option-text strong {
-    color: #14234a;
-
+    color: var(--text);
     font-size: 10.5px;
-
     font-weight: 600;
 }
 
-
 .option-text small {
-    color: #62789e;
-
+    color: var(--muted);
     font-size: 8.8px;
 }
 
-
-/* =========================================================
-   TOGGLE
-   ========================================================= */
-
+/* Toggle switch khusus opsi impor (beda dari .switch di
+   halaman Atur Sidebar, tapi nama classnya sama — tidak masalah
+   karena file CSS-nya tidak pernah dipakai di halaman yang sama) */
 .switch {
     position: relative;
-
     width: 30px;
     height: 17px;
-
     flex: 0 0 30px;
 }
-
 
 .switch input {
     width: 0;
     height: 0;
-
     opacity: 0;
 }
 
-
-.slider {
+.switch .slider {
     position: absolute;
-
     inset: 0;
-
     border-radius: 30px;
-
     background: #c7d2e3;
-
     cursor: pointer;
-
     transition: 0.2s;
 }
 
-
-.slider::before {
+.switch .slider::before {
     content: "";
-
     position: absolute;
-
     width: 12px;
     height: 12px;
-
     left: 2.5px;
     top: 2.5px;
-
     border-radius: 50%;
-
     background: #fff;
-
     transition: 0.2s;
-
-    box-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
-
 
 .switch input:checked + .slider {
-    background: #1769ff;
+    background: var(--blue);
 }
-
 
 .switch input:checked + .slider::before {
     transform: translateX(13px);
 }
 
-
 /* =========================================================
    HISTORY
-   ========================================================= */
-
+========================================================= */
 .history-card {
     margin-top: 11px;
-
     padding: 12px 12px 13px;
-
-    background: #fff;
-
-    border:
-        1px solid #eef2f7;
-
+    background: var(--white);
+    border: 1px solid var(--border);
     border-radius: 8px;
-
     box-shadow: var(--shadow);
 }
 
-
 .history-card h2 {
     margin-bottom: 9px;
-
-    color: #10204a;
-
+    color: var(--text);
     font-size: 12px;
-
     font-weight: 700;
 }
 
-
 .history-table-wrapper {
     width: 100%;
-
     overflow-x: auto;
 }
 
-
 .history-table {
     width: 100%;
-
     min-width: 760px;
-
     border-collapse: collapse;
-
     font-size: 9.5px;
 }
 
-
 .history-table th {
-    padding:
-        7px 8px;
-
-    background: #fff;
-
-    color: #173b73;
-
-    border-top:
-        1px solid #e5ebf3;
-
-    border-bottom:
-        1px solid #e5ebf3;
-
+    padding: 7px 8px;
+    background: var(--white);
+    color: var(--text-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     text-align: left;
-
     font-size: 9.5px;
-
     font-weight: 600;
 }
 
-
 .history-table td {
-    padding:
-        7px 8px;
-
-    color: #263f6d;
-
-    border-bottom:
-        1px solid #edf1f6;
-
+    padding: 7px 8px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
     white-space: nowrap;
 }
 
-
 .history-table tbody tr:hover {
-    background: #fafcff;
+    background: rgba(23, 105, 255, 0.03);
 }
-
 
 .history-table tbody tr:last-child td {
     border-bottom: 0;
 }
 
-
 /* =========================================================
    HISTORY BADGES
-   ========================================================= */
-
+========================================================= */
 .history-badge {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     min-width: 42px;
-
     padding: 3px 7px;
-
     border-radius: 4px;
-
     font-size: 8.5px;
-
     font-weight: 600;
 }
-
 
 .history-badge.export {
     color: #075bd8;
-
     background: #e7f1ff;
 }
 
-
 .history-badge.import {
     color: #079365;
-
     background: #dcf9ed;
 }
-
 
 .history-status {
     display: inline-flex;
-
     padding: 3px 7px;
-
     border-radius: 4px;
-
     color: #079365;
-
     background: #dcf9ed;
-
     font-size: 8.5px;
-
     font-weight: 600;
 }
 
-
 /* =========================================================
    HISTORY ACTIONS
-   ========================================================= */
-
+========================================================= */
 .history-actions {
     display: flex;
-
     align-items: center;
-
     gap: 7px;
 }
 
-
 .table-download {
     min-width: 66px;
-
     height: 25px;
-
     padding: 0 8px;
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 5px;
-
-    border:
-        1px solid #d7e2f2;
-
+    border: 1px solid var(--border);
     border-radius: 5px;
-
-    background: #fff;
-
-    color: #1769ff;
-
+    background: var(--white);
+    color: var(--blue);
     font-size: 8.5px;
-
     cursor: pointer;
 }
 
-
 .table-download:hover {
-    background: #f3f7ff;
+    background: rgba(23, 105, 255, 0.06);
 }
-
 
 .table-delete {
     width: 28px;
     height: 25px;
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
-    border:
-        1px solid #dce4ef;
-
+    border: 1px solid var(--border);
     border-radius: 5px;
-
-    background: #fff;
-
+    background: var(--white);
     color: #ff5a67;
-
     font-size: 10px;
-
     cursor: pointer;
 }
 
-
 .table-delete:hover {
     background: #fff2f3;
-
     border-color: #ffcdd2;
 }
 
-
 /* =========================================================
    EMPTY HISTORY
-   ========================================================= */
-
+========================================================= */
 .empty-history {
     padding: 20px !important;
-
-    color: #8797b1 !important;
-
+    color: var(--muted) !important;
     text-align: center;
-
     font-size: 10px;
 }
 
-
 /* =========================================================
-   FOOTER
-   ========================================================= */
-
+   FOOTER HALAMAN
+========================================================= */
 .cms-footer {
     margin-top: auto;
-
-    padding:
-        19px 0 2px;
-
-    color: #6680a8;
-
+    padding: 19px 0 2px;
+    color: var(--muted);
     text-align: center;
-
     font-size: 10px;
 }
 
-
 /* =========================================================
-   DARK MODE
-   ========================================================= */
-
-body.dark-mode {
-    --page-bg: #0b1220;
-
-    --white: #111b2e;
-
-    --text: #e7edf8;
-
-    --text-2: #b8c6dc;
-
-    --muted: #8fa1bd;
-
-    --border: #26344c;
+   DARK MODE (khusus elemen halaman ini)
+   Variabel var(--white)/var(--text)/dst sudah otomatis berubah
+   lewat body.dark-mode di sidebar.css — override tambahan di
+   bawah ini cuma untuk detail yang perlu warna berbeda.
+========================================================= */
+body.dark-mode .export-row:hover,
+body.dark-mode .history-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
 }
 
-
-body.dark-mode .main-content {
-    background: #0b1220;
+body.dark-mode .format-option:hover {
+    border-color: #3a5480;
 }
 
-
-body.dark-mode .workspace-card,
-body.dark-mode .history-card,
-body.dark-mode .upload-dropzone,
-body.dark-mode .export-row,
-body.dark-mode .format-option {
-    background: #111b2e;
-
-    border-color: #26344c;
+body.dark-mode .upload-dropzone {
+    border-color: #2c3c58;
 }
 
-
-body.dark-mode .page-heading h1,
-body.dark-mode .workspace-card-header h2,
-body.dark-mode .export-text strong,
-body.dark-mode .workspace-card-body h3,
-body.dark-mode .format-option strong,
-body.dark-mode .option-text strong,
-body.dark-mode .history-card h2,
-body.dark-mode .history-table td {
-    color: #e7edf8;
+body.dark-mode .upload-dropzone:hover,
+body.dark-mode .upload-dropzone.dragging {
+    border-color: var(--blue);
+    background: rgba(23, 105, 255, 0.08);
 }
 
-
-body.dark-mode .page-heading p,
-body.dark-mode .workspace-card-header p,
-body.dark-mode .export-text small,
-body.dark-mode .format-option small,
-body.dark-mode .option-text small,
-body.dark-mode .upload-dropzone p,
-body.dark-mode .upload-format {
-    color: #9eb0ca;
+body.dark-mode .table-download {
+    background: rgba(23, 105, 255, 0.08);
 }
 
-
-body.dark-mode .export-list,
-body.dark-mode .history-table th,
-body.dark-mode .history-table td {
-    border-color: #26344c;
+body.dark-mode .table-delete {
+    background: rgba(255, 90, 103, 0.08);
 }
-
-
-body.dark-mode .export-row:hover {
-    background: #162238;
-}
-
-
-body.dark-mode .history-table th {
-    background: #111b2e;
-
-    color: #b9c9e2;
-}
-
 
 /* =========================================================
    RESPONSIVE
-   ========================================================= */
-
+========================================================= */
 @media (max-width: 1100px) {
-
-    :root {
-        --sidebar-width: 220px;
-    }
-
-    .main-content {
-        padding-left: 17px;
-        padding-right: 17px;
-    }
-
     .workspace-grid {
         gap: 10px;
     }
@@ -1879,12 +684,9 @@ body.dark-mode .history-table th {
     .export-text small {
         max-width: 260px;
     }
-
 }
 
-
 @media (max-width: 900px) {
-
     .workspace-grid {
         grid-template-columns: 1fr;
     }
@@ -1892,46 +694,9 @@ body.dark-mode .history-table th {
     .workspace-card-header {
         min-height: 90px;
     }
-
 }
 
-
 @media (max-width: 760px) {
-
-    :root {
-        --sidebar-width: 240px;
-    }
-
-    .sidebar {
-        transform: translateX(-100%);
-    }
-
-    body.sidebar-open .sidebar {
-        transform: translateX(0);
-    }
-
-    .main-content {
-        width: 100%;
-
-        margin-left: 0;
-
-        padding:
-            15px 12px 18px;
-    }
-
-    .cms-logo {
-        font-size: 20px;
-    }
-
-    .header-right {
-        gap: 9px;
-    }
-
-    .header-user-name,
-    .header-user-arrow {
-        display: none;
-    }
-
     .page-heading h1 {
         font-size: 20px;
     }
@@ -1939,55 +704,11 @@ body.dark-mode .history-table th {
     .page-heading p {
         font-size: 11px;
     }
-
 }
 
-
 @media (max-width: 520px) {
-
-    .cms-header {
-        padding: 0 11px;
-    }
-
-    .header-icon-btn {
-        font-size: 18px;
-    }
-
-    .header-avatar {
-        width: 29px;
-        height: 29px;
-
-        font-size: 13px;
-    }
-
-    .breadcrumb {
-        font-size: 10px;
-
-        gap: 7px;
-    }
-
-    .page-heading {
-        align-items: flex-start;
-
-        gap: 10px;
-    }
-
-    .page-heading-icon {
-        width: 37px;
-        height: 37px;
-
-        flex-basis: 37px;
-
-        font-size: 16px;
-    }
-
-    .page-heading h1 {
-        font-size: 18px;
-    }
-
     .workspace-card-header {
         align-items: flex-start;
-
         padding: 12px;
     }
 
@@ -2006,218 +727,4 @@ body.dark-mode .history-table th {
     .upload-dropzone {
         min-height: 190px;
     }
-
-}
-
-/* =========================================================
-   PERBAIKAN: ITEM AKTIF TIDAK BOLEH TENGGELAM/BERGESER
-   ========================================================= */
-
-.nav-item.active,
-.nav-item.active:hover {
-    background: #1769ff;
-
-    color: #fff;
-}
-
-.nav-submenu .active-sub-item,
-.nav-submenu .active-sub-item:hover {
-    background: #1769ff;
-
-    color: #fff;
-
-    padding-left: 32px;
-}
-
-/* =========================================================
-   SIDEBAR OVERLAY (MOBILE)
-   ========================================================= */
-
-.sidebar-overlay {
-    display: none;
-
-    position: fixed;
-
-    inset: 0;
-
-    top: var(--header-height);
-
-    z-index: 850;
-
-    background: rgba(3, 10, 25, .5);
-
-    opacity: 0;
-
-    transition: opacity .2s ease;
-}
-
-body.sidebar-open .sidebar-overlay {
-    display: block;
-
-    opacity: 1;
-}
-
-@media (min-width: 761px) {
-    .sidebar-overlay {
-        display: none !important;
-    }
-}
-
-
-/* =========================================================
-   ACTIVE NAV ITEM (TOP LEVEL)
-   ========================================================= */
-
-.nav-item.active,
-.nav-item.active:hover {
-    background: #1769ff;
-
-    color: #fff;
-}
-
-.nav-submenu .active-sub-item,
-.nav-submenu .active-sub-item:hover {
-    background: #1769ff;
-
-    color: #fff;
-
-    padding-left: 32px;
-}
-
-
-/* =========================================================
-   HEADER DROPDOWN
-   ========================================================= */
-
-.header-dropdown-wrap {
-    position: relative;
-}
-
-.dropdown-panel {
-    display: none;
-
-    position: absolute;
-
-    top: calc(100% + 14px);
-    right: -8px;
-
-    min-width: 220px;
-
-    background: #fff;
-
-    color: #0d1735;
-
-    border-radius: 8px;
-
-    box-shadow: 0 12px 30px rgba(10, 25, 60, .18);
-
-    overflow: hidden;
-
-    z-index: 1100;
-}
-
-.dropdown-panel.show {
-    display: block;
-}
-
-.dropdown-panel-header {
-    padding: 11px 14px;
-
-    border-bottom: 1px solid #eef2f7;
-
-    font-size: 12.5px;
-    font-weight: 700;
-
-    color: #10204a;
-}
-
-.dropdown-panel-empty {
-    padding: 18px 14px;
-
-    color: #7d8ba8;
-
-    font-size: 11.5px;
-
-    text-align: center;
-}
-
-.dropdown-panel-item {
-    width: 100%;
-
-    padding: 10px 14px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 9px;
-
-    background: transparent;
-
-    border: 0;
-
-    border-bottom: 1px solid #f1f4f9;
-
-    color: #17335f;
-
-    text-decoration: none;
-
-    font-size: 12.5px;
-
-    font-weight: 500;
-
-    text-align: left;
-
-    cursor: pointer;
-}
-
-.dropdown-panel-item:last-child {
-    border-bottom: 0;
-}
-
-.dropdown-panel-item:hover {
-    background: #f6f9ff;
-}
-
-.dropdown-panel-item.danger {
-    color: #e0384a;
-}
-
-.dropdown-panel-item.danger:hover {
-    background: #fff2f3;
-}
-
-body.dark-mode .dropdown-panel {
-    background: #111b2e;
-
-    color: #e7edf8;
-
-    box-shadow: 0 12px 30px rgba(0, 0, 0, .4);
-}
-
-body.dark-mode .dropdown-panel-header {
-    border-color: #26344c;
-
-    color: #e7edf8;
-}
-
-body.dark-mode .dropdown-panel-item {
-    color: #d7e1f2;
-
-    border-color: #1d2940;
-}
-
-body.dark-mode .dropdown-panel-item:hover {
-    background: #17233a;
-}
-
-/* =========================================================
-   MATIKAN SCROLL ANCHORING DI SIDEBAR
-   (mencegah sidebar ikut bergeser sendiri saat submenu
-   dibuka/ditutup)
-   ========================================================= */
-
-.sidebar-nav,
-.sidebar-nav * {
-    overflow-anchor: none;
 }
