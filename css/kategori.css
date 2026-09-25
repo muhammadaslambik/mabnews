@@ -14,7 +14,7 @@
 ========================================================= */
 
 .category-page .container:not(.topbar):not(.nav-inner) {
-    width: min(1435px, calc(100% - 100px));
+    width: min(1400px, calc(100% - 80px));
     margin: 0 auto;
 }
 
@@ -687,10 +687,6 @@
 
 @media (max-width: 1100px) {
 
-    .category-page .container:not(.topbar):not(.nav-inner) {
-        width: min(100% - 40px, 1000px);
-    }
-
     .category-page .category-layout {
         grid-template-columns:
             minmax(0, 1fr)
@@ -715,10 +711,6 @@
 ========================================================= */
 
 @media (max-width: 800px) {
-
-    .category-page .container:not(.topbar):not(.nav-inner) {
-        width: calc(100% - 28px);
-    }
 
     .category-page .category-map {
         opacity: .15;

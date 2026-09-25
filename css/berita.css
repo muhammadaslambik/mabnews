@@ -41,7 +41,7 @@
    ========================================================= */
 
 .news-list-page .container:not(.topbar):not(.nav-inner) {
-    width: min(1240px, calc(100% - 40px));
+    width: min(1400px, calc(100% - 80px));
     margin: 0 auto;
 }
 
@@ -596,10 +596,6 @@
    ========================================================= */
 
 @media (max-width: 700px) {
-
-    .news-list-page .container:not(.topbar):not(.nav-inner) {
-        width: min(100% - 24px, 1240px);
-    }
 
     .news-list-page .header-inner {
         min-height: auto;
