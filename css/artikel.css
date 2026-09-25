@@ -11,7 +11,7 @@
    GLOBAL
 ========================================================= */
 .article-page .container:not(.topbar):not(.nav-inner) {
-  width: min(1380px, calc(100% - 48px));
+  width: min(1400px, calc(100% - 80px));
   margin: 0 auto;
 }
 
@@ -181,7 +181,7 @@
 .article-page .article-hero figcaption {
   margin-top: 9px;
   color: #8b94a3;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.5;
 }
 
@@ -418,10 +418,11 @@
   background: #edf1f5;
 }
 .article-page .related-item h3 {
-  margin: 0 0 6px;
-  color: #263247;
-  font-size: 11px;
+  margin: 0 0 5px;
+  color: #243146;
+  font-size: 12px;
   line-height: 1.45;
+  font-weight: 750;
 }
 
 /* =========================================================
@@ -463,12 +464,12 @@
   display: block;
   margin-bottom: 2px;
   color: #8a93a2;
-  font-size: 8px;
+  font-size: 11px;
 }
 .article-page .social-card strong {
   display: block;
   color: #263247;
-  font-size: 9px;
+  font-size: 13px;
 }
 
 /* =========================================================
@@ -494,9 +495,6 @@
    RESPONSIVE — MOBILE
 ========================================================= */
 @media (max-width: 800px) {
-  .article-page .container:not(.topbar):not(.nav-inner) {
-    width: min(100% - 30px, 650px);
-  }
   .article-page .header-inner {
     min-height: auto;
     padding: 15px 0;
@@ -549,9 +547,6 @@
    RESPONSIVE — SMALL MOBILE
 ========================================================= */
 @media (max-width: 500px) {
-  .article-page .container:not(.topbar):not(.nav-inner) {
-    width: calc(100% - 24px);
-  }
   .article-page .article-title {
     font-size: 29px;
     letter-spacing: -.8px;
