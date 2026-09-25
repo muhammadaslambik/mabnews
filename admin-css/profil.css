@@ -1,0 +1,255 @@
+/* =========================================================
+   MAB-News CMS — admin-css/profil.css
+   Khusus konten halaman Profil Saya.
+   Header & sidebar TIDAK diatur di sini — itu tetap dari
+   admin-css/sidebar.css (dipakai bersama semua halaman admin).
+   Semua class di sini diberi prefix "profil-" supaya tidak
+   bentrok dengan halaman admin lain.
+   ========================================================= */
+
+.profil-loading {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.profil-empty {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 50px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.profil-empty i {
+  font-size: 28px;
+  margin-bottom: 10px;
+  display: block;
+  color: var(--border);
+}
+
+.profil-empty a {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+/* ---- Layout ---- */
+.profil-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.profil-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.profil-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.profil-card h3 {
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.profil-card-desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* ---- Kartu ringkasan (avatar besar) ---- */
+.profil-summary {
+  text-align: center;
+}
+
+.profil-avatar-lg {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 4px auto 14px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--blue);
+}
+
+.profil-summary h2 {
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.profil-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  background: var(--blue-light);
+  color: var(--blue-dark);
+}
+
+.profil-summary-meta {
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.profil-summary-meta div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+}
+
+.profil-summary-meta span {
+  color: var(--muted);
+}
+
+.profil-summary-meta strong {
+  color: var(--text);
+  font-weight: 600;
+  text-align: right;
+}
+
+/* ---- Form ---- */
+.profil-form-row {
+  margin-bottom: 14px;
+}
+
+.profil-form-row.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.profil-form-row label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-bottom: 6px;
+}
+
+.profil-form-row input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 0 12px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: inherit;
+  cursor: text;
+}
+
+.profil-form-row input:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+
+.profil-form-error {
+  background: #fff1f2;
+  color: #e0364b;
+  border: 1px solid #ffd3d9;
+  border-radius: 7px;
+  padding: 9px 11px;
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+
+.profil-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profil-btn-primary {
+  height: 40px;
+  padding: 0 18px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  border: 1px solid var(--blue-dark);
+  color: #fff;
+  box-shadow: 0 5px 14px rgba(23, 105, 255, 0.25);
+}
+
+.profil-btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.profil-btn-primary:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+  filter: none;
+}
+
+/* ---- Footer (halaman ini hanya memuat sidebar.css + profil.css) ---- */
+.cms-footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  padding: 22px 0 3px;
+}
+
+/* ---- Toast ---- */
+.profil-toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  background: #101a30;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  z-index: 3000;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: .2s ease;
+  pointer-events: none;
+}
+
+.profil-toast.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 860px) {
+  .profil-grid {
+    grid-template-columns: 1fr;
+  }
+  .profil-form-row.two-col {
+    grid-template-columns: 1fr;
+  }
+}

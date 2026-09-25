@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const panel = document.createElement("div");
         panel.className = "header-dropdown account-dropdown";
         panel.innerHTML = `
-            <a href="#" class="header-dropdown-item simple"><i class="fa-solid fa-user"></i> Profil Saya</a>
+            <a href="profil.html" class="header-dropdown-item simple"><i class="fa-solid fa-user"></i> Profil Saya</a>
             <a href="#" class="header-dropdown-item simple"><i class="fa-solid fa-gear"></i> Pengaturan Akun</a>
             <div class="header-dropdown-divider"></div>
             <a href="#" class="header-dropdown-item simple logout"><i class="fa-solid fa-right-from-bracket"></i> Keluar</a>
