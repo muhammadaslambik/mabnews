@@ -129,6 +129,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const sidebarRole = document.querySelector(".sidebar-profile-info span");
         if (sidebarRole) sidebarRole.textContent = user.role || "-";
+
+        const headerAvatar = document.querySelector(".header-avatar");
+        if (headerAvatar) {
+            headerAvatar.innerHTML = user.avatar_url
+                ? `<img src="${user.avatar_url}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+                : `<i class="fa-solid fa-user"></i>`;
+        }
+
+        const sidebarAvatar = document.querySelector(".sidebar-avatar");
+        if (sidebarAvatar) {
+            sidebarAvatar.innerHTML = user.avatar_url
+                ? `<img src="${user.avatar_url}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+                : `<i class="fa-solid fa-user"></i>`;
+        }
     }
 
     fetch(`${USERS_ENDPOINT}?limit=100`)

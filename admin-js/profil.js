@@ -32,6 +32,12 @@
 
   let currentUser = null;
 
+  function escapeHtml(str) {
+    return String(str ?? "").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
   function initials(name) {
     const parts = String(name || "?").trim().split(/\s+/).filter(Boolean);
     if (!parts.length) return "?";
@@ -89,8 +95,14 @@
   }
 
   function renderSummary(user) {
-    $("profilAvatar").textContent = initials(user.name || user.username);
-    $("profilAvatar").style.background = colorFor(user.name || user.username);
+    if (user.avatar_url) {
+      $("profilAvatar").style.background = "transparent";
+      $("profilAvatar").innerHTML = `<img src="${escapeHtml(user.avatar_url)}" alt="Foto profil">`;
+    } else {
+      $("profilAvatar").innerHTML = "";
+      $("profilAvatar").textContent = initials(user.name || user.username);
+      $("profilAvatar").style.background = colorFor(user.name || user.username);
+    }
     $("profilDisplayName").textContent = user.name || user.username;
     $("profilRoleBadge").textContent = user.role || "-";
     $("profilStatus").textContent = user.status || "-";
@@ -109,6 +121,19 @@
 
     const sidebarRole = document.querySelector(".sidebar-profile-info span");
     if (sidebarRole) sidebarRole.textContent = user.role || "-";
+
+    const headerAvatar = document.querySelector(".header-avatar");
+    if (headerAvatar) {
+      headerAvatar.innerHTML = user.avatar_url
+        ? `<img src="${escapeHtml(user.avatar_url)}" alt="">`
+        : `<i class="fa-solid fa-user"></i>`;
+    }
+    const sidebarAvatar = document.querySelector(".sidebar-avatar");
+    if (sidebarAvatar) {
+      sidebarAvatar.innerHTML = user.avatar_url
+        ? `<img src="${escapeHtml(user.avatar_url)}" alt="">`
+        : `<i class="fa-solid fa-user"></i>`;
+    }
   }
 
   function fillForm(user) {
@@ -222,6 +247,55 @@
   }
 
   /* ---------------------------------------------------------
+     Ganti foto profil — upload asli ke ImageKit (folder
+     /mabnews/avatars), memakai signature dari backend seperti
+     di halaman Media, lalu URL-nya disimpan ke kolom
+     avatar_url di admin_users.
+     --------------------------------------------------------- */
+  async function handleAvatarFile(file) {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast("File harus berupa gambar");
+      return;
+    }
+
+    const btn = $("profilAvatarBtn");
+    btn.classList.add("is-loading");
+    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
+
+    try {
+      const auth = await apiFetch("/api/upload/auth");
+      const form = new FormData();
+      form.append("file", file);
+      form.append("fileName", file.name);
+      form.append("useUniqueFileName", "true");
+      form.append("folder", "/mabnews/avatars");
+      form.append("publicKey", IMAGEKIT_PUBLIC_KEY);
+      form.append("signature", auth.signature);
+      form.append("expire", auth.expire);
+      form.append("token", auth.token);
+
+      const uploadRes = await fetch("https://upload.imagekit.io/api/v1/files/upload", {
+        method: "POST",
+        body: form
+      });
+      const uploadData = await uploadRes.json();
+      if (!uploadRes.ok) throw new Error(uploadData.message || "Upload ke ImageKit ditolak");
+
+      const res = await apiSend(`/api/users/${currentUser.id}`, "PUT", { avatar_url: uploadData.url });
+      currentUser = res.data;
+      renderSummary(currentUser);
+      toast("Foto profil berhasil diganti");
+    } catch (err) {
+      console.error("Gagal mengganti foto profil:", err);
+      toast(err.message || "Gagal mengganti foto profil");
+    } finally {
+      btn.classList.remove("is-loading");
+      btn.innerHTML = `<i class="fa-solid fa-camera"></i>`;
+    }
+  }
+
+  /* ---------------------------------------------------------
      Toast
      --------------------------------------------------------- */
   let toastTimer;
@@ -236,6 +310,11 @@
   document.addEventListener("DOMContentLoaded", () => {
     $("profilInfoForm").addEventListener("submit", handleInfoSubmit);
     $("profilPasswordForm").addEventListener("submit", handlePasswordSubmit);
+    $("profilAvatarBtn").addEventListener("click", () => $("profilAvatarInput").click());
+    $("profilAvatarInput").addEventListener("change", (e) => {
+      handleAvatarFile(e.target.files[0]);
+      e.target.value = "";
+    });
     loadProfile();
   });
 })();

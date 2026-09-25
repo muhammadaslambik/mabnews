@@ -135,7 +135,7 @@
         <td class="pengguna-col-num">${start + i + 1}</td>
         <td>
           <div class="pengguna-user-cell">
-            <span class="pengguna-avatar" style="background:${colorFor(u.name || u.username)}">${escapeHtml(initials(u.name || u.username))}</span>
+            <span class="pengguna-avatar" style="${u.avatar_url ? "" : `background:${colorFor(u.name || u.username)}`}">${u.avatar_url ? `<img src="${escapeHtml(u.avatar_url)}" alt="">` : escapeHtml(initials(u.name || u.username))}</span>
             <div class="pengguna-user-text">
               <strong>${escapeHtml(u.name || u.username)}</strong>
               <span>${escapeHtml(u.role || "-")}</span>

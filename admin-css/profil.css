@@ -80,17 +80,56 @@
   text-align: center;
 }
 
+.profil-avatar-wrap {
+  position: relative;
+  width: 84px;
+  margin: 4px auto 14px;
+}
+
 .profil-avatar-lg {
   width: 84px;
   height: 84px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  margin: 4px auto 14px;
+  margin: 0;
   font-size: 26px;
   font-weight: 700;
   color: #fff;
   background: var(--blue);
+  overflow: hidden;
+}
+
+.profil-avatar-lg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.profil-avatar-edit {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  border: 3px solid var(--white);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.profil-avatar-edit:hover {
+  filter: brightness(1.08);
+}
+
+.profil-avatar-edit.is-loading {
+  pointer-events: none;
+  opacity: .75;
 }
 
 .profil-summary h2 {
