@@ -395,6 +395,7 @@
   border-radius: 7px;
   padding: 0 12px;
   font-size: 13px;
+  background: var(--white);
   color: var(--text);
   font-family: inherit;
   cursor: text;

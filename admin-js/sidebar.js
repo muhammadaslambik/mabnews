@@ -104,6 +104,55 @@ document.addEventListener("DOMContentLoaded", () => {
     let hasScrolledToActive = false;
 
     /* ---------------------------------------------------------
+       NAMA & PERAN DI HEADER + SIDEBAR — dari akun asli di
+       database (tabel admin_users lewat /api/users), berlaku
+       di SEMUA halaman CMS.
+
+       Catatan: CMS ini belum punya sistem login/sesi asli, jadi
+       "akun yang sedang dipakai" ditentukan dengan cara yang sama
+       seperti di halaman Profil Saya (admin-js/profil.js) — id
+       akun disimpan di localStorage per-browser. Kalau sistem
+       login sungguhan sudah dipasang, bagian ini tinggal diganti
+       untuk memakai id dari sesi login.
+    --------------------------------------------------------- */
+    const CURRENT_USER_KEY = "mabnews_current_user_id";
+    const USERS_ENDPOINT = `${API_BASE_URL}/users`;
+
+    function applyCurrentUserToChrome(user) {
+        if (!user) return;
+
+        const headerName = document.querySelector(".header-user-name");
+        if (headerName) headerName.textContent = user.name || user.username;
+
+        const sidebarName = document.querySelector(".sidebar-profile-info strong");
+        if (sidebarName) sidebarName.textContent = user.name || user.username;
+
+        const sidebarRole = document.querySelector(".sidebar-profile-info span");
+        if (sidebarRole) sidebarRole.textContent = user.role || "-";
+    }
+
+    fetch(`${USERS_ENDPOINT}?limit=100`)
+        .then((response) => {
+            if (!response.ok) throw new Error(`Status ${response.status}`);
+            return response.json();
+        })
+        .then((json) => {
+            const users = (json && json.data) || [];
+            if (!users.length) return;
+
+            const savedId = localStorage.getItem(CURRENT_USER_KEY);
+            let user = savedId ? users.find((u) => String(u.id) === String(savedId)) : null;
+            if (!user) {
+                user = users.find((u) => u.role === "Administrator") || users[0];
+                localStorage.setItem(CURRENT_USER_KEY, user.id);
+            }
+            applyCurrentUserToChrome(user);
+        })
+        .catch((error) => {
+            console.warn("Gagal memuat data akun untuk header/sidebar, memakai teks bawaan.", error);
+        });
+
+    /* ---------------------------------------------------------
        SIDEBAR DINAMIS — dibangun dari data sidebar_menu
     --------------------------------------------------------- */
     if (sidebarNav) {
