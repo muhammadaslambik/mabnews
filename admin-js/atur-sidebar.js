@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================================= */
     const API_BASE_URL = "https://mabnews-backend.vercel.app/api";
     const SIDEBAR_MENU_ENDPOINT = `${API_BASE_URL}/sidebar-menu`;
+    const THEME_ENDPOINT = `${API_BASE_URL}/theme`;
 
     /* =========================================================
        DATA DEFAULT (fallback)
@@ -53,12 +54,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetButton = document.getElementById("resetButton");
     const saveButton = document.getElementById("saveButton");
 
+    const sidebarColorInput = document.getElementById("sidebarColorInput");
+    const sidebarColorText = document.getElementById("sidebarColorText");
+    const headerColorInput = document.getElementById("headerColorInput");
+    const headerColorText = document.getElementById("headerColorText");
+    const themeStatusText = document.getElementById("themeStatusText");
+    const themeSaveButton = document.getElementById("themeSaveButton");
+    const themeResetButton = document.getElementById("themeResetButton");
+    const previewSidebarEl = document.querySelector(".preview-sidebar");
+    const THEME_HEX_RE = /^#[0-9a-fA-F]{6}$/;
+    const THEME_DEFAULTS = { sidebar_color: "#03142f", header_color: "#03142e" };
+
     let menus = DEFAULT_MENUS.map((menu) => ({ ...menu }));
     let isLoading = true;
     let isSaving = false;
     let draggedId = null;
 
     init();
+    initTheme();
 
     async function init() {
         setTableLoading(true);
@@ -539,6 +552,101 @@ document.addEventListener("DOMContentLoaded", () => {
                 isSaving = false;
                 saveButton.disabled = false;
                 saveButton.innerHTML = originalLabel;
+            }
+        });
+    }
+
+    /* =========================================================
+       WARNA TAMPILAN (sidebar & header) — tersimpan di database
+       lewat /api/theme, dipakai bersama oleh admin-js/sidebar.js
+       di semua halaman CMS.
+    ========================================================= */
+    async function initTheme() {
+        if (!sidebarColorInput) return; // halaman ini tidak punya panel warna
+
+        setThemeFields(THEME_DEFAULTS);
+        try {
+            const response = await fetch(THEME_ENDPOINT);
+            if (!response.ok) throw new Error(`GET theme gagal (status ${response.status})`);
+            const json = await response.json();
+            setThemeFields(json.data || THEME_DEFAULTS);
+            themeStatusText.textContent = "Warna tersimpan dimuat dari database.";
+        } catch (error) {
+            console.warn("Gagal memuat warna tema, memakai warna bawaan.", error);
+            themeStatusText.textContent = "Tidak bisa memuat dari server, menampilkan warna bawaan.";
+        }
+
+        wireThemeEvents();
+    }
+
+    function setThemeFields(theme) {
+        sidebarColorInput.value = theme.sidebar_color;
+        sidebarColorText.value = theme.sidebar_color;
+        headerColorInput.value = theme.header_color;
+        headerColorText.value = theme.header_color;
+        updateThemePreview();
+    }
+
+    function updateThemePreview() {
+        if (previewSidebarEl) {
+            previewSidebarEl.style.background = sidebarColorInput.value;
+        }
+    }
+
+    function syncColorPair(colorEl, textEl) {
+        colorEl.addEventListener("input", () => {
+            textEl.value = colorEl.value;
+            updateThemePreview();
+        });
+        textEl.addEventListener("input", () => {
+            const value = textEl.value.trim();
+            if (THEME_HEX_RE.test(value)) {
+                colorEl.value = value;
+                updateThemePreview();
+            }
+        });
+    }
+
+    function wireThemeEvents() {
+        syncColorPair(sidebarColorInput, sidebarColorText);
+        syncColorPair(headerColorInput, headerColorText);
+
+        themeResetButton.addEventListener("click", () => {
+            setThemeFields(THEME_DEFAULTS);
+            themeStatusText.textContent = "Dikembalikan ke warna bawaan (klik Simpan Warna untuk menerapkan).";
+        });
+
+        themeSaveButton.addEventListener("click", async () => {
+            const sidebar_color = sidebarColorText.value.trim();
+            const header_color = headerColorText.value.trim();
+
+            if (!THEME_HEX_RE.test(sidebar_color) || !THEME_HEX_RE.test(header_color)) {
+                showToast("Format warna harus kode hex 6 digit, contoh #03142f");
+                return;
+            }
+
+            themeSaveButton.disabled = true;
+            const originalLabel = themeSaveButton.innerHTML;
+            themeSaveButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...`;
+
+            try {
+                const response = await fetch(THEME_ENDPOINT, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ sidebar_color, header_color })
+                });
+                const json = await response.json();
+                if (!response.ok) throw new Error(json.error || `Gagal menyimpan (status ${response.status})`);
+
+                setThemeFields(json.data);
+                themeStatusText.textContent = "Warna tersimpan ke database.";
+                showToast("Warna sidebar & header berhasil disimpan.");
+            } catch (error) {
+                console.error(error);
+                showToast(error.message || "Gagal menyimpan warna.");
+            } finally {
+                themeSaveButton.disabled = false;
+                themeSaveButton.innerHTML = originalLabel;
             }
         });
     }

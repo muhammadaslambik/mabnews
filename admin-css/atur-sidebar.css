@@ -612,3 +612,60 @@ body.dark-mode .switch .slider {
         justify-content: flex-end;
     }
 }
+
+/* =========================================================
+   PANEL WARNA TAMPILAN
+========================================================= */
+.theme-card {
+    margin-top: 24px;
+}
+
+.theme-color-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 4px 0 18px;
+}
+
+.theme-color-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2, #5c6b8a);
+}
+
+.theme-color-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border, #e3e8f2);
+    border-radius: 8px;
+    padding: 6px 10px;
+    background: var(--white, #fff);
+}
+
+.theme-color-input input[type="color"] {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 6px;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+}
+
+.theme-color-input input[type="text"] {
+    width: 100px;
+    border: none;
+    font-size: 13px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    color: var(--text, #16233f);
+    text-transform: lowercase;
+}
+
+.theme-color-input input[type="text"]:focus,
+.theme-color-input input[type="color"]:focus {
+    outline: none;
+}

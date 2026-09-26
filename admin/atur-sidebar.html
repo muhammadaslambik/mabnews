@@ -215,6 +215,42 @@
             </aside>
         </div>
 
+        <section class="settings-card theme-card">
+            <div class="card-header">
+                <h3>Warna Tampilan</h3>
+                <p>Ubah warna latar sidebar dan header. Tersimpan ke database, berlaku untuk semua pengguna CMS.</p>
+            </div>
+
+            <div class="theme-color-row">
+                <label class="theme-color-field">
+                    <span>Warna Sidebar</span>
+                    <div class="theme-color-input">
+                        <input type="color" id="sidebarColorInput" value="#03142f">
+                        <input type="text" id="sidebarColorText" value="#03142f" maxlength="7" spellcheck="false">
+                    </div>
+                </label>
+                <label class="theme-color-field">
+                    <span>Warna Header</span>
+                    <div class="theme-color-input">
+                        <input type="color" id="headerColorInput" value="#03142e">
+                        <input type="text" id="headerColorText" value="#03142e" maxlength="7" spellcheck="false">
+                    </div>
+                </label>
+            </div>
+
+            <div class="card-footer">
+                <span class="total-menu" id="themeStatusText">Memuat warna tersimpan...</span>
+                <div class="footer-actions">
+                    <button type="button" class="btn btn-secondary" id="themeResetButton">
+                        <i class="fa-solid fa-rotate-left"></i> Kembalikan Default
+                    </button>
+                    <button type="button" class="btn btn-primary" id="themeSaveButton">
+                        <i class="fa-solid fa-floppy-disk"></i> Simpan Warna
+                    </button>
+                </div>
+            </div>
+        </section>
+
         <footer class="page-footer">
             &copy; 2025 MAB-News CMS. Semua hak dilindungi.
         </footer>
