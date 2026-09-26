@@ -470,7 +470,7 @@
   }
 
   .copyright {
-    font-size: 14px;
+    font-size: 10px;
   }
 
   .footer-links {
@@ -583,11 +583,7 @@
   }
 
   .copyright {
-    font-size: 14px;
-  }
-
-  .footer-links {
-    gap: 5px;
+    font-size: 10px;
   }
 
   .footer-links a,
