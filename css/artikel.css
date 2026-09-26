@@ -873,3 +873,27 @@ body.dark-preview .comment-body p {
 body.dark-preview .comment-avatar {
   background: #3b8bff;
 }
+
+/* =========================================================
+   MOBILE — samakan persis lebar header/navigasi dengan
+   konten artikel, dan beri ruang tepi yang lebih longgar
+   (sebelumnya sama-sama 40px tiap sisi dari main.css, yang
+   terlalu lebar untuk layar kecil sehingga navigasi & judul
+   terasa sempit/berdesakan).
+   ========================================================= */
+@media (max-width: 768px) {
+  .article-page .container:not(.topbar):not(.nav-inner),
+  .article-page .topbar,
+  .article-page .nav-inner {
+    width: calc(100% - 32px);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-page .container:not(.topbar):not(.nav-inner),
+  .article-page .topbar,
+  .article-page .nav-inner {
+    width: calc(100% - 24px);
+  }
+}
