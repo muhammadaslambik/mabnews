@@ -30,8 +30,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector(".article-lead").textContent = a.lead || '';
     document.querySelector(".author-name").childNodes[0].textContent = (a.author || 'MAB-News') + ' ';
 
-    const dateStr = new Date(a.published_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
-    const timeStr = new Date(a.published_at).toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+    const avatarEl = document.querySelector(".author-avatar");
+    if (avatarEl) {
+      if (a.author_photo_url) {
+        avatarEl.innerHTML = `<img src="${a.author_photo_url}" alt="${a.author || ''}">`;
+      } else {
+        avatarEl.textContent = (a.author || '?').charAt(0).toUpperCase();
+      }
+    }
+
+    const dateStr = new Date(a.published_at).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    const timeStr = new Date(a.published_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
     document.querySelector(".article-date").textContent = `${dateStr} \u00a0•\u00a0 ${timeStr} WIB`;
 
     const heroImg = document.querySelector(".article-hero img");
@@ -86,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function formatDate(iso) {
-    return new Date(iso).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    return new Date(iso).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   }
 
   async function loadPopularSidebar(currentSlug) {
