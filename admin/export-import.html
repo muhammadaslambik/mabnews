@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 <link rel="stylesheet" href="../admin-css/sidebar.css">
 <link rel="stylesheet" href="../admin-css/export-import.css">
@@ -73,7 +74,7 @@
                 <i class="fa-solid fa-image"></i>
                 <span>Media</span>
             </a>
-            <a href="pengguna.html" class="nav-item">
+            <a href="users.html" class="nav-item">
                 <i class="fa-solid fa-users"></i>
                 <span>Pengguna</span>
             </a>
@@ -173,10 +174,10 @@
                                     <span class="export-icon"><i class="fa-solid fa-database"></i></span>
                                     <span class="export-text">
                                         <strong>Semua Data</strong>
-                                        <small>Ekspor semua data (artikel, kategori, media, pengguna, pengaturan, dll).</small>
+                                        <small>Ekspor semua data yang tersedia (artikel, kategori, media).</small>
                                     </span>
                                 </span>
-                                <span class="count-badge blue-badge">320 item</span>
+                                <span class="count-badge blue-badge" id="countSemua">memuat...</span>
                             </label>
 
                             <label class="export-row">
@@ -186,10 +187,10 @@
                                     <span class="export-icon"><i class="fa-solid fa-file-lines"></i></span>
                                     <span class="export-text">
                                         <strong>Artikel</strong>
-                                        <small>Data artikel dan konten berita.</small>
+                                        <small>Data artikel dan konten berita (dari database).</small>
                                     </span>
                                 </span>
-                                <span class="count-badge">125 item</span>
+                                <span class="count-badge" id="countArtikel">memuat...</span>
                             </label>
 
                             <label class="export-row">
@@ -199,10 +200,10 @@
                                     <span class="export-icon"><i class="fa-solid fa-folder"></i></span>
                                     <span class="export-text">
                                         <strong>Kategori</strong>
-                                        <small>Data kategori artikel.</small>
+                                        <small>Data kategori artikel (dari database).</small>
                                     </span>
                                 </span>
-                                <span class="count-badge">24 item</span>
+                                <span class="count-badge" id="countKategori">memuat...</span>
                             </label>
 
                             <label class="export-row">
@@ -212,15 +213,15 @@
                                     <span class="export-icon"><i class="fa-solid fa-image"></i></span>
                                     <span class="export-text">
                                         <strong>Media</strong>
-                                        <small>File media (gambar, video, dll).</small>
+                                        <small>Gambar utama tiap artikel, diunduh langsung dari ImageKit.</small>
                                     </span>
                                 </span>
-                                <span class="count-badge">48 file</span>
+                                <span class="count-badge" id="countMedia">memuat...</span>
                             </label>
 
-                            <label class="export-row">
+                            <label class="export-row is-disabled" title="Belum ada API untuk data pengguna">
                                 <span class="export-row-left">
-                                    <input type="checkbox" name="export_item" value="pengguna" checked>
+                                    <input type="checkbox" name="export_item" value="pengguna" disabled>
                                     <span class="custom-check"><i class="fa-solid fa-check"></i></span>
                                     <span class="export-icon"><i class="fa-solid fa-users"></i></span>
                                     <span class="export-text">
@@ -228,12 +229,12 @@
                                         <small>Data pengguna dan peran.</small>
                                     </span>
                                 </span>
-                                <span class="count-badge">8 item</span>
+                                <span class="count-badge">Belum tersedia</span>
                             </label>
 
-                            <label class="export-row">
+                            <label class="export-row is-disabled" title="Belum ada API untuk data pengaturan">
                                 <span class="export-row-left">
-                                    <input type="checkbox" name="export_item" value="pengaturan" checked>
+                                    <input type="checkbox" name="export_item" value="pengaturan" disabled>
                                     <span class="custom-check"><i class="fa-solid fa-check"></i></span>
                                     <span class="export-icon"><i class="fa-solid fa-gear"></i></span>
                                     <span class="export-text">
@@ -241,7 +242,7 @@
                                         <small>Konfigurasi website dan sistem.</small>
                                     </span>
                                 </span>
-                                <span class="count-badge">1 item</span>
+                                <span class="count-badge">Belum tersedia</span>
                             </label>
                         </div>
 
@@ -354,6 +355,8 @@
                         <i class="fa-solid fa-upload"></i>
                         Impor Data
                     </button>
+
+                    <div class="import-progress" id="importProgress"></div>
                 </div>
             </section>
         </section>

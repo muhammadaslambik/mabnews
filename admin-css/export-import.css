@@ -480,6 +480,35 @@
     transform: translateX(13px);
 }
 
+.export-row.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.export-row.is-disabled:hover {
+    background: var(--white);
+}
+
+/* =========================================================
+   IMPORT PROGRESS
+========================================================= */
+.import-progress {
+    margin-top: 10px;
+    min-height: 16px;
+    color: var(--text-2);
+    font-size: 10.5px;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+.import-progress.is-error {
+    color: #d92d3f;
+}
+
+.import-progress.is-success {
+    color: #08a76f;
+}
+
 /* =========================================================
    HISTORY
 ========================================================= */
