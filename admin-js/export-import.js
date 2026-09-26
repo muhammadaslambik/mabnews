@@ -611,6 +611,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================================================
+       CATAT NOTIFIKASI KE DATABASE (fire-and-forget, tidak
+       menggagalkan proses utama kalau gagal)
+       ========================================================= */
+    function notifyServer(payload) {
+        fetch(`${API_BASE_URL}/notifications`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        }).catch((error) => {
+            console.warn("Gagal mencatat notifikasi:", error);
+        });
+    }
+
+
+    /* =========================================================
        IMPORT — TULIS DATA SUNGGUHAN KE DATABASE
        ========================================================= */
 
@@ -781,6 +796,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
 
                 saveHistory(historyItem);
+
+                notifyServer({
+                    type: "system",
+                    title: "Impor data selesai",
+                    message: `${created} artikel dibuat, ${updated} diperbarui dari file ${file.name}.`,
+                    link: "export-import.html"
+                });
 
                 alert(`Impor selesai.\n\n${summary}`);
                 resetFileInput();

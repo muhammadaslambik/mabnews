@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesan - MAB-News CMS</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="stylesheet" href="../admin-css/sidebar.css">
+<link rel="stylesheet" href="../admin-css/pesan.css">
+</head>
+<body>
+
+<header class="cms-header">
+    <div class="header-left">
+        <button type="button" class="menu-toggle" id="menuToggle" aria-label="Buka menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <a href="index.html" class="cms-logo">
+            <span class="logo-blue">MAB-</span><span>News CMS</span>
+        </a>
+    </div>
+    <div class="header-right">
+        <button type="button" class="header-icon-btn theme-toggle" id="themeToggle" aria-label="Mode gelap">
+            <i class="fa-regular fa-moon"></i>
+        </button>
+        <button type="button" class="header-icon-btn notification-btn" aria-label="Notifikasi">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-count">3</span>
+        </button>
+        <button type="button" class="header-user" id="headerUser">
+            <span class="header-avatar">
+                <i class="fa-solid fa-user"></i>
+            </span>
+            <span class="header-user-name">Admin</span>
+            <i class="fa-solid fa-chevron-down header-user-arrow"></i>
+        </button>
+    </div>
+</header>
+
+<div class="cms-layout">
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav"></nav>
+        <div class="sidebar-profile">
+            <div class="sidebar-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="sidebar-profile-info">
+                <strong>Muhammad Aslambik</strong>
+                <span>Administrator</span>
+            </div>
+            <i class="fa-solid fa-chevron-right sidebar-profile-arrow"></i>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="index.html">Dashboard</a><i class="fa-solid fa-chevron-right"></i>
+            <span>Pesan</span>
+        </div>
+
+        <section class="page-heading">
+            <div class="page-heading-icon">
+                <i class="fa-solid fa-comment-dots"></i>
+            </div>
+            <div>
+                <h1>Pesan</h1>
+                <p>Komunikasi langsung antar pengguna CMS.</p>
+            </div>
+        </section>
+
+        <section class="chat-shell">
+            <aside class="chat-list-pane">
+                <div class="chat-list-header">
+                    <h3>Percakapan</h3>
+                    <div class="new-chat">
+                        <select id="newChatSelect">
+                            <option value="">+ Pesan baru...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chat-list" id="chatList">
+                    <div class="chat-empty">Memuat percakapan...</div>
+                </div>
+            </aside>
+
+            <section class="chat-thread-pane">
+                <div class="chat-thread-header" id="chatThreadHeader">
+                    <div class="chat-empty-header">Pilih percakapan di sebelah kiri, atau mulai pesan baru.</div>
+                </div>
+                <div class="chat-thread-body" id="chatThreadBody">
+                    <div class="chat-empty">Belum ada percakapan yang dipilih.</div>
+                </div>
+                <form class="chat-input-row" id="chatInputForm">
+                    <textarea id="chatInputText" placeholder="Tulis pesan..." rows="1" disabled></textarea>
+                    <button type="submit" id="chatSendButton" disabled>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </section>
+        </section>
+
+        <footer class="page-footer">
+            &copy; 2025 MAB-News CMS. Semua hak dilindungi.
+        </footer>
+    </main>
+</div>
+
+<script src="../admin-js/sidebar.js"></script>
+<script src="../admin-js/pesan.js"></script>
+</body>
+</html>
