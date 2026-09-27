@@ -92,19 +92,18 @@
 <ol class="popular-list"></ol>
 </section>
 
-<section class="sidebar-section" id="focusSection" style="display:none;">
-<div class="section-heading"><h2>Fokus</h2><a href="#" id="focusMoreLink">Selengkapnya <b>›</b></a></div>
-<a href="#" class="focus-card" id="focusCard">
-<img src="" alt="">
-<div class="focus-overlay"></div>
-<div class="focus-content">
-<span class="label">FOKUS</span>
-<h3 id="focusTitle"></h3>
-<p id="focusLead"></p>
-<time id="focusDate"></time>
+<section class="sidebar-section">
+<div class="section-heading"><h2>Fokus</h2><a href="berita.html" id="focusSeeAllLink">Selengkapnya <b>›</b></a></div>
+<div class="focus-carousel" id="focusCarousel">
+<div class="focus-track" id="focusTrack">
+<!-- 5 kartu <a class="focus-card"> akan diisi otomatis oleh js/focus-carousel.js -->
 </div>
-</a>
+<button type="button" class="focus-arrow focus-arrow-prev" id="focusPrev" aria-label="Fokus sebelumnya">‹</button>
+<button type="button" class="focus-arrow focus-arrow-next" id="focusNext" aria-label="Fokus berikutnya">›</button>
+<div class="focus-dots" id="focusDots"></div>
+</div>
 </section>
+
 </aside>
 </div>
 </main>
@@ -164,5 +163,6 @@
 <script src="js/api.js"></script>
 <script src="js/main.js"></script>
 <script src="js/homepage.js"></script>
+<script src="js/focus-carousel.js"></script>
 </body>
 </html>
