@@ -25,7 +25,16 @@
     --radius: 8px;
     --header-height: 60px;
     --sidebar-width: 240px;
-    --sidebar-collapsed-width: 68px;
+    --sidebar-width-mini: 74px;
+
+    /* Warna header & sidebar — nilai bawaan ini dipakai kalau
+       pengaturan warna di halaman Atur Sidebar belum pernah
+       disimpan. Begitu tersimpan, sidebar.js akan menimpa dua
+       variabel ini lewat JavaScript pada setiap halaman. */
+    --header-color: #03142e;
+    --header-color-dark: #020f28;
+    --sidebar-color: #03142f;
+    --sidebar-color-dark: #02122c;
 }
 
 /* ---------------------------------------------------------
@@ -77,7 +86,7 @@ a {
     align-items: center;
     justify-content: space-between;
     padding: 0 18px;
-    background: linear-gradient(90deg, #020f28 0%, #03142e 55%, #071b3d 100%);
+    background: linear-gradient(90deg, var(--header-color-dark) 0%, var(--header-color) 100%);
     color: #fff;
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
 }
@@ -190,7 +199,7 @@ a {
 }
 
 /* ---------------------------------------------------------
-   Dropdown header (Notifikasi, Pesan & Akun)
+   Dropdown header (Notifikasi & Akun)
 --------------------------------------------------------- */
 .header-dropdown {
     position: absolute;
@@ -205,8 +214,6 @@ a {
     display: none;
     z-index: 1200;
     text-align: left;
-    max-height: 380px;
-    overflow-y: auto;
 }
 
 .header-dropdown.open {
@@ -214,10 +221,6 @@ a {
 }
 
 .header-dropdown-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
     font-size: 11px;
     font-weight: 700;
     color: var(--muted);
@@ -283,89 +286,115 @@ a {
     background: rgba(220, 38, 38, 0.08);
 }
 
-.header-dropdown-item.notif-item {
-    width: 100%;
-    border: none;
-    background: none;
-    font-family: inherit;
-    text-align: left;
+/* ---------------------------------------------------------
+   Dropdown Pesan & Notifikasi (isi asli dari database)
+--------------------------------------------------------- */
+.notification-dropdown,
+.message-dropdown {
+    width: 300px;
+    max-width: 88vw;
+    padding-bottom: 4px;
 }
 
-.header-dropdown-item.unread {
-    background: rgba(23, 105, 255, 0.06);
-}
-
-.header-dropdown-item.unread strong::after {
-    content: "";
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    margin-left: 6px;
-    border-radius: 50%;
-    background: var(--blue);
-    vertical-align: middle;
-}
-
-.header-dropdown-item .notif-time {
-    color: var(--muted);
-    font-size: 9.5px;
-    opacity: 0.85;
-}
-
-.header-dropdown-empty {
-    padding: 22px 14px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
+.header-dropdown-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }
 
 .mark-all-read {
     background: none;
-    border: none;
     color: var(--blue);
     font-size: 10.5px;
     font-weight: 600;
     text-transform: none;
     letter-spacing: 0;
     cursor: pointer;
-    padding: 0;
+    white-space: nowrap;
 }
 
 .mark-all-read:hover {
     text-decoration: underline;
 }
 
+.header-dropdown-list {
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.header-dropdown-item {
+    position: relative;
+}
+
+.header-dropdown-item.is-unread {
+    background: rgba(23, 105, 255, 0.05);
+}
+
+.header-dropdown-item.is-unread strong {
+    color: var(--text);
+}
+
+.header-dropdown-dot {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
+    flex: 0 0 auto;
+}
+
+.header-dropdown-empty {
+    padding: 20px 10px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
 .header-dropdown-footer-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    display: block;
+    text-align: center;
     padding: 10px;
     margin-top: 4px;
     border-top: 1px solid var(--border);
     color: var(--blue);
-    text-decoration: none;
-    font-size: 11.5px;
+    font-size: 12px;
     font-weight: 600;
+    text-decoration: none;
 }
 
 .header-dropdown-footer-link:hover {
     background: rgba(23, 105, 255, 0.06);
 }
 
+/* ---------------------------------------------------------
+   Pemilih "Login sebagai" di dropdown akun
+--------------------------------------------------------- */
 .user-switcher {
-    padding: 0 10px 8px;
+    padding: 6px 10px 8px;
+}
+
+.user-switcher label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
 }
 
 .user-switcher select {
     width: 100%;
     height: 34px;
-    padding: 0 8px;
     border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--white);
-    color: var(--text);
+    border-radius: 7px;
+    padding: 0 8px;
     font-size: 12.5px;
+    color: var(--text);
+    background: var(--white);
     cursor: pointer;
 }
 
@@ -390,10 +419,99 @@ a {
     z-index: 900;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(180deg, #03142f 0%, #02122c 100%);
+    background: linear-gradient(180deg, var(--sidebar-color) 0%, var(--sidebar-color-dark) 100%);
     color: #fff;
     overflow: hidden;
-    transition: width 0.2s ease, transform 0.25s ease;
+    transition: transform 0.25s ease, width 0.25s ease;
+}
+
+/* ---------------------------------------------------------
+   Tombol hamburger (desktop): sembunyikan sidebar sepenuhnya
+   dan buat halaman jadi lebar penuh. (Di mobile, hamburger
+   tetap memakai perilaku overlay yang sudah ada — lihat blok
+   "Responsive" di bawah.)
+--------------------------------------------------------- */
+@media (min-width: 981px) {
+    body.sidebar-hidden .sidebar {
+        transform: translateX(-100%);
+    }
+
+    body.sidebar-hidden .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+/* ---------------------------------------------------------
+   Tombol sempit/lebar sidebar — bulat transparan, nempel di
+   perbatasan sidebar dengan halaman, cuma muncul saat kursor
+   diarahkan ke sidebar.
+--------------------------------------------------------- */
+.sidebar-collapse-toggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    z-index: 950;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, background 0.18s ease;
+}
+
+.sidebar:hover .sidebar-collapse-toggle {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar-collapse-toggle:hover {
+    background: rgba(255, 255, 255, 0.24);
+}
+
+/* ---------------------------------------------------------
+   Mode mini (menyempit): sidebar jadi sempit, cuma ikon
+--------------------------------------------------------- */
+@media (min-width: 981px) {
+    body.sidebar-mini .sidebar {
+        width: var(--sidebar-width-mini);
+    }
+
+    body.sidebar-mini .main-content {
+        margin-left: var(--sidebar-width-mini);
+        width: calc(100% - var(--sidebar-width-mini));
+    }
+}
+
+body.sidebar-mini .nav-item {
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+}
+
+body.sidebar-mini .nav-item-main {
+    justify-content: center;
+}
+
+body.sidebar-mini .nav-item > span:not(.nav-item-main),
+body.sidebar-mini .nav-item-main > span,
+body.sidebar-mini .nav-arrow,
+body.sidebar-mini .nav-submenu,
+body.sidebar-mini .sidebar-profile-info,
+body.sidebar-mini .sidebar-profile-arrow {
+    display: none !important;
+}
+
+body.sidebar-mini .sidebar-profile {
+    justify-content: center;
 }
 
 .sidebar-nav {
@@ -401,6 +519,10 @@ a {
     padding: 14px 10px 12px;
     overflow-y: auto;
     scrollbar-width: thin;
+    /* Cegah browser ikut "membetulkan" posisi scroll sendiri
+       (scroll anchoring) saat tinggi submenu berubah — ini yang
+       bikin sidebar terasa "lompat" saat sebuah grup dibuka/tutup
+       atau saat kontennya diganti. */
     overflow-anchor: none;
     scroll-behavior: auto;
 }
@@ -482,6 +604,7 @@ a {
     padding: 1px 0 5px 0;
 }
 
+/* Setiap item anak punya ikon sendiri (bukan titik) */
 .nav-submenu a {
     min-height: 33px;
     padding: 0 8px 0 18px;
@@ -538,6 +661,11 @@ a {
     gap: 10px;
     background: rgba(0, 0, 0, 0.12);
     cursor: pointer;
+    transition: background .15s ease;
+}
+
+.sidebar-profile:hover {
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .sidebar-avatar {
@@ -582,135 +710,6 @@ a {
 }
 
 /* ---------------------------------------------------------
-   Tombol ciutkan sidebar
---------------------------------------------------------- */
-.sidebar-collapse-toggle {
-    position: absolute;
-    top: 14px;
-    right: -12px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--blue);
-    color: #fff;
-    font-size: 10px;
-    cursor: pointer;
-    z-index: 910;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-}
-
-.sidebar-collapse-toggle:hover {
-    background: var(--blue-dark);
-}
-
-/* ---------------------------------------------------------
-   Flyout submenu (dipakai saat sidebar dalam mode ciut)
---------------------------------------------------------- */
-.sidebar-flyout {
-    display: none;
-    position: fixed;
-    min-width: 200px;
-    max-width: 240px;
-    background: var(--sidebar);
-    border-radius: 8px;
-    padding: 6px 0;
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
-    z-index: 1300;
-}
-
-.sidebar-flyout.open {
-    display: block;
-}
-
-.sidebar-flyout a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 14px;
-    color: #f0f4fb;
-    text-decoration: none;
-    font-size: 12.5px;
-    font-weight: 500;
-}
-
-.sidebar-flyout a i {
-    width: 16px;
-    text-align: center;
-    font-size: 13px;
-}
-
-.sidebar-flyout a:hover {
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.sidebar-flyout a.active-sub-item {
-    background: var(--blue);
-    color: #fff;
-}
-
-/* ---------------------------------------------------------
-   MODE SIDEBAR CIUT (ikon saja)
---------------------------------------------------------- */
-body.sidebar-collapsed .sidebar {
-    width: var(--sidebar-collapsed-width);
-}
-
-body.sidebar-collapsed .main-content {
-    margin-left: var(--sidebar-collapsed-width);
-    width: calc(100% - var(--sidebar-collapsed-width));
-}
-
-body.sidebar-collapsed .nav-item span,
-body.sidebar-collapsed .nav-item-main span,
-body.sidebar-collapsed .nav-arrow,
-body.sidebar-collapsed .sidebar-profile-info,
-body.sidebar-collapsed .sidebar-profile-arrow {
-    display: none;
-}
-
-body.sidebar-collapsed .nav-item,
-body.sidebar-collapsed .nav-item-main {
-    justify-content: center;
-}
-
-body.sidebar-collapsed .nav-group .nav-submenu {
-    display: none !important;
-}
-
-body.sidebar-collapsed .sidebar-profile {
-    justify-content: center;
-    padding: 12px 0;
-}
-
-/* ---------------------------------------------------------
-   Overlay gelap saat sidebar dibuka di mobile
---------------------------------------------------------- */
-.sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    top: var(--header-height);
-    z-index: 850;
-    background: rgba(3, 10, 25, 0.5);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-body.sidebar-open .sidebar-overlay {
-    display: block;
-    opacity: 1;
-}
-
-@media (min-width: 981px) {
-    .sidebar-overlay {
-        display: none !important;
-    }
-}
-
-/* ---------------------------------------------------------
    Main content
 --------------------------------------------------------- */
 .main-content {
@@ -721,7 +720,6 @@ body.sidebar-open .sidebar-overlay {
     display: flex;
     flex-direction: column;
     background: linear-gradient(180deg, #f8fafd 0%, #f4f7fb 100%);
-    transition: margin-left 0.2s ease, width 0.2s ease;
 }
 
 /* ---------------------------------------------------------
@@ -872,12 +870,36 @@ body.dark-mode .nav-submenu-empty {
 }
 
 /* ---------------------------------------------------------
+   Overlay gelap saat sidebar dibuka di mobile
+--------------------------------------------------------- */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    top: var(--header-height);
+    z-index: 850;
+    background: rgba(3, 10, 25, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+body.sidebar-open .sidebar-overlay {
+    display: block;
+    opacity: 1;
+}
+
+@media (min-width: 981px) {
+    .sidebar-overlay {
+        display: none !important;
+    }
+}
+
+/* ---------------------------------------------------------
    Responsive
 --------------------------------------------------------- */
 @media (max-width: 980px) {
     .sidebar {
         transform: translateX(-100%);
-        width: var(--sidebar-width) !important;
     }
 
     body.sidebar-open .sidebar {
@@ -885,8 +907,8 @@ body.dark-mode .nav-submenu-empty {
     }
 
     .main-content {
-        width: 100% !important;
-        margin-left: 0 !important;
+        width: 100%;
+        margin-left: 0;
     }
 
     .header-user-name {
@@ -895,26 +917,6 @@ body.dark-mode .nav-submenu-empty {
 
     .header-dropdown {
         right: -8px;
-    }
-
-    .sidebar-collapse-toggle {
-        display: none;
-    }
-
-    body.sidebar-collapsed .nav-item span,
-    body.sidebar-collapsed .nav-item-main span,
-    body.sidebar-collapsed .nav-arrow,
-    body.sidebar-collapsed .sidebar-profile-info,
-    body.sidebar-collapsed .sidebar-profile-arrow {
-        display: flex;
-    }
-
-    body.sidebar-collapsed .nav-group .nav-submenu {
-        display: flex !important;
-    }
-
-    body.sidebar-collapsed .nav-group:not(.open) .nav-submenu {
-        display: none !important;
     }
 }
 
