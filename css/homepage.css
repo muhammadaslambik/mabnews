@@ -2445,3 +2445,194 @@ body.dark-preview .hero-slide-category {
         justify-content: flex-start;
     }
 }
+/* =========================================================
+   TAMBAHAN PERBAIKAN HOMEPAGE (index.html)
+   Tempel di PALING BAWAH file css/homepage.css.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. HERO — hilangkan deskripsi, judul tampil penuh,
+      perbesar font tanggal & penulis
+   --------------------------------------------------------- */
+.hero-slide-lead {
+  display: none;
+}
+
+.hero-slide-title {
+  -webkit-line-clamp: unset;
+  display: block;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.hero-slide-meta {
+  font-size: 14px;
+}
+
+/* ---------------------------------------------------------
+   2. TERPOPULER (sidebar) — disamakan gaya & fontnya
+      dengan Terpopuler di artikel.html
+   --------------------------------------------------------- */
+.popular-list li {
+  grid-template-columns: 28px 1fr 100px;
+  gap: 14px;
+  min-height: 82px;
+  padding: 11px 0;
+}
+
+.rank {
+  color: #075bd7;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.popular-copy h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 750;
+}
+
+.popular-copy time {
+  color: #939baa;
+  font-size: 11px;
+}
+
+.popular-list img {
+  width: 100px;
+  height: 68px;
+}
+
+body.dark-preview .rank {
+  color: #58a6ff;
+}
+
+/* ---------------------------------------------------------
+   3. BERITA UTAMA (top-cards) — perbesar font judul,
+      kategori, dan tanggal
+   --------------------------------------------------------- */
+.news-card .category,
+.card-body .category {
+  display: inline-block;
+  margin-bottom: 6px;
+  color: #075bd7;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.card-body h3 {
+  font-size: 15px;
+}
+
+.card-body time {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+body.dark-preview .news-card .category,
+body.dark-preview .card-body .category {
+  color: #58a6ff;
+}
+
+/* ---------------------------------------------------------
+   4. BERITA TERBARU (latest-list) — perbesar semua font:
+      judul, kategori, deskripsi, tanggal
+   --------------------------------------------------------- */
+.latest-item .category {
+  display: inline-block;
+  margin-bottom: 6px;
+  color: #075bd7;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.latest-item h3 {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.latest-item p {
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.latest-item time {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+body.dark-preview .latest-item .category {
+  color: #58a6ff;
+}
+
+/* ---------------------------------------------------------
+   5. "Lihat semua ›" / "Ganti Berita Lainnya" — perbesar font
+   --------------------------------------------------------- */
+.section-heading a {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.change-news-btn {
+  font-size: 14px;
+}
+
+/* ---------------------------------------------------------
+   6. MOBILE — samakan margin kiri-kanan header/navigasi
+      dengan yang sudah diperbaiki di artikel.html
+      (sebelumnya 40px tiap sisi di semua ukuran layar,
+      sekarang 16px lalu 12px di layar kecil)
+   --------------------------------------------------------- */
+@media (max-width: 768px) {
+  .container:not(.topbar):not(.nav-inner),
+  .topbar,
+  .nav-inner {
+    width: calc(100% - 32px);
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .container:not(.topbar):not(.nav-inner),
+  .topbar,
+  .nav-inner {
+    width: calc(100% - 24px);
+  }
+}
+
+/* ---------------------------------------------------------
+   7. MOBILE — pastikan hero bisa digeser dengan jari
+      (properti ini seharusnya sudah ada di .hero-track,
+      dipertegas lagi di sini supaya pasti aktif)
+   --------------------------------------------------------- */
+@media (max-width: 768px) {
+  .hero-track {
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
+    scroll-behavior: smooth;
+  }
+
+  .hero-slide {
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+  }
+
+  /* Deskripsi tetap disembunyikan, tapi kurangi ukuran
+     overlay supaya judul yang sekarang tampil penuh
+     tidak terlalu memenuhi gambar */
+  .hero-slide-title {
+    font-size: 19px;
+    line-height: 1.3;
+  }
+
+  .hero-slide-meta {
+    font-size: 12px;
+  }
+}
