@@ -1,5 +1,10 @@
 /* =========================================================
    MAB-NEWS — HOMEPAGE JS (fetch dari database)
+   Hero sekarang mendukung geser tak terbatas (loop) baik
+   lewat jari, trackpad, maupun tombol panah.
+   Bagian Fokus (single-artikel) dihapus dari sini — sekarang
+   ditangani terpisah oleh js/focus-carousel.js (carousel 5
+   artikel).
 ========================================================= */
 
 const heroElement = document.querySelector("#mainHero");
@@ -10,6 +15,7 @@ const heroDotsContainer = document.querySelector("#heroDots");
 
 let popularHeroNews = [];
 let currentHero = 0;
+let heroRealCount = 0; // jumlah slide asli, tanpa kloning loop
 let heroAutoSlide = null;
 let isHeroInteracting = false;
 let heroScrollEndTimer = null;
@@ -39,6 +45,16 @@ function renderHero() {
   if (!heroTrack) return;
   heroTrack.innerHTML = "";
   popularHeroNews.forEach((a) => heroTrack.appendChild(createHeroSlide(a)));
+  heroRealCount = popularHeroNews.length;
+
+  // ---- Infinite loop: kloning slide pertama & terakhir ----
+  if (heroRealCount > 1) {
+    const firstClone = heroTrack.children[0].cloneNode(true);
+    const lastClone = heroTrack.children[heroTrack.children.length - 1].cloneNode(true);
+    heroTrack.appendChild(firstClone);
+    heroTrack.insertBefore(lastClone, heroTrack.children[0]);
+  }
+
   renderHeroDots();
   goToHero(0, false);
 }
@@ -64,23 +80,54 @@ function updateHeroDots() {
 }
 
 function normalizeHeroIndex(index) {
-  const total = popularHeroNews.length;
+  const total = heroRealCount;
   if (!total) return 0;
   if (index < 0) return total - 1;
   if (index >= total) return 0;
   return index;
 }
 
+// Karena ada 1 slide kloning di depan (duplikat slide terakhir),
+// posisi slide asli ke-i di track sebenarnya ada di offset (i+1).
+function heroLoopOffset() {
+  return heroRealCount > 1 ? 1 : 0;
+}
+
 function goToHero(index, animate = true, restartTimer = true) {
   if (!heroTrack) return;
   currentHero = normalizeHeroIndex(index);
-  heroTrack.scrollTo({ left: currentHero * heroTrack.clientWidth, behavior: animate ? "smooth" : "auto" });
+  const offset = heroLoopOffset();
+  heroTrack.scrollTo({ left: (currentHero + offset) * heroTrack.clientWidth, behavior: animate ? "smooth" : "auto" });
   updateHeroDots();
   if (restartTimer) resetHeroAutoSlide();
 }
 
-function showNextHero() { goToHero(currentHero + 1, true); }
-function showPreviousHero() { goToHero(currentHero - 1, true); }
+function showNextHero() {
+  const offset = heroLoopOffset();
+  if (heroRealCount > 1 && currentHero === heroRealCount - 1) {
+    // Geser mulus satu langkah ke slide kloning (duplikat slide
+    // pertama) supaya animasinya terasa maju terus, nanti posisi
+    // sebenarnya "dilompat" diam-diam ke slide asli pertama oleh
+    // listener scroll-end di bawah.
+    heroTrack.scrollTo({ left: (heroRealCount + offset) * heroTrack.clientWidth, behavior: "smooth" });
+    currentHero = 0;
+    updateHeroDots();
+    resetHeroAutoSlide();
+    return;
+  }
+  goToHero(currentHero + 1, true);
+}
+
+function showPreviousHero() {
+  if (heroRealCount > 1 && currentHero === 0) {
+    heroTrack.scrollTo({ left: 0, behavior: "smooth" });
+    currentHero = heroRealCount - 1;
+    updateHeroDots();
+    resetHeroAutoSlide();
+    return;
+  }
+  goToHero(currentHero - 1, true);
+}
 
 if (heroPrev) heroPrev.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); showPreviousHero(); });
 if (heroNext) heroNext.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); showNextHero(); });
@@ -90,10 +137,31 @@ if (heroTrack) {
     isHeroInteracting = true;
     clearInterval(heroAutoSlide);
     const width = heroTrack.clientWidth || 1;
-    const liveIndex = normalizeHeroIndex(Math.round(heroTrack.scrollLeft / width));
-    if (liveIndex !== currentHero) { currentHero = liveIndex; updateHeroDots(); }
+    const offset = heroLoopOffset();
+    const rawIndex = Math.round(heroTrack.scrollLeft / width);
+    const liveIndex = rawIndex - offset;
+    if (liveIndex !== currentHero && liveIndex >= 0 && liveIndex < heroRealCount) {
+      currentHero = liveIndex;
+      updateHeroDots();
+    }
     clearTimeout(heroScrollEndTimer);
-    heroScrollEndTimer = setTimeout(() => { isHeroInteracting = false; startHeroAutoSlide(); }, 100);
+    heroScrollEndTimer = setTimeout(() => {
+      isHeroInteracting = false;
+
+      // Geseran (swipe jari / trackpad) berhenti tepat di slide
+      // kloning -> lompat diam-diam (tanpa animasi) ke slide asli
+      // yang sepadan, supaya terasa muter terus tanpa mentok.
+      if (heroRealCount > 1) {
+        const settledIndex = Math.round(heroTrack.scrollLeft / width);
+        if (settledIndex >= heroRealCount + offset) {
+          goToHero(0, false, false);
+        } else if (settledIndex <= 0) {
+          goToHero(heroRealCount - 1, false, false);
+        }
+      }
+
+      startHeroAutoSlide();
+    }, 120);
   }, { passive: true });
 }
 
@@ -182,22 +250,8 @@ function renderPopularSidebar(items) {
 }
 
 /* =========================================================
-   FOKUS (sidebar)
-========================================================= */
-function renderFocus(a) {
-  const section = document.getElementById('focusSection');
-  if (!a || !section) return;
-  document.getElementById('focusCard').href = `artikel.html?id=${a.slug}`;
-  document.getElementById('focusMoreLink').href = `artikel.html?id=${a.slug}`;
-  section.querySelector('img').src = a.image_url || '';
-  document.getElementById('focusTitle').textContent = a.title;
-  document.getElementById('focusLead').textContent = a.lead || '';
-  document.getElementById('focusDate').textContent = new Date(a.published_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
-  section.style.display = '';
-}
-
-/* =========================================================
    INIT — ambil semua data dari backend
+   (Fokus TIDAK diambil di sini lagi — lihat js/focus-carousel.js)
 ========================================================= */
 async function initHomepage() {
   try {
@@ -217,7 +271,6 @@ async function initHomepage() {
 
     renderLatestList(latest.slice(4, 6));
     renderPopularSidebar(popular.slice(0, 5));
-    renderFocus(latest[6] || latest[latest.length - 1]);
   } catch (err) {
     console.error('Gagal memuat data beranda:', err);
   }
