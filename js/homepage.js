@@ -215,8 +215,12 @@ function showNextMainNewsGroup() {
 if (mainNewsButton) mainNewsButton.addEventListener("click", showNextMainNewsGroup);
 
 /* =========================================================
-   BERITA TERBARU (list ".latest-list")
+   BERITA TERBARU (list ".latest-list") — 10 artikel per
+   halaman, dengan navigasi halaman di bawahnya.
 ========================================================= */
+const LATEST_PER_PAGE = 10;
+let latestCurrentPage = 1;
+
 function renderLatestList(items) {
   const container = document.querySelector(".latest-list");
   if (!container) return;
@@ -230,6 +234,65 @@ function renderLatestList(items) {
         <time>${new Date(a.published_at).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })} · ${new Date(a.published_at).toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' })}</time>
       </div>
     </article>`).join('');
+}
+
+function ensureLatestPaginationEl() {
+  let el = document.getElementById("latestPagination");
+  if (!el) {
+    const list = document.querySelector(".latest-list");
+    if (!list) return null;
+    el = document.createElement("div");
+    el.className = "latest-pagination";
+    el.id = "latestPagination";
+    list.insertAdjacentElement("afterend", el);
+  }
+  return el;
+}
+
+function renderLatestPagination(page, total) {
+  const el = ensureLatestPaginationEl();
+  if (!el) return;
+
+  const totalPages = Math.max(1, Math.ceil(total / LATEST_PER_PAGE));
+  const start = total === 0 ? 0 : (page - 1) * LATEST_PER_PAGE + 1;
+  const end = Math.min(page * LATEST_PER_PAGE, total);
+
+  let pageButtons = "";
+  for (let p = 1; p <= totalPages; p++) {
+    pageButtons += `<button type="button" class="latest-page-btn${p === page ? " active" : ""}" data-page="${p}">${p}</button>`;
+  }
+
+  el.innerHTML = `
+    <span class="latest-pagination-info">Menampilkan ${start} - ${end} dari ${total} artikel</span>
+    <div class="latest-pagination-nav">
+      <button type="button" class="latest-page-btn" data-page="${page - 1}" ${page <= 1 ? "disabled" : ""}>‹</button>
+      ${pageButtons}
+      <button type="button" class="latest-page-btn" data-page="${page + 1}" ${page >= totalPages ? "disabled" : ""}>›</button>
+    </div>
+  `;
+
+  el.querySelectorAll("button[data-page]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const p = parseInt(btn.dataset.page, 10);
+      if (p >= 1 && p <= totalPages) loadLatestList(p, true);
+    });
+  });
+}
+
+async function loadLatestList(page = 1, scrollOnChange = false) {
+  try {
+    const res = await apiFetch(`/api/articles?limit=${LATEST_PER_PAGE}&page=${page}`);
+    const items = res.data || [];
+    const total = res.total || items.length;
+    latestCurrentPage = page;
+    renderLatestList(items);
+    renderLatestPagination(page, total);
+    if (scrollOnChange) {
+      document.querySelector(".latest-list")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  } catch (err) {
+    console.error("Gagal memuat Berita Terbaru:", err);
+  }
 }
 
 /* =========================================================
@@ -269,7 +332,7 @@ async function initHomepage() {
     mainNewsPool = latest;
     showNextMainNewsGroup();
 
-    renderLatestList(latest.slice(4, 6));
+    loadLatestList(1);
     renderPopularSidebar(popular.slice(0, 5));
   } catch (err) {
     console.error('Gagal memuat data beranda:', err);

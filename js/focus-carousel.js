@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  const focusCarousel = document.getElementById("focusCarousel");
   const track = document.getElementById("focusTrack");
   const dotsWrap = document.getElementById("focusDots");
   const prevBtn = document.getElementById("focusPrev");
@@ -14,7 +15,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  let realCount = 0; // jumlah artikel asli (tanpa kloning untuk infinite loop)
+  let items = [];
+  let realCount = 0;
+  let current = 0;
+  let isInteracting = false;
+  let scrollEndTimer = null;
+  let resizeTimer = null;
 
   function formatDate(iso) {
     return new Date(iso).toLocaleDateString("id-ID", {
@@ -39,84 +45,119 @@ document.addEventListener("DOMContentLoaded", async () => {
     return el;
   }
 
-  function renderDots(count) {
+  function renderDots() {
+    if (!dotsWrap) return;
     dotsWrap.innerHTML = "";
-    for (let i = 0; i < count; i++) {
-      const b = document.createElement("button");
-      if (i === 0) b.classList.add("selected");
-      // +1 karena posisi 0 di track sekarang ditempati kloning slide terakhir
-      b.addEventListener("click", () => scrollToTrackIndex(i + 1, true));
-      dotsWrap.appendChild(b);
-    }
-  }
-
-  function scrollToTrackIndex(trackIndex, smooth) {
-    const el = track.children[trackIndex];
-    if (el) el.scrollIntoView({ behavior: smooth ? "smooth" : "auto", inline: "start", block: "nearest" });
-  }
-
-  function currentTrackIndex() {
-    const cards = [...track.children];
-    const trackRect = track.getBoundingClientRect();
-    let closest = 0, closestDist = Infinity;
-    cards.forEach((card, i) => {
-      const dist = Math.abs(card.getBoundingClientRect().left - trackRect.left);
-      if (dist < closestDist) { closestDist = dist; closest = i; }
+    items.forEach((_, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.setAttribute("aria-label", `Fokus ${index + 1}`);
+      button.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); goTo(index, true); });
+      dotsWrap.appendChild(button);
     });
-    return closest;
+    updateDots();
   }
 
-  function updateActiveDotFromTrackIndex(trackIndex) {
-    let realIndex = trackIndex - 1;
-    if (realIndex < 0) realIndex = realCount - 1;
-    if (realIndex > realCount - 1) realIndex = 0;
-    [...dotsWrap.children].forEach((d, i) => d.classList.toggle("selected", i === realIndex));
+  function updateDots() {
+    if (!dotsWrap) return;
+    dotsWrap.querySelectorAll("button").forEach((dot, index) => {
+      dot.classList.toggle("selected", index === current);
+    });
   }
 
-  function cardWidth() {
-    const first = track.children[0];
-    return first ? first.getBoundingClientRect().width : track.clientWidth;
+  function normalizeIndex(index) {
+    if (!realCount) return 0;
+    if (index < 0) return realCount - 1;
+    if (index >= realCount) return 0;
+    return index;
   }
 
-  // ---------------------------------------------------------
-  // Loop tak terbatas: kloning slide pertama ditaruh di akhir
-  // track, kloning slide terakhir ditaruh di awal track. Begitu
-  // geseran (scroll/swipe/klik panah) berhenti tepat di salah
-  // satu kloning itu, posisinya "dilompat" diam-diam (tanpa
-  // animasi) ke slide asli yang sepadan -> terasa muter terus,
-  // baik lewat geser jari, geser trackpad, maupun klik panah.
-  // ---------------------------------------------------------
+  // Ada 1 kartu kloning di depan (duplikat kartu terakhir), jadi
+  // posisi kartu asli ke-i di track sebenarnya ada di offset (i+1).
+  function loopOffset() {
+    return realCount > 1 ? 1 : 0;
+  }
+
+  function goTo(index, animate = true, restartAutoTimer = true) {
+    if (!track) return;
+    current = normalizeIndex(index);
+    const offset = loopOffset();
+    const width = track.clientWidth || 1;
+    track.scrollTo({ left: (current + offset) * width, behavior: animate ? "smooth" : "auto" });
+    updateDots();
+  }
+
+  function goNext() {
+    const offset = loopOffset();
+    const width = track.clientWidth || 1;
+    if (realCount > 1 && current === realCount - 1) {
+      // Geser mulus satu langkah ke kartu kloning (duplikat kartu
+      // pertama) -> terasa maju terus, lalu posisinya "dilompat"
+      // diam-diam ke kartu asli pertama oleh listener scroll-end.
+      track.scrollTo({ left: (realCount + offset) * width, behavior: "smooth" });
+      current = 0;
+      updateDots();
+      return;
+    }
+    goTo(current + 1, true);
+  }
+
+  function goPrev() {
+    const width = track.clientWidth || 1;
+    if (realCount > 1 && current === 0) {
+      track.scrollTo({ left: 0, behavior: "smooth" });
+      current = realCount - 1;
+      updateDots();
+      return;
+    }
+    goTo(current - 1, true);
+  }
+
   function setupInfiniteLoop() {
-    const items = [...track.children];
-    realCount = items.length;
     if (realCount < 2) return;
-
-    const firstClone = items[0].cloneNode(true);
-    const lastClone = items[items.length - 1].cloneNode(true);
+    const firstClone = track.children[0].cloneNode(true);
+    const lastClone = track.children[track.children.length - 1].cloneNode(true);
     track.appendChild(firstClone);
-    track.insertBefore(lastClone, items[0]);
+    track.insertBefore(lastClone, track.children[0]);
+  }
 
-    // Posisikan ke slide asli pertama (track index 1, lewati
-    // kloning di depan) tanpa animasi, setelah layout terhitung.
-    requestAnimationFrame(() => scrollToTrackIndex(1, false));
-
-    let scrollTimer;
+  // ---------------------------------------------------------
+  // Sama seperti Hero: penanda (dots) di-update LANGSUNG
+  // mengikuti posisi scroll (tidak menunggu berhenti dulu).
+  // Baru setelah scroll benar-benar berhenti, dicek apakah
+  // posisinya jatuh di kartu kloning -> kalau iya, dilompat
+  // diam-diam ke kartu asli yang sepadan.
+  // ---------------------------------------------------------
+  if (track) {
     track.addEventListener("scroll", () => {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        const idx = currentTrackIndex();
-        if (idx >= realCount + 1) {
-          // di kloning slide pertama (setelah slide asli terakhir)
-          scrollToTrackIndex(1, false);
-          updateActiveDotFromTrackIndex(1);
-        } else if (idx <= 0) {
-          // di kloning slide terakhir (sebelum slide asli pertama)
-          scrollToTrackIndex(realCount, false);
-          updateActiveDotFromTrackIndex(realCount);
-        } else {
-          updateActiveDotFromTrackIndex(idx);
+      isInteracting = true;
+      const width = track.clientWidth || 1;
+      const offset = loopOffset();
+      const rawIndex = Math.round(track.scrollLeft / width);
+      const liveIndex = rawIndex - offset;
+      if (liveIndex !== current && liveIndex >= 0 && liveIndex < realCount) {
+        current = liveIndex;
+        updateDots();
+      }
+      clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(() => {
+        isInteracting = false;
+        if (realCount > 1) {
+          const settledIndex = Math.round(track.scrollLeft / width);
+          if (settledIndex >= realCount + offset) {
+            goTo(0, false, false);
+          } else if (settledIndex <= 0) {
+            goTo(realCount - 1, false, false);
+          }
         }
       }, 120);
+    }, { passive: true });
+  }
+
+  if (focusCarousel) {
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => goTo(current, false, false), 150);
     });
   }
 
@@ -126,30 +167,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       const res = await fetch(`${base}/api/articles?popular=true&limit=5`);
       if (!res.ok) throw new Error("Gagal memuat artikel Fokus.");
       const { data } = await res.json();
-      const items = data && data.length ? data : [];
+      items = data && data.length ? data : [];
 
       if (!items.length) {
-        document.getElementById("focusCarousel")?.closest(".sidebar-section")?.remove();
+        focusCarousel?.closest(".sidebar-section")?.remove();
         return;
       }
 
       track.innerHTML = "";
       items.forEach(a => track.appendChild(renderCard(a)));
-      renderDots(items.length);
+      realCount = items.length;
       setupInfiniteLoop();
+      renderDots();
+      goTo(0, false);
 
       const seeAllLink = document.getElementById("focusSeeAllLink");
       if (seeAllLink) seeAllLink.href = `artikel.html?id=${items[0].slug}`;
 
-      // Panah cuma menggeser selebar 1 kartu — logika loop di atas
-      // yang menangani "lompat diam-diam" begitu geseran berhenti
-      // tepat di slide kloning.
-      prevBtn?.addEventListener("click", () => {
-        track.scrollBy({ left: -cardWidth(), behavior: "smooth" });
-      });
-      nextBtn?.addEventListener("click", () => {
-        track.scrollBy({ left: cardWidth(), behavior: "smooth" });
-      });
+      if (prevBtn) prevBtn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); goPrev(); });
+      if (nextBtn) nextBtn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); goNext(); });
     } catch (err) {
       console.error("Gagal memuat carousel Fokus:", err);
     }

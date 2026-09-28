@@ -92,7 +92,7 @@
 <ol class="popular-list"></ol>
 </section>
 
-<section class="sidebar-section">
+<section class="sidebar-section" id="sectionFokus">
 <div class="section-heading"><h2>Fokus</h2><a href="berita.html" id="focusSeeAllLink">Selengkapnya <b>›</b></a></div>
 <div class="focus-carousel" id="focusCarousel">
 <div class="focus-track" id="focusTrack">
@@ -160,9 +160,16 @@
 </div>
 </footer>
 
+<div class="quick-nav" id="quickNav">
+<button type="button" data-target="sectionBeritaUtama">Berita Utama</button>
+<button type="button" data-target="sectionTerpopuler">Terpopuler</button>
+<button type="button" data-target="sectionFokus">Fokus</button>
+</div>
+
 <script src="js/api.js"></script>
 <script src="js/main.js"></script>
 <script src="js/homepage.js"></script>
 <script src="js/focus-carousel.js"></script>
+<script src="js/quick-nav.js"></script>
 </body>
 </html>

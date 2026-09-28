@@ -442,17 +442,17 @@
 
   .newsletter-form input {
     width: 100%;
-    height: 43px;
+    height: 40px;
     box-sizing: border-box;
     padding: 0 10px;
-    font-size: 15px;
+    font-size: 11px;
   }
 
   .newsletter-form button {
     width: 100%;
-    height: 43px;
+    height: 40px;
     margin-top: 0;
-    font-size: 15px;
+    font-size: 11px;
   }
 
   /* =====================================================
@@ -569,8 +569,8 @@
 
   .newsletter-form input,
   .newsletter-form button {
-    height: 40px;
-    font-size: 15px;
+    height: 38px;
+    font-size: 11px;
   }
 
   /* =====================================================
@@ -658,8 +658,8 @@
 
   .newsletter-form input,
   .newsletter-form button {
-    height: 37px;
-    font-size: 13px;
+    height: 35px;
+    font-size: 10px;
   }
 
   /* =====================================================
