@@ -17,10 +17,22 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   observer.observe(fokusSection);
 
+  // Scroll ke JUDUL kolomnya (bukan cuma ke bagian atas section),
+  // dengan jarak ekstra supaya tidak ketutupan header yang sticky.
+  function scrollToSectionTitle(sectionEl) {
+    const heading = sectionEl.querySelector(".section-heading") || sectionEl;
+    const header = document.querySelector(".site-header");
+    const headerHeight = header ? header.offsetHeight : 0;
+    const extraGap = 16; // jarak tambahan biar tidak terlalu mepet header
+
+    const targetTop = heading.getBoundingClientRect().top + window.scrollY - headerHeight - extraGap;
+    window.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
+  }
+
   quickNav.querySelectorAll("button[data-target]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const target = document.getElementById(btn.dataset.target);
-      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (target) scrollToSectionTitle(target);
     });
   });
 });
