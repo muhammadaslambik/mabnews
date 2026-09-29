@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const quickNav = document.getElementById("quickNav");
   const fokusSection = document.getElementById("sectionFokus");
+  const toggleBtn = document.getElementById("quickNavToggle");
   if (!quickNav || !fokusSection) return;
 
   // Muncul begitu bagian Fokus sudah tergulung ke atas (tenggelam)
@@ -23,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const heading = sectionEl.querySelector(".section-heading") || sectionEl;
     const header = document.querySelector(".site-header");
     const headerHeight = header ? header.offsetHeight : 0;
-    const extraGap = 16; // jarak tambahan biar tidak terlalu mepet header
+    const extraGap = 16;
 
     const targetTop = heading.getBoundingClientRect().top + window.scrollY - headerHeight - extraGap;
     window.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
@@ -35,4 +36,31 @@ document.addEventListener("DOMContentLoaded", () => {
       if (target) scrollToSectionTitle(target);
     });
   });
+
+  // ---------------------------------------------------------
+  // Tombol ciutkan/perbesar: kalau diciutkan, widget cuma
+  // tampil sebagai bulatan logo "M" — klik lagi untuk memunculkan
+  // navigasinya kembali. Status disimpan di localStorage supaya
+  // tetap ingat pilihan pengguna walau halaman dibuka ulang.
+  // ---------------------------------------------------------
+  if (toggleBtn) {
+    function applyCollapsedState(collapsed) {
+      quickNav.classList.toggle("collapsed", collapsed);
+      toggleBtn.textContent = collapsed ? "M" : "−";
+      toggleBtn.setAttribute("aria-label", collapsed ? "Buka navigasi cepat" : "Ciutkan navigasi cepat");
+      // Kembalikan ke ukuran normal (hasil resize manual sebelumnya
+      // ikut disimpan lewat CSS resize, jadi tidak perlu diatur lagi)
+    }
+
+    const savedCollapsed = localStorage.getItem("mabnewsQuickNavCollapsed") === "true";
+    applyCollapsedState(savedCollapsed);
+
+    toggleBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const nowCollapsed = !quickNav.classList.contains("collapsed");
+      applyCollapsedState(nowCollapsed);
+      localStorage.setItem("mabnewsQuickNavCollapsed", String(nowCollapsed));
+    });
+  }
 });
