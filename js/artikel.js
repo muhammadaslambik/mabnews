@@ -52,10 +52,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tagsEl = bodyEl.querySelector(".article-tags");
     const navEl = bodyEl.querySelector(".article-navigation");
 
-    bodyEl.querySelectorAll("p, blockquote").forEach(el => el.remove());
-    const paragraphsHtml = (a.content || []).map(p => `<p>${p}</p>`).join('');
-    if (tagsEl) tagsEl.insertAdjacentHTML('beforebegin', paragraphsHtml);
-    else bodyEl.insertAdjacentHTML('afterbegin', paragraphsHtml);
+    bodyEl.querySelectorAll("p, h2, h3, ul, ol, blockquote, figure, table, hr").forEach(el => el.remove());
+    const contentHtml = window.MabContent
+      ? window.MabContent.blocksToHtml(a.content || [])
+      : (a.content || []).map(p => `<p>${p}</p>`).join('');
+    if (tagsEl) tagsEl.insertAdjacentHTML('beforebegin', contentHtml);
+    else bodyEl.insertAdjacentHTML('afterbegin', contentHtml);
 
     // ---- Tags: sudah didukung backend, tampilkan kalau ada ----
     if (tagsEl) {

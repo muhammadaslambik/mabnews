@@ -207,6 +207,94 @@
 .article-page .article-body p strong {
   color: #172033;
 }
+.article-page .article-body h2 {
+  margin: 40px 0 18px;
+  font-size: 28px;
+  line-height: 1.35;
+  color: #172033;
+}
+.article-page .article-body h3 {
+  margin: 32px 0 14px;
+  font-size: 22px;
+  line-height: 1.4;
+  color: #172033;
+}
+.article-page .article-body ul,
+.article-page .article-body ol {
+  margin: 0 0 22px;
+  padding-left: 24px;
+  color: #303a4a;
+  font-size: 18px;
+  line-height: 1.9;
+}
+.article-page .article-body li {
+  margin-bottom: 8px;
+}
+.article-page .article-body hr {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 36px 0;
+}
+.article-page .article-body a {
+  color: #075bd7;
+  text-decoration: underline;
+}
+.article-page .article-body .mab-figure,
+.article-page .article-body .mab-embed {
+  margin: 30px 0;
+}
+.article-page .article-body .mab-figure img,
+.article-page .article-body .mab-figure video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+}
+.article-page .article-body .mab-figure figcaption {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #6b7688;
+  text-align: center;
+}
+.article-page .article-body .mab-embed iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 10px;
+}
+.article-page .article-body .mab-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 26px 0;
+  font-size: 16px;
+}
+.article-page .article-body .mab-table th,
+.article-page .article-body .mab-table td {
+  border: 1px solid #e2e8f0;
+  padding: 10px 14px;
+  text-align: left;
+}
+.article-page .article-body .mab-table th {
+  background: #f4f8fd;
+}
+.article-page .article-body a.mab-file {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 22px;
+  padding: 12px 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f4f8fd;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #172033;
+}
+.article-page .article-body a.mab-file:before {
+  content: "\1F4CE";
+}
 
 /* =========================================================
    BLOCKQUOTE
