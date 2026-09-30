@@ -3033,34 +3033,37 @@ body.dark-preview .latest-item .category {
        rasio foto 1200×630 piksel
    --------------------------------------------------------- */
 .latest-item > a:first-child {
-  display: block;
-  width: 260px;
-  height: auto;
+  display: block !important;
+  width: 260px !important;
+  height: auto !important;
   overflow: hidden;
   border-radius: 7px;
 }
 
 .latest-item img {
-  display: block;
-  width: 100%;
-  height: auto;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: unset !important;
+  aspect-ratio: auto !important;
+  max-height: none !important;
 }
 
 @media (max-width: 1050px) {
   .latest-item > a:first-child {
-    width: 230px;
+    width: 230px !important;
   }
 }
 
 @media (max-width: 700px) {
   .latest-item > a:first-child {
-    width: 150px;
+    width: 150px !important;
   }
 }
 
 @media (max-width: 450px) {
   .latest-item > a:first-child {
-    width: 100%;
+    width: 100% !important;
   }
 
   .latest-item {
