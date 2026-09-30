@@ -3033,19 +3033,17 @@ body.dark-preview .latest-item .category {
        rasio foto 1200×630 piksel
    --------------------------------------------------------- */
 .latest-item > a:first-child {
-  aspect-ratio: 1200 / 630;
+  display: block;
   width: 260px;
   height: auto;
   overflow: hidden;
   border-radius: 7px;
-  background: #0f1720;
 }
 
 .latest-item img {
+  display: block;
   width: 100%;
-  height: 100%;
-  aspect-ratio: 1200 / 630;
-  object-fit: contain;
+  height: auto;
 }
 
 @media (max-width: 1050px) {
