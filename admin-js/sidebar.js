@@ -3,14 +3,19 @@
    Interaksi header + sidebar BERSAMA untuk semua halaman admin.
 
    Yang ditangani di sini:
-   1. Buka/tutup sidebar (mobile)
-   2. Dropdown submenu (Artikel, Pengaturan, Lainnya, dst) —
-      status buka/tutup & posisi scroll dipertahankan supaya
-      tidak "lompat" saat data dari server datang.
-   3. Dark mode
-   4. Dropdown notifikasi & akun
-   5. Sidebar kiri dibangun otomatis dari data sidebar_menu di
-      backend, berlaku di SEMUA halaman CMS.
+   1. Buka/tutup sidebar (mobile) + overlay + Escape
+   2. Sidebar kiri dibangun otomatis dari data sidebar_menu API
+   3. Grup submenu (Artikel, Pengaturan, Lainnya) berperilaku
+      ACCORDION: buka satu, yang lain otomatis tertutup, dan
+      area yang baru dibuka otomatis discroll supaya kelihatan
+      penuh (termasuk grup lain yang tertutup di bawahnya).
+   4. Sidebar bisa DICIUTKAN (mode ikon saja). Saat ciut, klik
+      grup (Artikel/Pengaturan/Lainnya) memunculkan submenu
+      sebagai flyout mengambang di sebelah kanan ikon.
+   5. Dark mode
+   6. Dropdown notifikasi ASLI dari database + tombol Pesan
+   7. Pemilih identitas sementara ("Login sebagai") — belum ada
+      sistem login sungguhan di CMS ini.
 ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
     "use strict";
@@ -25,10 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =========================================================
        KONFIGURASI API
-       Samakan dengan API_BASE_URL di admin-js/atur-sidebar.js
     ========================================================= */
     const API_BASE_URL = "https://mabnews-backend.vercel.app/api";
     const SIDEBAR_MENU_ENDPOINT = `${API_BASE_URL}/sidebar-menu`;
+    const THEME_ENDPOINT = `${API_BASE_URL}/theme`;
+    const NOTIFICATIONS_ENDPOINT = `${API_BASE_URL}/notifications`;
+    const USERS_ENDPOINT = `${API_BASE_URL}/users`;
+    const MESSAGES_ENDPOINT = `${API_BASE_URL}/messages`;
+    const CURRENT_USER_KEY = "mabnews_current_user_id";
+    const SIDEBAR_COLLAPSED_KEY = "mabnews_sidebar_collapsed";
 
     /* menu_key -> file halaman sungguhan di /admin */
     const HREF_MAP = {
@@ -38,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         draft: "draft.html",
         kategori: "kategori.html",
         media: "media.html",
-        pengguna: "pengguna.html",
+        pengguna: "users.html",
         umum: "umum.html",
         website: "website.html",
         tampilan: "tampilan.html",
@@ -56,11 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "export-impor": "export-import.html"
     };
 
-    /* Menu utama yang punya anak (dirender sebagai grup dropdown) */
     const NESTED_MAIN_GROUPS = ["artikel", "pengaturan"];
 
-    /* Fallback kalau API belum bisa diakses — harus sinkron dengan
-       DEFAULT_MENUS di admin-js/atur-sidebar.js & backend */
+    /* Fallback kalau API sidebar-menu belum bisa diakses */
     const DEFAULT_MENUS = [
         { id: "dashboard", label: "Dashboard", icon: "fa-house", type: "main", parentGroup: null, order: 1, active: true },
         { id: "artikel", label: "Artikel", icon: "fa-file-lines", type: "main", parentGroup: null, order: 2, active: true },
@@ -91,163 +99,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentPage = (location.pathname.split("/").pop() || "index.html").toLowerCase();
     if (currentPage === "") currentPage = "index.html";
 
-    /* Menyimpan grup mana saja yang sudah dibuka manual oleh
-       pengguna, supaya tidak ke-reset saat sidebar dibangun ulang
-       (misalnya sesudah data dari server datang). */
     const manualOpenGroups = new Set();
-
-    /* Supaya menu yang sedang aktif tidak ketutup/di luar layar
-       saat halaman pertama kali dibuka, sidebar akan discroll
-       otomatis ke posisi menu itu SEKALI SAJA di render pertama.
-       Setelah itu, render berikutnya tidak akan menggeser scroll
-       lagi (supaya tidak terasa "lompat" saat berinteraksi). */
     let hasScrolledToActive = false;
 
-    /* ---------------------------------------------------------
-       WARNA SIDEBAR & HEADER — dari database (tabel cms_theme
-       lewat /api/theme), berlaku di SEMUA halaman CMS. Diatur
-       dari halaman Atur Sidebar (admin-js/atur-sidebar.js).
-    --------------------------------------------------------- */
-    function shadeColor(hex, percent) {
-        // percent negatif = lebih gelap, positif = lebih terang.
-        // Dihitung proporsional (bukan tambah rata) supaya warna
-        // yang sudah gelap tidak langsung jatuh ke hitam pekat.
-        const n = hex.replace("#", "");
-        const num = parseInt(n, 16);
-        const factor = 1 + percent / 100;
-        let r = Math.round((num >> 16) * factor);
-        let g = Math.round(((num >> 8) & 0x00ff) * factor);
-        let b = Math.round((num & 0x0000ff) * factor);
-        r = Math.max(0, Math.min(255, r));
-        g = Math.max(0, Math.min(255, g));
-        b = Math.max(0, Math.min(255, b));
-        return `#${(1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)}`;
-    }
-
-    function applyThemeColors(theme) {
-        if (!theme) return;
-        const root = document.documentElement.style;
-        if (theme.sidebar_color) {
-            root.setProperty("--sidebar-color", theme.sidebar_color);
-            root.setProperty("--sidebar-color-dark", shadeColor(theme.sidebar_color, -12));
-        }
-        if (theme.header_color) {
-            root.setProperty("--header-color", theme.header_color);
-            root.setProperty("--header-color-dark", shadeColor(theme.header_color, -12));
-        }
-    }
-
-    fetch(`${API_BASE_URL}/theme`)
-        .then((response) => {
-            if (!response.ok) throw new Error(`Status ${response.status}`);
-            return response.json();
-        })
-        .then((json) => applyThemeColors(json && json.data))
-        .catch((error) => {
-            console.warn("Gagal memuat warna tema, memakai warna bawaan.", error);
-        });
-
-    /* ---------------------------------------------------------
-       NAMA & PERAN DI HEADER + SIDEBAR — dari akun asli di
-       database (tabel admin_users lewat /api/users), berlaku
-       di SEMUA halaman CMS.
-
-       Catatan: CMS ini belum punya sistem login/sesi asli, jadi
-       "akun yang sedang dipakai" ditentukan dengan cara yang sama
-       seperti di halaman Profil Saya (admin-js/profil.js) — id
-       akun disimpan di localStorage per-browser. Kalau sistem
-       login sungguhan sudah dipasang, bagian ini tinggal diganti
-       untuk memakai id dari sesi login.
-    --------------------------------------------------------- */
-    const CURRENT_USER_KEY = "mabnews_current_user_id";
-    const USERS_ENDPOINT = `${API_BASE_URL}/users`;
-    const MESSAGES_ENDPOINT = `${API_BASE_URL}/messages`;
-    const NOTIFICATIONS_ENDPOINT = `${API_BASE_URL}/notifications`;
-
-    // Blok "Muhammad Aslambik / Administrator" di pojok kiri bawah
-    // sidebar diklik untuk membuka Profil Saya — kecuali kalau
-    // memang sedang berada di halaman itu.
-    const sidebarProfileEl = document.querySelector(".sidebar-profile");
-    if (sidebarProfileEl && !location.pathname.endsWith("profil.html")) {
-        sidebarProfileEl.style.cursor = "pointer";
-        sidebarProfileEl.addEventListener("click", () => {
-            window.location.href = "profil.html";
-        });
-    }
-
-    function applyCurrentUserToChrome(user) {
-        if (!user) return;
-
-        const headerName = document.querySelector(".header-user-name");
-        if (headerName) headerName.textContent = user.name || user.username;
-
-        const sidebarName = document.querySelector(".sidebar-profile-info strong");
-        if (sidebarName) sidebarName.textContent = user.name || user.username;
-
-        const sidebarRole = document.querySelector(".sidebar-profile-info span");
-        if (sidebarRole) sidebarRole.textContent = user.role || "-";
-
-        const headerAvatar = document.querySelector(".header-avatar");
-        if (headerAvatar) {
-            headerAvatar.innerHTML = user.avatar_url
-                ? `<img src="${user.avatar_url}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
-                : `<i class="fa-solid fa-user"></i>`;
-        }
-
-        const sidebarAvatar = document.querySelector(".sidebar-avatar");
-        if (sidebarAvatar) {
-            sidebarAvatar.innerHTML = user.avatar_url
-                ? `<img src="${user.avatar_url}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
-                : `<i class="fa-solid fa-user"></i>`;
-        }
-    }
-
-    // allUsers & currentUser dipakai bersama oleh: dropdown akun
-    // (pemilih "Login sebagai" — lihat bagian Dropdown akun di
-    // bawah), badge pesan/notifikasi di header, dan halaman ini
-    // sendiri. Diisi sekali lewat initCurrentUser().
-    let allUsers = [];
-    let currentUser = null;
-
-    async function initCurrentUser() {
-        try {
-            const response = await fetch(`${USERS_ENDPOINT}?limit=100`);
-            if (!response.ok) throw new Error(`Status ${response.status}`);
-            const json = await response.json();
-            allUsers = (json && json.data) || [];
-            if (!allUsers.length) return;
-
-            const savedId = localStorage.getItem(CURRENT_USER_KEY);
-            currentUser = savedId ? allUsers.find((u) => String(u.id) === String(savedId)) : null;
-            if (!currentUser) {
-                currentUser = allUsers.find((u) => u.role === "Administrator") || allUsers[0];
-                localStorage.setItem(CURRENT_USER_KEY, currentUser.id);
-            }
-
-            applyCurrentUserToChrome(currentUser);
-            populateUserSwitcher();
-            loadNotifications();
-            loadMessagePreview();
-        } catch (error) {
-            console.warn("Gagal memuat data akun untuk header/sidebar, memakai teks bawaan.", error);
-        }
-    }
-
-    function switchCurrentUser(userId) {
-        const user = allUsers.find((u) => String(u.id) === String(userId));
-        if (!user) return;
-        currentUser = user;
-        localStorage.setItem(CURRENT_USER_KEY, user.id);
-        applyCurrentUserToChrome(user);
-        loadNotifications();
-        loadMessagePreview();
-    }
-
-    initCurrentUser();
-
-    /* ---------------------------------------------------------
+    /* =========================================================
        SIDEBAR DINAMIS — dibangun dari data sidebar_menu
-    --------------------------------------------------------- */
+    ========================================================= */
     if (sidebarNav) {
         buildSidebarNav(DEFAULT_MENUS);
 
@@ -301,16 +158,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         html += renderGroup("lainnya", "Lainnya", "fa-ellipsis", childrenOf("lainnya"));
 
-        /* Simpan & kembalikan posisi scroll supaya tidak lompat
-           ke atas saat konten diganti. */
         const previousScrollTop = sidebarNav.scrollTop;
         sidebarNav.innerHTML = html;
         sidebarNav.scrollTop = previousScrollTop;
 
         if (!hasScrolledToActive) {
-            const activeEl = sidebarNav.querySelector(".nav-item.active, .active-sub-item");
-            if (activeEl) {
-                activeEl.scrollIntoView({ block: "nearest" });
+            const activeGroup = sidebarNav.querySelector(".nav-group.open");
+            if (activeGroup) {
+                scrollGroupIntoView(activeGroup);
+            } else {
+                const activeEl = sidebarNav.querySelector(".nav-item.active");
+                if (activeEl) activeEl.scrollIntoView({ block: "nearest" });
             }
             hasScrolledToActive = true;
         }
@@ -348,6 +206,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const openClass = isOpen ? " open" : "";
         const arrowIcon = isOpen ? "fa-chevron-up" : "fa-chevron-right";
 
+        if (isOpen) manualOpenGroups.add(groupKey);
+
         return `
             <div class="nav-group${openClass}" data-group="${groupKey}">
                 <button type="button" class="nav-item nav-dropdown-toggle">
@@ -364,54 +224,290 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 
+    /* =========================================================
+       INTERAKSI NAVIGASI: accordion + auto-scroll + flyout ciut
+    ========================================================= */
     function bindNavInteractivity() {
         sidebarNav.querySelectorAll(".nav-item[href], .nav-submenu a").forEach((link) => {
             link.addEventListener("click", () => {
                 if (window.innerWidth <= 980) {
                     body.classList.remove("sidebar-open");
                 }
+                closeFlyout();
             });
         });
 
         sidebarNav.querySelectorAll(".nav-dropdown-toggle").forEach((button) => {
-            button.addEventListener("click", (event) => {
-                /* Klik grup dropdown TIDAK boleh memicu browser
-                   menggeser/scroll ke mana pun. */
-                event.preventDefault();
-
+            button.addEventListener("click", () => {
                 const group = button.closest(".nav-group");
                 if (!group) return;
 
-                group.classList.toggle("open");
-                const isOpen = group.classList.contains("open");
+                /* --- MODE CIUT: submenu ditampilkan sebagai flyout --- */
+                if (body.classList.contains("sidebar-collapsed")) {
+                    const alreadyOpenForThis = flyoutEl.classList.contains("open") && flyoutEl.dataset.forGroup === group.dataset.group;
+                    closeFlyout();
+                    if (!alreadyOpenForThis) {
+                        openFlyoutFor(group, button);
+                    }
+                    button.blur();
+                    return;
+                }
+
+                /* --- MODE NORMAL: accordion + auto-scroll --- */
+                const willOpen = !group.classList.contains("open");
+
+                sidebarNav.querySelectorAll(".nav-group.open").forEach((otherGroup) => {
+                    if (otherGroup === group) return;
+                    otherGroup.classList.remove("open");
+                    const otherKey = otherGroup.dataset.group;
+                    if (otherKey) manualOpenGroups.delete(otherKey);
+                    const otherArrow = otherGroup.querySelector(".nav-arrow");
+                    if (otherArrow) {
+                        otherArrow.classList.remove("fa-chevron-up");
+                        otherArrow.classList.add("fa-chevron-right");
+                    }
+                });
+
+                group.classList.toggle("open", willOpen);
                 const key = group.dataset.group;
                 if (key) {
-                    if (isOpen) {
-                        manualOpenGroups.add(key);
-                    } else {
-                        manualOpenGroups.delete(key);
-                    }
+                    if (willOpen) manualOpenGroups.add(key);
+                    else manualOpenGroups.delete(key);
                 }
 
                 const arrow = button.querySelector(".nav-arrow");
                 if (arrow) {
-                    arrow.classList.toggle("fa-chevron-right");
-                    arrow.classList.toggle("fa-chevron-up");
+                    arrow.classList.toggle("fa-chevron-right", !willOpen);
+                    arrow.classList.toggle("fa-chevron-up", willOpen);
                 }
 
-                /* Hilangkan fokus supaya browser tidak berusaha
-                   men-scroll tombol ini ke posisi tertentu. */
                 button.blur();
+
+                if (willOpen) {
+                    requestAnimationFrame(() => scrollGroupIntoView(group));
+                }
             });
         });
     }
 
-    /* ---------------------------------------------------------
-       Buka/tutup sidebar (mobile) + overlay gelap + tombol Escape
-       Overlay dibuat otomatis lewat JS (atau dipakai ulang kalau
-       halamannya kebetulan sudah punya <div id="sidebarOverlay">
-       dari markup lama) — jadi tidak perlu ubah HTML per halaman.
-    --------------------------------------------------------- */
+    /* Menyelaraskan bagian atas grup yang baru dibuka ke bagian
+       atas area sidebar yang terlihat, supaya seluruh isi grup
+       (dan tombol grup lain yang tertutup persis di bawahnya)
+       ikut kelihatan tanpa perlu discroll manual. */
+    function scrollGroupIntoView(group) {
+        if (!sidebarNav || body.classList.contains("sidebar-collapsed")) return;
+
+        const containerHeight = sidebarNav.clientHeight;
+        const groupTop = group.offsetTop;
+        const desiredScrollTop = Math.max(groupTop - 6, 0);
+        const maxScrollTop = Math.max(sidebarNav.scrollHeight - containerHeight, 0);
+
+        sidebarNav.scrollTop = Math.min(desiredScrollTop, maxScrollTop);
+    }
+
+    /* =========================================================
+       SIDEBAR CIUT (mode ikon saja) + FLYOUT SUBMENU
+    ========================================================= */
+    let collapseToggle = document.getElementById("sidebarCollapseToggle");
+    if (!collapseToggle && sidebarEl) {
+        collapseToggle = document.createElement("button");
+        collapseToggle.type = "button";
+        collapseToggle.id = "sidebarCollapseToggle";
+        collapseToggle.className = "sidebar-collapse-toggle";
+        collapseToggle.setAttribute("aria-label", "Ciutkan sidebar");
+        collapseToggle.innerHTML = '<i class="fa-solid fa-angles-left"></i>';
+        sidebarEl.appendChild(collapseToggle);
+    }
+
+    let flyoutEl = document.getElementById("sidebarFlyout");
+    if (!flyoutEl) {
+        flyoutEl = document.createElement("div");
+        flyoutEl.id = "sidebarFlyout";
+        flyoutEl.className = "sidebar-flyout";
+        document.body.appendChild(flyoutEl);
+    }
+
+    function openFlyoutFor(group, button) {
+        const submenu = group.querySelector(".nav-submenu");
+        if (!submenu) return;
+
+        flyoutEl.innerHTML = submenu.innerHTML;
+        flyoutEl.dataset.forGroup = group.dataset.group;
+
+        const rect = button.getBoundingClientRect();
+        flyoutEl.style.top = `${Math.round(rect.top)}px`;
+        flyoutEl.style.left = `${Math.round(rect.right + 8)}px`;
+        flyoutEl.classList.add("open");
+
+        flyoutEl.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", closeFlyout);
+        });
+    }
+
+    function closeFlyout() {
+        flyoutEl.classList.remove("open");
+        flyoutEl.innerHTML = "";
+        delete flyoutEl.dataset.forGroup;
+    }
+
+    document.addEventListener("click", (event) => {
+        if (!flyoutEl.classList.contains("open")) return;
+        if (flyoutEl.contains(event.target)) return;
+        if (event.target.closest(".nav-dropdown-toggle")) return;
+        closeFlyout();
+    });
+
+    const collapsedSaved = localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === "1";
+    if (collapsedSaved) body.classList.add("sidebar-collapsed");
+    updateCollapseIcon();
+
+    if (collapseToggle) {
+        collapseToggle.addEventListener("click", () => {
+            body.classList.toggle("sidebar-collapsed");
+            const isCollapsed = body.classList.contains("sidebar-collapsed");
+            localStorage.setItem(SIDEBAR_COLLAPSED_KEY, isCollapsed ? "1" : "0");
+            updateCollapseIcon();
+            closeFlyout();
+        });
+    }
+
+    function updateCollapseIcon() {
+        if (!collapseToggle) return;
+        const icon = collapseToggle.querySelector("i");
+        if (!icon) return;
+        const isCollapsed = body.classList.contains("sidebar-collapsed");
+        icon.classList.toggle("fa-angles-left", !isCollapsed);
+        icon.classList.toggle("fa-angles-right", isCollapsed);
+    }
+
+    /* =========================================================
+       WARNA TAMPILAN (sidebar & header)
+       Diambil dari GET /api/theme (tabel cms_theme), diterapkan
+       ke seluruh halaman lewat CSS variable. Diatur dari halaman
+       Atur Sidebar (kartu "Warna Tampilan").
+    ========================================================= */
+    async function loadTheme() {
+        try {
+            const response = await fetch(THEME_ENDPOINT);
+            if (!response.ok) throw new Error(`Status ${response.status}`);
+            const json = await response.json();
+            const theme = json.data || json;
+            if (theme && theme.sidebar_color && theme.header_color) {
+                applyThemeColors(theme);
+            }
+        } catch (error) {
+            console.warn("Gagal memuat warna tampilan, memakai default.", error);
+        }
+    }
+
+    function applyThemeColors(theme) {
+        const root = document.documentElement.style;
+
+        if (theme.sidebar_color) {
+            root.setProperty("--sidebar", theme.sidebar_color);
+            root.setProperty("--sidebar-dark", shadeColor(theme.sidebar_color, -12));
+        }
+
+        if (theme.header_color) {
+            const darker = shadeColor(theme.header_color, -25);
+            const lighter = shadeColor(theme.header_color, 15);
+            root.setProperty(
+                "--header-bg",
+                `linear-gradient(90deg, ${darker} 0%, ${theme.header_color} 55%, ${lighter} 100%)`
+            );
+        }
+    }
+
+    /* Menggelapkan/mencerahkan warna hex sebanyak persen tertentu.
+       percent negatif = lebih gelap, positif = lebih terang. */
+    function shadeColor(hex, percent) {
+        const clean = hex.replace("#", "");
+        const num = parseInt(clean, 16);
+        let r = (num >> 16) + Math.round(2.55 * percent);
+        let g = ((num >> 8) & 0x00ff) + Math.round(2.55 * percent);
+        let b = (num & 0x0000ff) + Math.round(2.55 * percent);
+
+        r = Math.max(0, Math.min(255, r));
+        g = Math.max(0, Math.min(255, g));
+        b = Math.max(0, Math.min(255, b));
+
+        return `#${(1 << 24 | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
+    }
+
+    loadTheme();
+
+    /* =========================================================
+       IDENTITAS PENGGUNA SAAT INI (belum ada login sungguhan)
+    ========================================================= */
+    let allUsers = [];
+    let currentUser = null;
+
+    async function initCurrentUser() {
+        try {
+            const response = await fetch(USERS_ENDPOINT);
+            if (!response.ok) throw new Error(`Status ${response.status}`);
+            const json = await response.json();
+            allUsers = Array.isArray(json.data) ? json.data : [];
+        } catch (error) {
+            console.warn("Gagal memuat daftar pengguna:", error);
+            allUsers = [];
+        }
+
+        if (allUsers.length === 0) return;
+
+        const savedId = parseInt(localStorage.getItem(CURRENT_USER_KEY), 10);
+        currentUser = allUsers.find((user) => user.id === savedId) || allUsers[0];
+        localStorage.setItem(CURRENT_USER_KEY, String(currentUser.id));
+
+        applyCurrentUserToUi();
+    }
+
+    function applyCurrentUserToUi() {
+        if (!currentUser) return;
+        document.querySelectorAll(".sidebar-profile-info strong").forEach((el) => {
+            el.textContent = currentUser.display_name;
+        });
+        document.querySelectorAll(".header-user-name").forEach((el) => {
+            el.textContent = currentUser.display_name.split(" ")[0];
+        });
+    }
+
+    function switchCurrentUser(userId) {
+        const user = allUsers.find((item) => item.id === Number(userId));
+        if (!user) return;
+        currentUser = user;
+        localStorage.setItem(CURRENT_USER_KEY, String(user.id));
+        applyCurrentUserToUi();
+        loadNotifications();
+        loadMessagePreview();
+    }
+
+    /* =========================================================
+       WAKTU RELATIF & UTIL
+    ========================================================= */
+    function timeAgo(iso) {
+        if (!iso) return "";
+        const diffMs = Date.now() - new Date(iso).getTime();
+        const minute = 60000;
+        const hour = 60 * minute;
+        const day = 24 * hour;
+
+        if (diffMs < minute) return "Baru saja";
+        if (diffMs < hour) return `${Math.floor(diffMs / minute)} menit lalu`;
+        if (diffMs < day) return `${Math.floor(diffMs / hour)} jam lalu`;
+        if (diffMs < 7 * day) return `${Math.floor(diffMs / day)} hari lalu`;
+        return new Date(iso).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" });
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text == null ? "" : String(text);
+        return div.innerHTML;
+    }
+
+    /* =========================================================
+       BUKA/TUTUP SIDEBAR (MOBILE) + OVERLAY + ESCAPE
+    ========================================================= */
     let sidebarOverlay = document.getElementById("sidebarOverlay");
     if (!sidebarOverlay && sidebarEl) {
         sidebarOverlay = document.createElement("div");
@@ -427,63 +523,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (menuToggle) {
         menuToggle.addEventListener("click", () => {
-            const isMobile = window.matchMedia("(max-width: 980px)").matches;
-            if (isMobile) {
-                body.classList.toggle("sidebar-open");
-            } else {
-                const hidden = body.classList.toggle("sidebar-hidden");
-                localStorage.setItem("mabnews_sidebar_hidden", hidden ? "1" : "0");
-            }
+            body.classList.toggle("sidebar-open");
         });
     }
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
             body.classList.remove("sidebar-open");
+            closeFlyout();
         }
     });
 
-    /* ---------------------------------------------------------
-       Tombol sempit/lebar sidebar (mode mini) — dibuat lewat JS
-       (seperti overlay di atas) supaya tidak perlu ubah HTML di
-       setiap halaman. Tombolnya hanya muncul saat kursor
-       diarahkan ke sidebar (diatur lewat CSS :hover).
-    --------------------------------------------------------- */
-    if (sidebarEl) {
-        const collapseBtn = document.createElement("button");
-        collapseBtn.type = "button";
-        collapseBtn.className = "sidebar-collapse-toggle";
-        collapseBtn.id = "sidebarCollapseToggle";
-        collapseBtn.setAttribute("aria-label", "Sempitkan/lebarkan sidebar");
-        collapseBtn.innerHTML = `<i class="fa-solid fa-chevron-left"></i>`;
-        sidebarEl.appendChild(collapseBtn);
-
-        function updateCollapseIcon(isMini) {
-            collapseBtn.innerHTML = `<i class="fa-solid fa-chevron-${isMini ? "right" : "left"}"></i>`;
-        }
-
-        const savedMini = localStorage.getItem("mabnews_sidebar_mini") === "1";
-        if (savedMini) {
-            body.classList.add("sidebar-mini");
-            updateCollapseIcon(true);
-        }
-
-        collapseBtn.addEventListener("click", () => {
-            const isMini = body.classList.toggle("sidebar-mini");
-            localStorage.setItem("mabnews_sidebar_mini", isMini ? "1" : "0");
-            updateCollapseIcon(isMini);
-        });
-    }
-
-    // Pulihkan status "sidebar disembunyikan total" (desktop) dari
-    // kunjungan sebelumnya, supaya konsisten antar halaman.
-    if (localStorage.getItem("mabnews_sidebar_hidden") === "1") {
-        body.classList.add("sidebar-hidden");
-    }
-
-    /* ---------------------------------------------------------
-       Dark mode
-    --------------------------------------------------------- */
+    /* =========================================================
+       DARK MODE
+    ========================================================= */
     const savedTheme = localStorage.getItem("mabnews_cms_theme");
     if (savedTheme === "dark") {
         body.classList.add("dark-mode");
@@ -508,35 +561,139 @@ document.addEventListener("DOMContentLoaded", () => {
         icon.classList.toggle("fa-sun", isDark);
     }
 
-    /* ---------------------------------------------------------
-       Tombol Pesan (header) — diletakkan di antara mode gelap
-       dan notifikasi. Dibuat lewat JS supaya tidak perlu ubah
-       HTML tiap halaman, sama seperti overlay/tombol lain di
-       atas.
-    --------------------------------------------------------- */
-    let messageBtn = null;
+    /* =========================================================
+       DROPDOWN NOTIFIKASI — data ASLI dari database
+    ========================================================= */
+    let notificationPanel = null;
+
+    if (notificationBtn) {
+        notificationPanel = document.createElement("div");
+        notificationPanel.className = "header-dropdown notification-dropdown";
+        notificationPanel.innerHTML = `<div class="header-dropdown-title">Notifikasi</div><div class="header-dropdown-empty">Memuat...</div>`;
+        notificationBtn.appendChild(notificationPanel);
+
+        notificationBtn.addEventListener("click", (event) => {
+            event.stopPropagation();
+            closeAllHeaderDropdowns(notificationPanel);
+            notificationPanel.classList.toggle("open");
+        });
+    }
+
+    async function loadNotifications() {
+        if (!notificationBtn || !notificationPanel) return;
+
+        try {
+            const response = await fetch(NOTIFICATIONS_ENDPOINT);
+            if (!response.ok) throw new Error(`Status ${response.status}`);
+            const json = await response.json();
+            renderNotifications(Array.isArray(json.data) ? json.data : []);
+        } catch (error) {
+            console.warn("Gagal memuat notifikasi:", error);
+            notificationPanel.innerHTML = `
+                <div class="header-dropdown-title">Notifikasi</div>
+                <div class="header-dropdown-empty">Tidak bisa memuat notifikasi.</div>
+            `;
+        }
+    }
+
+    function renderNotifications(items) {
+        const unreadCount = items.filter((item) => !item.is_read).length;
+        const badge = notificationBtn.querySelector(".notification-count");
+        if (badge) {
+            badge.textContent = unreadCount > 9 ? "9+" : String(unreadCount);
+            badge.style.display = unreadCount > 0 ? "flex" : "none";
+        }
+
+        if (items.length === 0) {
+            notificationPanel.innerHTML = `
+                <div class="header-dropdown-title">Notifikasi</div>
+                <div class="header-dropdown-empty">Belum ada notifikasi.</div>
+            `;
+            return;
+        }
+
+        const iconByType = { article: "fa-file-lines", message: "fa-comment", system: "fa-circle-info" };
+
+        const itemsHtml = items
+            .slice(0, 8)
+            .map((item) => {
+                const icon = iconByType[item.type] || "fa-circle-info";
+                return `
+                    <button type="button" class="header-dropdown-item notif-item${item.is_read ? "" : " unread"}"
+                        data-id="${item.id}" data-link="${item.link ? escapeHtml(item.link) : ""}">
+                        <i class="fa-solid ${icon}"></i>
+                        <div>
+                            <strong>${escapeHtml(item.title)}</strong>
+                            ${item.message ? `<span>${escapeHtml(item.message)}</span>` : ""}
+                            <span class="notif-time">${timeAgo(item.created_at)}</span>
+                        </div>
+                    </button>
+                `;
+            })
+            .join("");
+
+        notificationPanel.innerHTML = `
+            <div class="header-dropdown-title">
+                Notifikasi
+                <button type="button" class="mark-all-read" id="markAllReadBtn">Tandai semua dibaca</button>
+            </div>
+            ${itemsHtml}
+        `;
+
+        notificationPanel.querySelectorAll(".notif-item").forEach((el) => {
+            el.addEventListener("click", async () => {
+                const id = el.dataset.id;
+                const link = el.dataset.link;
+                try {
+                    await fetch(`${NOTIFICATIONS_ENDPOINT}/${id}/read`, { method: "PUT" });
+                } catch (error) {
+                    console.warn("Gagal menandai notifikasi:", error);
+                }
+                if (link) {
+                    window.location.href = link;
+                } else {
+                    loadNotifications();
+                }
+            });
+        });
+
+        const markAllBtn = notificationPanel.querySelector("#markAllReadBtn");
+        if (markAllBtn) {
+            markAllBtn.addEventListener("click", async (event) => {
+                event.stopPropagation();
+                try {
+                    await fetch(`${NOTIFICATIONS_ENDPOINT}/read-all`, { method: "POST" });
+                } catch (error) {
+                    console.warn("Gagal menandai semua notifikasi:", error);
+                }
+                loadNotifications();
+            });
+        }
+    }
+
+    /* =========================================================
+       TOMBOL PESAN — dibuat otomatis di sebelah notifikasi
+    ========================================================= */
+    let messageBtn = document.getElementById("messageBtn");
     let messagePanel = null;
 
-    if (notificationBtn && notificationBtn.parentNode) {
+    if (!messageBtn && notificationBtn && notificationBtn.parentElement) {
         messageBtn = document.createElement("button");
         messageBtn.type = "button";
+        messageBtn.id = "messageBtn";
         messageBtn.className = "header-icon-btn message-btn";
         messageBtn.setAttribute("aria-label", "Pesan");
         messageBtn.innerHTML = `
-            <i class="fa-regular fa-envelope"></i>
+            <i class="fa-regular fa-comment-dots"></i>
             <span class="notification-count" style="display:none;">0</span>
         `;
-        notificationBtn.parentNode.insertBefore(messageBtn, notificationBtn);
+        notificationBtn.parentElement.insertBefore(messageBtn, notificationBtn);
+    }
 
+    if (messageBtn) {
         messagePanel = document.createElement("div");
         messagePanel.className = "header-dropdown message-dropdown";
-        messagePanel.innerHTML = `
-            <div class="header-dropdown-title">Pesan</div>
-            <div class="header-dropdown-list" data-message-list>
-                <div class="header-dropdown-empty">Memuat pesan...</div>
-            </div>
-            <a href="pesan.html" class="header-dropdown-footer-link">Buka Semua Pesan</a>
-        `;
+        messagePanel.innerHTML = `<div class="header-dropdown-title">Pesan</div><div class="header-dropdown-empty">Memuat...</div>`;
         messageBtn.appendChild(messagePanel);
 
         messageBtn.addEventListener("click", (event) => {
@@ -546,204 +703,113 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function timeAgo(iso) {
-        if (!iso) return "";
-        const diffMs = Date.now() - new Date(iso).getTime();
-        const min = Math.floor(diffMs / 60000);
-        if (min < 1) return "Baru saja";
-        if (min < 60) return `${min} menit lalu`;
-        const hour = Math.floor(min / 60);
-        if (hour < 24) return `${hour} jam lalu`;
-        const day = Math.floor(hour / 24);
-        if (day < 7) return `${day} hari lalu`;
-        return new Date(iso).toLocaleDateString("id-ID", { day: "numeric", month: "short" });
-    }
-
-    function setBadge(el, count) {
-        if (!el) return;
-        if (count > 0) {
-            el.style.display = "flex";
-            el.textContent = count > 9 ? "9+" : String(count);
-        } else {
-            el.style.display = "none";
-        }
-    }
-
     async function loadMessagePreview() {
-        if (!messageBtn || !currentUser) return;
-        const badge = messageBtn.querySelector(".notification-count");
-        const listEl = messagePanel.querySelector("[data-message-list]");
+        if (!messageBtn || !messagePanel || !currentUser) return;
 
         try {
-            const [convRes, unreadRes] = await Promise.all([
+            const [convResponse, unreadResponse] = await Promise.all([
                 fetch(`${MESSAGES_ENDPOINT}/conversations?user_id=${currentUser.id}`),
                 fetch(`${MESSAGES_ENDPOINT}/unread-count?user_id=${currentUser.id}`)
             ]);
-            const convJson = await convRes.json();
-            const unreadJson = await unreadRes.json();
 
-            setBadge(badge, (unreadJson && unreadJson.data && unreadJson.data.count) || 0);
+            const convJson = convResponse.ok ? await convResponse.json() : { data: [] };
+            const unreadJson = unreadResponse.ok ? await unreadResponse.json() : { data: { count: 0 } };
 
-            const conversations = (convJson && convJson.data) || [];
-            if (!conversations.length) {
-                listEl.innerHTML = `<div class="header-dropdown-empty">Belum ada pesan.</div>`;
-                return;
+            const conversations = Array.isArray(convJson.data) ? convJson.data : [];
+            const unreadTotal = (unreadJson.data && unreadJson.data.count) || 0;
+
+            const badge = messageBtn.querySelector(".notification-count");
+            if (badge) {
+                badge.textContent = unreadTotal > 9 ? "9+" : String(unreadTotal);
+                badge.style.display = unreadTotal > 0 ? "flex" : "none";
             }
 
-            listEl.innerHTML = conversations.slice(0, 5).map((c) => `
-                <a href="pesan.html?with=${c.user_id}" class="header-dropdown-item${c.unread_count > 0 ? " is-unread" : ""}">
-                    <i class="fa-regular fa-circle-user"></i>
-                    <div>
-                        <strong>${escapeHtml(c.name || "Pengguna")}</strong>
-                        <span>${escapeHtml(c.last_body || "")}</span>
-                    </div>
-                    ${c.unread_count > 0 ? `<span class="header-dropdown-dot"></span>` : ""}
-                </a>
-            `).join("");
+            renderMessagePreview(conversations);
         } catch (error) {
-            console.warn("Gagal memuat pratinjau pesan.", error);
-            listEl.innerHTML = `<div class="header-dropdown-empty">Gagal memuat pesan.</div>`;
+            console.warn("Gagal memuat pesan:", error);
+            messagePanel.innerHTML = `
+                <div class="header-dropdown-title">Pesan</div>
+                <div class="header-dropdown-empty">Tidak bisa memuat pesan.</div>
+            `;
         }
     }
 
-    function escapeHtml(str) {
-        return String(str ?? "").replace(/[&<>"']/g, (c) => ({
-            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-        }[c]));
-    }
+    function renderMessagePreview(conversations) {
+        if (conversations.length === 0) {
+            messagePanel.innerHTML = `
+                <div class="header-dropdown-title">Pesan</div>
+                <div class="header-dropdown-empty">Belum ada percakapan.</div>
+                <a href="pesan.html" class="header-dropdown-footer-link">
+                    <i class="fa-solid fa-pen-to-square"></i> Mulai pesan baru
+                </a>
+            `;
+            return;
+        }
 
-    /* ---------------------------------------------------------
-       Dropdown notifikasi — data asli dari /api/notifications
-    --------------------------------------------------------- */
-    let notificationPanel = null;
+        const itemsHtml = conversations
+            .slice(0, 6)
+            .map((conv) => {
+                const isFromMe = currentUser && conv.last_sender_id === currentUser.id;
+                const prefix = isFromMe ? "Anda: " : "";
+                return `
+                    <a href="pesan.html?with=${conv.user_id}" class="header-dropdown-item${conv.unread_count > 0 ? " unread" : ""}">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <div>
+                            <strong>${escapeHtml(conv.name)}</strong>
+                            <span>${escapeHtml(prefix + (conv.last_body || ""))}</span>
+                            <span class="notif-time">${timeAgo(conv.last_created_at)}</span>
+                        </div>
+                    </a>
+                `;
+            })
+            .join("");
 
-    if (notificationBtn) {
-        notificationPanel = document.createElement("div");
-        notificationPanel.className = "header-dropdown notification-dropdown";
-        notificationPanel.innerHTML = `
-            <div class="header-dropdown-title">
-                Notifikasi
-                <button type="button" class="mark-all-read" data-mark-all>Tandai semua dibaca</button>
-            </div>
-            <div class="header-dropdown-list" data-notif-list>
-                <div class="header-dropdown-empty">Memuat notifikasi...</div>
-            </div>
+        messagePanel.innerHTML = `
+            <div class="header-dropdown-title">Pesan</div>
+            ${itemsHtml}
+            <a href="pesan.html" class="header-dropdown-footer-link">
+                <i class="fa-solid fa-inbox"></i> Buka Semua Pesan
+            </a>
         `;
-        notificationBtn.appendChild(notificationPanel);
-
-        notificationBtn.addEventListener("click", (event) => {
-            event.stopPropagation();
-            closeAllHeaderDropdowns(notificationPanel);
-            notificationPanel.classList.toggle("open");
-        });
-
-        notificationPanel.addEventListener("click", (event) => {
-            const markAllBtn = event.target.closest("[data-mark-all]");
-            if (markAllBtn) {
-                event.preventDefault();
-                event.stopPropagation();
-                markAllNotificationsRead();
-                return;
-            }
-            const item = event.target.closest("[data-notif-id]");
-            if (item) {
-                markNotificationRead(item.dataset.notifId);
-            }
-        });
     }
 
-    async function loadNotifications() {
-        if (!notificationBtn) return;
-        const badge = notificationBtn.querySelector(".notification-count");
-        const listEl = notificationPanel.querySelector("[data-notif-list]");
-
-        try {
-            const response = await fetch(NOTIFICATIONS_ENDPOINT);
-            const json = await response.json();
-            const items = (json && json.data) || [];
-
-            const unreadCount = items.filter((n) => !n.is_read).length;
-            setBadge(badge, unreadCount);
-
-            if (!items.length) {
-                listEl.innerHTML = `<div class="header-dropdown-empty">Belum ada notifikasi.</div>`;
-                return;
-            }
-
-            listEl.innerHTML = items.slice(0, 8).map((n) => `
-                <a href="${n.link || "#"}" class="header-dropdown-item${!n.is_read ? " is-unread" : ""}" data-notif-id="${n.id}">
-                    <i class="fa-solid fa-${n.type === "comment" ? "comment" : n.type === "category" ? "folder" : "file-lines"}"></i>
-                    <div><strong>${escapeHtml(n.title)}</strong><span>${timeAgo(n.created_at)}</span></div>
-                    ${!n.is_read ? `<span class="header-dropdown-dot"></span>` : ""}
-                </a>
-            `).join("");
-        } catch (error) {
-            console.warn("Gagal memuat notifikasi.", error);
-            listEl.innerHTML = `<div class="header-dropdown-empty">Gagal memuat notifikasi.</div>`;
-        }
-    }
-
-    async function markNotificationRead(id) {
-        try {
-            await fetch(`${NOTIFICATIONS_ENDPOINT}/${id}/read`, { method: "PUT" });
-            loadNotifications();
-        } catch (error) {
-            console.warn("Gagal menandai notifikasi.", error);
-        }
-    }
-
-    async function markAllNotificationsRead() {
-        try {
-            await fetch(`${NOTIFICATIONS_ENDPOINT}/read-all`, { method: "POST" });
-            loadNotifications();
-        } catch (error) {
-            console.warn("Gagal menandai semua notifikasi.", error);
-        }
-    }
-
-    /* ---------------------------------------------------------
-       Dropdown akun — termasuk pemilih "Login sebagai", karena
-       CMS ini belum punya sistem login sungguhan. Berguna juga
-       untuk mencoba fitur Pesan bolak-balik antar akun.
-    --------------------------------------------------------- */
-    let userSwitcherSelect = null;
-
+    /* =========================================================
+       DROPDOWN AKUN (+ pemilih identitas sementara)
+    ========================================================= */
     if (headerUser) {
         const panel = document.createElement("div");
         panel.className = "header-dropdown account-dropdown";
         panel.innerHTML = `
-            <a href="profil.html" class="header-dropdown-item simple"><i class="fa-solid fa-user"></i> Profil Saya</a>
-            <a href="#" class="header-dropdown-item simple"><i class="fa-solid fa-gear"></i> Pengaturan Akun</a>
-            <div class="header-dropdown-divider"></div>
+            <div class="header-dropdown-title">Login sebagai</div>
             <div class="user-switcher">
-                <label for="userSwitcherSelect">Login sebagai</label>
                 <select id="userSwitcherSelect"></select>
             </div>
+            <div class="header-dropdown-divider"></div>
+            <a href="#" class="header-dropdown-item simple"><i class="fa-solid fa-user"></i> Profil Saya</a>
+            <a href="#" class="header-dropdown-item simple"><i class="fa-solid fa-gear"></i> Pengaturan Akun</a>
             <div class="header-dropdown-divider"></div>
             <a href="#" class="header-dropdown-item simple logout"><i class="fa-solid fa-right-from-bracket"></i> Keluar</a>
         `;
         headerUser.appendChild(panel);
-        userSwitcherSelect = panel.querySelector("#userSwitcherSelect");
 
         headerUser.addEventListener("click", (event) => {
             event.stopPropagation();
             closeAllHeaderDropdowns(panel);
             panel.classList.toggle("open");
-        });
 
-        userSwitcherSelect.addEventListener("click", (event) => event.stopPropagation());
-        userSwitcherSelect.addEventListener("change", (event) => {
-            switchCurrentUser(event.target.value);
-        });
-    }
+            const select = panel.querySelector("#userSwitcherSelect");
+            if (select && select.options.length === 0 && allUsers.length > 0) {
+                select.innerHTML = allUsers
+                    .map((user) => `<option value="${user.id}">${escapeHtml(user.display_name)}</option>`)
+                    .join("");
+                if (currentUser) select.value = String(currentUser.id);
 
-    function populateUserSwitcher() {
-        if (!userSwitcherSelect) return;
-        userSwitcherSelect.innerHTML = allUsers.map((u) => `
-            <option value="${u.id}" ${currentUser && u.id === currentUser.id ? "selected" : ""}>
-                ${escapeHtml(u.name || u.username)} (${escapeHtml(u.role || "-")})
-            </option>
-        `).join("");
+                select.addEventListener("click", (e) => e.stopPropagation());
+                select.addEventListener("change", () => {
+                    switchCurrentUser(select.value);
+                });
+            }
+        });
     }
 
     function closeAllHeaderDropdowns(except) {
@@ -753,4 +819,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.addEventListener("click", () => closeAllHeaderDropdowns());
+
+    /* =========================================================
+       INISIALISASI
+    ========================================================= */
+    initCurrentUser().then(() => {
+        loadNotifications();
+        loadMessagePreview();
+    });
 });

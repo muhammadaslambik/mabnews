@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================================= */
     const API_BASE_URL = "https://mabnews-backend.vercel.app/api";
     const SIDEBAR_MENU_ENDPOINT = `${API_BASE_URL}/sidebar-menu`;
-    const THEME_ENDPOINT = `${API_BASE_URL}/theme`;
 
     /* =========================================================
        DATA DEFAULT (fallback)
@@ -54,24 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetButton = document.getElementById("resetButton");
     const saveButton = document.getElementById("saveButton");
 
-    const sidebarColorInput = document.getElementById("sidebarColorInput");
-    const sidebarColorText = document.getElementById("sidebarColorText");
-    const headerColorInput = document.getElementById("headerColorInput");
-    const headerColorText = document.getElementById("headerColorText");
-    const themeStatusText = document.getElementById("themeStatusText");
-    const themeSaveButton = document.getElementById("themeSaveButton");
-    const themeResetButton = document.getElementById("themeResetButton");
-    const previewSidebarEl = document.querySelector(".preview-sidebar");
-    const THEME_HEX_RE = /^#[0-9a-fA-F]{6}$/;
-    const THEME_DEFAULTS = { sidebar_color: "#03142f", header_color: "#03142e" };
-
     let menus = DEFAULT_MENUS.map((menu) => ({ ...menu }));
     let isLoading = true;
     let isSaving = false;
     let draggedId = null;
 
     init();
-    initTheme();
 
     async function init() {
         setTableLoading(true);
@@ -557,99 +544,128 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =========================================================
-       WARNA TAMPILAN (sidebar & header) — tersimpan di database
-       lewat /api/theme, dipakai bersama oleh admin-js/sidebar.js
-       di semua halaman CMS.
+       WARNA TAMPILAN (sidebar & header)
+       Tersimpan di tabel cms_theme lewat GET/PUT /api/theme,
+       diterapkan langsung ke halaman ini sendiri (live preview)
+       DAN ke sidebar asli lewat sidebar.js di semua halaman lain.
     ========================================================= */
-    async function initTheme() {
-        if (!sidebarColorInput) return; // halaman ini tidak punya panel warna
+    const THEME_ENDPOINT = `${API_BASE_URL}/theme`;
+    const THEME_HEX_RE = /^#[0-9a-fA-F]{6}$/;
+    const THEME_DEFAULTS = { sidebar_color: "#03142f", header_color: "#03142e" };
 
-        setThemeFields(THEME_DEFAULTS);
+    const sidebarColorInput = document.getElementById("sidebarColorInput");
+    const sidebarColorText = document.getElementById("sidebarColorText");
+    const headerColorInput = document.getElementById("headerColorInput");
+    const headerColorText = document.getElementById("headerColorText");
+    const saveThemeButton = document.getElementById("saveThemeButton");
+    const resetThemeButton = document.getElementById("resetThemeButton");
+
+    let currentTheme = { ...THEME_DEFAULTS };
+
+    async function loadTheme() {
         try {
             const response = await fetch(THEME_ENDPOINT);
-            if (!response.ok) throw new Error(`GET theme gagal (status ${response.status})`);
+            if (!response.ok) throw new Error(`Status ${response.status}`);
             const json = await response.json();
-            setThemeFields(json.data || THEME_DEFAULTS);
-            themeStatusText.textContent = "Warna tersimpan dimuat dari database.";
+            const theme = json.data || json;
+            if (theme && theme.sidebar_color && theme.header_color) {
+                currentTheme = theme;
+            }
         } catch (error) {
-            console.warn("Gagal memuat warna tema, memakai warna bawaan.", error);
-            themeStatusText.textContent = "Tidak bisa memuat dari server, menampilkan warna bawaan.";
+            console.warn("Gagal memuat warna tampilan, memakai default.", error);
         }
 
-        wireThemeEvents();
+        setThemeFields(currentTheme);
+        applyThemePreview(currentTheme);
     }
 
     function setThemeFields(theme) {
-        sidebarColorInput.value = theme.sidebar_color;
-        sidebarColorText.value = theme.sidebar_color;
-        headerColorInput.value = theme.header_color;
-        headerColorText.value = theme.header_color;
-        updateThemePreview();
+        if (sidebarColorInput) sidebarColorInput.value = theme.sidebar_color;
+        if (sidebarColorText) sidebarColorText.value = theme.sidebar_color;
+        if (headerColorInput) headerColorInput.value = theme.header_color;
+        if (headerColorText) headerColorText.value = theme.header_color;
     }
 
-    function updateThemePreview() {
-        if (previewSidebarEl) {
-            previewSidebarEl.style.background = sidebarColorInput.value;
+    /* Live preview di halaman Atur Sidebar sendiri: panel Preview
+       Sidebar di kanan otomatis ikut berubah saat warna diganti,
+       sebelum sempat disimpan. */
+    function applyThemePreview(theme) {
+        const previewSidebar = document.querySelector(".preview-sidebar");
+        if (previewSidebar && theme.sidebar_color) {
+            previewSidebar.style.background = theme.sidebar_color;
         }
     }
 
-    function syncColorPair(colorEl, textEl) {
-        colorEl.addEventListener("input", () => {
-            textEl.value = colorEl.value;
-            updateThemePreview();
+    function syncColorPair(colorInput, textInput, onChange) {
+        if (!colorInput || !textInput) return;
+
+        colorInput.addEventListener("input", () => {
+            textInput.value = colorInput.value;
+            onChange(colorInput.value);
         });
-        textEl.addEventListener("input", () => {
-            const value = textEl.value.trim();
+
+        textInput.addEventListener("input", () => {
+            const value = textInput.value.trim();
             if (THEME_HEX_RE.test(value)) {
-                colorEl.value = value;
-                updateThemePreview();
+                colorInput.value = value;
+                onChange(value);
             }
         });
     }
 
-    function wireThemeEvents() {
-        syncColorPair(sidebarColorInput, sidebarColorText);
-        syncColorPair(headerColorInput, headerColorText);
+    syncColorPair(sidebarColorInput, sidebarColorText, (value) => {
+        currentTheme.sidebar_color = value;
+        applyThemePreview(currentTheme);
+    });
 
-        themeResetButton.addEventListener("click", () => {
-            setThemeFields(THEME_DEFAULTS);
-            themeStatusText.textContent = "Dikembalikan ke warna bawaan (klik Simpan Warna untuk menerapkan).";
-        });
+    syncColorPair(headerColorInput, headerColorText, (value) => {
+        currentTheme.header_color = value;
+    });
 
-        themeSaveButton.addEventListener("click", async () => {
-            const sidebar_color = sidebarColorText.value.trim();
-            const header_color = headerColorText.value.trim();
-
-            if (!THEME_HEX_RE.test(sidebar_color) || !THEME_HEX_RE.test(header_color)) {
-                showToast("Format warna harus kode hex 6 digit, contoh #03142f");
+    if (saveThemeButton) {
+        saveThemeButton.addEventListener("click", async () => {
+            if (!THEME_HEX_RE.test(currentTheme.sidebar_color) || !THEME_HEX_RE.test(currentTheme.header_color)) {
+                showToast("Format warna tidak valid. Gunakan format #RRGGBB.");
                 return;
             }
 
-            themeSaveButton.disabled = true;
-            const originalLabel = themeSaveButton.innerHTML;
-            themeSaveButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...`;
+            saveThemeButton.disabled = true;
+            const originalLabel = saveThemeButton.innerHTML;
+            saveThemeButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
 
             try {
                 const response = await fetch(THEME_ENDPOINT, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ sidebar_color, header_color })
+                    body: JSON.stringify(currentTheme)
                 });
-                const json = await response.json();
-                if (!response.ok) throw new Error(json.error || `Gagal menyimpan (status ${response.status})`);
 
-                setThemeFields(json.data);
-                themeStatusText.textContent = "Warna tersimpan ke database.";
-                showToast("Warna sidebar & header berhasil disimpan.");
+                if (!response.ok) {
+                    const errJson = await response.json().catch(() => ({}));
+                    throw new Error(errJson.error || `Gagal menyimpan (status ${response.status})`);
+                }
+
+                showToast("Warna tampilan berhasil disimpan. Berlaku di semua halaman CMS.");
             } catch (error) {
                 console.error(error);
-                showToast(error.message || "Gagal menyimpan warna.");
+                showToast(error.message || "Gagal menyimpan warna tampilan.");
             } finally {
-                themeSaveButton.disabled = false;
-                themeSaveButton.innerHTML = originalLabel;
+                saveThemeButton.disabled = false;
+                saveThemeButton.innerHTML = originalLabel;
             }
         });
     }
+
+    if (resetThemeButton) {
+        resetThemeButton.addEventListener("click", () => {
+            currentTheme = { ...THEME_DEFAULTS };
+            setThemeFields(currentTheme);
+            applyThemePreview(currentTheme);
+            showToast('Warna dikembalikan ke default. Klik "Simpan Warna" untuk menyimpan.');
+        });
+    }
+
+    loadTheme();
 
     /* =========================================================
        TOAST
