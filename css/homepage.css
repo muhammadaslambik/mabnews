@@ -2832,11 +2832,9 @@ body.dark-preview .latest-item .category {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease,
-    width 0.2s ease, height 0.2s ease;
 
-  /* Bisa ditarik manual untuk diperbesar/diperkecil */
-  resize: both;
+  /* Resize manual sekarang lewat 4 penanda sudut kustom
+     (bukan resize bawaan browser lagi) */
   overflow: auto;
   width: 190px;
   min-width: 140px;
@@ -2848,8 +2846,61 @@ body.dark-preview .latest-item .category {
 .quick-nav.show {
   opacity: 1;
   visibility: visible;
-  transform: translateY(-50%) translateX(0);
   pointer-events: auto;
+}
+
+/* Transisi geser/muncul TIDAK dipakai bareng saat resize manual
+   sedang berlangsung, supaya tidak terasa "ngelag" saat ditarik */
+.quick-nav:not(.resizing) {
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease,
+    width 0.2s ease, height 0.2s ease;
+}
+
+.quick-nav.show:not(.resizing):not(.custom-position) {
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ---- Penanda sudut untuk resize manual (4 arah) ---- */
+.quick-nav-handle {
+  position: absolute;
+  z-index: 5;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.quick-nav-handle:hover {
+  background: #ffffff;
+}
+
+.quick-nav-handle[data-corner="tl"] {
+  top: -6px;
+  left: -6px;
+  cursor: nwse-resize;
+}
+
+.quick-nav-handle[data-corner="tr"] {
+  top: -6px;
+  right: -6px;
+  cursor: nesw-resize;
+}
+
+.quick-nav-handle[data-corner="bl"] {
+  bottom: -6px;
+  left: -6px;
+  cursor: nesw-resize;
+}
+
+.quick-nav-handle[data-corner="br"] {
+  bottom: -6px;
+  right: -6px;
+  cursor: nwse-resize;
+}
+
+.quick-nav.collapsed .quick-nav-handle {
+  display: none;
 }
 
 .quick-nav-toggle {
@@ -2909,13 +2960,15 @@ body.dark-preview .latest-item .category {
 /* ---- Mode ciutkan: cuma tampil bulatan logo "M" ---- */
 .quick-nav.collapsed {
   resize: none;
-  overflow: visible;
+  overflow: hidden;
   width: 54px !important;
   height: 54px !important;
   min-width: 0;
   min-height: 0;
   padding: 0;
   border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
   align-items: center;
   justify-content: center;
 }
@@ -2929,7 +2982,9 @@ body.dark-preview .latest-item .category {
   width: 100%;
   height: 100%;
   margin: 0;
+  border: 0;
   border-radius: 50%;
+  background: #0b2a4a;
   font-size: 20px;
   font-weight: 800;
 }
@@ -2966,6 +3021,10 @@ body.dark-preview .latest-item .category {
   .quick-nav.collapsed {
     width: 48px !important;
     height: 48px !important;
+  }
+
+  .quick-nav-handle {
+    display: none;
   }
 }
 
@@ -3087,4 +3146,3 @@ body.dark-preview .latest-page-btn.active {
   border-color: #2f81f7;
   color: #ffffff;
 }
-
