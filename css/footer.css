@@ -274,6 +274,8 @@
 
 /* =========================================================
    MOBILE
+   (semua font dikecilkan, KECUALI copyright dan input/tombol
+   newsletter "Masukkan email Anda" yang dibiarkan tetap)
    ========================================================= */
 
 @media (max-width: 700px) {
@@ -313,20 +315,20 @@
   }
 
   .footer-brand h2 {
-    font-size: 30px;
+    font-size: 22px;
     line-height: 1;
   }
 
   .footer-tagline {
     margin-top: 11px;
     margin-bottom: 19px;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 1.45;
   }
 
   .footer-description {
     max-width: 100%;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 1.6;
   }
 
@@ -342,7 +344,7 @@
   .footer-social a {
     width: 34px;
     height: 34px;
-    font-size: 15px;
+    font-size: 11px;
   }
 
   /* =====================================================
@@ -379,7 +381,7 @@
   .footer-column h3 {
     margin: 0 0 18px;
     padding-bottom: 10px;
-    font-size: 17px;
+    font-size: 13px;
     line-height: 1.1;
     font-weight: 800;
   }
@@ -390,7 +392,7 @@
 
   .footer-column a {
     margin-bottom: 12px;
-    font-size: 15px;
+    font-size: 11px;
     line-height: 1.5;
     transition: color 0.2s ease;
   }
@@ -413,7 +415,7 @@
   .footer-newsletter h3 {
     margin: 0 0 15px;
     padding-bottom: 10px;
-    font-size: 17px;
+    font-size: 13px;
     line-height: 1.1;
     font-weight: 800;
   }
@@ -425,12 +427,12 @@
   .footer-newsletter p {
     max-width: 100%;
     margin: 0 0 14px;
-    font-size: 15px;
+    font-size: 11px;
     line-height: 1.55;
   }
 
   /* =====================================================
-     NEWSLETTER FORM
+     NEWSLETTER FORM — TIDAK DIUBAH (dikecualikan)
      ===================================================== */
 
   .newsletter-form {
@@ -456,7 +458,7 @@
   }
 
   /* =====================================================
-     FOOTER BOTTOM
+     FOOTER BOTTOM — copyright TIDAK DIUBAH (dikecualikan)
      ===================================================== */
 
   .footer-bottom {
@@ -482,7 +484,7 @@
 
   .footer-links a,
   .footer-links span {
-    font-size: 14px;
+    font-size: 10px;
   }
 }
 
@@ -502,15 +504,15 @@
      ===================================================== */
 
   .footer-brand h2 {
-    font-size: 26px;
+    font-size: 20px;
   }
 
   .footer-tagline {
-    font-size: 15px;
+    font-size: 11px;
   }
 
   .footer-description {
-    font-size: 15px;
+    font-size: 11px;
     line-height: 1.6;
   }
 
@@ -525,7 +527,7 @@
   .footer-social a {
     width: 31px;
     height: 31px;
-    font-size: 14px;
+    font-size: 10px;
   }
 
   /* =====================================================
@@ -534,7 +536,7 @@
 
   .footer-column h3,
   .footer-newsletter h3 {
-    font-size: 16px;
+    font-size: 12px;
     margin-bottom: 15px;
   }
 
@@ -544,7 +546,7 @@
 
   .footer-column a {
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 10px;
     line-height: 1.5;
   }
 
@@ -558,11 +560,12 @@
      ===================================================== */
 
   .footer-newsletter p {
-    font-size: 14px;
+    font-size: 10px;
     line-height: 1.5;
     margin-bottom: 11px;
   }
 
+  /* NEWSLETTER FORM — TIDAK DIUBAH (dikecualikan) */
   .newsletter-form {
     gap: 6px;
   }
@@ -574,7 +577,7 @@
   }
 
   /* =====================================================
-     FOOTER BOTTOM
+     FOOTER BOTTOM — copyright TIDAK DIUBAH (dikecualikan)
      ===================================================== */
 
   .footer-bottom {
@@ -588,7 +591,7 @@
 
   .footer-links a,
   .footer-links span {
-    font-size: 14px;
+    font-size: 10px;
   }
 }
 
@@ -608,15 +611,15 @@
      ===================================================== */
 
   .footer-brand h2 {
-    font-size: 24px;
+    font-size: 18px;
   }
 
   .footer-tagline {
-    font-size: 14px;
+    font-size: 10px;
   }
 
   .footer-description {
-    font-size: 14px;
+    font-size: 10px;
     line-height: 1.6;
   }
 
@@ -626,7 +629,7 @@
 
   .footer-column h3,
   .footer-newsletter h3 {
-    font-size: 15px;
+    font-size: 11px;
   }
 
   /* =====================================================
@@ -634,7 +637,7 @@
      ===================================================== */
 
   .footer-column a {
-    font-size: 13px;
+    font-size: 9px;
     margin-bottom: 8px;
   }
 
@@ -648,10 +651,11 @@
      ===================================================== */
 
   .footer-newsletter p {
-    font-size: 13px;
+    font-size: 9px;
     line-height: 1.45;
   }
 
+  /* NEWSLETTER FORM — TIDAK DIUBAH (dikecualikan) */
   .newsletter-form {
     gap: 5px;
   }
