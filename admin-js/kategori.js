@@ -1,6 +1,8 @@
 (() => {
   "use strict";
 
+  const API_BASE_URL = "https://mabnews-backend.vercel.app/api";
+
   let data = [];
   let filtered = [];
   let page = 1;
@@ -30,12 +32,12 @@
   }
 
   // ---------------------------------------------------------
-  // Muat kategori dari database (bukan lagi localStorage)
+  // Muat kategori dari database
   // ---------------------------------------------------------
   async function loadCategories() {
     $("#tbody").innerHTML = `<tr><td colspan="9">Memuat kategori dari server...</td></tr>`;
     try {
-      const res = await fetch(`${API_BASE_URL}/api/categories`);
+      const res = await fetch(`${API_BASE_URL}/categories`);
       if (!res.ok) throw new Error("Gagal mengambil kategori dari server.");
       const raw = await res.json();
       data = (Array.isArray(raw) ? raw : (raw.data || [])).map(c => ({
@@ -94,7 +96,7 @@
       const createdHtml = typeof created === "object" ? `${created.date}<small>${created.time}</small>` : created;
       let tr = document.createElement("tr");
       tr.dataset.id = x.id;
-      tr.innerHTML = `<td><input class="check" type="checkbox" value="${x.id}"></td><td data-label="#">${start + i + 1}</td><td data-label="Nama Kategori"><div class="category"><span class="folder">▰</span>${esc(x.name)}</div></td><td data-label="Slug"><span class="slug">${esc(x.key)}</span></td><td data-label="Deskripsi"><span class="desc">${esc(x.description)}</span></td><td data-label="Jumlah Artikel">${x.article_count}</td><td data-label="Status"><span class="status ${x.status === "Aktif" ? "active" : "inactive"}">${x.status}</span></td><td data-label="Dibuat">${createdHtml}</td><td data-label="Aksi"><div class="actions"><button class="action" data-a="view">◉</button><button class="action" data-a="edit">✎</button><button class="action delete" data-a="delete">♲</button></div></td>`;
+      tr.innerHTML = `<td><input class="check" type="checkbox" value="${x.id}"></td><td data-label="#">${start + i + 1}</td><td data-label="Nama Kategori"><div class="category"><span class="folder"><i class="fa-solid fa-folder"></i></span>${esc(x.name)}</div></td><td data-label="Slug"><span class="slug">${esc(x.key)}</span></td><td data-label="Deskripsi"><span class="desc">${esc(x.description)}</span></td><td data-label="Jumlah Artikel">${x.article_count}</td><td data-label="Status"><span class="status ${x.status === "Aktif" ? "active" : "inactive"}">${x.status}</span></td><td data-label="Dibuat">${createdHtml}</td><td data-label="Aksi"><div class="actions"><button class="action" data-a="view" title="Lihat"><i class="fa-regular fa-eye"></i></button><button class="action" data-a="edit" title="Edit"><i class="fa-solid fa-pen"></i></button><button class="action delete" data-a="delete" title="Hapus"><i class="fa-regular fa-trash-can"></i></button></div></td>`;
       tb.appendChild(tr);
     });
 
@@ -153,7 +155,7 @@
 
     try {
       const res = await fetch(
-        id ? `${API_BASE_URL}/api/categories/${id}` : `${API_BASE_URL}/api/categories`,
+        id ? `${API_BASE_URL}/categories/${id}` : `${API_BASE_URL}/categories`,
         {
           method: id ? "PUT" : "POST",
           headers: { "Content-Type": "application/json" },
@@ -189,7 +191,7 @@
 
   $("#confirmDelete").onclick = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/categories/${deleteId}`, { method: "DELETE" });
+      const res = await fetch(`${API_BASE_URL}/categories/${deleteId}`, { method: "DELETE" });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error(err.error || "Gagal menghapus kategori.");
@@ -219,7 +221,7 @@
     let ids = $$(".check:checked").map(x => Number(x.value));
     if (!ids.length || !confirm(`Hapus ${ids.length} kategori?`)) return;
     try {
-      await Promise.all(ids.map(id => fetch(`${API_BASE_URL}/api/categories/${id}`, { method: "DELETE" })));
+      await Promise.all(ids.map(id => fetch(`${API_BASE_URL}/categories/${id}`, { method: "DELETE" })));
       await loadCategories();
       msg(`${ids.length} kategori dihapus.`);
     } catch (err) {
@@ -234,7 +236,7 @@
       await Promise.all(ids.map(id => {
         const cat = data.find(x => x.id === id);
         const newStatus = cat.status === "Aktif" ? "Nonaktif" : "Aktif";
-        return fetch(`${API_BASE_URL}/api/categories/${id}`, {
+        return fetch(`${API_BASE_URL}/categories/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ status: newStatus }),
@@ -247,24 +249,15 @@
     }
   };
 
-  // Sidebar / tema / profil
-  function side(o) { $(".app").classList.toggle("side-open", o); $("#sidebar").classList.toggle("open", o); $("#backdrop").classList.toggle("show", o); }
-  $("#hamb").onclick = () => side(true);
-  $("#closeSide").onclick = () => side(false);
-  $("#backdrop").onclick = () => side(false);
-  $$(".parent").forEach(b => b.onclick = () => {
-    let m = $("#" + b.dataset.menu);
-    m.classList.toggle("open");
-    b.querySelector("i").textContent = m.classList.contains("open") ? "⌃" : "›";
-  });
-  $("#profile").onclick = e => { e.stopPropagation(); $("#profileMenu").classList.toggle("show"); };
-  document.onclick = () => $("#profileMenu").classList.remove("show");
-  $("#profileMenu").onclick = e => e.stopPropagation();
-  $("#theme").onclick = () => {
-    document.documentElement.classList.toggle("dark");
-    localStorage.mabnews_theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
-  };
-  if (localStorage.mabnews_theme === "dark") document.documentElement.classList.add("dark");
+  // Catatan: sidebar (buka/tutup, submenu, dark mode, dropdown akun)
+  // SUDAH ditangani sepenuhnya oleh admin-js/sidebar.js yang dipakai
+  // bersama di semua halaman CMS. Kode versi lama untuk itu sengaja
+  // dihapus dari sini karena mereferensikan elemen (#hamb, #closeSide,
+  // #backdrop, .parent, #profile, #profileMenu, #theme) yang sudah
+  // tidak ada lagi di kategori.html sejak dipindah ke sidebar.js —
+  // sebelumnya ini menyebabkan script berhenti (error) sebelum sempat
+  // memanggil loadCategories(), sehingga kategori tidak pernah
+  // benar-benar dimuat dari database.
 
   loadCategories();
 })();
