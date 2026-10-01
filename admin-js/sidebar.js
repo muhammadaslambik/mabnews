@@ -39,6 +39,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const MESSAGES_ENDPOINT = `${API_BASE_URL}/messages`;
     const CURRENT_USER_KEY = "mabnews_current_user_id";
     const SIDEBAR_COLLAPSED_KEY = "mabnews_sidebar_collapsed";
+    const SIDEBAR_HIDDEN_KEY = "mabnews_sidebar_hidden";
+    const THEME_CACHE_KEY = "mabnews_theme_cache";
+
+    // Terapkan warna tersimpan (dari kunjungan sebelumnya) SEKARANG
+    // JUGA, sebelum apa pun lain berjalan — supaya halaman langsung
+    // tampil dengan warna custom sejak cat pertama, tidak berkedip
+    // dari warna default dulu baru berpindah setelah fetch selesai.
+    try {
+        const cachedTheme = JSON.parse(localStorage.getItem(THEME_CACHE_KEY) || "null");
+        if (cachedTheme && cachedTheme.sidebar_color && cachedTheme.header_color) {
+            applyThemeColors(cachedTheme);
+        }
+    } catch (error) { /* cache rusak/tidak ada, biarkan warna default sampai fetch selesai */ }
 
     /* menu_key -> file halaman sungguhan di /admin */
     const HREF_MAP = {
@@ -48,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         draft: "draft.html",
         kategori: "kategori.html",
         media: "media.html",
-        pengguna: "users.html",
+        pengguna: "pengguna.html",
         umum: "umum.html",
         website: "website.html",
         tampilan: "tampilan.html",
@@ -394,6 +407,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const theme = json.data || json;
             if (theme && theme.sidebar_color && theme.header_color) {
                 applyThemeColors(theme);
+                localStorage.setItem(THEME_CACHE_KEY, JSON.stringify(theme));
             }
         } catch (error) {
             console.warn("Gagal memuat warna tampilan, memakai default.", error);
@@ -470,6 +484,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".header-user-name").forEach((el) => {
             el.textContent = currentUser.display_name.split(" ")[0];
         });
+
+        const avatarHtml = currentUser.avatar_url
+            ? `<img src="${currentUser.avatar_url}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+            : `<i class="fa-solid fa-user"></i>`;
+        const headerAvatar = document.querySelector(".header-avatar");
+        if (headerAvatar) headerAvatar.innerHTML = avatarHtml;
+        const sidebarAvatar = document.querySelector(".sidebar-avatar");
+        if (sidebarAvatar) sidebarAvatar.innerHTML = avatarHtml;
     }
 
     function switchCurrentUser(userId) {
@@ -521,10 +543,38 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Blok "Nama / Peran" di pojok kiri bawah sidebar diklik untuk
+    // membuka Profil Saya — kecuali kalau memang sedang di halaman itu.
+    if (sidebarEl && !location.pathname.endsWith("profil.html")) {
+        const sidebarProfileEl = sidebarEl.querySelector(".sidebar-profile");
+        if (sidebarProfileEl) {
+            sidebarProfileEl.style.cursor = "pointer";
+            sidebarProfileEl.addEventListener("click", () => {
+                window.location.href = "profil.html";
+            });
+        }
+    }
+
     if (menuToggle) {
         menuToggle.addEventListener("click", () => {
-            body.classList.toggle("sidebar-open");
+            const isMobile = window.matchMedia("(max-width: 980px)").matches;
+            if (isMobile) {
+                body.classList.toggle("sidebar-open");
+            } else {
+                // Di desktop, hamburger menyembunyikan sidebar SEPENUHNYA
+                // dan membuat halaman jadi lebar penuh — beda dengan mode
+                // sempit/mini (tombol collapse terpisah) yang tetap
+                // menampilkan sidebar selebar ikon saja.
+                const hidden = body.classList.toggle("sidebar-hidden");
+                localStorage.setItem(SIDEBAR_HIDDEN_KEY, hidden ? "1" : "0");
+            }
         });
+    }
+
+    // Pulihkan status "sidebar disembunyikan total" (desktop) dari
+    // kunjungan sebelumnya, supaya konsisten antar halaman.
+    if (localStorage.getItem(SIDEBAR_HIDDEN_KEY) === "1") {
+        body.classList.add("sidebar-hidden");
     }
 
     document.addEventListener("keydown", (event) => {
@@ -785,7 +835,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <select id="userSwitcherSelect"></select>
             </div>
             <div class="header-dropdown-divider"></div>
-            <a href="#" class="header-dropdown-item simple"><i class="fa-solid fa-user"></i> Profil Saya</a>
+            <a href="profil.html" class="header-dropdown-item simple"><i class="fa-solid fa-user"></i> Profil Saya</a>
             <a href="#" class="header-dropdown-item simple"><i class="fa-solid fa-gear"></i> Pengaturan Akun</a>
             <div class="header-dropdown-divider"></div>
             <a href="#" class="header-dropdown-item simple logout"><i class="fa-solid fa-right-from-bracket"></i> Keluar</a>

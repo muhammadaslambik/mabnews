@@ -710,6 +710,19 @@ body.sidebar-open .sidebar-overlay {
     .sidebar-overlay {
         display: none !important;
     }
+
+    /* Tombol hamburger (desktop): sembunyikan sidebar sepenuhnya
+       dan buat halaman jadi lebar penuh. Beda dengan
+       body.sidebar-collapsed (mode sempit/mini, sidebar tetap
+       terlihat selebar ikon) — dua state ini independen. */
+    body.sidebar-hidden .sidebar {
+        transform: translateX(-100%);
+    }
+
+    body.sidebar-hidden .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
 }
 
 /* ---------------------------------------------------------
