@@ -138,6 +138,56 @@
   }
   function closeForm() { $("#formModal").classList.remove("show"); }
 
+  // ---------------------------------------------------------
+  // Modal "Lihat Artikel dalam Kategori"
+  // ---------------------------------------------------------
+  const viewModal = $("#viewModal");
+  const viewTitle = $("#viewTitle");
+  const viewSubtitle = $("#viewSubtitle");
+  const viewList = $("#viewList");
+
+  $$("[data-close-view]").forEach(x => x.onclick = () => viewModal.classList.remove("show"));
+
+  async function openViewModal(category) {
+    viewTitle.textContent = `Artikel dalam "${category.name}"`;
+    viewSubtitle.textContent = "Memuat...";
+    viewList.innerHTML = `<div class="view-loading">Memuat artikel...</div>`;
+    viewModal.classList.add("show");
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/articles?kategori=${encodeURIComponent(category.key)}&limit=200`);
+      if (!res.ok) throw new Error("Gagal mengambil artikel dari server.");
+      const json = await res.json();
+      const articles = json.data || [];
+
+      viewSubtitle.textContent = `${articles.length} artikel ditemukan.`;
+
+      if (articles.length === 0) {
+        viewList.innerHTML = `<div class="view-empty">Belum ada artikel di kategori ini.</div>`;
+        return;
+      }
+
+      viewList.innerHTML = articles.map(a => {
+        const created = fmtDate(a.published_at);
+        const dateLabel = typeof created === "object" ? created.date : created;
+        const status = a.status || "published";
+        return `
+          <a class="view-item" href="../artikel.html?id=${encodeURIComponent(a.slug)}" target="_blank" rel="noopener">
+            <span class="view-item-title">${esc(a.title)}</span>
+            <span class="view-item-meta">
+              <span class="view-status ${status}">${esc(status)}</span>
+              <span class="view-date">${esc(dateLabel)}</span>
+            </span>
+          </a>
+        `;
+      }).join("");
+    } catch (err) {
+      console.error("Gagal memuat artikel kategori:", err);
+      viewSubtitle.textContent = "";
+      viewList.innerHTML = `<div class="view-empty">${esc(err.message)}</div>`;
+    }
+  }
+
   $("#add").onclick = () => openForm();
   $$("[data-close]").forEach(x => x.onclick = closeForm);
   $("#name").oninput = () => { if (!$("#id").value) $("#slug").value = slug($("#name").value); };
@@ -178,7 +228,7 @@
     let b = e.target.closest("[data-a]");
     if (!b) return;
     let x = data.find(a => a.id === Number(b.closest("tr").dataset.id));
-    if (b.dataset.a === "view") msg(`${x.name}: ${x.article_count} artikel`);
+    if (b.dataset.a === "view") openViewModal(x);
     if (b.dataset.a === "edit") openForm(x);
     if (b.dataset.a === "delete") {
       deleteId = x.id;
