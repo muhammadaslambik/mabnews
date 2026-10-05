@@ -138,7 +138,16 @@
 </div>
 <div class="modal" id="formModal"><div class="modalbox"><button class="x" data-close>×</button><h2 id="formTitle">Tambah Kategori</h2><p>Isi informasi kategori.</p><form id="form"><input id="id" type="hidden"><label>Nama Kategori<input id="name" required maxlength="60"></label><label>Slug<input id="slug" required maxlength="80"></label><label>Deskripsi<textarea id="desc" maxlength="180"></textarea></label><label>Jumlah Artikel<input id="num" type="number" min="0" value="0"></label><label>Status<select id="state"><option>Aktif</option><option>Nonaktif</option></select></label><div class="formactions"><button type="button" class="secondary" data-close>Batal</button><button class="primary">Simpan Kategori</button></div></form></div></div>
 <div class="modal" id="deleteModal"><div class="modalbox confirm"><button class="x" data-close-delete>×</button><b class="warn">!</b><h2>Hapus kategori?</h2><p id="deleteText"></p><div class="formactions"><button class="secondary" data-close-delete>Batal</button><button class="danger" id="confirmDelete">Ya, Hapus</button></div></div></div>
-<div class="modal" id="viewModal"><div class="modalbox view-modalbox"><button class="x" data-close-view>×</button><h2 id="viewTitle">Artikel dalam Kategori</h2><p id="viewSubtitle"></p><div class="view-list" id="viewList"><div class="view-loading">Memuat artikel...</div></div></div></div>
+<div class="modal" id="viewModal"><div class="modalbox view-modalbox" id="viewModalbox">
+<span class="resize-handle rh-n" data-dir="n"></span>
+<span class="resize-handle rh-s" data-dir="s"></span>
+<span class="resize-handle rh-e" data-dir="e"></span>
+<span class="resize-handle rh-w" data-dir="w"></span>
+<span class="resize-handle rh-ne" data-dir="ne"></span>
+<span class="resize-handle rh-nw" data-dir="nw"></span>
+<span class="resize-handle rh-se" data-dir="se"></span>
+<span class="resize-handle rh-sw" data-dir="sw"></span>
+<button class="x" data-close-view>×</button><h2 id="viewTitle">Artikel dalam Kategori</h2><p id="viewSubtitle"></p><div class="view-list" id="viewList"><div class="view-loading">Memuat artikel...</div></div></div></div>
 <div class="toast" id="toast"></div>
 <script src="../admin-js/sidebar.js"></script>
 <script src="../admin-js/kategori.js"></script>

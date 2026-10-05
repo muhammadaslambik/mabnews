@@ -386,16 +386,70 @@ td {
    MODAL "LIHAT ARTIKEL DALAM KATEGORI"
    ========================================================= */
 .view-modalbox {
-  width: min(560px, 100%);
+  width: 560px;
+  height: 460px;
+  min-width: 340px;
+  min-height: 280px;
+  max-width: 95vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.view-modalbox h2,
+.view-modalbox > p {
+  flex: 0 0 auto;
 }
 
 .view-list {
-  max-height: 380px;
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   margin-top: 14px;
   border: 1px solid var(--border);
   border-radius: 8px;
 }
+
+/* ---------------------------------------------------------
+   Handle resize (4 sudut + 4 sisi)
+--------------------------------------------------------- */
+.view-modalbox .resize-handle {
+  position: absolute;
+  z-index: 5;
+}
+
+.view-modalbox .rh-n,
+.view-modalbox .rh-s {
+  left: 14px;
+  right: 14px;
+  height: 10px;
+  cursor: ns-resize;
+}
+.view-modalbox .rh-n { top: -5px; }
+.view-modalbox .rh-s { bottom: -5px; }
+
+.view-modalbox .rh-e,
+.view-modalbox .rh-w {
+  top: 14px;
+  bottom: 14px;
+  width: 10px;
+  cursor: ew-resize;
+}
+.view-modalbox .rh-e { right: -5px; }
+.view-modalbox .rh-w { left: -5px; }
+
+.view-modalbox .rh-ne,
+.view-modalbox .rh-nw,
+.view-modalbox .rh-se,
+.view-modalbox .rh-sw {
+  width: 18px;
+  height: 18px;
+}
+.view-modalbox .rh-ne { top: -6px; right: -6px; cursor: nesw-resize; }
+.view-modalbox .rh-nw { top: -6px; left: -6px; cursor: nwse-resize; }
+.view-modalbox .rh-se { bottom: -6px; right: -6px; cursor: nwse-resize; }
+.view-modalbox .rh-sw { bottom: -6px; left: -6px; cursor: nesw-resize; }
 
 .view-item {
   display: flex;

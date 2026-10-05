@@ -148,6 +148,63 @@
 
   $$("[data-close-view]").forEach(x => x.onclick = () => viewModal.classList.remove("show"));
 
+  // Klik di luar kotak (area gelap) menutup modal ini saja.
+  viewModal.addEventListener("click", (e) => {
+    if (e.target === viewModal) viewModal.classList.remove("show");
+  });
+
+  // ---------------------------------------------------------
+  // Resize modal dari 8 arah (4 sudut + 4 sisi)
+  // ---------------------------------------------------------
+  (function setupViewModalResize() {
+    const box = $("#viewModalbox");
+    if (!box) return;
+
+    const MIN_W = 340, MIN_H = 280;
+    let dir = null, startX = 0, startY = 0, startW = 0, startH = 0;
+
+    function onMove(e) {
+      if (!dir) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      let newW = startW, newH = startH;
+
+      if (dir.includes("e")) newW = startW + dx;
+      if (dir.includes("w")) newW = startW - dx;
+      if (dir.includes("s")) newH = startH + dy;
+      if (dir.includes("n")) newH = startH - dy;
+
+      const maxW = window.innerWidth * 0.95;
+      const maxH = window.innerHeight * 0.9;
+
+      box.style.width = `${Math.min(Math.max(newW, MIN_W), maxW)}px`;
+      box.style.height = `${Math.min(Math.max(newH, MIN_H), maxH)}px`;
+    }
+
+    function onUp() {
+      dir = null;
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+      document.body.style.userSelect = "";
+    }
+
+    box.querySelectorAll(".resize-handle").forEach(handle => {
+      handle.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dir = handle.dataset.dir;
+        startX = e.clientX;
+        startY = e.clientY;
+        const rect = box.getBoundingClientRect();
+        startW = rect.width;
+        startH = rect.height;
+        document.body.style.userSelect = "none";
+        document.addEventListener("mousemove", onMove);
+        document.addEventListener("mouseup", onUp);
+      });
+    });
+  })();
+
   async function openViewModal(category) {
     viewTitle.textContent = `Artikel dalam "${category.name}"`;
     viewSubtitle.textContent = "Memuat...";
