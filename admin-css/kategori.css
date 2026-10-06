@@ -385,7 +385,18 @@ td {
 /* =========================================================
    MODAL "LIHAT ARTIKEL DALAM KATEGORI"
    ========================================================= */
+/* Modal ini punya posisinya sendiri (bisa digeser bebas),
+   jadi tidak lagi dipusatkan lewat grid parent .modal. */
+#viewModal.show {
+  display: block;
+}
+
 .view-modalbox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
   width: 560px;
   height: 460px;
   min-width: 340px;
@@ -395,6 +406,15 @@ td {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.view-modal-draghandle {
+  cursor: grab;
+  user-select: none;
+}
+
+.view-modal-draghandle:active {
+  cursor: grabbing;
 }
 
 .view-modalbox h2,

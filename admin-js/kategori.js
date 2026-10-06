@@ -154,6 +154,61 @@
   });
 
   // ---------------------------------------------------------
+  // Geser (drag) modal pakai area judul sebagai pegangan
+  // ---------------------------------------------------------
+  (function setupViewModalDrag() {
+    const box = $("#viewModalbox");
+    const handle = $(".view-modal-draghandle");
+    if (!box || !handle) return;
+
+    let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
+
+    function onMove(e) {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      // Batasi supaya kotaknya tidak bisa digeser sampai hilang
+      // total dari layar — minimal 40px bagian atasnya tetap kelihatan.
+      const margin = 40;
+      let newLeft = startLeft + dx;
+      let newTop = startTop + dy;
+      newLeft = Math.min(Math.max(newLeft, -box.offsetWidth + margin), window.innerWidth - margin);
+      newTop = Math.min(Math.max(newTop, 0), window.innerHeight - margin);
+
+      box.style.left = `${newLeft}px`;
+      box.style.top = `${newTop}px`;
+    }
+
+    function onUp() {
+      dragging = false;
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+      document.body.style.userSelect = "";
+    }
+
+    handle.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      dragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = box.getBoundingClientRect();
+
+      // Lepaskan dari posisi "tengah otomatis" (transform/translate),
+      // ganti ke koordinat pixel pasti supaya bisa digeser bebas.
+      box.style.transform = "none";
+      box.style.left = `${rect.left}px`;
+      box.style.top = `${rect.top}px`;
+      startLeft = rect.left;
+      startTop = rect.top;
+
+      document.body.style.userSelect = "none";
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+    });
+  })();
+
+  // ---------------------------------------------------------
   // Resize modal dari 8 arah (4 sudut + 4 sisi)
   // ---------------------------------------------------------
   (function setupViewModalResize() {
@@ -161,24 +216,36 @@
     if (!box) return;
 
     const MIN_W = 340, MIN_H = 280;
-    let dir = null, startX = 0, startY = 0, startW = 0, startH = 0;
+    let dir = null, startX = 0, startY = 0, startW = 0, startH = 0, startLeft = 0, startTop = 0;
 
     function onMove(e) {
       if (!dir) return;
       const dx = e.clientX - startX;
       const dy = e.clientY - startY;
-      let newW = startW, newH = startH;
+      const maxW = window.innerWidth * 0.95;
+      const maxH = window.innerHeight * 0.9;
 
+      let newW = startW, newH = startH;
       if (dir.includes("e")) newW = startW + dx;
       if (dir.includes("w")) newW = startW - dx;
       if (dir.includes("s")) newH = startH + dy;
       if (dir.includes("n")) newH = startH - dy;
 
-      const maxW = window.innerWidth * 0.95;
-      const maxH = window.innerHeight * 0.9;
+      newW = Math.min(Math.max(newW, MIN_W), maxW);
+      newH = Math.min(Math.max(newH, MIN_H), maxH);
 
-      box.style.width = `${Math.min(Math.max(newW, MIN_W), maxW)}px`;
-      box.style.height = `${Math.min(Math.max(newH, MIN_H), maxH)}px`;
+      // Kalau resize dari sisi kiri/atas, posisi kotak ikut
+      // bergeser sebesar perubahan ukuran yang BENAR-BENAR terjadi
+      // (setelah dibatasi min/max), supaya sisi kanan/bawahnya
+      // tetap diam di tempat (tidak "meloncat").
+      let newLeft = startLeft, newTop = startTop;
+      if (dir.includes("w")) newLeft = startLeft + (startW - newW);
+      if (dir.includes("n")) newTop = startTop + (startH - newH);
+
+      box.style.width = `${newW}px`;
+      box.style.height = `${newH}px`;
+      box.style.left = `${newLeft}px`;
+      box.style.top = `${newTop}px`;
     }
 
     function onUp() {
@@ -195,9 +262,19 @@
         dir = handle.dataset.dir;
         startX = e.clientX;
         startY = e.clientY;
+
         const rect = box.getBoundingClientRect();
         startW = rect.width;
         startH = rect.height;
+
+        // Lepaskan dari transform center supaya left/top jadi
+        // acuan posisi yang pasti, sama seperti saat digeser.
+        box.style.transform = "none";
+        box.style.left = `${rect.left}px`;
+        box.style.top = `${rect.top}px`;
+        startLeft = rect.left;
+        startTop = rect.top;
+
         document.body.style.userSelect = "none";
         document.addEventListener("mousemove", onMove);
         document.addEventListener("mouseup", onUp);
